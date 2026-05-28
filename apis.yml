@@ -1,0 +1,32 @@
+aid: cryptocompare
+name: CryptoCompare
+description: "Cryptocurrencies Comparison"
+url: https://www.cryptocompare.com/api#
+specificationVersion: '0.20'
+created: '2026-05-28'
+modified: '2026-05-28'
+x-source: public-apis/public-apis
+x-category: "Cryptocurrency"
+x-tier: 3
+x-tier-reason: bulk-registered-from-public-apis
+tags:
+  - Cryptocurrency
+  - Public APIs
+apis:
+  - name: CryptoCompare
+    description: "Cryptocurrencies Comparison"
+    humanURL: https://www.cryptocompare.com/api#
+    baseURL: https://www.cryptocompare.com/api#
+    tags:
+      - Cryptocurrency
+    properties:
+      - type: Documentation
+        url: https://www.cryptocompare.com/api#
+common:
+  - type: Website
+    url: https://www.cryptocompare.com/api#
+  - type: PublicAPIsListing
+    url: https://github.com/public-apis/public-apis
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
