@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://min-api.cryptocompare.com/data/v2/news/?lang=EN&limit=1",
+    "headers": {
+      "Authorization": "Apikey {YOUR_API_KEY}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "Type": 100,
+      "Message": "News list successfully returned",
+      "Promoted": [],
+      "Data": [
+        {
+          "TYPE": "121",
+          "ID": 62866961,
+          "GUID": "https://coinpaper.com/17377/ripple-xrp-and-stellar-xlm-the-emerging-duopoly",
+          "PUBLISHED_ON": 1780159215,
+          "IMAGE_URL": "https://resources.cryptocompare.com/news/93/default.png",
+          "TITLE": "Ripple (XRP) & Stellar (XLM): The Emerging Duopoly Eying a Visa-Mastercard Style Takeover in Global Payments",
+          "AUTHORS": "",
+          "URL": "https://coinpaper.com/17377/ripple-xrp-and-stellar-xlm-the-emerging-duopoly",
+          "SOURCE_ID": 93,
+          "BODY": "XRP and XLM: The Emerging Duopoly for the Future of Global Payments...",
+          "KEYWORDS": "News|Ripple",
+          "LANG": "EN",
+          "UPVOTES": 0,
+          "DOWNVOTES": 0,
+          "SCORE": 0,
+          "SENTIMENT": "POSITIVE",
+          "STATUS": "ACTIVE",
+          "CREATED_ON": 1780159308,
+          "SOURCE_DATA": {
+            "TYPE": "120",
+            "ID": 93,
+            "SOURCE_KEY": "coinpaper",
+            "NAME": "Coinpaper",
+            "URL": "https://coinpaper.com/newsfeed",
+            "LANG": "EN",
+            "SOURCE_TYPE": "RSS",
+            "STATUS": "ACTIVE"
+          },
+          "CATEGORY_DATA": [
+            {"TYPE": "122", "ID": 13, "NAME": "BLOCKCHAIN", "CATEGORY": "BLOCKCHAIN"},
+            {"TYPE": "122", "ID": 56, "NAME": "XLM", "CATEGORY": "XLM"},
+            {"TYPE": "122", "ID": 58, "NAME": "XRP", "CATEGORY": "XRP"}
+          ]
+        }
+      ]
+    }
+  }
+}

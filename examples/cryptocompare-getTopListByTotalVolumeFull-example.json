@@ -1,0 +1,59 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=1&tsym=USD",
+    "headers": {
+      "Authorization": "Apikey {YOUR_API_KEY}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "Message": "Success",
+      "Type": 100,
+      "MetaData": {"Count": 5547},
+      "SponsoredData": [],
+      "Data": [
+        {
+          "CoinInfo": {
+            "Id": "1182",
+            "Name": "BTC",
+            "FullName": "Bitcoin",
+            "Internal": "BTC",
+            "ImageUrl": "/media/37746251/btc.png",
+            "Url": "/coins/btc/overview",
+            "Algorithm": "SHA-256",
+            "ProofType": "PoW",
+            "Rating": {"Weiss": {"Rating": "B+", "TechnologyAdoptionRating": "A-", "MarketPerformanceRating": "D"}},
+            "NetHashesPerSecond": 9.94681189952697e20,
+            "BlockNumber": 951731,
+            "BlockTime": 92,
+            "BlockReward": 3.125,
+            "AssetLaunchDate": "2009-01-03",
+            "MaxSupply": 20999999.9769,
+            "Type": 1,
+            "DocumentType": "Webpagecoinp"
+          },
+          "RAW": {
+            "USD": {
+              "TYPE": "5",
+              "MARKET": "CCCAGG",
+              "FROMSYMBOL": "BTC",
+              "TOSYMBOL": "USD",
+              "PRICE": 73828.0890914787,
+              "LASTUPDATE": 1780159722,
+              "VOLUME24HOUR": 14140.90426841,
+              "VOLUME24HOURTO": 1040985988.76338,
+              "OPEN24HOUR": 73959.2202185026,
+              "HIGH24HOUR": 74241.7513633605,
+              "LOW24HOUR": 73100.8809382078,
+              "CHANGE24HOUR": -131.13,
+              "CHANGEPCT24HOUR": -0.18,
+              "LASTMARKET": "CCCAGG"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

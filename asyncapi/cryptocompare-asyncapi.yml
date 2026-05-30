@@ -1,0 +1,1345 @@
+asyncapi: 2.6.0
+info:
+  title: CryptoCompare Streaming API
+  version: '2.0'
+  description: |
+    AsyncAPI 2.6 description of the CryptoCompare (now CoinDesk) WebSocket
+    streaming API. Clients open a single secure WebSocket to
+    `wss://streamer.cryptocompare.com/v2` and multiplex any number of
+    subscriptions (channels) over that connection by sending `SubAdd` and
+    `SubRemove` action envelopes.
+
+    Each subscription is identified by a tilde-delimited subscription string
+    that begins with a numeric channel type. The documented channel types are
+    Trade (0), Ticker (2), Aggregate Index / CCCAGG (5), Order Book L2 update
+    (8) with an Order Book L2 snapshot (9), Full Volume (11), Top Tier Full
+    Volume (21), OHLC Candles (24), and Top of Order Book (30). Control
+    envelopes use type 20 (Welcome), 16 (SubscribeComplete), 17
+    (UnsubscribeComplete), 3 (LoadComplete), 18 (UnsubscribeAllComplete), 999
+    (Heartbeat), and 401/429/500 for error envelopes.
+
+    All payloads are JSON when connecting with a valid `api_key`. Subscription
+    strings use the `~` (tilde) character as a field separator (for example
+    `5~CCCAGG~BTC~USD`). Field-level documentation, FLAGS bitmasks, and the
+    streamer `UnpackFields` bitmask mapping are reproduced verbatim from the
+    official CryptoCompare WebSocket documentation.
+  contact:
+    name: CryptoCompare / CoinDesk Data
+    url: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
+    email: support@cryptocompare.com
+  license:
+    name: CryptoCompare Terms
+    url: https://www.cryptocompare.com/api/
+
+  x-source-docs:
+    - https://min-api.cryptocompare.com/documentation/websockets
+    - https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
+
+defaultContentType: application/json
+
+servers:
+  streamer:
+    url: streamer.cryptocompare.com/v2
+    protocol: wss
+    protocolVersion: '13'
+    description: |
+      Primary CryptoCompare streaming endpoint. Authenticate either by
+      appending `?api_key={apiKey}` to the URL or by sending an
+      `Authorization: Apikey {apiKey}` HTTP header on the WebSocket
+      handshake. The server enforces per-account socket and subscription
+      rate limits returned in the Welcome envelope.
+    security:
+      - apiKeyQuery: []
+      - apiKeyHeader: []
+    variables:
+      apiKey:
+        description: Your CryptoCompare API key (free or paid).
+        default: '{your_api_key}'
+    bindings:
+      ws:
+        query:
+          type: object
+          properties:
+            api_key:
+              type: string
+              description: Optional query-string API key. May be omitted if the `Authorization` header is used.
+            format:
+              type: string
+              description: Optional. Reserved; JSON is used when an `api_key` is supplied.
+        bindingVersion: 0.1.0
+
+channels:
+  /:
+    description: |
+      The root WebSocket channel multiplexes every subscription and every
+      control envelope. Clients publish `SubAdd`/`SubRemove` action messages
+      and subscribe to the union of welcome, lifecycle, heartbeat, error,
+      and data envelopes the server emits.
+    publish:
+      operationId: clientAction
+      summary: Send a SubAdd or SubRemove action to manage subscriptions.
+      description: |
+        Sent by the client at any time after the socket is open. The `subs`
+        array contains tilde-delimited subscription strings (one per channel).
+        For enterprise accounts the wildcard `*` may be used in place of
+        market, base, or quote to subscribe in bulk.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/SubAdd'
+          - $ref: '#/components/messages/SubRemove'
+    subscribe:
+      operationId: serverEvents
+      summary: Receive welcome, lifecycle, heartbeat, error, and data envelopes.
+      description: |
+        Every server-to-client frame is JSON. The first frame after the
+        socket opens is the Welcome envelope (TYPE 20). Data frames are
+        identified by the numeric `TYPE` field corresponding to the
+        channel type the client subscribed to.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/Welcome'
+          - $ref: '#/components/messages/SubscribeComplete'
+          - $ref: '#/components/messages/LoadComplete'
+          - $ref: '#/components/messages/UnsubscribeComplete'
+          - $ref: '#/components/messages/UnsubscribeAllComplete'
+          - $ref: '#/components/messages/Heartbeat'
+          - $ref: '#/components/messages/Unauthorized'
+          - $ref: '#/components/messages/RateLimit'
+          - $ref: '#/components/messages/ServerError'
+          - $ref: '#/components/messages/Trade'
+          - $ref: '#/components/messages/Ticker'
+          - $ref: '#/components/messages/AggregateIndex'
+          - $ref: '#/components/messages/OrderbookL2Update'
+          - $ref: '#/components/messages/OrderbookL2Snapshot'
+          - $ref: '#/components/messages/FullVolume'
+          - $ref: '#/components/messages/TopTierFullVolume'
+          - $ref: '#/components/messages/OHLCCandles'
+          - $ref: '#/components/messages/TopOfBook'
+
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: user
+      description: |
+        Append `?api_key={apiKey}` (or `&api_key={apiKey}`) to the WebSocket
+        URL. AsyncAPI 2.6 lacks a dedicated `query` location for `apiKey`,
+        so `in: user` is used to indicate a query-string credential.
+    apiKeyHeader:
+      type: httpApiKey
+      name: Authorization
+      in: header
+      description: |
+        Send `Authorization: Apikey {apiKey}` on the WebSocket upgrade
+        request. Equivalent to passing the key on the query string.
+
+  messages:
+    # --- Action / client-to-server envelopes ----------------------------------
+    SubAdd:
+      name: SubAdd
+      title: SubAdd action
+      summary: Add one or more subscriptions to the current socket.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubActionEnvelope'
+      examples:
+        - name: aggregate-and-trades
+          summary: Subscribe to CCCAGG BTC-USD plus a Coinbase trade and Binance ticker.
+          payload:
+            action: SubAdd
+            subs:
+              - 5~CCCAGG~BTC~USD
+              - 0~Coinbase~ETH~USD
+              - 2~Binance~BTC~USDT
+
+    SubRemove:
+      name: SubRemove
+      title: SubRemove action
+      summary: Remove one or more subscriptions from the current socket.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubActionEnvelope'
+      examples:
+        - name: unsubscribe-aggregate
+          payload:
+            action: SubRemove
+            subs:
+              - 5~CCCAGG~BTC~USD
+
+    # --- Connection / lifecycle envelopes (server-to-client) ------------------
+    Welcome:
+      name: StreamerWelcome
+      title: Streamer welcome (TYPE 20)
+      summary: First frame sent after a successful socket upgrade.
+      description: |
+        Returned exactly once per connection. Carries server metadata,
+        the client account id, the data format in use, and current /
+        remaining socket and call rate limits.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Welcome'
+      examples:
+        - name: welcome
+          payload:
+            TYPE: '20'
+            MESSAGE: STREAMERWELCOME
+            SERVER_UPTIME_SECONDS: 6
+            SERVER_NAME: ccc-streamer01
+            SERVER_TIME_MS: 1593768260252
+            CLIENT_ID: 5509
+            DATA_FORMAT: JSON
+            SOCKETS_ACTIVE: 1
+            SOCKETS_REMAINING: 0
+            RATELIMIT_MAX_SECOND: 30
+            RATELIMIT_MAX_MINUTE: 60
+            RATELIMIT_MAX_HOUR: 1200
+            RATELIMIT_MAX_DAY: 10000
+            RATELIMIT_MAX_MONTH: 20000
+            RATELIMIT_REMAINING_SECOND: 29
+            RATELIMIT_REMAINING_MINUTE: 59
+            RATELIMIT_REMAINING_HOUR: 1199
+            RATELIMIT_REMAINING_DAY: 9999
+            RATELIMIT_REMAINING_MONTH: 19981
+
+    SubscribeComplete:
+      name: SubscribeComplete
+      title: Subscribe complete (TYPE 16)
+      summary: Subscription done and first payload sent.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubLifecycleEnvelope'
+      examples:
+        - name: subscribed
+          payload:
+            TYPE: '16'
+            MESSAGE: SUBSCRIBECOMPLETE
+            SUB: 0~Coinbase~ETH~BTC
+
+    LoadComplete:
+      name: LoadComplete
+      title: Load complete (TYPE 3)
+      summary: All subscriptions done and all payloads sent.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/InfoEnvelope'
+      examples:
+        - name: load-complete
+          payload:
+            TYPE: '3'
+            MESSAGE: LOADCOMPLETE
+            INFO: All your valid subs have been loaded.
+
+    UnsubscribeComplete:
+      name: UnsubscribeComplete
+      title: Unsubscribe complete (TYPE 17)
+      summary: Subscription removal done.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubLifecycleEnvelope'
+      examples:
+        - name: unsubscribed
+          payload:
+            TYPE: '17'
+            MESSAGE: UNSUBSCRIBECOMPLETE
+            SUB: 0~Coinbase~ETH~BTC
+
+    UnsubscribeAllComplete:
+      name: UnsubscribeAllComplete
+      title: Unsubscribe-all complete (TYPE 18)
+      summary: All subscription removals done.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UnsubscribeAllEnvelope'
+      examples:
+        - name: unsubscribe-all
+          payload:
+            TYPE: '18'
+            MESSAGE: UNSUBSCRIBEALLCOMPLETE
+            INFO: 'Removed 1 subs.'
+            INFO_OBJ:
+              valid: 1
+              invalid: 0
+
+    Heartbeat:
+      name: Heartbeat
+      title: Heartbeat (TYPE 999)
+      summary: Liveness ping sent by the server every 30-60 seconds.
+      description: |
+        The server emits a heartbeat at least once per minute. If a client
+        misses two heartbeats it should treat the socket as stale and
+        reconnect (waiting at least 5 seconds before reconnecting).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Heartbeat'
+      examples:
+        - name: heartbeat
+          payload:
+            TYPE: '999'
+            MESSAGE: HEARTBEAT
+            TIMEMS: 1582817678330
+
+    Unauthorized:
+      name: Unauthorized
+      title: Unauthorized (TYPE 401)
+      summary: API key missing, invalid, or lacks access to a requested channel.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AuthErrorEnvelope'
+      examples:
+        - name: unauthorized
+          payload:
+            TYPE: '401'
+            MESSAGE: UNAUTHORIZED
+            PARAMETER: format
+            INFO: We only support JSON format with a valid api_key.
+
+    RateLimit:
+      name: RateLimit
+      title: Rate limit (TYPE 429)
+      summary: Socket open / subscription rate-limit notice.
+      description: |
+        TYPE 429 covers three documented MESSAGE values:
+        `RATE_LIMIT_OPENING_SOCKETS_TOO_FAST`,
+        `TOO_MANY_SOCKETS_MAX_{X}_PER_CLIENT`, and
+        `TOO_MANY_SUBSCRIPTIONS_MAX_{X}_PER_SOCKET`.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/RateLimitEnvelope'
+
+    ServerError:
+      name: ServerError
+      title: Server error (TYPE 500)
+      summary: Invalid JSON, invalid subscription, or forced disconnect notices.
+      description: |
+        TYPE 500 covers the documented MESSAGE values `INVALID_JSON`,
+        `INVALID_SUB`, `INVALID_PARAMETER`, `SUBSCRIPTION_UNRECOGNIZED`,
+        `SUBSCRIPTION_ALREADY_ACTIVE`, and `FORCE_DISCONNECT`.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ServerErrorEnvelope'
+
+    # --- Data envelopes (server-to-client) ------------------------------------
+    Trade:
+      name: Trade
+      title: Trade update (TYPE 0)
+      summary: A single trade reported by an exchange.
+      description: |
+        Subscription string: `0~{exchange}~{base}~{quote}`. The latest 20
+        trades are replayed on subscribe.
+      tags:
+        - name: channel-0
+        - name: trade
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Trade'
+      examples:
+        - name: coinbase-btc-usd
+          summary: 'Subscription: 0~Coinbase~BTC~USD'
+          payload:
+            TYPE: '0'
+            M: Coinbase
+            FSYM: BTC
+            TSYM: USD
+            F: '2'
+            ID: '12345678'
+            TS: 1593768260
+            Q: 0.01
+            P: 32500.12
+            TOTAL: 325.0012
+            RTS: 1593768260
+            CCSEQ: 987654321
+
+    Ticker:
+      name: Ticker
+      title: Ticker update (TYPE 2)
+      summary: Per-exchange ticker snapshot and delta.
+      description: |
+        Subscription string: `2~{exchange}~{base}~{quote}`. Initial frame
+        is a full snapshot; subsequent frames carry only fields whose
+        values changed. The `FLAGS` field is a bitmask describing which
+        component went up/down/unchanged.
+      tags:
+        - name: channel-2
+        - name: ticker
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Ticker'
+      examples:
+        - name: coinbase-btc-usd
+          payload:
+            TYPE: '2'
+            MARKET: Coinbase
+            FROMSYMBOL: BTC
+            TOSYMBOL: USD
+            FLAGS: 1
+            PRICE: 32500.12
+            LASTUPDATE: 1593768260
+            LASTVOLUME: 0.01
+            LASTVOLUMETO: 325.0012
+            VOLUME24HOUR: 12345.67
+            VOLUME24HOURTO: 401234567.89
+
+    AggregateIndex:
+      name: AggregateIndex
+      title: Aggregate Index / CCCAGG update (TYPE 5)
+      summary: CryptoCompare CCCAGG (or other index family) update.
+      description: |
+        Subscription string: `5~CCCAGG~{base}~{quote}`. Carries all ticker
+        fields plus CCCAGG-only fields such as MEDIAN, LASTMARKET,
+        TOPTIERVOLUME24HOUR, CURRENTSUPPLY, CIRCULATINGSUPPLY, MAXSUPPLY,
+        MKTCAPPENALTY, and the three derived market-cap fields.
+      tags:
+        - name: channel-5
+        - name: cccagg
+        - name: index
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AggregateIndex'
+      examples:
+        - name: cccagg-btc-usd
+          payload:
+            TYPE: '5'
+            MARKET: CCCAGG
+            FROMSYMBOL: BTC
+            TOSYMBOL: USD
+            FLAGS: 1
+            PRICE: 32500.12
+            MEDIAN: 32499.5
+            LASTUPDATE: 1593768260
+            LASTMARKET: Coinbase
+            CURRENTSUPPLY: 18421250
+            MAXSUPPLY: 21000000
+
+    OrderbookL2Update:
+      name: OrderbookL2Update
+      title: Order Book L2 update (TYPE 8)
+      summary: Single-position delta to a level-2 order book.
+      description: |
+        Subscription string: `8~{exchange}~{base}~{quote}`. Initial reply
+        is an OrderbookL2Snapshot (TYPE 9); subsequent frames are TYPE 8
+        deltas. `CCSEQ` increases by one per delta; any gap means the
+        client is out of sync and must resubscribe.
+      tags:
+        - name: channel-8
+        - name: order-book
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OrderbookL2'
+      examples:
+        - name: binance-btc-usdt-add
+          payload:
+            TYPE: '8'
+            M: Binance
+            FSYM: BTC
+            TSYM: USDT
+            SIDE: 0
+            ACTION: 1
+            CCSEQ: 1000001
+            P: 32499.5
+            Q: 0.25
+
+    OrderbookL2Snapshot:
+      name: OrderbookL2Snapshot
+      title: Order Book L2 snapshot (TYPE 9)
+      summary: Full level-2 order book snapshot at subscribe time.
+      description: |
+        Sent once at subscribe for each `8~...` subscription. Contains
+        full BID and ASK arrays. Track `CCSEQ` and apply subsequent
+        TYPE 8 deltas to maintain a synchronized book.
+      tags:
+        - name: channel-9
+        - name: order-book
+        - name: snapshot
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OrderbookL2Snapshot'
+
+    FullVolume:
+      name: FullVolume
+      title: Full Volume update (TYPE 11)
+      summary: Rolling 24-hour total volume across all markets for a base.
+      description: |
+        Subscription string: `11~{base}`. Volume is denominated in the
+        base asset and aggregated across every integrated market.
+      tags:
+        - name: channel-11
+        - name: volume
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/FullVolume'
+      examples:
+        - name: btc-full-volume
+          payload:
+            TYPE: '11'
+            SYMBOL: BTC
+            FULLVOLUME: '512345.6789'
+
+    TopTierFullVolume:
+      name: TopTierFullVolume
+      title: Top Tier Full Volume update (TYPE 21)
+      summary: Rolling 24-hour total volume across top tier exchanges (AA/A/B).
+      description: |
+        Subscription string: `21~{base}`. Same shape as Full Volume but
+        restricted to exchanges that rank B or higher in the CryptoCompare
+        Exchange Benchmark.
+      tags:
+        - name: channel-21
+        - name: volume
+        - name: top-tier
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TopTierFullVolume'
+      examples:
+        - name: btc-top-tier-volume
+          payload:
+            TYPE: '21'
+            SYMBOL: BTC
+            TOPTIERFULLVOLUME: '312345.6789'
+
+    OHLCCandles:
+      name: OHLCCandles
+      title: OHLC Candles update (TYPE 24)
+      summary: Streaming minute / hour / day OHLCV candle updates.
+      description: |
+        Subscription string: `24~{exchange or CCCAGG}~{base}~{quote}~{period}`
+        where `period` is one of `m` (minute), `H` (hour), or `D` (day).
+        The `ACTION` field is `A` (add new period), `U` (update prior
+        period), or `I` (init / empty period).
+      tags:
+        - name: channel-24
+        - name: ohlc
+        - name: candles
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OHLCCandles'
+      examples:
+        - name: cccagg-btc-usd-minute
+          payload:
+            TYPE: '24'
+            MARKET: CCCAGG
+            FROMSYMBOL: BTC
+            TOSYMBOL: USD
+            TS: 1593768240
+            UNIT: m
+            ACTION: U
+            OPEN: 32500.0
+            HIGH: 32510.4
+            LOW: 32498.1
+            CLOSE: 32505.2
+            VOLUMEFROM: 1.234
+            VOLUMETO: 40123.45
+            TOTALTRADES: 17
+
+    TopOfBook:
+      name: TopOfBook
+      title: Top of Order Book update (TYPE 30)
+      summary: Best bid / best ask updates for a market.
+      description: |
+        Subscription string: `30~{exchange}~{base}~{quote}`. Initial frame
+        carries both BID and ASK; subsequent frames carry one side at a
+        time and increment `CCSEQ` by one.
+      tags:
+        - name: channel-30
+        - name: top-of-book
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TopOfBook'
+      examples:
+        - name: binance-btc-usdt
+          payload:
+            TYPE: '30'
+            M: Binance
+            FSYM: BTC
+            TSYM: USDT
+            CCSEQ: 5550001
+            BID:
+              - P: 32499.5
+                Q: 0.42
+                REPORTEDNS: '1593768260123456789'
+
+  # =====================================================================
+  # Schemas
+  # =====================================================================
+  schemas:
+    # ---- Client action envelope --------------------------------------
+    SubActionEnvelope:
+      type: object
+      required:
+        - action
+        - subs
+      properties:
+        action:
+          type: string
+          enum: [SubAdd, SubRemove]
+          description: Action type. Only `SubAdd` and `SubRemove` are accepted.
+        subs:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            description: Tilde-delimited subscription string, e.g. `5~CCCAGG~BTC~USD`.
+          description: |
+            Array of subscription strings. Enterprise accounts may subscribe
+            to a whole channel family (for example `0` for every trade,
+            `24` for every historical update).
+        api_key:
+          type: string
+          description: |
+            Optional API key. May be supplied per-action instead of on the
+            connection URL; usually omitted when the URL or header already
+            carries one.
+
+    # ---- Lifecycle envelope shapes -----------------------------------
+    Welcome:
+      type: object
+      description: |
+        Streamer Welcome (TYPE 20) envelope. Field availability follows
+        the documented mask bits when the streamer (non-JSON) format is
+        used; with `api_key` JSON every field is present.
+      required:
+        - TYPE
+        - MESSAGE
+        - SERVER_UPTIME_SECONDS
+        - SERVER_NAME
+        - SERVER_TIME_MS
+        - CLIENT_ID
+        - DATA_FORMAT
+      properties:
+        TYPE:
+          type: string
+          const: '20'
+          description: Always `20` for the streamer welcome message.
+        MESSAGE:
+          type: string
+          const: STREAMERWELCOME
+          description: Always `STREAMERWELCOME`. Never branch on this string in code, use TYPE.
+        SERVER_UPTIME_SECONDS:
+          type: integer
+          description: The server uptime in seconds. Useful for detecting server restarts.
+        SERVER_NAME:
+          type: string
+          description: The name of the streaming server you are connected to.
+        SERVER_TIME_MS:
+          type: integer
+          description: The server timestamp in milliseconds.
+        CLIENT_ID:
+          type: string
+          description: The id of the account the ApiKey belongs to.
+        DATA_FORMAT:
+          type: string
+          enum: [JSON, streamer]
+          description: The format you are receiving data in.
+        SOCKET_ID:
+          type: string
+          description: The unique ID this socket was assigned on the socket initiation.
+        SOCKETS_ACTIVE:
+          type: integer
+          description: 'Mask 1 - Total current active sockets for your account.'
+        SOCKETS_REMAINING:
+          type: integer
+          description: 'Mask 2 - Total sockets still available for your account.'
+        RATELIMIT_MAX_SECOND:
+          type: integer
+          description: 'Mask 4 - Maximum socket connections or calls per second.'
+        RATELIMIT_MAX_MINUTE:
+          type: integer
+          description: 'Mask 8 - Maximum socket connections or calls per minute.'
+        RATELIMIT_MAX_HOUR:
+          type: integer
+          description: 'Mask 16 - Maximum socket connections or calls per hour.'
+        RATELIMIT_MAX_DAY:
+          type: integer
+          description: 'Mask 32 - Maximum socket connections or calls per day.'
+        RATELIMIT_MAX_MONTH:
+          type: integer
+          description: 'Mask 64 - Maximum socket connections or calls per month.'
+        RATELIMIT_REMAINING_SECOND:
+          type: integer
+          description: 'Mask 128 - Socket connections or calls left in the current second.'
+        RATELIMIT_REMAINING_MINUTE:
+          type: integer
+          description: 'Mask 256 - Socket connections or calls left in the current minute.'
+        RATELIMIT_REMAINING_HOUR:
+          type: integer
+          description: 'Mask 512 - Socket connections or calls left in the current hour.'
+        RATELIMIT_REMAINING_DAY:
+          type: integer
+          description: 'Mask 1024 - Socket connections or calls left in the current day.'
+        RATELIMIT_REMAINING_MONTH:
+          type: integer
+          description: 'Mask 2048 - Socket connections or calls left in the current month.'
+
+    SubLifecycleEnvelope:
+      type: object
+      description: Subscribe / unsubscribe lifecycle envelope (TYPE 16 or 17).
+      required:
+        - TYPE
+        - MESSAGE
+        - SUB
+      properties:
+        TYPE:
+          type: string
+          enum: ['16', '17']
+        MESSAGE:
+          type: string
+          enum: [SUBSCRIBECOMPLETE, UNSUBSCRIBECOMPLETE]
+        SUB:
+          type: string
+          description: The subscription string the lifecycle event applies to.
+
+    InfoEnvelope:
+      type: object
+      description: Generic INFO envelope (LOADCOMPLETE TYPE 3 and similar).
+      required:
+        - TYPE
+        - MESSAGE
+      properties:
+        TYPE:
+          type: string
+        MESSAGE:
+          type: string
+        INFO:
+          type: string
+
+    UnsubscribeAllEnvelope:
+      type: object
+      description: Unsubscribe-all complete envelope (TYPE 18).
+      required:
+        - TYPE
+        - MESSAGE
+      properties:
+        TYPE:
+          type: string
+          const: '18'
+        MESSAGE:
+          type: string
+          const: UNSUBSCRIBEALLCOMPLETE
+        INFO:
+          type: string
+          description: Human-readable summary, e.g. `Removed 1 subs.`
+        INFO_OBJ:
+          type: object
+          properties:
+            valid:
+              type: integer
+              description: Subscriptions successfully removed.
+            invalid:
+              type: integer
+              description: Subscriptions that were not active when the unsubscribe ran.
+
+    Heartbeat:
+      type: object
+      description: Server heartbeat (TYPE 999).
+      required:
+        - TYPE
+        - MESSAGE
+      properties:
+        TYPE:
+          type: string
+          const: '999'
+        MESSAGE:
+          type: string
+          const: HEARTBEAT
+        TIMEMS:
+          type: integer
+          description: Server-side timestamp in milliseconds.
+
+    AuthErrorEnvelope:
+      type: object
+      description: Unauthorized envelope (TYPE 401).
+      required:
+        - TYPE
+        - MESSAGE
+      properties:
+        TYPE:
+          type: string
+          const: '401'
+        MESSAGE:
+          type: string
+          const: UNAUTHORIZED
+        PARAMETER:
+          type: string
+          description: Offending parameter, when known.
+        INFO:
+          type: string
+          description: Human-readable detail.
+
+    RateLimitEnvelope:
+      type: object
+      description: Rate-limit envelope (TYPE 429).
+      required:
+        - TYPE
+        - MESSAGE
+      properties:
+        TYPE:
+          type: string
+          const: '429'
+        MESSAGE:
+          type: string
+          description: |
+            One of: `RATE_LIMIT_OPENING_SOCKETS_TOO_FAST`,
+            `TOO_MANY_SOCKETS_MAX_{X}_PER_CLIENT`,
+            `TOO_MANY_SUBSCRIPTIONS_MAX_{X}_PER_SOCKET`.
+        INFO:
+          type: string
+        PARAMETER:
+          type: string
+
+    ServerErrorEnvelope:
+      type: object
+      description: Server error envelope (TYPE 500).
+      required:
+        - TYPE
+        - MESSAGE
+      properties:
+        TYPE:
+          type: string
+          const: '500'
+        MESSAGE:
+          type: string
+          description: |
+            One of: `INVALID_JSON`, `INVALID_SUB`, `INVALID_PARAMETER`,
+            `SUBSCRIPTION_UNRECOGNIZED`, `SUBSCRIPTION_ALREADY_ACTIVE`,
+            `FORCE_DISCONNECT`.
+        INFO:
+          type: string
+        PARAMETER:
+          type: string
+
+    # ---- Data envelope schemas ---------------------------------------
+    Trade:
+      type: object
+      description: |
+        Trade update (TYPE 0). Streamer-format unpack uses the bitmask
+        below; with JSON every present field is emitted directly.
+      x-streamer-unpack:
+        TYPE: 0
+        M: 0
+        FSYM: 0
+        TSYM: 0
+        F: 0
+        ID: 1
+        TS: 2
+        Q: 4
+        P: 8
+        TOTAL: 16
+        RTS: 32
+        CCSEQ: 64
+        TSNS: 128
+        RTSNS: 256
+      required:
+        - TYPE
+        - M
+        - FSYM
+        - TSYM
+        - F
+      properties:
+        TYPE:
+          type: string
+          const: '0'
+          description: Type of the message, this is 0 for trade type messages.
+        M:
+          type: string
+          description: The market / exchange (e.g. Coinbase, Kraken).
+        FSYM:
+          type: string
+          description: The mapped from asset (base symbol / coin), e.g. BTC.
+        TSYM:
+          type: string
+          description: The mapped to asset (quote / counter symbol / coin), e.g. USD.
+        F:
+          type: string
+          description: |
+            Trade flag as a bitmask: `&1` SELL, `&2` BUY, `&4` UNKNOWN,
+            `&8` REVERSED (inverted). A flag of 9 is SELL + REVERSED.
+            REVERSED is used when CryptoCompare inverts the trade to put
+            the dominant pair on the right (for example Uniswap ETH
+            trades).
+        ID:
+          type: string
+          description: |
+            Exchange-reported trade id. When the exchange does not provide
+            one, this is the timestamp in seconds plus 0-999 for uniqueness.
+        TS:
+          type: integer
+          format: int64
+          description: Exchange-reported timestamp in seconds (or received timestamp if not provided).
+        Q:
+          type: number
+          description: Base asset volume of the trade (for BTC-USD, BTC volume).
+        P:
+          type: number
+          description: Price in the quote asset (for BTC-USD, USD per BTC).
+        TOTAL:
+          type: number
+          description: 'Total quote volume: always Q * P.'
+        RTS:
+          type: integer
+          format: int64
+          description: Timestamp in seconds when CryptoCompare received the trade.
+        CCSEQ:
+          type: integer
+          format: int64
+          description: |
+            Internal sequence number. Unique per market and pair, monotonic
+            (not chronological). Only available for a subset of markets.
+        TSNS:
+          type: integer
+          description: Nanosecond part of the reported timestamp (subset of markets).
+        RTSNS:
+          type: integer
+          description: Nanosecond part of the received timestamp (subset of markets).
+
+    Ticker:
+      type: object
+      description: Ticker update (TYPE 2). Same envelope is reused for some AggregateIndex fields.
+      x-streamer-unpack:
+        TYPE: 0
+        MARKET: 0
+        FROMSYMBOL: 0
+        TOSYMBOL: 0
+        FLAGS: 0
+        PRICE: 1
+        BID: 2
+        ASK: 4
+        LASTUPDATE: 8
+        MEDIAN: 16
+        LASTVOLUME: 32
+        LASTVOLUMETO: 64
+        LASTTRADEID: 128
+        VOLUMEDAY: 256
+        VOLUMEDAYTO: 512
+        VOLUME24HOUR: 1024
+        VOLUME24HOURTO: 2048
+        OPENDAY: 4096
+        HIGHDAY: 8192
+        LOWDAY: 16384
+        OPEN24HOUR: 32768
+        HIGH24HOUR: 65536
+        LOW24HOUR: 131072
+        LASTMARKET: 262144
+        VOLUMEHOUR: 524288
+        VOLUMEHOURTO: 1048576
+        OPENHOUR: 2097152
+        HIGHHOUR: 4194304
+        LOWHOUR: 8388608
+        TOPTIERVOLUME24HOUR: 16777216
+        TOPTIERVOLUME24HOURTO: 33554432
+      required:
+        - TYPE
+        - MARKET
+        - FROMSYMBOL
+        - TOSYMBOL
+        - FLAGS
+      properties:
+        TYPE:
+          type: string
+          const: '2'
+          description: Type of the message. 2 for ticker, 5 for CCCAGG.
+        MARKET:
+          type: string
+        FROMSYMBOL:
+          type: string
+        TOSYMBOL:
+          type: string
+        FLAGS:
+          type: integer
+          description: |
+            Bitmask describing which component moved on the latest update.
+            Bit order (binary): MEDIANUNCHANGED(2048), MEDIANDOWN(1024),
+            MEDIANUP(512), ASKUNCHANGED(256), ASKDOWN(128), ASKUP(64),
+            BIDUNCHANGED(32), BIDDOWN(16), BIDUP(8), PRICEUNCHANGED(4),
+            PRICEDOWN(2), PRICEUP(1).
+        PRICE:
+          type: number
+        BID:
+          type: number
+        ASK:
+          type: number
+        LASTUPDATE:
+          type: integer
+          format: int64
+        MEDIAN:
+          type: number
+          description: Only populated on CCCAGG / index messages.
+        LASTVOLUME:
+          type: number
+        LASTVOLUMETO:
+          type: number
+        LASTTRADEID:
+          type: string
+        VOLUMEDAY:
+          type: number
+        VOLUMEDAYTO:
+          type: number
+        VOLUME24HOUR:
+          type: number
+        VOLUME24HOURTO:
+          type: number
+        OPENDAY:
+          type: number
+        HIGHDAY:
+          type: number
+        LOWDAY:
+          type: number
+        OPEN24HOUR:
+          type: number
+        HIGH24HOUR:
+          type: number
+        LOW24HOUR:
+          type: number
+        LASTMARKET:
+          type: string
+          description: Latest market the pair traded on (CCCAGG only).
+        VOLUMEHOUR:
+          type: number
+        VOLUMEHOURTO:
+          type: number
+        OPENHOUR:
+          type: number
+        HIGHHOUR:
+          type: number
+        LOWHOUR:
+          type: number
+        TOPTIERVOLUME24HOUR:
+          type: number
+          description: CCCAGG / index only.
+        TOPTIERVOLUME24HOURTO:
+          type: number
+          description: CCCAGG / index only.
+
+    AggregateIndex:
+      allOf:
+        - $ref: '#/components/schemas/Ticker'
+        - type: object
+          description: |
+            CCCAGG (TYPE 5) extends Ticker with supply and market-cap
+            fields. Supply fields are only emitted on JSON-format
+            subscriptions.
+          properties:
+            TYPE:
+              type: string
+              const: '5'
+            CURRENTSUPPLY:
+              type: number
+              description: Total assets available at this point in time (JSON only).
+            CIRCULATINGSUPPLY:
+              type: number
+              description: CURRENTSUPPLY minus locked/burnt assets (JSON only).
+            MAXSUPPLY:
+              type: number
+              description: Total assets that will ever exist. -1 means unlimited supply.
+            MKTCAPPENALTY:
+              type: number
+              description: Penalty applied to market cap on illiquid / lower-ranked assets.
+            CURRENTSUPPLYMKTCAP:
+              type: number
+              description: 'PRICE * CURRENTSUPPLY - PRICE * CURRENTSUPPLY * MKTCAPPENALTY.'
+            CIRCULATINGSUPPLYMKTCAP:
+              type: number
+              description: 'PRICE * CIRCULATINGSUPPLY - PRICE * CIRCULATINGSUPPLY * MKTCAPPENALTY.'
+            MAXSUPPLYMKTCAP:
+              type: number
+              description: 'PRICE * MAXSUPPLY (with penalty). -1 when MAXSUPPLY is unlimited.'
+
+    OrderbookL2:
+      type: object
+      description: Order Book L2 update (TYPE 8).
+      x-streamer-unpack:
+        TYPE: 0
+        M: 0
+        FSYM: 0
+        TSYM: 0
+        SIDE: 0
+        ACTION: 0
+        CCSEQ: 0
+        P: 0
+        Q: 0
+        SEQ: 1
+        REPORTEDNS: 2
+        DELAYNS: 4
+      required:
+        - TYPE
+        - M
+        - FSYM
+        - TSYM
+        - SIDE
+        - ACTION
+        - CCSEQ
+        - P
+        - Q
+      properties:
+        TYPE:
+          type: string
+          const: '8'
+        M:
+          type: string
+        FSYM:
+          type: string
+        TSYM:
+          type: string
+        SIDE:
+          type: integer
+          enum: [0, 1]
+          description: 0 for BID, 1 for ASK.
+        ACTION:
+          type: integer
+          enum: [1, 2, 3, 4]
+          description: |
+            1 ADD, 2 REMOVE (also has Q=0), 3 NOACTION (should not be seen
+            client-side), 4 CHANGE/UPDATE (quantity update).
+        CCSEQ:
+          type: integer
+          format: int64
+          description: |
+            Internal monotonic sequence (per exchange and pair). Snapshot
+            seeds the starting value; every delta increments by 1. Any
+            gap means the client is out of sync and must resubscribe.
+        P:
+          type: number
+          description: Price in the quote asset for the position.
+        Q:
+          type: number
+          description: Base-asset volume for the position. Zero on REMOVE.
+        SEQ:
+          type: integer
+          description: External exchange sequence (when provided).
+        REPORTEDNS:
+          type: integer
+          format: int64
+          description: Exchange-reported timestamp in nanoseconds (or our receive time).
+        DELAYNS:
+          type: integer
+          format: int64
+          description: REPORTEDNS to publish-time delay in nanoseconds.
+
+    OrderbookL2Snapshot:
+      type: object
+      description: Order Book L2 snapshot (TYPE 9), seeded on subscribe.
+      required:
+        - TYPE
+        - M
+        - FSYM
+        - TSYM
+        - CCSEQ
+      properties:
+        TYPE:
+          type: string
+          const: '9'
+        M:
+          type: string
+        FSYM:
+          type: string
+        TSYM:
+          type: string
+        CCSEQ:
+          type: integer
+          format: int64
+          description: Starting sequence; apply subsequent TYPE 8 deltas in order.
+        BID:
+          type: array
+          items:
+            type: object
+            properties:
+              P:
+                type: number
+              Q:
+                type: number
+        ASK:
+          type: array
+          items:
+            type: object
+            properties:
+              P:
+                type: number
+              Q:
+                type: number
+
+    FullVolume:
+      type: object
+      description: Full Volume (TYPE 11). Rolling 24-hour volume across all markets.
+      x-streamer-unpack:
+        TYPE: 0
+        SYMBOL: 0
+        FULLVOLUME: 0
+      required:
+        - TYPE
+        - SYMBOL
+        - FULLVOLUME
+      properties:
+        TYPE:
+          type: string
+          const: '11'
+        SYMBOL:
+          type: string
+          description: Base asset symbol.
+        FULLVOLUME:
+          type: string
+          description: |
+            Aggregate 23-hour-plus-current-hour total volume across every
+            trading pair on every integrated market. Denominated in SYMBOL.
+
+    TopTierFullVolume:
+      type: object
+      description: Top Tier Full Volume (TYPE 21). Same as Full Volume but limited to AA/A/B exchanges.
+      x-streamer-unpack:
+        TYPE: 0
+        SYMBOL: 0
+        TOPTIERFULLVOLUME: 0
+      required:
+        - TYPE
+        - SYMBOL
+        - TOPTIERFULLVOLUME
+      properties:
+        TYPE:
+          type: string
+          const: '21'
+        SYMBOL:
+          type: string
+        TOPTIERFULLVOLUME:
+          type: string
+
+    OHLCCandles:
+      type: object
+      description: OHLC Candles (TYPE 24). Streaming minute / hour / day candles.
+      x-streamer-unpack:
+        TYPE: 0
+        MARKET: 0
+        FROMSYMBOL: 0
+        TOSYMBOL: 0
+        TS: 0
+        UNIT: 0
+        ACTION: 0
+        OPEN: 1
+        HIGH: 2
+        LOW: 4
+        CLOSE: 8
+        VOLUMEFROM: 16
+        VOLUMETO: 32
+        TOTALTRADES: 64
+        FIRSTTS: 128
+        LASTTS: 256
+        FIRSTPRICE: 512
+        MAXPRICE: 1024
+        MINPRICE: 2048
+        LASTPRICE: 4096
+      required:
+        - TYPE
+        - MARKET
+        - FROMSYMBOL
+        - TOSYMBOL
+        - TS
+        - UNIT
+        - ACTION
+      properties:
+        TYPE:
+          type: string
+          const: '24'
+        MARKET:
+          type: string
+          description: Market / exchange (CCCAGG, Coinbase, Kraken, etc.).
+        FROMSYMBOL:
+          type: string
+        TOSYMBOL:
+          type: string
+        TS:
+          type: integer
+          format: int64
+          description: Period start timestamp in seconds.
+        UNIT:
+          type: string
+          enum: [m, H, D]
+          description: m for minute, H for hour, D for day.
+        ACTION:
+          type: string
+          enum: [A, U, I]
+          description: |
+            A add (new historical period), U update (revision to a known
+            period), I init (initial snapshot or empty period).
+        OPEN:
+          type: number
+          description: Open based on the closest trade before period start.
+        HIGH:
+          type: number
+        LOW:
+          type: number
+        CLOSE:
+          type: number
+        VOLUMEFROM:
+          type: number
+        VOLUMETO:
+          type: number
+        TOTALTRADES:
+          type: integer
+        FIRSTTS:
+          type: integer
+          format: int64
+          description: Timestamp of the first trade in the period.
+        LASTTS:
+          type: integer
+          format: int64
+          description: Timestamp of the last trade in the period.
+        FIRSTPRICE:
+          type: number
+        MAXPRICE:
+          type: number
+        MINPRICE:
+          type: number
+        LASTPRICE:
+          type: number
+
+    TopOfBook:
+      type: object
+      description: |
+        Top of Order Book (TYPE 30). Snapshot frame contains both BID and
+        ASK; update frames contain a single side and always increment
+        `CCSEQ` by one.
+      x-streamer-unpack:
+        TYPE: 0
+        M: 0
+        FSYM: 0
+        TSYM: 0
+        CCSEQ: 0
+        BID: 1
+        ASK: 2
+      required:
+        - TYPE
+        - M
+        - FSYM
+        - TSYM
+        - CCSEQ
+      properties:
+        TYPE:
+          type: string
+          const: '30'
+        M:
+          type: string
+        FSYM:
+          type: string
+        TSYM:
+          type: string
+        CCSEQ:
+          type: integer
+          format: int64
+        BID:
+          type: array
+          items:
+            type: object
+            properties:
+              P:
+                type: number
+              Q:
+                type: number
+              REPORTEDNS:
+                type: string
+        ASK:
+          type: array
+          items:
+            type: object
+            properties:
+              P:
+                type: number
+              Q:
+                type: number
+              REPORTEDNS:
+                type: string

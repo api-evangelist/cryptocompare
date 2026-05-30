@@ -1,32 +1,333 @@
 aid: cryptocompare
+url: https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/apis.yml
 name: CryptoCompare
-description: "Cryptocurrencies Comparison"
-url: https://www.cryptocompare.com/api#
-specificationVersion: '0.20'
-created: '2026-05-28'
-modified: '2026-05-28'
-x-source: public-apis/public-apis
-x-category: "Cryptocurrency"
-x-tier: 3
-x-tier-reason: bulk-registered-from-public-apis
 tags:
   - Cryptocurrency
-  - Public APIs
+  - Market Data
+  - Reference Rates
+  - News
+  - Social
+  - Blockchain
+  - On-Chain
+  - Order Book
+  - Streaming
+  - Index
+type: Index
+kind: company
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+created: '2026-05-28'
+modified: '2026-05-30'
+position: Consumer
+specificationVersion: '0.20'
+x-source: public-apis/public-apis
+x-category: Cryptocurrency
+x-tier: 3
+x-tier-reason: bulk-registered-from-public-apis
+description: >-
+  CryptoCompare (now CoinDesk Data / CCData, acquired by CoinDesk in late
+  2024) is a long-standing crypto market data aggregator covering 300+
+  exchanges, 10,000+ assets, and 300,000+ trading pairs. The platform exposes
+  two REST API surfaces — the legacy min-api.cryptocompare.com (Price,
+  Historical OHLCV, Top Lists, News, Social, Order Book, Exchanges,
+  Blockchain) and the modern data-api.cryptocompare.com / CoinDesk Data API
+  (Spot, Index / Reference Rates including CADLI and CCIX, Asset, News,
+  On-Chain, Futures, Options, Overview) — plus a unified WebSocket streamer
+  at wss://streamer.cryptocompare.com/v2 that multiplexes Trade, Ticker,
+  CCCAGG aggregate index, Order Book L2 updates and snapshots, Full Volume,
+  Top Tier Full Volume, OHLC Candles, and Top of Book channels.
+  Authentication uses an API key supplied as the api_key query parameter or
+  as an `Authorization: Apikey {key}` header. Access is metered by monthly
+  call credits with per-second / per-minute / per-hour / per-day ceilings;
+  the Free tier issues 100,000 monthly credits and commercial Starter /
+  Professional / Enterprise tiers escalate credit budgets, history depth,
+  and surface coverage (news, social, on-chain, derivatives, full streamer,
+  on-demand bulk exports, reference-rate licensing).
 apis:
-  - name: CryptoCompare
-    description: "Cryptocurrencies Comparison"
-    humanURL: https://www.cryptocompare.com/api#
-    baseURL: https://www.cryptocompare.com/api#
+  - aid: cryptocompare:min-api
+    name: CryptoCompare min-api (Legacy)
     tags:
       - Cryptocurrency
+      - Market Data
+      - News
+      - Social
+      - Blockchain
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://min-api.cryptocompare.com/data
+    humanURL: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
     properties:
       - type: Documentation
-        url: https://www.cryptocompare.com/api#
+        url: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
+      - type: OpenAPI
+        url: openapi/cryptocompare-min-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/cryptocompare-fullticker-schema.json
+      - type: JSONSchema
+        url: json-schema/cryptocompare-ohlcvcandle-schema.json
+      - type: JSONSchema
+        url: json-schema/cryptocompare-newsarticle-schema.json
+      - type: JSONSchema
+        url: json-schema/cryptocompare-coinlistentry-schema.json
+      - type: JSONSchema
+        url: json-schema/cryptocompare-exchange-schema.json
+      - type: JSONSchema
+        url: json-schema/cryptocompare-blockchaindatapoint-schema.json
+      - type: JSONSchema
+        url: json-schema/cryptocompare-socialstats-schema.json
+      - type: JSONSchema
+        url: json-schema/cryptocompare-orderbookl1-schema.json
+      - type: Example
+        url: examples/cryptocompare-getSingleSymbolPrice-example.json
+      - type: Example
+        url: examples/cryptocompare-getHistoricalDailyOHLCV-example.json
+      - type: Example
+        url: examples/cryptocompare-getTopListByTotalVolumeFull-example.json
+      - type: Example
+        url: examples/cryptocompare-getLatestNewsArticles-example.json
+      - type: NaftikoCapability
+        url: capabilities/min-api-price.yaml
+      - type: NaftikoCapability
+        url: capabilities/min-api-historical.yaml
+      - type: NaftikoCapability
+        url: capabilities/min-api-top-lists.yaml
+      - type: NaftikoCapability
+        url: capabilities/min-api-news.yaml
+      - type: NaftikoCapability
+        url: capabilities/min-api-social.yaml
+      - type: NaftikoCapability
+        url: capabilities/min-api-blockchain.yaml
+      - type: NaftikoCapability
+        url: capabilities/min-api-exchanges-coins.yaml
+      - type: SignUp
+        url: https://www.cryptocompare.com/cryptopian/api-keys
+      - type: Authentication
+        url: https://min-api.cryptocompare.com/documentation
+    description: >-
+      Legacy CryptoCompare REST API. Single endpoint surface for current and
+      historical Price, OHLCV (minute / hour / day) candles, Top Lists by
+      24h volume / market cap / pair volume / exchange volume, News articles
+      with sources and categories, Social statistics, top-of-book Order
+      Book L1, Exchanges reference data and full coin listing, and
+      Blockchain on-chain data including transaction count, active
+      addresses, hashrate, difficulty, and balance distribution.
+    x-features:
+      - 31 REST operations across 9 functional groups
+      - CCCAGG cross-exchange aggregate index as default price source
+      - Custom average (CUSTOMAGG) across a selected exchange set
+      - News aggregated across hundreds of crypto-native sources with sentiment tagging
+      - Social stats covering Twitter, Reddit, Facebook, and source code repos
+      - Exchange Benchmark grading (AA / A / B / C / D / E / F)
+      - Blockchain history including large transaction count and balance distribution buckets
+    x-use-cases:
+      - Power retail price tickers and portfolio dashboards
+      - Backtest trading strategies on minute and hour OHLCV history
+      - Build crypto news aggregators with sentiment-tagged feeds
+      - Score exchanges using the CryptoCompare Exchange Benchmark
+      - Drive on-chain analytics dashboards across 30+ chains
+  - aid: cryptocompare:data-api
+    name: CoinDesk Data API (CCData)
+    tags:
+      - Cryptocurrency
+      - Market Data
+      - Reference Rates
+      - Index
+      - Spot
+      - Derivatives
+      - On-Chain
+      - News
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://data-api.cryptocompare.com
+    humanURL: https://developers.coindesk.com/documentation/data-api/introduction
+    properties:
+      - type: Documentation
+        url: https://developers.coindesk.com/documentation/data-api/introduction
+      - type: OpenAPI
+        url: openapi/cryptocompare-data-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/cryptocompare-indextick-schema.json
+      - type: JSONSchema
+        url: json-schema/cryptocompare-asset-schema.json
+      - type: Example
+        url: examples/cryptocompare-getIndexLatestTick-example.json
+      - type: NaftikoCapability
+        url: capabilities/data-api-spot.yaml
+      - type: NaftikoCapability
+        url: capabilities/data-api-index.yaml
+      - type: NaftikoCapability
+        url: capabilities/data-api-asset-news.yaml
+      - type: SignUp
+        url: https://developers.coindesk.com/pricing/
+      - type: Authentication
+        url: https://developers.coindesk.com/documentation/data-api/introduction
+    description: >-
+      Modern, institutional-grade replacement for the legacy min-api.
+      Consolidated surface across Spot (latest tick, instrument metadata,
+      historical OHLCV, trades, order book L1), CoinDesk Indices and
+      Reference Rates (CADLI, CCIX, CCIXBE) with composition endpoint,
+      Asset metadata and supply history, News articles with full search,
+      On-Chain metrics, Futures, Options, and Overview market cap.
+      Standardized request and response envelope across every endpoint.
+    x-features:
+      - Unified endpoint shape across spot, index, asset, news, on-chain, and derivatives
+      - CADLI institutional reference rate (regulated index methodology)
+      - CCIX cross-exchange index family
+      - Index composition endpoint exposing constituent prices, supplies, weights
+      - 1ns-resolution timestamps on tick endpoints
+      - Top-tier vs all-exchange volume separation
+      - Multi-period rollups (HOUR / DAY / WEEK / MONTH / YEAR / LIFETIME)
+    x-use-cases:
+      - Mark-to-market institutional crypto positions against CADLI
+      - Settle derivatives against CCIX reference prices
+      - Power exchange-agnostic order book monitoring
+      - Drive on-chain treasury analytics
+      - Replace legacy min-api integrations with the modern surface
+  - aid: cryptocompare:streamer
+    name: CryptoCompare Streaming WebSocket
+    tags:
+      - Cryptocurrency
+      - Streaming
+      - WebSocket
+      - Order Book
+      - OHLCV
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: wss://streamer.cryptocompare.com/v2
+    humanURL: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
+    properties:
+      - type: Documentation
+        url: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
+      - type: WebSocket
+        url: wss://streamer.cryptocompare.com/v2
+      - type: AsyncAPI
+        url: asyncapi/cryptocompare-asyncapi.yml
+    description: >-
+      Single secure WebSocket endpoint multiplexing every subscription via
+      tilde-delimited subscription strings (e.g. 5~CCCAGG~BTC~USD). Channel
+      types: Trade (0), Ticker (2), Aggregate Index / CCCAGG (5), Order Book
+      L2 update (8), Order Book L2 snapshot (9), Full Volume (11), Top Tier
+      Full Volume (21), OHLC Candles (24), and Top of Order Book (30).
+      Control envelopes include Welcome (20), SubscribeComplete (16),
+      UnsubscribeComplete (17), LoadComplete (3), UnsubscribeAllComplete
+      (18), Heartbeat (999), Unauthorized (401), RateLimit (429), and
+      ServerError (500).
+    x-features:
+      - One socket multiplexes every channel and subscription
+      - Wildcards (*) for enterprise bulk subscription
+      - Per-account rate-limit telemetry in the Welcome envelope
+      - 30-60 second heartbeats with reconnect guidance
+      - Streamer (binary) format with bitmask field selection
+  - aid: cryptocompare:exchange-benchmark
+    name: CryptoCompare Exchange Benchmark
+    tags:
+      - Exchange Ratings
+      - Methodology
+      - Risk
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://data.coindesk.com/research/exchange-benchmark
+    humanURL: https://data.coindesk.com/research/exchange-benchmark
+    properties:
+      - type: Documentation
+        url: https://data.coindesk.com/research/exchange-benchmark
+    description: >-
+      Quantitative ranking of integrated exchanges across Legal, KYC and
+      Transaction Risk, Team, Data Provision, Asset Quality and Diversity,
+      Market Quality, Security, and Negative Reports Penalty. Grade points
+      and per-criterion splits are surfaced on the /exchanges/general
+      endpoint of the min-api.
 common:
   - type: Website
-    url: https://www.cryptocompare.com/api#
+    url: https://data.coindesk.com/
+  - type: Portal
+    url: https://developers.coindesk.com/
+  - type: SignUp
+    url: https://www.cryptocompare.com/cryptopian/api-keys
+  - type: Pricing
+    url: https://developers.coindesk.com/pricing/
+  - type: TermsOfService
+    url: https://data.coindesk.com/terms
+  - type: PrivacyPolicy
+    url: https://data.coindesk.com/privacy
+  - type: Support
+    url: https://developers.coindesk.com/support
+  - type: Blog
+    url: https://data.coindesk.com/blog
+  - type: GitHubOrganization
+    url: https://github.com/CryptoCompare
+  - type: SDK
+    url: https://github.com/CryptoCompare/API
+  - type: SDK
+    url: https://github.com/CryptoCompare/CryptoCompareIOS
   - type: PublicAPIsListing
     url: https://github.com/public-apis/public-apis
+  - type: SpectralRules
+    url: rules/cryptocompare-rules.yml
+  - type: Vocabulary
+    url: vocabulary/cryptocompare-vocabulary.yml
+  - type: JSON-LD
+    url: json-ld/cryptocompare-context.jsonld
+  - type: JSONStructure
+    url: json-structure/cryptocompare-structure.json
+  - type: Plans
+    url: plans/cryptocompare-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/cryptocompare-rate-limits.yml
+  - type: FinOps
+    url: finops/cryptocompare-finops.yml
+  - type: Features
+    data:
+      - name: Cross-exchange aggregate index (CCCAGG)
+        description: Default price source aggregating across 300+ integrated exchanges with outlier filtering.
+      - name: Institutional reference rates (CADLI, CCIX)
+        description: Regulated index methodology suitable for derivatives settlement and institutional mark-to-market.
+      - name: Real-time WebSocket streamer
+        description: Single secure socket multiplexes Trade, Ticker, CCCAGG, Order Book L2, OHLC, and Top of Book channels.
+      - name: News aggregation with sentiment
+        description: Crypto-native news across hundreds of sources with category tagging and POSITIVE / NEUTRAL / NEGATIVE sentiment.
+      - name: Per-coin social statistics
+        description: Aggregated Twitter, Reddit, Facebook, and source-repo engagement metrics.
+      - name: On-chain blockchain data
+        description: Transaction count, active addresses, hashrate, difficulty, and balance distribution across 30+ chains.
+      - name: Exchange Benchmark grading
+        description: Quantitative exchange ranking (AA / A / B / C / D / E / F) across Legal, KYC, Security, and Market Quality dimensions.
+  - type: UseCases
+    data:
+      - name: Retail price ticker and portfolio dashboard
+        description: Aggregate CCCAGG prices into consumer apps and dashboards.
+      - name: Trading strategy backtest
+        description: Pull minute / hour / day OHLCV history for systematic strategy research.
+      - name: Institutional mark-to-market
+        description: Value digital-asset books against CADLI reference rates.
+      - name: Derivatives settlement
+        description: Settle futures and options against CCIX index family.
+      - name: Crypto news aggregator
+        description: Build sentiment-tagged news products and research dashboards.
+      - name: On-chain analytics
+        description: Drive treasury, supply, and address dashboards across major chains.
+      - name: Exchange selection and risk monitoring
+        description: Use the Exchange Benchmark to qualify integrated venues.
+  - type: Integrations
+    data:
+      - name: Apipheny / Google Sheets
+        description: Pull CryptoCompare data into spreadsheets via the Apipheny add-on.
+      - name: Chainlink External Adapters
+        description: Community Chainlink adapter wraps CryptoCompare endpoints for oracle consumption.
+      - name: TradingView
+        description: Charting libraries and React TradingView integrations consume the CryptoCompare WebSocket for live charts.
+      - name: Node-RED
+        description: Community Node-RED nodes wrap CryptoCompare endpoints for low-code automation.
+      - name: Apache Kafka / streaming pipelines
+        description: WebSocket streamer is commonly fanned out into Kafka topics for analytics.
+  - type: Solutions
+    data:
+      - name: Real-time market data
+        description: Price, Ticker, Order Book, and OHLC streaming for live trading interfaces.
+      - name: Historical and reference data
+        description: Minute / hour / day OHLCV history plus tick-level history for institutional tiers.
+      - name: Indices and reference rates
+        description: CADLI / CCIX / CCIXBE for regulated mark-to-market and settlement.
+      - name: News and research
+        description: Aggregated crypto news with sentiment, source feeds, and category taxonomy.
+      - name: On-chain and analytics
+        description: Chain-level supply, address, and transaction metrics for analytics platforms.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

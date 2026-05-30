@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.cryptocompare.com/schemas/cryptocompare/orderbookl1.json",
+  "title": "CryptoCompare Order Book Top",
+  "description": "Top-of-book (L1) entry returned by data-api /spot/v1/latest/orderbook/l1/top and min-api /v2/ob/l1/top.",
+  "type": "object",
+  "required": ["MARKET", "INSTRUMENT", "BEST_BID", "BEST_ASK"],
+  "properties": {
+    "TYPE": {"type": "string"},
+    "MARKET": {"type": "string"},
+    "INSTRUMENT": {"type": "string"},
+    "MAPPED_INSTRUMENT": {"type": "string"},
+    "BEST_BID": {"type": "number"},
+    "BEST_BID_QUANTITY": {"type": "number"},
+    "BEST_BID_QUOTE_QUANTITY": {"type": "number"},
+    "BEST_BID_LAST_UPDATE_TS": {"type": "integer"},
+    "BEST_ASK": {"type": "number"},
+    "BEST_ASK_QUANTITY": {"type": "number"},
+    "BEST_ASK_QUOTE_QUANTITY": {"type": "number"},
+    "BEST_ASK_LAST_UPDATE_TS": {"type": "integer"}
+  }
+}

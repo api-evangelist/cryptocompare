@@ -1,0 +1,105 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: CryptoCompare
+providerId: cryptocompare
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Cryptocurrency
+  - Market Data
+description: >-
+  CryptoCompare meters access using a monthly call credit budget on top of
+  per-second / per-minute / per-hour / per-day request ceilings. Every REST
+  call deducts one or more credits depending on the endpoint weight; WebSocket
+  subscriptions are metered by subscription minute or per-channel volume.
+  Current request and credit remaining are returned in the streamer Welcome
+  envelope (TYPE 20) and on most REST responses via the RateLimit field. Above
+  the budget a 429 / "Rate limit exceeded" envelope is returned. Enterprise
+  tiers can negotiate custom ceilings.
+sources:
+  - https://developers.coindesk.com/pricing/
+  - https://min-api.cryptocompare.com/documentation
+  - https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
+responseCodes:
+  throttled: 429
+  unauthorized: 401
+limits:
+  - name: Free tier — Monthly call credits
+    scope: account
+    metric: call_credits
+    limit: 100000
+    timeFrame: month
+    notes: One credit per typical REST call; heavier endpoints (e.g. /pricemultifull with many pairs) deduct more credits.
+  - name: Free tier — REST requests per second
+    scope: account
+    metric: requests_per_second
+    limit: 30
+    timeFrame: second
+    notes: Reflected as RATELIMIT_MAX_SECOND in streamer Welcome envelope.
+  - name: Free tier — REST requests per minute
+    scope: account
+    metric: requests_per_minute
+    limit: 60
+    timeFrame: minute
+    notes: Reflected as RATELIMIT_MAX_MINUTE in streamer Welcome envelope.
+  - name: Free tier — REST requests per hour
+    scope: account
+    metric: requests_per_hour
+    limit: 1200
+    timeFrame: hour
+  - name: Free tier — REST requests per day
+    scope: account
+    metric: requests_per_day
+    limit: 10000
+    timeFrame: day
+  - name: Free tier — REST requests per month
+    scope: account
+    metric: requests_per_month
+    limit: 20000
+    timeFrame: month
+    notes: Free tier defaults; commercial tiers raise this and increase the call-credit budget.
+  - name: Commercial Starter — Monthly call credits
+    scope: account
+    metric: call_credits
+    limit: 5000000
+    timeFrame: month
+  - name: Commercial Professional — Monthly call credits
+    scope: account
+    metric: call_credits
+    limit: 25000000
+    timeFrame: month
+  - name: Enterprise — Monthly call credits
+    scope: account
+    metric: call_credits
+    limit: -1
+    timeFrame: month
+    notes: Negotiated per-contract; -1 indicates uncapped or custom.
+  - name: WebSocket — Max sockets per client
+    scope: account
+    metric: connections
+    limit: 5
+    timeFrame: concurrent
+    notes: Free tier opens 1 socket; commercial tiers open up to 5 concurrent sockets.
+  - name: WebSocket — Max subscriptions per socket
+    scope: socket
+    metric: subscriptions
+    limit: 200
+    timeFrame: concurrent
+    notes: Returned in TYPE 429 messages with MESSAGE TOO_MANY_SUBSCRIPTIONS_MAX_{X}_PER_SOCKET.
+policies:
+  - name: Backoff
+    description: Honor 429 responses with exponential backoff and jitter; respect the RateLimit envelope returned with each REST response.
+  - name: Credit-aware design
+    description: Reuse pricemultifull bulk calls in place of N individual price calls; cache static data (coinlist, exchanges general).
+  - name: Streaming preferred
+    description: Subscribe to WebSocket channels (Trade, Ticker, CCCAGG, OHLC) for high-frequency monitoring instead of REST polling.
+  - name: Heartbeat tracking
+    description: Track the TYPE 999 heartbeat; reconnect after missing two heartbeats and wait at least 5 seconds before reconnecting.
+  - name: Welcome envelope inspection
+    description: Inspect the streamer Welcome envelope (TYPE 20) on each connect to learn current SOCKETS_REMAINING and RATELIMIT_REMAINING_* values.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

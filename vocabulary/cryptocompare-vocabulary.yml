@@ -1,0 +1,47 @@
+name: CryptoCompare Domain Vocabulary
+provider: CryptoCompare
+providerId: cryptocompare
+description: Tag-derived vocabulary for the CryptoCompare / CoinDesk Data API surface; sourced from openapi/ tags and asyncapi/ channels.
+terms:
+- term: Price
+  description: Real-time and historical single-symbol and multi-symbol price endpoints. Defaults to the CCCAGG aggregate index.
+- term: Historical
+  description: Historical OHLCV candle endpoints by minute, hour, and day. Includes both legacy v2/histo* and modern data-api spot/historical/* surfaces.
+- term: Top Lists
+  description: Ranked endpoints by 24-hour volume, market cap, pair volume, and exchange volume.
+- term: News
+  description: Aggregated crypto news articles, sources, and categories with multi-language support and sentiment tagging.
+- term: Social
+  description: Per-coin social engagement metrics across CryptoCompare community, Twitter, Reddit, Facebook, and source repositories.
+- term: Order Book
+  description: L1 top-of-book best bid and best ask data across integrated exchanges; full L2 snapshots and deltas are available on the WebSocket streamer.
+- term: Exchanges
+  description: Exchange reference data including operational metadata, country, centralization type, and CCData Exchange Benchmark grade.
+- term: Coins
+  description: Full coin list including identification, supply, classification, and CCData taxonomy.
+- term: Blockchain
+  description: On-chain metrics including transaction count, active addresses, hashrate, difficulty, and balance distribution.
+- term: Spot
+  description: Spot market data for trades, ticks, OHLCV, instrument metadata, and order book L1 across 300+ integrated exchanges.
+- term: Index
+  description: CoinDesk Indices (CADLI, CCIX, CCIXBE) latest tick, historical OHLC, and constituent composition.
+- term: Asset
+  description: Asset reference data including supply, classifications, consensus mechanism, industries, and supported platforms.
+- term: On-Chain
+  description: Modernized on-chain metrics surface in the CoinDesk Data API; daily history of supply, active addresses, and chain-specific indicators.
+- term: Futures
+  description: Futures market data across integrated derivatives venues.
+- term: Options
+  description: Options market data across integrated derivatives venues.
+- term: Overview
+  description: Cross-cutting overview endpoints including total market cap, dominance, and aggregated stats.
+- term: Streaming
+  description: Real-time WebSocket subscriptions for Trade, Ticker, CCCAGG, OrderBook L2, Full Volume, OHLC Candles, and Top of Book channels.
+- term: CCCAGG
+  description: CryptoCompare's flagship cross-exchange aggregate index used as the default source on price endpoints.
+- term: CADLI
+  description: CoinDesk Aggregated Digital Asset Liquidity Index. Volume-weighted, exchange-resilient real-time price for institutional reference pricing.
+- term: CCIX
+  description: CoinDesk Cryptocurrency Index family; benchmark prices across spot markets.
+- term: Exchange Benchmark
+  description: CryptoCompare's exchange ranking methodology (grades AA, A, B, C, D, E, F) covering Legal, KYC, Team, Data, Asset Quality, Market Quality, and Security.

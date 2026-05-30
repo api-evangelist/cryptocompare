@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.cryptocompare.com/schemas/cryptocompare/socialstats.json",
+  "title": "CryptoCompare Social Stats",
+  "description": "Aggregated social engagement metrics for a coin returned by min-api /social/coin/latest. Covers CryptoCompare community, Twitter, Reddit, Facebook, and source-code repositories.",
+  "type": "object",
+  "properties": {
+    "General": {
+      "type": "object",
+      "properties": {
+        "Points": {"type": "integer"},
+        "Name": {"type": "string"},
+        "CoinName": {"type": "string"},
+        "Type": {"type": "string"}
+      }
+    },
+    "CryptoCompare": {
+      "type": "object",
+      "properties": {
+        "Points": {"type": "integer"},
+        "Followers": {"type": "integer"},
+        "Posts": {"type": "integer"},
+        "Comments": {"type": "integer"},
+        "PageViews": {"type": "integer"},
+        "PageViewsSplit": {"type": "object"}
+      }
+    },
+    "Twitter": {
+      "type": "object",
+      "properties": {
+        "followers": {"type": "integer"},
+        "following": {"type": "integer"},
+        "statuses": {"type": "integer"},
+        "lists": {"type": "integer"},
+        "favourites": {"type": "integer"},
+        "Points": {"type": "integer"},
+        "account_creation": {"type": "integer"},
+        "name": {"type": "string"},
+        "link": {"type": "string"}
+      }
+    },
+    "Reddit": {
+      "type": "object",
+      "properties": {
+        "subscribers": {"type": "integer"},
+        "active_users": {"type": "integer"},
+        "community_creation": {"type": "integer"},
+        "posts_per_hour": {"type": "number"},
+        "posts_per_day": {"type": "number"},
+        "comments_per_hour": {"type": "number"},
+        "comments_per_day": {"type": "number"},
+        "Points": {"type": "integer"},
+        "name": {"type": "string"},
+        "link": {"type": "string"}
+      }
+    },
+    "Facebook": {"type": "object"},
+    "CodeRepository": {
+      "type": "object",
+      "properties": {
+        "Points": {"type": "integer"},
+        "List": {"type": "array", "items": {"type": "object"}}
+      }
+    }
+  }
+}

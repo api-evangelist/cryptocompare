@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR",
+    "headers": {
+      "Authorization": "Apikey {YOUR_API_KEY}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {"Content-Type": "application/json"},
+    "body": {
+      "USD": 73826.5,
+      "EUR": 63304.20
+    }
+  }
+}

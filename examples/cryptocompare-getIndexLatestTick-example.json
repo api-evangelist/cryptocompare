@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://data-api.cryptocompare.com/index/cc/v1/latest/tick?market=cadli&instruments=BTC-USD,ETH-USD",
+    "headers": {
+      "Authorization": "Apikey {YOUR_API_KEY}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "Data": {
+        "BTC-USD": {
+          "TYPE": "266",
+          "MARKET": "cadli",
+          "INSTRUMENT": "BTC-USD",
+          "CCSEQ": 1320983773,
+          "VALUE": 73838.87,
+          "VALUE_FLAG": "DOWN",
+          "VALUE_LAST_UPDATE_TS": 1780159779,
+          "CURRENT_HOUR_OPEN": 73834.77,
+          "CURRENT_HOUR_HIGH": 73894.54,
+          "CURRENT_HOUR_LOW": 73801.00,
+          "CURRENT_HOUR_CHANGE": 4.10,
+          "CURRENT_HOUR_CHANGE_PERCENTAGE": 0.0056,
+          "CURRENT_DAY_OPEN": 73370.02,
+          "CURRENT_DAY_HIGH": 73999.77,
+          "CURRENT_DAY_LOW": 73133.80,
+          "CURRENT_DAY_CHANGE": 468.85,
+          "CURRENT_DAY_CHANGE_PERCENTAGE": 0.639,
+          "MOVING_24_HOUR_CHANGE_PERCENTAGE": -0.18
+        }
+      }
+    }
+  }
+}

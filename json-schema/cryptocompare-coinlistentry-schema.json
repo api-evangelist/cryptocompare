@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.cryptocompare.com/schemas/cryptocompare/coinlistentry.json",
+  "title": "CryptoCompare Coin List Entry",
+  "description": "Single coin record returned by min-api /all/coinlist. Includes asset identification, supply, classification, and CCData taxonomy.",
+  "type": "object",
+  "required": ["Id", "Name", "Symbol"],
+  "properties": {
+    "Id": {"type": "string", "description": "Internal CryptoCompare coin ID."},
+    "Url": {"type": "string"},
+    "ImageUrl": {"type": "string"},
+    "ContentCreatedOn": {"type": "integer"},
+    "Name": {"type": "string"},
+    "Symbol": {"type": "string"},
+    "CoinName": {"type": "string"},
+    "FullName": {"type": "string"},
+    "Description": {"type": "string"},
+    "AssetTokenStatus": {"type": "string"},
+    "Algorithm": {"type": "string", "description": "Hashing algorithm (SHA-256, Ethash, etc.)."},
+    "ProofType": {"type": "string", "description": "Consensus mechanism (PoW, PoS, DPoS, etc.)."},
+    "SortOrder": {"type": "string"},
+    "Sponsored": {"type": "boolean"},
+    "Taxonomy": {
+      "type": "object",
+      "properties": {
+        "Access": {"type": "string"},
+        "FCA": {"type": "string"},
+        "FINMA": {"type": "string"},
+        "Industry": {"type": "string"},
+        "CollateralizedAsset": {"type": "string"},
+        "CollateralizedAssetType": {"type": "string"},
+        "CollateralType": {"type": "string"},
+        "CollateralInfo": {"type": "string"}
+      }
+    },
+    "Rating": {
+      "type": "object",
+      "properties": {
+        "Weiss": {
+          "type": "object",
+          "properties": {
+            "Rating": {"type": "string"},
+            "TechnologyAdoptionRating": {"type": "string"},
+            "MarketPerformanceRating": {"type": "string"}
+          }
+        }
+      }
+    },
+    "IsTrading": {"type": "boolean"}
+  }
+}

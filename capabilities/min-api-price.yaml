@@ -1,0 +1,142 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CryptoCompare min-api — Price
+  description: 'CryptoCompare min-api Price surface. Real-time single/multi/historical price endpoints, plus custom average. Self-contained Naftiko capability.'
+  tags:
+  - CryptoCompare
+  - Price
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    CRYPTOCOMPARE_API_KEY: CRYPTOCOMPARE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: min-api-price
+    baseUri: https://min-api.cryptocompare.com/data
+    description: CryptoCompare min-api Price business capability.
+    headers:
+    - name: Authorization
+      value: 'Apikey {{env.CRYPTOCOMPARE_API_KEY}}'
+    resources:
+    - name: price
+      path: /price
+      operations:
+      - name: getsinglesymbolprice
+        method: GET
+        description: Get latest aggregated price for a single source symbol against one or more quote symbols.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fsym
+          in: query
+          type: string
+          required: true
+          description: From-symbol (base cryptocurrency), e.g. BTC.
+        - name: tsyms
+          in: query
+          type: string
+          required: true
+          description: Comma-separated to-symbols (quote currencies), e.g. USD,EUR.
+        - name: e
+          in: query
+          type: string
+          description: Source exchange (default CCCAGG aggregate index).
+        - name: tryConversion
+          in: query
+          type: boolean
+          description: Disable multi-hop conversion when no direct pair exists.
+    - name: pricemulti
+      path: /pricemulti
+      operations:
+      - name: getmultiplesymbolsprice
+        method: GET
+        description: Get latest aggregated prices for multiple from-symbols and quote currencies in one call.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fsyms
+          in: query
+          type: string
+          required: true
+        - name: tsyms
+          in: query
+          type: string
+          required: true
+    - name: pricemultifull
+      path: /pricemultifull
+      operations:
+      - name: getmultiplesymbolsfullprice
+        method: GET
+        description: Get full ticker data (price, 24h volume, high, low, open, change, market cap) for multiple pairs.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fsyms
+          in: query
+          type: string
+          required: true
+        - name: tsyms
+          in: query
+          type: string
+          required: true
+    - name: pricehistorical
+      path: /pricehistorical
+      operations:
+      - name: getpricehistorical
+        method: GET
+        description: Get the price of a cryptocurrency at a given historical timestamp.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fsym
+          in: query
+          type: string
+          required: true
+        - name: tsyms
+          in: query
+          type: string
+          required: true
+        - name: ts
+          in: query
+          type: integer
+          description: Unix timestamp (seconds).
+    - name: generateavg
+      path: /generateAvg
+      operations:
+      - name: getcustomaverage
+        method: GET
+        description: Compute a CUSTOMAGG average price across a chosen set of exchanges.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fsym
+          in: query
+          type: string
+          required: true
+        - name: tsym
+          in: query
+          type: string
+          required: true
+        - name: e
+          in: query
+          type: string
+          required: true
+          description: Comma-separated list of exchanges to include.

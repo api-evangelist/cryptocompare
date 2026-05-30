@@ -1,0 +1,149 @@
+extends:
+  - spectral:oas
+
+# Spectral linting rules for the CryptoCompare / CoinDesk Data APIs
+# (min-api legacy and data-api modern). Tuned to min-api.cryptocompare.com
+# and data-api.cryptocompare.com host conventions, query-string and
+# Authorization-header API key auth, /data/v2/ and /spot/v1/ versioned
+# path conventions, and the documented {Response, Message, Type, Data}
+# envelope.
+rules:
+  cryptocompare-info-contact:
+    description: API contact information must be present.
+    severity: error
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  cryptocompare-info-license:
+    description: Info object should declare a license.
+    severity: warn
+    given: "$.info"
+    then:
+      field: license
+      function: truthy
+
+  cryptocompare-terms-of-service:
+    description: termsOfService must reference cryptocompare.com or coindesk.com.
+    severity: warn
+    given: "$.info.termsOfService"
+    then:
+      function: pattern
+      functionOptions:
+        match: "(cryptocompare\\.com|coindesk\\.com)"
+
+  cryptocompare-server-https:
+    description: All server URLs must use HTTPS.
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  cryptocompare-server-host:
+    description: Server URLs must point to a known CryptoCompare / CoinDesk Data host.
+    severity: warn
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "(min-api\\.cryptocompare\\.com|data-api\\.cryptocompare\\.com|streamer\\.cryptocompare\\.com)"
+
+  cryptocompare-security-defined:
+    description: APIs must declare a security scheme (apiKey query or Apikey header).
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      function: truthy
+
+  cryptocompare-security-apikey-shape:
+    description: Security schemes should be apiKey with name api_key (query) or Authorization (header).
+    severity: warn
+    given: "$.components.securitySchemes[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - type
+          properties:
+            type:
+              enum: [apiKey]
+
+  cryptocompare-tag-titlecase:
+    description: Tag names must use Title Case.
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][A-Za-z0-9]*( [A-Z][A-Za-z0-9]*)*$"
+
+  cryptocompare-operation-id:
+    description: Every operation must have an operationId.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: operationId
+      function: truthy
+
+  cryptocompare-operation-summary:
+    description: Every operation must have a summary in Title Case.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: summary
+      function: truthy
+
+  cryptocompare-operation-summary-titlecase:
+    description: Operation summaries should be Title Case (allowing prepositions and articles).
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,options,head].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  cryptocompare-operation-description:
+    description: Every operation must have a description.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: description
+      function: truthy
+
+  cryptocompare-operation-tags:
+    description: Every operation must declare at least one tag.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: tags
+      function: truthy
+
+  cryptocompare-path-versioning:
+    description: Endpoint paths should be versioned (v1, v2, v3) or live under a top-level category.
+    severity: info
+    given: "$.paths.*~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/(v[0-9]+/|data/v[0-9]+/|spot/|index/|asset/|news/|onchain/|futures/|options/|overview/|price|pricemulti|pricemultifull|pricehistorical|generateAvg|top/|social/|exchanges/|all/|blockchain/)"
+
+  cryptocompare-from-symbol-uppercase:
+    description: fsym / fsyms / tsym / tsyms parameters should accept upper-case ticker symbols.
+    severity: info
+    given: "$.paths[*][get].parameters[?(@.name == 'fsym' || @.name == 'fsyms' || @.name == 'tsym' || @.name == 'tsyms')]"
+    then:
+      field: required
+      function: truthy
+
+  cryptocompare-error-envelope:
+    description: Error responses should reference the documented {Response, Message, Type, Data} envelope.
+    severity: info
+    given: "$.paths[*][get,post].responses['400','401','403','404','429','500']"
+    then:
+      field: content
+      function: truthy

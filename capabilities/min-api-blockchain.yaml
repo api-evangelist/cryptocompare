@@ -1,0 +1,96 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CryptoCompare min-api — Blockchain
+  description: On-chain blockchain data including latest day, daily history, balance distribution, and available coin list.
+  tags:
+  - CryptoCompare
+  - Blockchain
+  - On-Chain
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    CRYPTOCOMPARE_API_KEY: CRYPTOCOMPARE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: min-api-blockchain
+    baseUri: https://min-api.cryptocompare.com/data
+    description: CryptoCompare min-api Blockchain business capability.
+    headers:
+    - name: Authorization
+      value: 'Apikey {{env.CRYPTOCOMPARE_API_KEY}}'
+    resources:
+    - name: blockchain-list
+      path: /blockchain/list
+      operations:
+      - name: getblockchainavailablecoinlist
+        method: GET
+        description: Get the list of coins that have on-chain blockchain data available.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters: []
+    - name: blockchain-latest
+      path: /blockchain/latest
+      operations:
+      - name: getblockchainlatestday
+        method: GET
+        description: Get the latest day of on-chain data for a coin.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: fsym
+          in: query
+          type: string
+          required: true
+    - name: blockchain-histo-day
+      path: /blockchain/histo/day
+      operations:
+      - name: getblockchainhistoricaldaily
+        method: GET
+        description: Get daily on-chain history (transaction count, active addresses, hashrate, difficulty).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: fsym
+          in: query
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: toTs
+          in: query
+          type: integer
+    - name: blockchain-balancedistribution
+      path: /blockchain/balancedistribution/histo/day
+      operations:
+      - name: getblockchainbalancedistributiondaily
+        method: GET
+        description: Get daily on-chain balance distribution buckets for a coin.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: fsym
+          in: query
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: toTs
+          in: query
+          type: integer

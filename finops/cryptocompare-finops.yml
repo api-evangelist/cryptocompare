@@ -1,0 +1,95 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: CryptoCompare
+providerId: cryptocompare
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Cryptocurrency
+  - Market Data
+description: >-
+  FOCUS-aligned FinOps view of CryptoCompare / CoinDesk Data API spend.
+  Billing is subscription + metered overage: each plan grants a monthly call
+  credit allotment, and overage on commercial tiers is billed per credit.
+  Streaming socket-hours, reference-rate (CADLI, CCIX) licensing, and
+  on-demand bulk exports are billed as separate FOCUS service categories
+  under the same publisher.
+sources:
+  - https://developers.coindesk.com/pricing/
+  - https://www.cryptocompare.com/coins/guides/api-pricing-plans/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: CCData Ltd (CoinDesk Data)
+serviceCategory: Data Services
+billingModel:
+  pricingCategory: Subscription + Metered Overage
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Adjustment
+    - Refund
+focusColumns:
+  ServiceName: CryptoCompare API
+  ServiceCategory: Data Services
+  ProviderName: CryptoCompare
+  PublisherName: CCData Ltd
+  InvoiceIssuerName: CCData Ltd
+  BillingCurrency: USD
+meters:
+  - name: call_credits_consumed
+    unit: credit
+    aggregation: sum
+    dimensions:
+      - endpoint
+      - api_key
+      - plan_tier
+  - name: call_credits_remaining
+    unit: credit
+    aggregation: min
+    dimensions:
+      - account
+  - name: websocket_socket_hours
+    unit: hour
+    aggregation: sum
+    dimensions:
+      - api_key
+      - plan_tier
+  - name: websocket_subscription_minutes
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - channel_type
+      - instrument
+  - name: bulk_export_volume_gb
+    unit: GB
+    aggregation: sum
+    dimensions:
+      - export_type
+      - dataset
+  - name: reference_rate_licensed_indices
+    unit: index
+    aggregation: count
+    dimensions:
+      - index_family
+principles:
+  - name: Visibility
+    description: Inspect the RateLimit envelope on REST responses and the streamer Welcome envelope (TYPE 20) on each WebSocket connect to track current consumed and remaining credits. Aggregate by api_key and endpoint.
+  - name: Allocation
+    description: Issue one API key per product / environment to attribute credit consumption to a team or workload. Tag bulk exports and reference-rate licenses to the consuming desk.
+  - name: Optimization
+    description: Prefer bulk endpoints (pricemultifull, top/totalvolfull, /v2/news/) over N individual price calls; cache static reference data (/all/coinlist, /exchanges/general) locally; switch high-frequency monitoring from REST polling to WebSocket subscriptions to drop credit burn.
+  - name: Accountability
+    description: Trading and product teams own their per-key budgets. Finance reconciles monthly invoices against credit_consumed and overage. Renewal cycles align with the rolling 30-day usage trend.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,1356 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData)
+  description: >-
+    The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the
+    modern, institutional-grade replacement for the legacy min-api. It exposes a
+    consolidated surface across Spot markets (latest tick, instrument metadata,
+    historical OHLCV, trades, order book L1), CoinDesk Indices and Reference
+    Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset
+    metadata and overview, On-chain data, News articles, and Polling /
+    On-demand exports. Authentication uses an API key supplied either as the
+    api_key query parameter or as `Authorization: Apikey {apiKey}`. The base
+    URL is https://data-api.cryptocompare.com.
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction
+servers:
+  - url: https://data-api.cryptocompare.com
+    description: Production Server
+tags:
+  - name: Spot
+    description: Spot market data including latest tick, historical OHLCV, trades, order book L1, and instrument metadata.
+  - name: Index
+    description: CoinDesk Indices (CADLI, CCIX, CCIXBE) latest tick, historical values, and composition.
+  - name: Asset
+    description: Asset metadata, overview, supply, and reference data.
+  - name: News
+    description: Crypto news articles, sources, categories, and search.
+  - name: On-Chain
+    description: On-chain blockchain metrics aggregated across chains.
+  - name: Futures
+    description: Futures market data across integrated derivatives venues.
+  - name: Options
+    description: Options market data across integrated derivatives venues.
+  - name: Overview
+    description: Cross-cutting overview endpoints (market cap, dominance).
+security:
+  - apiKeyQuery: []
+  - apiKeyHeader: []
+paths:
+  /spot/v1/latest/tick:
+    get:
+      operationId: getSpotLatestTick
+      summary: Get Spot Latest Tick
+      description: >-
+        Returns the latest tick (trade or top-of-book update) for one or more
+        spot instruments on a given market.
+      tags:
+        - Spot
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentsParam'
+        - $ref: '#/components/parameters/GroupsParam'
+      responses:
+        '200':
+          description: Latest tick envelope per instrument.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpotTickResponse'
+  /spot/v2/markets:
+    get:
+      operationId: getSpotMarketsList
+      summary: List Spot Markets
+      description: Returns the list of integrated spot exchanges and their status.
+      tags:
+        - Spot
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+      responses:
+        '200':
+          description: Markets list envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketsListResponse'
+  /spot/v1/markets/instruments:
+    get:
+      operationId: getSpotInstrumentMetadata
+      summary: Get Spot Instrument Metadata
+      description: >-
+        Returns reference metadata for spot instruments on a given market
+        including base/quote symbols, tick sizes, status, and mapping.
+      tags:
+        - Spot
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentsParam'
+      responses:
+        '200':
+          description: Instrument metadata envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentMetadataResponse'
+  /spot/v1/historical/days:
+    get:
+      operationId: getSpotHistoricalDaily
+      summary: Get Spot Historical Daily OHLCV
+      description: >-
+        Returns daily OHLCV candles for a single spot instrument on a given
+        market, ordered ascending. Up to 2000 candles per call.
+      tags:
+        - Spot
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+        - $ref: '#/components/parameters/AggregateParam'
+        - $ref: '#/components/parameters/FillParam'
+        - $ref: '#/components/parameters/ApplyMappingParam'
+      responses:
+        '200':
+          description: Historical daily OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /spot/v1/historical/hours:
+    get:
+      operationId: getSpotHistoricalHourly
+      summary: Get Spot Historical Hourly OHLCV
+      description: Returns hourly OHLCV candles for a single spot instrument.
+      tags:
+        - Spot
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+        - $ref: '#/components/parameters/AggregateParam'
+      responses:
+        '200':
+          description: Historical hourly OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /spot/v1/historical/minutes:
+    get:
+      operationId: getSpotHistoricalMinute
+      summary: Get Spot Historical Minute OHLCV
+      description: Returns minute OHLCV candles for a single spot instrument.
+      tags:
+        - Spot
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+        - $ref: '#/components/parameters/AggregateParam'
+      responses:
+        '200':
+          description: Historical minute OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /spot/v1/historical/trades:
+    get:
+      operationId: getSpotHistoricalTrades
+      summary: Get Spot Historical Trades
+      description: Returns raw historical trade prints for a single spot instrument.
+      tags:
+        - Spot
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Trades envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TradesResponse'
+  /spot/v1/latest/orderbook/l1/top:
+    get:
+      operationId: getSpotOrderbookL1Top
+      summary: Get Spot Order Book L1 Top
+      description: >-
+        Returns the top of the order book (best bid and best ask) for one or
+        more spot instruments. Updated continuously.
+      tags:
+        - Spot
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentsParam'
+      responses:
+        '200':
+          description: L1 top of book envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderbookL1TopResponse'
+  /index/cc/v1/latest/tick:
+    get:
+      operationId: getIndexLatestTick
+      summary: Get Index Latest Tick
+      description: >-
+        Returns the latest tick for one or more CoinDesk indices on the chosen
+        index family (cadli, ccix, ccixbe). Includes current period stats.
+      tags:
+        - Index
+      parameters:
+        - $ref: '#/components/parameters/IndexMarketParam'
+        - $ref: '#/components/parameters/InstrumentsParam'
+        - $ref: '#/components/parameters/GroupsParam'
+      responses:
+        '200':
+          description: Latest index tick envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexTickResponse'
+  /index/cc/v1/historical/days:
+    get:
+      operationId: getIndexHistoricalDaily
+      summary: Get Index Historical Daily Values
+      description: Returns daily index OHLC values for a CoinDesk index instrument.
+      tags:
+        - Index
+      parameters:
+        - $ref: '#/components/parameters/IndexMarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Historical daily index envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /index/cc/v1/historical/hours:
+    get:
+      operationId: getIndexHistoricalHourly
+      summary: Get Index Historical Hourly Values
+      description: Returns hourly index OHLC values.
+      tags:
+        - Index
+      parameters:
+        - $ref: '#/components/parameters/IndexMarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Historical hourly index envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /index/cc/v1/historical/minutes:
+    get:
+      operationId: getIndexHistoricalMinute
+      summary: Get Index Historical Minute Values
+      description: Returns minute index OHLC values.
+      tags:
+        - Index
+      parameters:
+        - $ref: '#/components/parameters/IndexMarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Historical minute index envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /index/cc/v1/latest/instrument/composition:
+    get:
+      operationId: getIndexComposition
+      summary: Get Index Composition
+      description: >-
+        Returns the latest index value, divisor, constituent prices, supplies,
+        adjustment factors, volumes, and weights for a multi-asset index.
+      tags:
+        - Index
+      parameters:
+        - $ref: '#/components/parameters/IndexMarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+      responses:
+        '200':
+          description: Index composition envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexCompositionResponse'
+  /asset/v1/top/list:
+    get:
+      operationId: getAssetTopList
+      summary: Get Asset Top List
+      description: >-
+        Returns the top assets ranked by selected metric (market cap, volume).
+        Supports pagination.
+      tags:
+        - Asset
+      parameters:
+        - $ref: '#/components/parameters/LimitTopParam'
+        - $ref: '#/components/parameters/PageParam'
+        - name: sort_by
+          in: query
+          description: Sort field (CIRCULATING_MKT_CAP_USD, TOTAL_MKT_CAP_USD, SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD).
+          schema:
+            type: string
+        - name: sort_direction
+          in: query
+          description: Sort direction (ASC or DESC).
+          schema:
+            type: string
+            enum: [ASC, DESC]
+      responses:
+        '200':
+          description: Top asset list envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetTopListResponse'
+  /asset/v1/data/by/symbol:
+    get:
+      operationId: getAssetBySymbol
+      summary: Get Asset by Symbol
+      description: >-
+        Returns detailed asset metadata including supply, classifications,
+        consensus mechanism, social and source links for a single asset.
+      tags:
+        - Asset
+      parameters:
+        - name: asset_symbol
+          in: query
+          required: true
+          description: Asset symbol (e.g. BTC).
+          schema:
+            type: string
+        - name: asset_lookup_priority
+          in: query
+          description: Asset lookup priority (SYMBOL or ID).
+          schema:
+            type: string
+            default: SYMBOL
+      responses:
+        '200':
+          description: Asset detail envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDataResponse'
+  /asset/v1/historical/supply/days:
+    get:
+      operationId: getAssetHistoricalSupplyDaily
+      summary: Get Asset Historical Supply Daily
+      description: Returns daily history of asset supply (circulating, total, max).
+      tags:
+        - Asset
+      parameters:
+        - name: asset
+          in: query
+          required: true
+          description: Asset symbol or ID.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Daily supply history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetSupplyHistoryResponse'
+  /news/v1/article/list:
+    get:
+      operationId: getNewsArticleList
+      summary: Get News Article List
+      description: >-
+        Returns the most recent news articles aggregated across integrated
+        sources. Supports filtering by language, source, category, search
+        keyword, and timestamp.
+      tags:
+        - News
+      parameters:
+        - name: lang
+          in: query
+          description: ISO 639-1 language code (default EN).
+          schema:
+            type: string
+            default: EN
+        - name: source_ids
+          in: query
+          description: Comma-separated list of source IDs.
+          schema:
+            type: string
+        - name: source_key
+          in: query
+          description: Source key (e.g. coindesk).
+          schema:
+            type: string
+        - name: categories
+          in: query
+          description: Comma-separated list of category keys.
+          schema:
+            type: string
+        - name: exclude_categories
+          in: query
+          description: Comma-separated list of category keys to exclude.
+          schema:
+            type: string
+        - name: search_string
+          in: query
+          description: Full-text search query.
+          schema:
+            type: string
+        - name: to_ts
+          in: query
+          description: Upper bound timestamp (seconds).
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: News article list envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsArticleListResponse'
+  /news/v1/source/list:
+    get:
+      operationId: getNewsSourceList
+      summary: Get News Source List
+      description: Returns the list of integrated news sources.
+      tags:
+        - News
+      parameters:
+        - name: lang
+          in: query
+          description: Filter sources by language.
+          schema:
+            type: string
+        - name: source_type
+          in: query
+          description: Filter sources by type (RSS, TWITTER, API).
+          schema:
+            type: string
+      responses:
+        '200':
+          description: News source list envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsSourceListResponse'
+  /news/v1/category/list:
+    get:
+      operationId: getNewsCategoryList
+      summary: Get News Category List
+      description: Returns the list of news categories used for tagging articles.
+      tags:
+        - News
+      responses:
+        '200':
+          description: News category list envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsCategoryListResponse'
+  /onchain/v1/historical/supply/days:
+    get:
+      operationId: getOnchainHistoricalSupplyDaily
+      summary: Get On-Chain Historical Supply Daily
+      description: >-
+        Returns daily on-chain supply history (active, circulating, total) for
+        a given chain.
+      tags:
+        - On-Chain
+      parameters:
+        - name: chain_symbol
+          in: query
+          required: true
+          description: Chain symbol (e.g. BTC, ETH).
+          schema:
+            type: string
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: On-chain supply history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnchainSupplyHistoryResponse'
+  /onchain/v1/historical/active-addresses/days:
+    get:
+      operationId: getOnchainHistoricalActiveAddressesDaily
+      summary: Get On-Chain Historical Active Addresses Daily
+      description: Returns daily active address counts for a given chain.
+      tags:
+        - On-Chain
+      parameters:
+        - name: chain_symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Active addresses history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnchainMetricResponse'
+  /futures/v1/latest/tick:
+    get:
+      operationId: getFuturesLatestTick
+      summary: Get Futures Latest Tick
+      description: Returns the latest tick for futures instruments on a derivatives market.
+      tags:
+        - Futures
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentsParam'
+      responses:
+        '200':
+          description: Futures tick envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesTickResponse'
+  /futures/v1/historical/days:
+    get:
+      operationId: getFuturesHistoricalDaily
+      summary: Get Futures Historical Daily OHLCV
+      description: Returns daily OHLCV for a futures instrument.
+      tags:
+        - Futures
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Daily futures OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /options/v1/latest/tick:
+    get:
+      operationId: getOptionsLatestTick
+      summary: Get Options Latest Tick
+      description: Returns the latest tick for options instruments on a derivatives market.
+      tags:
+        - Options
+      parameters:
+        - $ref: '#/components/parameters/MarketParam'
+        - $ref: '#/components/parameters/InstrumentsParam'
+      responses:
+        '200':
+          description: Options tick envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionsTickResponse'
+  /overview/v1/historical/marketcap/all-assets/days:
+    get:
+      operationId: getOverviewHistoricalMarketCapDaily
+      summary: Get Overview Historical Total Market Cap Daily
+      description: >-
+        Returns daily history of total crypto market capitalization across all
+        tracked assets.
+      tags:
+        - Overview
+      parameters:
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+        - name: quote_asset
+          in: query
+          description: Quote asset for the market cap (default USD).
+          schema:
+            type: string
+            default: USD
+      responses:
+        '200':
+          description: Overview market-cap history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverviewMarketCapResponse'
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: "API key supplied as `Authorization: Apikey {apiKey}`."
+  parameters:
+    MarketParam:
+      name: market
+      in: query
+      required: true
+      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
+      schema:
+        type: string
+    IndexMarketParam:
+      name: market
+      in: query
+      required: true
+      description: Index family (cadli, ccix, ccixbe).
+      schema:
+        type: string
+        enum: [cadli, ccix, ccixbe]
+    InstrumentParam:
+      name: instrument
+      in: query
+      required: true
+      description: Single instrument identifier (e.g. BTC-USD).
+      schema:
+        type: string
+    InstrumentsParam:
+      name: instruments
+      in: query
+      required: true
+      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
+      schema:
+        type: string
+    GroupsParam:
+      name: groups
+      in: query
+      description: Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME).
+      schema:
+        type: string
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return.
+      schema:
+        type: integer
+        default: 50
+        maximum: 100
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-indexed).
+      schema:
+        type: integer
+        default: 1
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    AggregateParam:
+      name: aggregate
+      in: query
+      description: Time-period aggregation factor.
+      schema:
+        type: integer
+        default: 1
+    FillParam:
+      name: fill
+      in: query
+      description: Fill empty periods with zero-volume candles.
+      schema:
+        type: boolean
+        default: true
+    ApplyMappingParam:
+      name: apply_mapping
+      in: query
+      description: Apply asset/instrument mapping for renames.
+      schema:
+        type: boolean
+        default: true
+  schemas:
+    Envelope:
+      type: object
+      properties:
+        Data:
+          type: object
+        Err:
+          type: object
+          properties:
+            type:
+              type: integer
+            message:
+              type: string
+            other_info:
+              type: object
+    SpotTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SpotTick'
+        Err:
+          type: object
+    SpotTick:
+      type: object
+      properties:
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        INSTRUMENT:
+          type: string
+        CCSEQ:
+          type: integer
+          format: int64
+        PRICE:
+          type: number
+        PRICE_LAST_UPDATE_TS:
+          type: integer
+          format: int64
+        VOLUME:
+          type: number
+        QUOTE_VOLUME:
+          type: number
+        VOLUME_TOP_TIER:
+          type: number
+        QUOTE_VOLUME_TOP_TIER:
+          type: number
+        CURRENT_HOUR_VOLUME:
+          type: number
+        CURRENT_HOUR_QUOTE_VOLUME:
+          type: number
+        CURRENT_HOUR_OPEN:
+          type: number
+        CURRENT_HOUR_HIGH:
+          type: number
+        CURRENT_HOUR_LOW:
+          type: number
+        CURRENT_HOUR_CHANGE:
+          type: number
+        CURRENT_HOUR_CHANGE_PERCENTAGE:
+          type: number
+        CURRENT_DAY_OPEN:
+          type: number
+        CURRENT_DAY_HIGH:
+          type: number
+        CURRENT_DAY_LOW:
+          type: number
+        CURRENT_DAY_CHANGE:
+          type: number
+        CURRENT_DAY_CHANGE_PERCENTAGE:
+          type: number
+        MOVING_24_HOUR_VOLUME:
+          type: number
+        MOVING_24_HOUR_QUOTE_VOLUME:
+          type: number
+        MOVING_24_HOUR_OPEN:
+          type: number
+        MOVING_24_HOUR_HIGH:
+          type: number
+        MOVING_24_HOUR_LOW:
+          type: number
+        MOVING_24_HOUR_CHANGE:
+          type: number
+        MOVING_24_HOUR_CHANGE_PERCENTAGE:
+          type: number
+        LIFETIME_FIRST_TRADE_TS:
+          type: integer
+          format: int64
+        LIFETIME_HIGH:
+          type: number
+        LIFETIME_LOW:
+          type: number
+    MarketsListResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              EXCHANGE_STATUS:
+                type: string
+              MAPPED_INSTRUMENTS_TOTAL:
+                type: integer
+              UNMAPPED_INSTRUMENTS_TOTAL:
+                type: integer
+              INSTRUMENT_STATUS:
+                type: object
+              TOTAL_TRADES_SPOT:
+                type: integer
+              HAS_ORDERBOOK_L2_MINUTE_SNAPSHOTS_ENABLED:
+                type: boolean
+    InstrumentMetadataResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              METADATA_VERSION:
+                type: integer
+              INSTRUMENT_STATUS:
+                type: string
+              INSTRUMENT:
+                type: string
+              HISTO_SHARD:
+                type: string
+              MAPPED_INSTRUMENT:
+                type: string
+              INSTRUMENT_MAPPING:
+                type: object
+              HAS_TRADES_SPOT:
+                type: boolean
+              FIRST_TRADE_SPOT_TIMESTAMP:
+                type: integer
+                format: int64
+              LAST_TRADE_SPOT_TIMESTAMP:
+                type: integer
+                format: int64
+              TOTAL_TRADES_SPOT:
+                type: integer
+    HistoricalOHLCVResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoricalOHLCVRow'
+        Err:
+          type: object
+    HistoricalOHLCVRow:
+      type: object
+      properties:
+        UNIT:
+          type: string
+          enum: [MINUTE, HOUR, DAY]
+        TIMESTAMP:
+          type: integer
+          format: int64
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        INSTRUMENT:
+          type: string
+        MAPPED_INSTRUMENT:
+          type: string
+        BASE:
+          type: string
+        QUOTE:
+          type: string
+        OPEN:
+          type: number
+        HIGH:
+          type: number
+        LOW:
+          type: number
+        CLOSE:
+          type: number
+        FIRST_TRADE_TIMESTAMP:
+          type: integer
+          format: int64
+        LAST_TRADE_TIMESTAMP:
+          type: integer
+          format: int64
+        FIRST_TRADE_PRICE:
+          type: number
+        HIGH_TRADE_PRICE:
+          type: number
+        LOW_TRADE_PRICE:
+          type: number
+        LAST_TRADE_PRICE:
+          type: number
+        VOLUME:
+          type: number
+        QUOTE_VOLUME:
+          type: number
+        VOLUME_BUY:
+          type: number
+        QUOTE_VOLUME_BUY:
+          type: number
+        VOLUME_SELL:
+          type: number
+        QUOTE_VOLUME_SELL:
+          type: number
+        TOTAL_TRADES:
+          type: integer
+        TOTAL_TRADES_BUY:
+          type: integer
+        TOTAL_TRADES_SELL:
+          type: integer
+        TOTAL_TRADES_UNKNOWN:
+          type: integer
+    TradesResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              MARKET:
+                type: string
+              INSTRUMENT:
+                type: string
+              MAPPED_INSTRUMENT:
+                type: string
+              SIDE:
+                type: string
+                enum: [BUY, SELL, UNKNOWN]
+              ID:
+                type: string
+              TIMESTAMP:
+                type: integer
+                format: int64
+              TIMESTAMP_NS:
+                type: integer
+              RECEIVED_TIMESTAMP:
+                type: integer
+                format: int64
+              QUANTITY:
+                type: number
+              PRICE:
+                type: number
+              QUOTE_QUANTITY:
+                type: number
+              CCSEQ:
+                type: integer
+                format: int64
+    OrderbookL1TopResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              MARKET:
+                type: string
+              INSTRUMENT:
+                type: string
+              BEST_BID:
+                type: number
+              BEST_BID_QUANTITY:
+                type: number
+              BEST_ASK:
+                type: number
+              BEST_ASK_QUANTITY:
+                type: number
+              BEST_BID_LAST_UPDATE_TS:
+                type: integer
+                format: int64
+              BEST_ASK_LAST_UPDATE_TS:
+                type: integer
+                format: int64
+    IndexTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IndexTick'
+    IndexTick:
+      type: object
+      properties:
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        INSTRUMENT:
+          type: string
+        CCSEQ:
+          type: integer
+          format: int64
+        VALUE:
+          type: number
+        VALUE_FLAG:
+          type: string
+          enum: [UP, DOWN, UNCHANGED]
+        VALUE_LAST_UPDATE_TS:
+          type: integer
+          format: int64
+        CURRENT_HOUR_OPEN:
+          type: number
+        CURRENT_HOUR_HIGH:
+          type: number
+        CURRENT_HOUR_LOW:
+          type: number
+        CURRENT_HOUR_CHANGE:
+          type: number
+        CURRENT_HOUR_CHANGE_PERCENTAGE:
+          type: number
+        CURRENT_DAY_OPEN:
+          type: number
+        CURRENT_DAY_HIGH:
+          type: number
+        CURRENT_DAY_LOW:
+          type: number
+        CURRENT_DAY_CHANGE:
+          type: number
+        CURRENT_DAY_CHANGE_PERCENTAGE:
+          type: number
+        CURRENT_DAY_VOLUME:
+          type: number
+        CURRENT_DAY_QUOTE_VOLUME:
+          type: number
+        LIFETIME_HIGH:
+          type: number
+        LIFETIME_LOW:
+          type: number
+        LIFETIME_FIRST_TRADE_TS:
+          type: integer
+          format: int64
+    IndexCompositionResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            INSTRUMENT:
+              type: string
+            MARKET:
+              type: string
+            VALUE:
+              type: number
+            DIVISOR:
+              type: number
+            CONSTITUENTS:
+              type: array
+              items:
+                type: object
+                properties:
+                  ASSET:
+                    type: string
+                  PRICE:
+                    type: number
+                  SUPPLY:
+                    type: number
+                  ADJUSTMENT_FACTOR:
+                    type: number
+                  VOLUME:
+                    type: number
+                  WEIGHT:
+                    type: number
+    AssetTopListResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            STATS:
+              type: object
+            LIST:
+              type: array
+              items:
+                $ref: '#/components/schemas/AssetSummary'
+    AssetSummary:
+      type: object
+      properties:
+        ID:
+          type: integer
+        SYMBOL:
+          type: string
+        ASSET_TYPE:
+          type: string
+        NAME:
+          type: string
+        LOGO_URL:
+          type: string
+        LAUNCH_DATE:
+          type: integer
+          format: int64
+        CIRCULATING_MKT_CAP_USD:
+          type: number
+        TOTAL_MKT_CAP_USD:
+          type: number
+        SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD:
+          type: number
+        PRICE_USD:
+          type: number
+        SUPPLY_CIRCULATING:
+          type: number
+        SUPPLY_MAX:
+          type: number
+    AssetDataResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            ID:
+              type: integer
+            SYMBOL:
+              type: string
+            ASSET_TYPE:
+              type: string
+            NAME:
+              type: string
+            LOGO_URL:
+              type: string
+            LAUNCH_DATE:
+              type: integer
+              format: int64
+            DESCRIPTION:
+              type: string
+            CONSENSUS_MECHANISMS:
+              type: array
+              items:
+                type: object
+            HASHING_ALGORITHMS:
+              type: array
+              items:
+                type: object
+            SUPPLY_MAX:
+              type: number
+            SUPPLY_TOTAL:
+              type: number
+            SUPPLY_CIRCULATING:
+              type: number
+            SUPPLY_STAKED:
+              type: number
+            ASSET_INDUSTRIES:
+              type: array
+              items:
+                type: object
+            SUPPORTED_PLATFORMS:
+              type: array
+              items:
+                type: object
+            CLASSIFICATIONS:
+              type: array
+              items:
+                type: object
+    AssetSupplyHistoryResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              ASSET_SYMBOL:
+                type: string
+              SUPPLY_CIRCULATING:
+                type: number
+              SUPPLY_TOTAL:
+                type: number
+              SUPPLY_MAX:
+                type: number
+              SUPPLY_STAKED:
+                type: number
+    NewsArticleListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'
+        Err:
+          type: object
+    NewsArticle:
+      type: object
+      properties:
+        TYPE:
+          type: string
+        ID:
+          type: integer
+        GUID:
+          type: string
+        PUBLISHED_ON:
+          type: integer
+          format: int64
+        IMAGE_URL:
+          type: string
+        TITLE:
+          type: string
+        SUBTITLE:
+          type: string
+        AUTHORS:
+          type: string
+        URL:
+          type: string
+        SOURCE_ID:
+          type: integer
+        BODY:
+          type: string
+        KEYWORDS:
+          type: string
+        LANG:
+          type: string
+        UPVOTES:
+          type: integer
+        DOWNVOTES:
+          type: integer
+        SCORE:
+          type: integer
+        SENTIMENT:
+          type: string
+          enum: [POSITIVE, NEUTRAL, NEGATIVE]
+        STATUS:
+          type: string
+        CREATED_ON:
+          type: integer
+          format: int64
+        SOURCE_DATA:
+          type: object
+        CATEGORY_DATA:
+          type: array
+          items:
+            type: object
+    NewsSourceListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              ID:
+                type: integer
+              SOURCE_KEY:
+                type: string
+              NAME:
+                type: string
+              URL:
+                type: string
+              LANG:
+                type: string
+              SOURCE_TYPE:
+                type: string
+              LAUNCH_DATE:
+                type: integer
+                format: int64
+              BENCHMARK_SCORE:
+                type: number
+              STATUS:
+                type: string
+    NewsCategoryListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              ID:
+                type: integer
+              NAME:
+                type: string
+              CATEGORY:
+                type: string
+    OnchainSupplyHistoryResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              CHAIN_SYMBOL:
+                type: string
+              SUPPLY_CIRCULATING:
+                type: number
+              SUPPLY_TOTAL:
+                type: number
+              SUPPLY_BURNT:
+                type: number
+              SUPPLY_LOCKED:
+                type: number
+    OnchainMetricResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    FuturesTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: true
+    OptionsTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: true
+    OverviewMarketCapResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              MKT_CAP_USD:
+                type: number
+              VOLUME_USD:
+                type: number
+              DOMINANCE_BTC:
+                type: number
+              DOMINANCE_ETH:
+                type: number
+              DOMINANCE_STABLECOINS:
+                type: number

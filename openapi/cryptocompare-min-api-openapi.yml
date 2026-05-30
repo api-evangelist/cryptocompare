@@ -1,0 +1,1670 @@
+openapi: 3.1.0
+info:
+  title: CryptoCompare min-api (Legacy)
+  description: >-
+    The CryptoCompare min-api (now CoinDesk Data Legacy API) provides
+    cryptocurrency market data including current and historical prices, OHLCV
+    candles (minute/hour/day), top lists by volume and market cap, news, social
+    statistics, order book data, blockchain data, and exchange information. The
+    REST API is available at https://min-api.cryptocompare.com/data and supports
+    authenticated access via an API key passed either as the api_key query
+    parameter or in the Authorization header. Free-tier traffic is metered in
+    monthly call credits; paid commercial tiers expand the monthly budget and
+    enable additional endpoints such as news, social, blockchain, top lists, and
+    order book.
+  version: '1.0'
+  contact:
+    name: CryptoCompare / CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://www.cryptocompare.com/api/
+  license:
+    name: CryptoCompare API Terms
+    url: https://www.cryptocompare.com/api/
+externalDocs:
+  description: CoinDesk Data Legacy API Documentation
+  url: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
+servers:
+  - url: https://min-api.cryptocompare.com/data
+    description: Production Server
+tags:
+  - name: Price
+    description: Real-time and historical price endpoints for single and multi-symbol queries.
+  - name: Historical
+    description: Historical OHLCV candle data by day, hour, and minute.
+  - name: Top Lists
+    description: Top list endpoints by 24h volume, market cap, exchange volume, and pair volume.
+  - name: News
+    description: Crypto news articles, sources, and categories.
+  - name: Social
+    description: Social statistics for coins and assets.
+  - name: Order Book
+    description: Top-of-book order book data across integrated exchanges.
+  - name: Exchanges
+    description: Exchange metadata and exchange-pair listings.
+  - name: Blockchain
+    description: On-chain blockchain data including history and balance distribution.
+  - name: Coins
+    description: General coin listing, mapping, and reference metadata.
+security:
+  - apiKeyQuery: []
+  - apiKeyHeader: []
+paths:
+  /price:
+    get:
+      operationId: getSingleSymbolPrice
+      summary: Get Single Symbol Price
+      description: >-
+        Returns the latest aggregated price for a single source cryptocurrency
+        converted into one or more target currencies. Uses CCCAGG by default.
+      tags:
+        - Price
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/TsymsParam'
+        - $ref: '#/components/parameters/EParam'
+        - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Mapping of target symbol to current price.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SymbolPriceMap'
+              examples:
+                btcUsd:
+                  value:
+                    USD: 73826.5
+  /pricemulti:
+    get:
+      operationId: getMultipleSymbolsPrice
+      summary: Get Multiple Symbols Price
+      description: >-
+        Returns the latest aggregated prices for multiple source cryptocurrencies
+        converted into multiple target currencies in a single call.
+      tags:
+        - Price
+      parameters:
+        - $ref: '#/components/parameters/FsymsParam'
+        - $ref: '#/components/parameters/TsymsParam'
+        - $ref: '#/components/parameters/EParam'
+        - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Nested mapping of from-symbol to to-symbol to price.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiSymbolPriceMap'
+  /pricemultifull:
+    get:
+      operationId: getMultipleSymbolsFullPrice
+      summary: Get Multiple Symbols Full Price
+      description: >-
+        Returns full ticker data (price, 24h volume, high, low, open, change,
+        market cap) for multiple from-symbols and to-symbols in one call. Same
+        envelope is used by the CCCAGG WebSocket index.
+      tags:
+        - Price
+      parameters:
+        - $ref: '#/components/parameters/FsymsParam'
+        - $ref: '#/components/parameters/TsymsParam'
+        - $ref: '#/components/parameters/EParam'
+        - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Object with RAW and DISPLAY sections per pair.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullPriceResponse'
+  /generateAvg:
+    get:
+      operationId: getCustomAverage
+      summary: Get Custom Average Price
+      description: >-
+        Computes a custom average across a chosen set of exchanges for a single
+        cryptocurrency pair (CUSTOMAGG).
+      tags:
+        - Price
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/TsymParam'
+        - name: e
+          in: query
+          required: true
+          description: Comma-separated list of exchanges to include in the average.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: CUSTOMAGG ticker envelope (RAW + DISPLAY).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomAverageResponse'
+  /pricehistorical:
+    get:
+      operationId: getPriceHistorical
+      summary: Get Historical Price
+      description: >-
+        Returns the price of a cryptocurrency at a given historical timestamp.
+        Falls back to the closest available candle close.
+      tags:
+        - Price
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/TsymsParam'
+        - name: ts
+          in: query
+          description: Unix timestamp (seconds) of the desired historical price.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/EParam'
+        - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Historical price envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalPriceMap'
+  /v2/histoday:
+    get:
+      operationId: getHistoricalDailyOHLCV
+      summary: Get Historical Daily OHLCV
+      description: >-
+        Returns daily OHLCV candles for a cryptocurrency pair, ordered ascending
+        by timestamp. Up to 2000 data points per call.
+      tags:
+        - Historical
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/TsymParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/AggregateParam'
+        - $ref: '#/components/parameters/ToTsParam'
+        - $ref: '#/components/parameters/EParam'
+        - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Historical daily OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OHLCVResponse'
+  /v2/histohour:
+    get:
+      operationId: getHistoricalHourlyOHLCV
+      summary: Get Historical Hourly OHLCV
+      description: >-
+        Returns hourly OHLCV candles for a cryptocurrency pair. Up to 2000 data
+        points per call.
+      tags:
+        - Historical
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/TsymParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/AggregateParam'
+        - $ref: '#/components/parameters/ToTsParam'
+        - $ref: '#/components/parameters/EParam'
+        - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Historical hourly OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OHLCVResponse'
+  /v2/histominute:
+    get:
+      operationId: getHistoricalMinuteOHLCV
+      summary: Get Historical Minute OHLCV
+      description: >-
+        Returns minute OHLCV candles for a cryptocurrency pair. Up to 2000 data
+        points per call and up to 7 days of history on the free tier.
+      tags:
+        - Historical
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/TsymParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/AggregateParam'
+        - $ref: '#/components/parameters/ToTsParam'
+        - $ref: '#/components/parameters/EParam'
+        - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Historical minute OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OHLCVResponse'
+  /top/totalvolfull:
+    get:
+      operationId: getTopListByTotalVolumeFull
+      summary: Get Top List by Total Volume (Full Data)
+      description: >-
+        Returns the top cryptocurrencies by 24-hour total volume converted into
+        a target currency, including full ticker data per coin.
+      tags:
+        - Top Lists
+      parameters:
+        - $ref: '#/components/parameters/LimitTopParam'
+        - $ref: '#/components/parameters/PageParam'
+        - name: tsym
+          in: query
+          required: true
+          description: Quote currency for the volume conversion.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of coins with CoinInfo, RAW, and DISPLAY blocks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopListResponse'
+  /top/mktcapfull:
+    get:
+      operationId: getTopListByMarketCapFull
+      summary: Get Top List by Market Cap (Full Data)
+      description: >-
+        Returns the top cryptocurrencies by market capitalization with full
+        ticker data per coin.
+      tags:
+        - Top Lists
+      parameters:
+        - $ref: '#/components/parameters/LimitTopParam'
+        - $ref: '#/components/parameters/PageParam'
+        - name: tsym
+          in: query
+          required: true
+          description: Quote currency for the market-cap conversion.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Top coins by market cap.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopListResponse'
+  /top/exchanges:
+    get:
+      operationId: getTopExchangesByPairVolume
+      summary: Get Top Exchanges by Pair Volume
+      description: >-
+        Returns the top exchanges ranked by 24-hour volume for a given pair.
+      tags:
+        - Top Lists
+        - Exchanges
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/TsymParam'
+        - $ref: '#/components/parameters/LimitTopParam'
+      responses:
+        '200':
+          description: Top exchanges for the pair.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopExchangesResponse'
+  /top/exchanges/full:
+    get:
+      operationId: getTopExchangesFullByPairVolume
+      summary: Get Top Exchanges (Full Data) by Pair Volume
+      description: >-
+        Returns the top exchanges by 24-hour pair volume with full ticker data
+        per exchange.
+      tags:
+        - Top Lists
+        - Exchanges
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/TsymParam'
+        - $ref: '#/components/parameters/LimitTopParam'
+      responses:
+        '200':
+          description: Top exchanges full data envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopExchangesFullResponse'
+  /top/volumes:
+    get:
+      operationId: getTopVolumesByCurrency
+      summary: Get Top Volumes by Currency
+      description: >-
+        Returns the top cryptocurrencies by aggregate 24-hour volume against a
+        given quote currency. Lighter payload than totalvolfull.
+      tags:
+        - Top Lists
+      parameters:
+        - $ref: '#/components/parameters/LimitTopParam'
+        - name: tsym
+          in: query
+          required: true
+          description: Quote currency for the ranking.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ranked list of coin volumes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopVolumesResponse'
+  /top/pairs:
+    get:
+      operationId: getTopPairsByVolume
+      summary: Get Top Pairs by Volume
+      description: >-
+        Returns the most active trading pairs for a given from-symbol across
+        every integrated exchange.
+      tags:
+        - Top Lists
+      parameters:
+        - $ref: '#/components/parameters/FsymParam'
+        - $ref: '#/components/parameters/LimitTopParam'
+      responses:
+        '200':
+          description: Top trading pairs envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopPairsResponse'
+  /v2/news/:
+    get:
+      operationId: getLatestNewsArticles
+      summary: Get Latest News Articles
+      description: >-
+        Returns the most recent cryptocurrency news articles aggregated from
+        every integrated source. Filterable by language, source, and category.
+      tags:
+        - News
+      parameters:
+        - name: lang
+          in: query
+          description: ISO 639-1 language code. Defaults to EN.
+          schema:
+            type: string
+            default: EN
+        - name: feeds
+          in: query
+          description: Comma-separated list of source feed keys.
+          schema:
+            type: string
+        - name: categories
+          in: query
+          description: Comma-separated list of category keys.
+          schema:
+            type: string
+        - name: excludeCategories
+          in: query
+          description: Comma-separated list of categories to exclude.
+          schema:
+            type: string
+        - name: lTs
+          in: query
+          description: Latest timestamp (seconds) to return articles before.
+          schema:
+            type: integer
+            format: int64
+        - name: sortOrder
+          in: query
+          description: Sort order, latest or popular.
+          schema:
+            type: string
+            enum: [latest, popular]
+        - name: limit
+          in: query
+          description: Number of articles to return (default 50).
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: List of news articles with source and category metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsListResponse'
+  /news/feeds:
+    get:
+      operationId: getNewsSources
+      summary: Get News Sources
+      description: >-
+        Returns the list of news source feeds available for filtering.
+      tags:
+        - News
+      responses:
+        '200':
+          description: List of news sources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsSourcesResponse'
+  /news/categories:
+    get:
+      operationId: getNewsCategories
+      summary: Get News Categories
+      description: >-
+        Returns the list of news categories used for tagging articles.
+      tags:
+        - News
+      responses:
+        '200':
+          description: List of news categories.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsCategoriesResponse'
+  /news/feedsandcategories:
+    get:
+      operationId: getNewsFeedsAndCategories
+      summary: Get News Feeds and Categories
+      description: >-
+        Returns both available source feeds and categories in a single call.
+      tags:
+        - News
+      responses:
+        '200':
+          description: Feeds and categories envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsFeedsAndCategoriesResponse'
+  /social/coin/latest:
+    get:
+      operationId: getCoinSocialStatsLatest
+      summary: Get Latest Coin Social Stats
+      description: >-
+        Returns the latest aggregated social statistics (Twitter, Reddit, code
+        repository) for a single coin identified by its CryptoCompare coin ID.
+      tags:
+        - Social
+      parameters:
+        - name: coinId
+          in: query
+          required: true
+          description: CryptoCompare coin ID (e.g. 1182 for BTC).
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Social stats envelope (requires API key).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialStatsResponse'
+  /social/coin/histo/day:
+    get:
+      operationId: getCoinSocialStatsDaily
+      summary: Get Historical Daily Coin Social Stats
+      description: >-
+        Returns daily historical social statistics for a coin.
+      tags:
+        - Social
+      parameters:
+        - name: coinId
+          in: query
+          required: true
+          description: CryptoCompare coin ID.
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Daily social stats history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialStatsHistoryResponse'
+  /social/coin/histo/hour:
+    get:
+      operationId: getCoinSocialStatsHourly
+      summary: Get Historical Hourly Coin Social Stats
+      description: >-
+        Returns hourly historical social statistics for a coin.
+      tags:
+        - Social
+      parameters:
+        - name: coinId
+          in: query
+          required: true
+          description: CryptoCompare coin ID.
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Hourly social stats history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialStatsHistoryResponse'
+  /v2/ob/l1/top:
+    get:
+      operationId: getOrderBookTopOfBook
+      summary: Get Order Book Top of Book
+      description: >-
+        Returns the top of the order book (best bid and ask) for one or more
+        pairs across one or more exchanges. Requires an API key on most tiers.
+      tags:
+        - Order Book
+      parameters:
+        - $ref: '#/components/parameters/FsymsParam'
+        - $ref: '#/components/parameters/TsymsParam'
+        - name: e
+          in: query
+          description: Comma-separated list of exchanges.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Top-of-book envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderBookTopResponse'
+  /all/exchanges:
+    get:
+      operationId: getAllExchanges
+      summary: Get All Exchanges and Trading Pairs
+      description: >-
+        Returns the full list of integrated exchanges and the trading pairs
+        each exchange currently exposes.
+      tags:
+        - Exchanges
+      responses:
+        '200':
+          description: Map of exchange name to traded pairs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllExchangesResponse'
+  /exchanges/general:
+    get:
+      operationId: getExchangesGeneralInfo
+      summary: Get Exchanges General Info
+      description: >-
+        Returns descriptive metadata, ranking grade, country, URL, and feature
+        flags for every integrated exchange.
+      tags:
+        - Exchanges
+      responses:
+        '200':
+          description: Exchange general info envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangesGeneralResponse'
+  /all/coinlist:
+    get:
+      operationId: getAllCoinsList
+      summary: Get All Coins List
+      description: >-
+        Returns the complete CryptoCompare coin list with mapping, image URLs,
+        algorithm, proof type, supply data, and CCData taxonomy.
+      tags:
+        - Coins
+      parameters:
+        - name: summary
+          in: query
+          description: When true, returns a slimmer payload without descriptions.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Coin list envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoinListResponse'
+  /blockchain/list:
+    get:
+      operationId: getBlockchainAvailableCoinList
+      summary: Get Available Blockchain Data Coins
+      description: >-
+        Returns the list of coins that have on-chain blockchain data available
+        (transaction count, active addresses, average transaction value, etc.).
+      tags:
+        - Blockchain
+      responses:
+        '200':
+          description: Available blockchain coins envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockchainListResponse'
+  /blockchain/latest:
+    get:
+      operationId: getBlockchainLatestDay
+      summary: Get Latest Blockchain Day
+      description: >-
+        Returns the latest day of on-chain data for a coin including
+        transaction count, average transaction value, active addresses, hashrate,
+        difficulty, and large transaction count.
+      tags:
+        - Blockchain
+      parameters:
+        - name: fsym
+          in: query
+          required: true
+          description: From-symbol (coin) of the blockchain dataset.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Latest blockchain data point.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockchainLatestResponse'
+  /blockchain/histo/day:
+    get:
+      operationId: getBlockchainHistoricalDaily
+      summary: Get Historical Daily Blockchain Data
+      description: >-
+        Returns daily on-chain data history (transaction count, value, active
+        addresses, hashrate, difficulty) for a coin.
+      tags:
+        - Blockchain
+      parameters:
+        - name: fsym
+          in: query
+          required: true
+          description: From-symbol (coin) of the blockchain dataset.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Daily blockchain history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockchainHistoryResponse'
+  /blockchain/balancedistribution/histo/day:
+    get:
+      operationId: getBlockchainBalanceDistributionDaily
+      summary: Get Historical Daily Blockchain Balance Distribution
+      description: >-
+        Returns daily history of on-chain balance distribution buckets for a
+        coin (addresses with 0-0.001, 0.001-0.01, etc., units of the asset).
+      tags:
+        - Blockchain
+      parameters:
+        - name: fsym
+          in: query
+          required: true
+          description: From-symbol (coin) of the dataset.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Daily balance distribution envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceDistributionResponse'
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: CryptoCompare API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: "CryptoCompare API key supplied as `Authorization: Apikey {apiKey}`."
+  parameters:
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    FsymsParam:
+      name: fsyms
+      in: query
+      required: true
+      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
+      schema:
+        type: string
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+    TsymsParam:
+      name: tsyms
+      in: query
+      required: true
+      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
+      schema:
+        type: string
+    EParam:
+      name: e
+      in: query
+      description: Source exchange (default CCCAGG aggregate index).
+      schema:
+        type: string
+        default: CCCAGG
+    TryConversionParam:
+      name: tryConversion
+      in: query
+      description: When false, do not multi-hop convert via BTC if a direct pair is unavailable.
+      schema:
+        type: boolean
+        default: true
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return (max 2000 for OHLCV).
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return (max varies per endpoint, typically 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    PageParam:
+      name: page
+      in: query
+      description: Zero-indexed page number for paginated top-list endpoints.
+      schema:
+        type: integer
+        default: 0
+    AggregateParam:
+      name: aggregate
+      in: query
+      description: Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).
+      schema:
+        type: integer
+        default: 1
+    ToTsParam:
+      name: toTs
+      in: query
+      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
+      schema:
+        type: integer
+        format: int64
+  schemas:
+    SymbolPriceMap:
+      type: object
+      description: Map of to-symbol to current price.
+      additionalProperties:
+        type: number
+      example:
+        USD: 73826.5
+    MultiSymbolPriceMap:
+      type: object
+      description: Nested map of from-symbol to to-symbol to current price.
+      additionalProperties:
+        $ref: '#/components/schemas/SymbolPriceMap'
+    HistoricalPriceMap:
+      type: object
+      description: Nested map of from-symbol to to-symbol to historical price.
+      additionalProperties:
+        $ref: '#/components/schemas/SymbolPriceMap'
+    FullPriceResponse:
+      type: object
+      properties:
+        RAW:
+          type: object
+          description: Raw numeric ticker data keyed by from-symbol then to-symbol.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/FullTicker'
+        DISPLAY:
+          type: object
+          description: Display-formatted equivalents of the RAW block.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: object
+    FullTicker:
+      type: object
+      description: Full ticker data emitted by pricemultifull and the CCCAGG WebSocket index.
+      properties:
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        FROMSYMBOL:
+          type: string
+        TOSYMBOL:
+          type: string
+        PRICE:
+          type: number
+        LASTUPDATE:
+          type: integer
+          format: int64
+        MEDIAN:
+          type: number
+        LASTVOLUME:
+          type: number
+        LASTVOLUMETO:
+          type: number
+        VOLUME24HOUR:
+          type: number
+        VOLUME24HOURTO:
+          type: number
+        OPEN24HOUR:
+          type: number
+        HIGH24HOUR:
+          type: number
+        LOW24HOUR:
+          type: number
+        CHANGE24HOUR:
+          type: number
+        CHANGEPCT24HOUR:
+          type: number
+        MKTCAP:
+          type: number
+        CIRCULATINGSUPPLY:
+          type: number
+        SUPPLY:
+          type: number
+        TOTALVOLUME24H:
+          type: number
+        TOTALVOLUME24HTO:
+          type: number
+        LASTMARKET:
+          type: string
+        CONVERSIONTYPE:
+          type: string
+        CONVERSIONSYMBOL:
+          type: string
+    CustomAverageResponse:
+      type: object
+      properties:
+        RAW:
+          $ref: '#/components/schemas/FullTicker'
+        DISPLAY:
+          type: object
+    OHLCVResponse:
+      type: object
+      description: Standard v2 OHLCV response envelope.
+      properties:
+        Response:
+          type: string
+          enum: [Success, Error]
+        Message:
+          type: string
+        HasWarning:
+          type: boolean
+        Type:
+          type: integer
+        RateLimit:
+          type: object
+        Data:
+          type: object
+          properties:
+            Aggregated:
+              type: boolean
+            TimeFrom:
+              type: integer
+              format: int64
+            TimeTo:
+              type: integer
+              format: int64
+            Data:
+              type: array
+              items:
+                $ref: '#/components/schemas/OHLCVCandle'
+    OHLCVCandle:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: Period start timestamp in seconds.
+        high:
+          type: number
+        low:
+          type: number
+        open:
+          type: number
+        close:
+          type: number
+        volumefrom:
+          type: number
+        volumeto:
+          type: number
+        conversionType:
+          type: string
+        conversionSymbol:
+          type: string
+    TopListResponse:
+      type: object
+      properties:
+        Message:
+          type: string
+        Type:
+          type: integer
+        MetaData:
+          type: object
+          properties:
+            Count:
+              type: integer
+        SponsoredData:
+          type: array
+          items:
+            type: object
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              CoinInfo:
+                $ref: '#/components/schemas/CoinInfo'
+              RAW:
+                type: object
+              DISPLAY:
+                type: object
+    CoinInfo:
+      type: object
+      properties:
+        Id:
+          type: string
+        Name:
+          type: string
+        FullName:
+          type: string
+        Internal:
+          type: string
+        ImageUrl:
+          type: string
+        Url:
+          type: string
+        Algorithm:
+          type: string
+        ProofType:
+          type: string
+        Rating:
+          type: object
+        NetHashesPerSecond:
+          type: number
+        BlockNumber:
+          type: integer
+        BlockTime:
+          type: number
+        BlockReward:
+          type: number
+        AssetLaunchDate:
+          type: string
+        MaxSupply:
+          type: number
+        Type:
+          type: integer
+        DocumentType:
+          type: string
+    TopExchangesResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              exchange:
+                type: string
+              fromSymbol:
+                type: string
+              toSymbol:
+                type: string
+              volume24h:
+                type: number
+              volume24hTo:
+                type: number
+    TopExchangesFullResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            CoinInfo:
+              $ref: '#/components/schemas/CoinInfo'
+            Exchanges:
+              type: array
+              items:
+                type: object
+    TopVolumesResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              SYMBOL:
+                type: string
+              SUPPLY:
+                type: number
+              FULLVOLUME:
+                type: string
+              TOPTIERVOLUME24HOUR:
+                type: string
+    TopPairsResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              exchange:
+                type: string
+              fromSymbol:
+                type: string
+              toSymbol:
+                type: string
+              volume24h:
+                type: number
+              volume24hTo:
+                type: number
+    NewsListResponse:
+      type: object
+      properties:
+        Type:
+          type: integer
+        Message:
+          type: string
+        Promoted:
+          type: array
+          items:
+            type: object
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'
+    NewsArticle:
+      type: object
+      properties:
+        TYPE:
+          type: string
+        ID:
+          type: integer
+        GUID:
+          type: string
+        PUBLISHED_ON:
+          type: integer
+          format: int64
+        IMAGE_URL:
+          type: string
+        TITLE:
+          type: string
+        SUBTITLE:
+          type: string
+        AUTHORS:
+          type: string
+        URL:
+          type: string
+        SOURCE_ID:
+          type: integer
+        BODY:
+          type: string
+        KEYWORDS:
+          type: string
+        LANG:
+          type: string
+        UPVOTES:
+          type: integer
+        DOWNVOTES:
+          type: integer
+        SCORE:
+          type: integer
+        SENTIMENT:
+          type: string
+          enum: [POSITIVE, NEUTRAL, NEGATIVE]
+        STATUS:
+          type: string
+        CREATED_ON:
+          type: integer
+          format: int64
+        SOURCE_DATA:
+          type: object
+        CATEGORY_DATA:
+          type: array
+          items:
+            type: object
+    NewsSourcesResponse:
+      type: object
+      properties:
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              name:
+                type: string
+              lang:
+                type: string
+              img:
+                type: string
+    NewsCategoriesResponse:
+      type: object
+      properties:
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              categoryName:
+                type: string
+              wordsAssociatedWithCategory:
+                type: array
+                items:
+                  type: string
+    NewsFeedsAndCategoriesResponse:
+      type: object
+      properties:
+        Type:
+          type: integer
+        Message:
+          type: string
+        Data:
+          type: object
+          properties:
+            Feeds:
+              type: array
+              items:
+                type: object
+            Categories:
+              type: array
+              items:
+                type: object
+    SocialStatsResponse:
+      type: object
+      properties:
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            General:
+              type: object
+              properties:
+                Points:
+                  type: integer
+                Name:
+                  type: string
+                CoinName:
+                  type: string
+                Type:
+                  type: string
+            CryptoCompare:
+              type: object
+              properties:
+                SimilarItems:
+                  type: array
+                  items:
+                    type: object
+                CryptopianFollowers:
+                  type: array
+                  items:
+                    type: object
+                Points:
+                  type: integer
+                Followers:
+                  type: integer
+                Posts:
+                  type: integer
+                Comments:
+                  type: integer
+                PageViewsSplit:
+                  type: object
+                PageViews:
+                  type: integer
+            Twitter:
+              type: object
+              properties:
+                followers:
+                  type: integer
+                following:
+                  type: integer
+                statuses:
+                  type: integer
+                lists:
+                  type: integer
+                favourites:
+                  type: integer
+                Points:
+                  type: integer
+                account_creation:
+                  type: integer
+                  format: int64
+                name:
+                  type: string
+                link:
+                  type: string
+            Reddit:
+              type: object
+              properties:
+                subscribers:
+                  type: integer
+                active_users:
+                  type: integer
+                community_creation:
+                  type: integer
+                  format: int64
+                posts_per_hour:
+                  type: number
+                posts_per_day:
+                  type: number
+                comments_per_hour:
+                  type: number
+                comments_per_day:
+                  type: number
+                Points:
+                  type: integer
+                name:
+                  type: string
+                link:
+                  type: string
+            Facebook:
+              type: object
+            CodeRepository:
+              type: object
+              properties:
+                Points:
+                  type: integer
+                List:
+                  type: array
+                  items:
+                    type: object
+    SocialStatsHistoryResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              time:
+                type: integer
+                format: int64
+              comments:
+                type: integer
+              posts:
+                type: integer
+              followers:
+                type: integer
+              points:
+                type: integer
+              overview_page_views:
+                type: integer
+              analysis_page_views:
+                type: integer
+              markets_page_views:
+                type: integer
+              charts_page_views:
+                type: integer
+              trades_page_views:
+                type: integer
+              forum_page_views:
+                type: integer
+              influence_page_views:
+                type: integer
+              total_page_views:
+                type: integer
+              reddit_comments_per_hour:
+                type: number
+              reddit_posts_per_hour:
+                type: number
+              reddit_comments_per_day:
+                type: number
+              reddit_posts_per_day:
+                type: number
+              reddit_subscribers:
+                type: integer
+              reddit_active_users:
+                type: integer
+              twitter_followers:
+                type: integer
+              twitter_following:
+                type: integer
+              twitter_lists:
+                type: integer
+              twitter_favourites:
+                type: integer
+              twitter_statuses:
+                type: integer
+              code_repo_stars:
+                type: integer
+              code_repo_forks:
+                type: integer
+              code_repo_subscribers:
+                type: integer
+              code_repo_open_pull_issues:
+                type: integer
+              code_repo_closed_pull_issues:
+                type: integer
+              code_repo_open_issues:
+                type: integer
+              code_repo_closed_issues:
+                type: integer
+              code_repo_contributors:
+                type: integer
+              fb_likes:
+                type: integer
+              fb_talking_about:
+                type: integer
+    OrderBookTopResponse:
+      type: object
+      properties:
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          description: Nested mapping of fsym to tsym to exchange to top-of-book entry.
+    AllExchangesResponse:
+      type: object
+      description: Map of exchange name to base symbol to list of quote symbols traded.
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
+    ExchangesGeneralResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              Id:
+                type: string
+              Name:
+                type: string
+              Url:
+                type: string
+              LogoUrl:
+                type: string
+              ItemType:
+                type: array
+                items:
+                  type: string
+              CentralizationType:
+                type: string
+              InternalName:
+                type: string
+              GradePoints:
+                type: number
+              Grade:
+                type: string
+              GradePointsSplit:
+                type: object
+              AffiliateURL:
+                type: string
+              Country:
+                type: string
+              OrderBook:
+                type: boolean
+              Trades:
+                type: boolean
+              Description:
+                type: string
+    CoinListResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CoinListEntry'
+    CoinListEntry:
+      type: object
+      properties:
+        Id:
+          type: string
+        Url:
+          type: string
+        ImageUrl:
+          type: string
+        ContentCreatedOn:
+          type: integer
+          format: int64
+        Name:
+          type: string
+        Symbol:
+          type: string
+        CoinName:
+          type: string
+        FullName:
+          type: string
+        Description:
+          type: string
+        AssetTokenStatus:
+          type: string
+        Algorithm:
+          type: string
+        ProofType:
+          type: string
+        SortOrder:
+          type: string
+        Sponsored:
+          type: boolean
+        Taxonomy:
+          type: object
+        Rating:
+          type: object
+        IsTrading:
+          type: boolean
+    BlockchainListResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              id:
+                type: integer
+              symbol:
+                type: string
+              partner_symbol:
+                type: string
+              data_available_from:
+                type: integer
+                format: int64
+    BlockchainLatestResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          $ref: '#/components/schemas/BlockchainDataPoint'
+    BlockchainHistoryResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            Aggregated:
+              type: boolean
+            TimeFrom:
+              type: integer
+              format: int64
+            TimeTo:
+              type: integer
+              format: int64
+            Data:
+              type: array
+              items:
+                $ref: '#/components/schemas/BlockchainDataPoint'
+    BlockchainDataPoint:
+      type: object
+      properties:
+        id:
+          type: integer
+        time:
+          type: integer
+          format: int64
+        symbol:
+          type: string
+        zero_balance_addresses_all_time:
+          type: integer
+        unique_addresses_all_time:
+          type: integer
+        new_addresses:
+          type: integer
+        active_addresses:
+          type: integer
+        transaction_count:
+          type: integer
+        transaction_count_all_time:
+          type: integer
+        large_transaction_count:
+          type: integer
+        average_transaction_value:
+          type: number
+        block_height:
+          type: integer
+        hashrate:
+          type: number
+        difficulty:
+          type: number
+        block_time:
+          type: number
+        block_size:
+          type: integer
+        current_supply:
+          type: number
+    BalanceDistributionResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            Aggregated:
+              type: boolean
+            TimeFrom:
+              type: integer
+              format: int64
+            TimeTo:
+              type: integer
+              format: int64
+            Data:
+              type: array
+              items:
+                type: object
+                properties:
+                  time:
+                    type: integer
+                    format: int64
+                  symbol:
+                    type: string
+                  balance_distribution:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        from:
+                          type: number
+                        to:
+                          type: number
+                        totalVolume:
+                          type: number
+                        addressesCount:
+                          type: integer

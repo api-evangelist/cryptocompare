@@ -1,0 +1,173 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: CryptoCompare
+providerId: cryptocompare
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: true
+tags:
+  - Cryptocurrency
+  - Market Data
+  - Reference Rates
+  - News
+description: >-
+  CryptoCompare (now CoinDesk Data / CCData) operates a metered API access
+  model based on monthly call credits. The Free tier issues a personal API key
+  with 100,000 monthly call credits and limited endpoint coverage. Commercial
+  tiers (Starter / Professional / Enterprise) escalate credit budgets, expand
+  endpoint access (news, social, blockchain, top lists, order book L1, full
+  WebSocket streamer), and unlock longer history depths. Enterprise tiers add
+  custom limits, raw trade data, derivatives, AI / ML feeds, on-demand exports,
+  and dedicated SLA-backed support. Pricing on commercial tiers is published
+  case-by-case; the figures below reflect representative public guidance
+  pre-acquisition and the migration to CoinDesk Data branding.
+sources:
+  - https://developers.coindesk.com/pricing/
+  - https://www.cryptocompare.com/coins/guides/api-pricing-plans/
+  - https://www.cryptocompare.com/press-release/cryptocompare-adds-commercial-api/
+plans:
+  - id: cryptocompare-free
+    name: Free
+    type: subscription
+    description: >-
+      Free developer tier with personal API key. Covers Price, Historical OHLCV
+      (7 days minute history, full hour/day history), Top Lists, Coin List,
+      Exchange general info, and limited news. Requires application attribution.
+    entries:
+      - label: Monthly call credits
+        name: monthly_credits_free
+        type: included
+        metric: call_credit
+        limit: 100000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Minute OHLCV history depth
+        name: minute_history_free
+        type: included
+        metric: days_history
+        limit: 7
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0'
+    elements:
+      - name: Price endpoints (single, multi, multi-full, historical)
+      - name: Historical OHLCV (minute / hour / day)
+      - name: Top lists by volume and market cap
+      - name: News article list (limited)
+      - name: Coin list, exchange general info
+      - name: Personal API key (1)
+      - name: Application attribution required
+  - id: cryptocompare-starter
+    name: Commercial Starter
+    type: subscription
+    description: >-
+      Entry-level commercial tier for indie products and small teams. Removes
+      attribution requirement, expands monthly credits, enables news/social,
+      adds order book L1 top, and unlocks 30 days of minute history.
+    entries:
+      - label: Monthly call credits
+        name: monthly_credits_starter
+        type: metered
+        metric: call_credit
+        limit: 5000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact_sales
+        userMultiplied: false
+      - label: Minute OHLCV history depth
+        name: minute_history_starter
+        type: included
+        metric: days_history
+        limit: 30
+        timeFrame: usage
+        geo: global
+        unit: 1
+    elements:
+      - name: Everything in Free
+      - name: News with all sources and categories
+      - name: Social statistics (latest + hourly history)
+      - name: Order book L1 top across all exchanges
+      - name: Multiple API keys
+      - name: WebSocket streamer (basic channels)
+      - name: Email support
+  - id: cryptocompare-professional
+    name: Commercial Professional
+    type: subscription
+    description: >-
+      Professional tier for trading platforms, dashboards, and analytics
+      products. Includes the full streaming surface, full minute and tick
+      history (up to 1 year on minute), on-chain blockchain data, and the
+      modern CoinDesk Data API (Spot, Index, Asset, News, On-Chain).
+    entries:
+      - label: Monthly call credits
+        name: monthly_credits_pro
+        type: metered
+        metric: call_credit
+        limit: 25000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact_sales
+        userMultiplied: false
+      - label: Minute OHLCV history depth
+        name: minute_history_pro
+        type: included
+        metric: days_history
+        limit: 365
+        timeFrame: usage
+        geo: global
+        unit: 1
+    elements:
+      - name: Everything in Starter
+      - name: Full minute history (up to 1 year)
+      - name: On-chain blockchain data (latest, daily history, balance distribution)
+      - name: CoinDesk Data API (Spot, Index CADLI / CCIX, Asset, News)
+      - name: Top Tier Full Volume channel
+      - name: OHLC candles WebSocket channel
+      - name: Priority email support
+  - id: cryptocompare-enterprise
+    name: Enterprise
+    type: contract
+    description: >-
+      Enterprise / institutional tier with custom credit budgets, raw trade
+      tick history, derivatives (futures, options), on-demand bulk exports
+      (CSV, parquet), AI / ML curated feeds, and SLA-backed support.
+      Reference-rate licensing (CADLI, CCIX) is sold separately and may be
+      bundled.
+    entries:
+      - label: Monthly call credits
+        name: monthly_credits_enterprise
+        type: metered
+        metric: call_credit
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact_sales
+        userMultiplied: false
+      - label: Tick history depth
+        name: tick_history_enterprise
+        type: included
+        metric: years_history
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+    elements:
+      - name: Everything in Professional
+      - name: Raw trade tick history (full depth)
+      - name: Futures and options market data
+      - name: On-demand bulk exports (CSV, parquet)
+      - name: AI / ML curated feeds
+      - name: Custom rate limits and dedicated infrastructure
+      - name: SLA-backed support
+      - name: Reference-rate licensing (CADLI, CCIX) available
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

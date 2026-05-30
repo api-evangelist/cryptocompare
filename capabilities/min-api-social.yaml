@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CryptoCompare min-api — Social
+  description: Per-coin social engagement stats (latest, hourly, daily history).
+  tags:
+  - CryptoCompare
+  - Social
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    CRYPTOCOMPARE_API_KEY: CRYPTOCOMPARE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: min-api-social
+    baseUri: https://min-api.cryptocompare.com/data
+    description: CryptoCompare min-api Social business capability.
+    headers:
+    - name: Authorization
+      value: 'Apikey {{env.CRYPTOCOMPARE_API_KEY}}'
+    resources:
+    - name: social-latest
+      path: /social/coin/latest
+      operations:
+      - name: getcoinsocialstatslatest
+        method: GET
+        description: Get latest aggregated social stats (Twitter, Reddit, code repos) for a coin.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: coinId
+          in: query
+          type: integer
+          required: true
+    - name: social-histo-day
+      path: /social/coin/histo/day
+      operations:
+      - name: getcoinsocialstatsdaily
+        method: GET
+        description: Get daily historical social stats for a coin.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: coinId
+          in: query
+          type: integer
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: toTs
+          in: query
+          type: integer
+    - name: social-histo-hour
+      path: /social/coin/histo/hour
+      operations:
+      - name: getcoinsocialstatshourly
+        method: GET
+        description: Get hourly historical social stats for a coin.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: coinId
+          in: query
+          type: integer
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: toTs
+          in: query
+          type: integer

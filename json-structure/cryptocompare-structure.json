@@ -1,0 +1,60 @@
+{
+  "provider": "CryptoCompare",
+  "providerId": "cryptocompare",
+  "kind": "json-structure",
+  "description": "Structural overview of the CryptoCompare / CoinDesk Data API surface; extracted from openapi/ and asyncapi/.",
+  "apis": [
+    {
+      "id": "min-api",
+      "name": "CryptoCompare min-api (Legacy)",
+      "baseURL": "https://min-api.cryptocompare.com/data",
+      "operationCount": 31,
+      "schemaCount": 26
+    },
+    {
+      "id": "data-api",
+      "name": "CoinDesk Data API",
+      "baseURL": "https://data-api.cryptocompare.com",
+      "operationCount": 22,
+      "schemaCount": 23
+    },
+    {
+      "id": "streamer",
+      "name": "CryptoCompare Streaming WebSocket",
+      "baseURL": "wss://streamer.cryptocompare.com/v2",
+      "channelCount": 1,
+      "messageCount": 19
+    }
+  ],
+  "schemas": [
+    {"name": "FullTicker", "type": "object", "propertyCount": 35, "scope": "min-api"},
+    {"name": "OHLCVCandle", "type": "object", "propertyCount": 9, "scope": "min-api"},
+    {"name": "NewsArticle", "type": "object", "propertyCount": 23, "scope": "min-api,data-api"},
+    {"name": "CoinListEntry", "type": "object", "propertyCount": 17, "scope": "min-api"},
+    {"name": "Exchange", "type": "object", "propertyCount": 14, "scope": "min-api"},
+    {"name": "BlockchainDataPoint", "type": "object", "propertyCount": 16, "scope": "min-api"},
+    {"name": "IndexTick", "type": "object", "propertyCount": 26, "scope": "data-api"},
+    {"name": "Asset", "type": "object", "propertyCount": 20, "scope": "data-api"},
+    {"name": "SocialStats", "type": "object", "propertyCount": 6, "scope": "min-api"},
+    {"name": "OrderbookL1", "type": "object", "propertyCount": 12, "scope": "min-api,data-api"}
+  ],
+  "operationGroups": [
+    {"name": "Price", "count": 5, "scope": "min-api"},
+    {"name": "Historical", "count": 3, "scope": "min-api"},
+    {"name": "Top Lists", "count": 6, "scope": "min-api"},
+    {"name": "News", "count": 4, "scope": "min-api"},
+    {"name": "Social", "count": 3, "scope": "min-api"},
+    {"name": "Order Book", "count": 1, "scope": "min-api"},
+    {"name": "Exchanges", "count": 2, "scope": "min-api"},
+    {"name": "Coins", "count": 1, "scope": "min-api"},
+    {"name": "Blockchain", "count": 4, "scope": "min-api"},
+    {"name": "Spot", "count": 7, "scope": "data-api"},
+    {"name": "Index", "count": 5, "scope": "data-api"},
+    {"name": "Asset", "count": 3, "scope": "data-api"},
+    {"name": "News", "count": 3, "scope": "data-api"},
+    {"name": "On-Chain", "count": 2, "scope": "data-api"},
+    {"name": "Futures", "count": 2, "scope": "data-api"},
+    {"name": "Options", "count": 1, "scope": "data-api"},
+    {"name": "Overview", "count": 1, "scope": "data-api"}
+  ]
+}

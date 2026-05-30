@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.cryptocompare.com/schemas/cryptocompare/newsarticle.json",
+  "title": "CryptoCompare News Article",
+  "description": "News article record emitted by min-api /v2/news/ and data-api /news/v1/article/list. Aggregated across hundreds of crypto-native sources.",
+  "type": "object",
+  "required": ["ID", "TITLE", "URL", "PUBLISHED_ON", "LANG"],
+  "properties": {
+    "TYPE": {"type": "string"},
+    "ID": {"type": "integer"},
+    "GUID": {"type": "string", "description": "Canonical URL or feed-supplied unique identifier."},
+    "PUBLISHED_ON": {"type": "integer", "description": "Unix timestamp when the source published the article."},
+    "PUBLISHED_ON_NS": {"type": ["integer", "null"]},
+    "IMAGE_URL": {"type": "string", "format": "uri"},
+    "TITLE": {"type": "string"},
+    "SUBTITLE": {"type": ["string", "null"]},
+    "AUTHORS": {"type": "string"},
+    "URL": {"type": "string", "format": "uri"},
+    "SOURCE_ID": {"type": "integer"},
+    "BODY": {"type": "string", "description": "Full-text body of the article."},
+    "KEYWORDS": {"type": "string", "description": "Pipe-delimited keyword list."},
+    "LANG": {"type": "string", "description": "ISO 639-1 language code."},
+    "UPVOTES": {"type": "integer"},
+    "DOWNVOTES": {"type": "integer"},
+    "SCORE": {"type": "integer"},
+    "SENTIMENT": {"type": "string", "enum": ["POSITIVE", "NEUTRAL", "NEGATIVE"]},
+    "STATUS": {"type": "string", "enum": ["ACTIVE", "INACTIVE", "DELETED"]},
+    "CREATED_ON": {"type": "integer"},
+    "UPDATED_ON": {"type": ["integer", "null"]},
+    "SOURCE_DATA": {"type": "object", "description": "Source feed metadata."},
+    "CATEGORY_DATA": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "TYPE": {"type": "string"},
+          "ID": {"type": "integer"},
+          "NAME": {"type": "string"},
+          "CATEGORY": {"type": "string"}
+        }
+      }
+    }
+  }
+}

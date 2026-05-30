@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.cryptocompare.com/schemas/cryptocompare/ohlcvcandle.json",
+  "title": "CryptoCompare OHLCV Candle",
+  "description": "Single OHLCV candle row returned by min-api /v2/histoday, /v2/histohour, /v2/histominute and the data-api /spot/v1/historical/* endpoints.",
+  "type": "object",
+  "required": ["time", "open", "high", "low", "close"],
+  "properties": {
+    "time": {"type": "integer", "description": "Period start timestamp in seconds."},
+    "open": {"type": "number"},
+    "high": {"type": "number"},
+    "low": {"type": "number"},
+    "close": {"type": "number"},
+    "volumefrom": {"type": "number", "description": "Base asset volume traded in the period."},
+    "volumeto": {"type": "number", "description": "Quote asset volume traded in the period."},
+    "conversionType": {"type": "string", "description": "How the price was derived (direct, multiply, invert_multiply, force_direct)."},
+    "conversionSymbol": {"type": "string", "description": "Intermediate symbol used when conversionType is not direct."}
+  }
+}

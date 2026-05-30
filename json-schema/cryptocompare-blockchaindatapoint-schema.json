@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.cryptocompare.com/schemas/cryptocompare/blockchaindatapoint.json",
+  "title": "CryptoCompare Blockchain Data Point",
+  "description": "Single day of on-chain blockchain data returned by min-api /blockchain/latest and /blockchain/histo/day.",
+  "type": "object",
+  "required": ["time", "symbol"],
+  "properties": {
+    "id": {"type": "integer"},
+    "time": {"type": "integer", "description": "Unix timestamp (seconds)."},
+    "symbol": {"type": "string"},
+    "zero_balance_addresses_all_time": {"type": "integer"},
+    "unique_addresses_all_time": {"type": "integer"},
+    "new_addresses": {"type": "integer"},
+    "active_addresses": {"type": "integer"},
+    "transaction_count": {"type": "integer"},
+    "transaction_count_all_time": {"type": "integer"},
+    "large_transaction_count": {"type": "integer", "description": "Transactions over USD 100,000."},
+    "average_transaction_value": {"type": "number"},
+    "block_height": {"type": "integer"},
+    "hashrate": {"type": "number"},
+    "difficulty": {"type": "number"},
+    "block_time": {"type": "number"},
+    "block_size": {"type": "integer"},
+    "current_supply": {"type": "number"}
+  }
+}

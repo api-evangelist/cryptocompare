@@ -1,0 +1,145 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CoinDesk Data API — Index
+  description: CoinDesk Indices (CADLI, CCIX, CCIXBE) latest tick, historical OHLC, and composition.
+  tags:
+  - CoinDesk Data
+  - Index
+  - Reference Rates
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    CRYPTOCOMPARE_API_KEY: CRYPTOCOMPARE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: data-api-index
+    baseUri: https://data-api.cryptocompare.com
+    description: CoinDesk Data API Index business capability.
+    headers:
+    - name: Authorization
+      value: 'Apikey {{env.CRYPTOCOMPARE_API_KEY}}'
+    resources:
+    - name: index-latest-tick
+      path: /index/cc/v1/latest/tick
+      operations:
+      - name: getindexlatesttick
+        method: GET
+        description: Get latest tick for CADLI / CCIX / CCIXBE index instruments with current-period stats.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: market
+          in: query
+          type: string
+          required: true
+        - name: instruments
+          in: query
+          type: string
+          required: true
+        - name: groups
+          in: query
+          type: string
+    - name: index-historical-days
+      path: /index/cc/v1/historical/days
+      operations:
+      - name: getindexhistoricaldaily
+        method: GET
+        description: Get daily historical index OHLC values.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: market
+          in: query
+          type: string
+          required: true
+        - name: instrument
+          in: query
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: to_ts
+          in: query
+          type: integer
+    - name: index-historical-hours
+      path: /index/cc/v1/historical/hours
+      operations:
+      - name: getindexhistoricalhourly
+        method: GET
+        description: Get hourly historical index OHLC values.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: market
+          in: query
+          type: string
+          required: true
+        - name: instrument
+          in: query
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: to_ts
+          in: query
+          type: integer
+    - name: index-historical-minutes
+      path: /index/cc/v1/historical/minutes
+      operations:
+      - name: getindexhistoricalminute
+        method: GET
+        description: Get minute historical index OHLC values.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: market
+          in: query
+          type: string
+          required: true
+        - name: instrument
+          in: query
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: to_ts
+          in: query
+          type: integer
+    - name: index-composition
+      path: /index/cc/v1/latest/instrument/composition
+      operations:
+      - name: getindexcomposition
+        method: GET
+        description: Get index value, divisor, and constituent prices, supplies, volumes, and weights.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.Data
+        inputParameters:
+        - name: market
+          in: query
+          type: string
+          required: true
+        - name: instrument
+          in: query
+          type: string
+          required: true

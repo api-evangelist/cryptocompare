@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=2",
+    "headers": {
+      "Authorization": "Apikey {YOUR_API_KEY}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "Response": "Success",
+      "Message": "",
+      "HasWarning": false,
+      "Type": 100,
+      "RateLimit": {},
+      "Data": {
+        "Aggregated": false,
+        "TimeFrom": 1779926400,
+        "TimeTo": 1780099200,
+        "Data": [
+          {
+            "time": 1779926400,
+            "high": 74478.39,
+            "low": 72476.19,
+            "open": 74348.55,
+            "volumefrom": 27233.93,
+            "volumeto": 1995371003.86,
+            "close": 73531.95,
+            "conversionType": "direct",
+            "conversionSymbol": ""
+          },
+          {
+            "time": 1780012800,
+            "high": 74241.75,
+            "low": 72412.84,
+            "open": 73531.95,
+            "volumefrom": 23962.09,
+            "volumeto": 1760240836.83,
+            "close": 73384.46,
+            "conversionType": "direct",
+            "conversionSymbol": ""
+          }
+        ]
+      }
+    }
+  }
+}

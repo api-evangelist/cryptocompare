@@ -1,0 +1,129 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "cryptocompare": "https://www.cryptocompare.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fibo-fnd": "https://spec.edmcouncil.org/fibo/ontology/FND/",
+    "fibo-sec": "https://spec.edmcouncil.org/fibo/ontology/SEC/",
+
+    "FullTicker": {
+      "@id": "cryptocompare:FullTicker",
+      "@context": {
+        "MARKET": "cryptocompare:market",
+        "FROMSYMBOL": "cryptocompare:baseSymbol",
+        "TOSYMBOL": "cryptocompare:quoteSymbol",
+        "PRICE": "schema:price",
+        "LASTUPDATE": {"@id": "dcterms:modified", "@type": "xsd:long"},
+        "VOLUME24HOUR": "cryptocompare:volume24h",
+        "VOLUME24HOURTO": "cryptocompare:volume24hQuote",
+        "HIGH24HOUR": "cryptocompare:high24h",
+        "LOW24HOUR": "cryptocompare:low24h",
+        "OPEN24HOUR": "cryptocompare:open24h",
+        "CHANGE24HOUR": "cryptocompare:change24h",
+        "CHANGEPCT24HOUR": "cryptocompare:changePct24h",
+        "MKTCAP": "cryptocompare:marketCap",
+        "CIRCULATINGSUPPLY": "cryptocompare:circulatingSupply",
+        "MEDIAN": "cryptocompare:medianPrice",
+        "TOPTIERVOLUME24HOUR": "cryptocompare:topTierVolume24h"
+      }
+    },
+
+    "OHLCVCandle": {
+      "@id": "cryptocompare:OHLCVCandle",
+      "@context": {
+        "time": {"@id": "dcterms:date", "@type": "xsd:long"},
+        "open": "cryptocompare:open",
+        "high": "cryptocompare:high",
+        "low": "cryptocompare:low",
+        "close": "cryptocompare:close",
+        "volumefrom": "cryptocompare:volumeBase",
+        "volumeto": "cryptocompare:volumeQuote"
+      }
+    },
+
+    "NewsArticle": {
+      "@id": "schema:NewsArticle",
+      "@context": {
+        "ID": "schema:identifier",
+        "TITLE": "schema:headline",
+        "SUBTITLE": "schema:alternativeHeadline",
+        "BODY": "schema:articleBody",
+        "URL": {"@id": "schema:url", "@type": "@id"},
+        "IMAGE_URL": {"@id": "schema:image", "@type": "@id"},
+        "PUBLISHED_ON": {"@id": "schema:datePublished", "@type": "xsd:long"},
+        "AUTHORS": "schema:author",
+        "LANG": "schema:inLanguage",
+        "KEYWORDS": "schema:keywords",
+        "SENTIMENT": "cryptocompare:sentiment",
+        "CATEGORY_DATA": "schema:about",
+        "SOURCE_DATA": "schema:publisher"
+      }
+    },
+
+    "Exchange": {
+      "@id": "cryptocompare:Exchange",
+      "@context": {
+        "Id": "schema:identifier",
+        "Name": "schema:name",
+        "Url": {"@id": "schema:url", "@type": "@id"},
+        "LogoUrl": {"@id": "schema:logo", "@type": "@id"},
+        "Country": "schema:addressCountry",
+        "CentralizationType": "cryptocompare:centralizationType",
+        "Grade": "cryptocompare:exchangeBenchmarkGrade",
+        "GradePoints": "cryptocompare:exchangeBenchmarkPoints",
+        "OrderBook": "cryptocompare:hasOrderBook",
+        "Trades": "cryptocompare:hasTrades",
+        "Description": "schema:description"
+      }
+    },
+
+    "Asset": {
+      "@id": "cryptocompare:Asset",
+      "@context": {
+        "ID": "schema:identifier",
+        "SYMBOL": "cryptocompare:symbol",
+        "NAME": "schema:name",
+        "ASSET_TYPE": "cryptocompare:assetType",
+        "DESCRIPTION": "schema:description",
+        "LOGO_URL": {"@id": "schema:logo", "@type": "@id"},
+        "WEBSITE_URL": {"@id": "schema:url", "@type": "@id"},
+        "WHITE_PAPER_URL": {"@id": "cryptocompare:whitePaperUrl", "@type": "@id"},
+        "LAUNCH_DATE": {"@id": "schema:datePublished", "@type": "xsd:long"},
+        "SUPPLY_MAX": "cryptocompare:maxSupply",
+        "SUPPLY_TOTAL": "cryptocompare:totalSupply",
+        "SUPPLY_CIRCULATING": "cryptocompare:circulatingSupply",
+        "SUPPLY_STAKED": "cryptocompare:stakedSupply",
+        "CONSENSUS_MECHANISMS": "cryptocompare:consensusMechanisms",
+        "HASHING_ALGORITHMS": "cryptocompare:hashingAlgorithms"
+      }
+    },
+
+    "IndexTick": {
+      "@id": "cryptocompare:IndexTick",
+      "@context": {
+        "MARKET": "cryptocompare:indexFamily",
+        "INSTRUMENT": "cryptocompare:indexInstrument",
+        "VALUE": "fibo-sec:hasIndexValue",
+        "VALUE_LAST_UPDATE_TS": {"@id": "dcterms:modified", "@type": "xsd:long"}
+      }
+    },
+
+    "BlockchainDataPoint": {
+      "@id": "cryptocompare:BlockchainDataPoint",
+      "@context": {
+        "time": {"@id": "dcterms:date", "@type": "xsd:long"},
+        "symbol": "cryptocompare:chainSymbol",
+        "active_addresses": "cryptocompare:activeAddresses",
+        "transaction_count": "cryptocompare:transactionCount",
+        "large_transaction_count": "cryptocompare:largeTransactionCount",
+        "average_transaction_value": "cryptocompare:averageTransactionValue",
+        "block_height": "cryptocompare:blockHeight",
+        "hashrate": "cryptocompare:hashrate",
+        "difficulty": "cryptocompare:difficulty",
+        "current_supply": "cryptocompare:currentSupply"
+      }
+    }
+  }
+}
