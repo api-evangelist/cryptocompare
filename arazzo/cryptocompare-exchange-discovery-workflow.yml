@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: CryptoCompare Exchange Discovery
+  summary: List exchanges, read general info, then rank top exchanges for a pair.
+  description: >-
+    A venue-analysis flow that lists every integrated exchange and the pairs
+    each exposes, reads descriptive metadata and ranking grades for all
+    exchanges, and then ranks the top exchanges by 24-hour volume for a specific
+    pair before reading the full-data envelope for that same pair. Every step
+    spells out its request inline, including the api_key, so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: cryptocompareMinApi
+  url: ../openapi/cryptocompare-min-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: exchange-discovery
+  summary: List exchanges, read general info, then rank top exchanges for a pair.
+  description: >-
+    Reads the full exchange-and-pairs map, the exchange general-info envelope,
+    the top exchanges by 24-hour volume for a pair, and the full-data top
+    exchanges envelope for that same pair.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - fsym
+    - tsym
+    properties:
+      apiKey:
+        type: string
+        description: CryptoCompare API key supplied as the api_key query parameter.
+      fsym:
+        type: string
+        description: From-symbol (base cryptocurrency) of the pair, e.g. BTC.
+      tsym:
+        type: string
+        description: To-symbol (quote currency) of the pair, e.g. USD.
+      limit:
+        type: integer
+        description: Number of top exchanges to return for the pair.
+        default: 10
+  steps:
+  - stepId: listAllExchanges
+    description: >-
+      Read the full map of integrated exchanges and the trading pairs each
+      exchange currently exposes.
+    operationId: getAllExchanges
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      exchanges: $response.body#/Data
+  - stepId: getExchangesGeneral
+    description: >-
+      Read descriptive metadata, ranking grade, country, and feature flags for
+      every integrated exchange.
+    operationId: getExchangesGeneralInfo
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      generalInfo: $response.body#/Data
+  - stepId: getTopExchangesForPair
+    description: >-
+      Rank the top exchanges by 24-hour volume for the requested pair.
+    operationId: getTopExchangesByPairVolume
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: fsym
+      in: query
+      value: $inputs.fsym
+    - name: tsym
+      in: query
+      value: $inputs.tsym
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topExchanges: $response.body#/Data
+  - stepId: getTopExchangesFull
+    description: >-
+      Read the full-data top-exchanges envelope for the same pair, including the
+      coin info block and per-exchange ticker detail.
+    operationId: getTopExchangesFullByPairVolume
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: fsym
+      in: query
+      value: $inputs.fsym
+    - name: tsym
+      in: query
+      value: $inputs.tsym
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      coinInfo: $response.body#/Data/CoinInfo
+      exchanges: $response.body#/Data/Exchanges
+  outputs:
+    exchanges: $steps.listAllExchanges.outputs.exchanges
+    generalInfo: $steps.getExchangesGeneral.outputs.generalInfo
+    topExchanges: $steps.getTopExchangesForPair.outputs.topExchanges
+    topExchangesFull: $steps.getTopExchangesFull.outputs.exchanges

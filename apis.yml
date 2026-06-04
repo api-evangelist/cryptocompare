@@ -234,6 +234,33 @@ apis:
       and per-criterion splits are surfaced on the /exchanges/general
       endpoint of the min-api.
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/cryptocompare-asset-research-workflow.yml
+      name: CryptoCompare Asset Research
+      summary: Rank assets, read one asset's detail and supply history, then search news.
+    - url: arazzo/cryptocompare-coin-price-snapshot-workflow.yml
+      name: CryptoCompare Coin Price Snapshot
+      summary: Resolve a coin, read its live price, full ticker, and daily OHLCV history.
+    - url: arazzo/cryptocompare-coin-social-pulse-workflow.yml
+      name: CryptoCompare Coin Social Pulse
+      summary: Read latest and historical social stats for a coin alongside its live price.
+    - url: arazzo/cryptocompare-exchange-discovery-workflow.yml
+      name: CryptoCompare Exchange Discovery
+      summary: List exchanges, read general info, then rank top exchanges for a pair.
+    - url: arazzo/cryptocompare-market-cap-leaders-workflow.yml
+      name: CryptoCompare Market Cap Leaders
+      summary: Rank coins by market cap, read full multi-symbol prices, then daily history.
+    - url: arazzo/cryptocompare-news-feed-filter-workflow.yml
+      name: CryptoCompare News Feed Filter
+      summary: Resolve news categories and sources, then pull a filtered latest-news feed.
+    - url: arazzo/cryptocompare-spot-instrument-analysis-workflow.yml
+      name: CryptoCompare Spot Instrument Analysis
+      summary: Confirm a market, read instrument metadata, latest tick, then daily OHLCV.
+    - url: arazzo/cryptocompare-top-volume-deep-dive-workflow.yml
+      name: CryptoCompare Top Volume Deep Dive
+      summary: Rank coins by 24h volume, pull full data, then branch into the news feed.
   - type: Website
     url: https://data.coindesk.com/
   - type: Portal

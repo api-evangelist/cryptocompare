@@ -1,0 +1,117 @@
+arazzo: 1.0.1
+info:
+  title: CryptoCompare Market Cap Leaders
+  summary: Rank coins by market cap, read full multi-symbol prices, then daily history.
+  description: >-
+    A portfolio-research flow that ranks the largest cryptocurrencies by market
+    capitalization against a quote currency, reads the full multi-symbol ticker
+    envelope for the requested watchlist of leaders, and pulls daily OHLCV
+    history for a chosen leader so its current standing can be compared against
+    recent performance. Every step spells out its request inline, including the
+    api_key, so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: cryptocompareMinApi
+  url: ../openapi/cryptocompare-min-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: market-cap-leaders
+  summary: Rank by market cap, read full prices for a watchlist, then daily history.
+  description: >-
+    Reads the top coins by market capitalization, pulls the full ticker for a
+    supplied watchlist of leaders against the quote currency, and retrieves
+    daily OHLCV candles for one focus coin.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - tsym
+    - watchlist
+    - focusFsym
+    properties:
+      apiKey:
+        type: string
+        description: CryptoCompare API key supplied as the api_key query parameter.
+      tsym:
+        type: string
+        description: Quote currency for the market-cap ranking, e.g. USD.
+      watchlist:
+        type: string
+        description: Comma-separated from-symbols to read full prices for, e.g. BTC,ETH,SOL.
+      focusFsym:
+        type: string
+        description: Single from-symbol to pull daily OHLCV history for, e.g. BTC.
+      limit:
+        type: integer
+        description: Number of coins to return in the market-cap ranking.
+        default: 10
+  steps:
+  - stepId: getTopByMarketCap
+    description: >-
+      Read the top coins by market capitalization against the quote currency,
+      including full ticker data per coin.
+    operationId: getTopListByMarketCapFull
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: tsym
+      in: query
+      value: $inputs.tsym
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      leaders: $response.body#/Data
+      count: $response.body#/MetaData/Count
+  - stepId: getWatchlistPrices
+    description: >-
+      Read the full multi-symbol ticker envelope for the supplied watchlist
+      against the quote currency.
+    operationId: getMultipleSymbolsFullPrice
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: fsyms
+      in: query
+      value: $inputs.watchlist
+    - name: tsyms
+      in: query
+      value: $inputs.tsym
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      raw: $response.body#/RAW
+      display: $response.body#/DISPLAY
+  - stepId: getFocusHistory
+    description: >-
+      Pull daily OHLCV candles for the focus coin so its market-cap standing can
+      be compared against recent price performance.
+    operationId: getHistoricalDailyOHLCV
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: fsym
+      in: query
+      value: $inputs.focusFsym
+    - name: tsym
+      in: query
+      value: $inputs.tsym
+    - name: limit
+      in: query
+      value: 90
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      candles: $response.body#/Data/Data
+      timeFrom: $response.body#/Data/TimeFrom
+      timeTo: $response.body#/Data/TimeTo
+  outputs:
+    leaders: $steps.getTopByMarketCap.outputs.leaders
+    raw: $steps.getWatchlistPrices.outputs.raw
+    candles: $steps.getFocusHistory.outputs.candles

@@ -1,0 +1,125 @@
+arazzo: 1.0.1
+info:
+  title: CryptoCompare Spot Instrument Analysis
+  summary: Confirm a market, read instrument metadata, latest tick, then daily OHLCV.
+  description: >-
+    A market-microstructure flow on the CoinDesk Data API that confirms a spot
+    market is integrated, reads reference metadata for a single instrument on
+    that market, reads the latest tick (price and 24-hour rollups), and pulls
+    daily OHLCV candles for the instrument. Every step spells out its request
+    inline, including the api_key, so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: cryptocompareDataApi
+  url: ../openapi/cryptocompare-data-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: spot-instrument-analysis
+  summary: Confirm a market, read instrument metadata, latest tick, then daily OHLCV.
+  description: >-
+    Lists the spot market to confirm it is integrated, reads instrument
+    reference metadata, reads the latest tick for the instrument, and pulls
+    daily OHLCV candles for it.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - market
+    - instrument
+    properties:
+      apiKey:
+        type: string
+        description: API key supplied as the api_key query parameter.
+      market:
+        type: string
+        description: Spot market (exchange), e.g. coinbase, kraken, binance.
+      instrument:
+        type: string
+        description: Instrument identifier on the market, e.g. BTC-USD.
+      limit:
+        type: integer
+        description: Number of daily OHLCV candles to return.
+        default: 30
+  steps:
+  - stepId: confirmMarket
+    description: >-
+      List the spot market to confirm it is integrated and read its status
+      before reading instrument data.
+    operationId: getSpotMarketsList
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: market
+      in: query
+      value: $inputs.market
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      markets: $response.body#/Data
+  - stepId: getInstrumentMetadata
+    description: >-
+      Read reference metadata for the instrument on the market including base
+      and quote symbols, status, and mapping.
+    operationId: getSpotInstrumentMetadata
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: market
+      in: query
+      value: $inputs.market
+    - name: instruments
+      in: query
+      value: $inputs.instrument
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      metadata: $response.body#/Data
+  - stepId: getLatestTick
+    description: >-
+      Read the latest tick for the instrument including price and the 24-hour
+      moving rollups.
+    operationId: getSpotLatestTick
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: market
+      in: query
+      value: $inputs.market
+    - name: instruments
+      in: query
+      value: $inputs.instrument
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tick: $response.body#/Data
+  - stepId: getDailyHistory
+    description: >-
+      Pull daily OHLCV candles for the instrument on the market to place the
+      latest tick in historical context.
+    operationId: getSpotHistoricalDaily
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: market
+      in: query
+      value: $inputs.market
+    - name: instrument
+      in: query
+      value: $inputs.instrument
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      candles: $response.body#/Data
+  outputs:
+    markets: $steps.confirmMarket.outputs.markets
+    metadata: $steps.getInstrumentMetadata.outputs.metadata
+    tick: $steps.getLatestTick.outputs.tick
+    candles: $steps.getDailyHistory.outputs.candles

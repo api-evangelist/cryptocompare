@@ -1,0 +1,134 @@
+arazzo: 1.0.1
+info:
+  title: CryptoCompare Asset Research
+  summary: Rank assets, read one asset's detail and supply history, then search news.
+  description: >-
+    A fundamentals-research flow on the CoinDesk Data API that ranks the top
+    assets by a selected metric, reads detailed metadata for a single asset
+    (supply, classifications, consensus mechanism, links), pulls its daily
+    supply history, and runs a keyword news search scoped to that asset. Every
+    step spells out its request inline, including the api_key, so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: cryptocompareDataApi
+  url: ../openapi/cryptocompare-data-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: asset-research
+  summary: Rank assets, read one asset's detail and supply history, then search news.
+  description: >-
+    Reads the top asset list sorted by the chosen metric, reads full metadata
+    for a single asset symbol, pulls its daily supply history, and searches the
+    news feed for that asset.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - assetSymbol
+    properties:
+      apiKey:
+        type: string
+        description: API key supplied as the api_key query parameter.
+      assetSymbol:
+        type: string
+        description: Asset symbol to research in detail, e.g. BTC.
+      sortBy:
+        type: string
+        description: Sort field for the top list ranking.
+        default: CIRCULATING_MKT_CAP_USD
+      limit:
+        type: integer
+        description: Number of assets to return in the ranking.
+        default: 50
+  steps:
+  - stepId: getTopAssets
+    description: >-
+      Read the top assets ranked by the selected metric in descending order.
+    operationId: getAssetTopList
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: sort_by
+      in: query
+      value: $inputs.sortBy
+    - name: sort_direction
+      in: query
+      value: DESC
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assetList: $response.body#/Data/LIST
+      stats: $response.body#/Data/STATS
+  - stepId: getAssetDetail
+    description: >-
+      Read detailed metadata for the focus asset including supply,
+      classifications, consensus mechanism, and links.
+    operationId: getAssetBySymbol
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: asset_symbol
+      in: query
+      value: $inputs.assetSymbol
+    - name: asset_lookup_priority
+      in: query
+      value: SYMBOL
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assetId: $response.body#/Data/ID
+      name: $response.body#/Data/NAME
+      supplyCirculating: $response.body#/Data/SUPPLY_CIRCULATING
+      supplyMax: $response.body#/Data/SUPPLY_MAX
+  - stepId: getSupplyHistory
+    description: >-
+      Pull the daily history of the asset's supply (circulating, total, max,
+      staked) to chart supply changes over time.
+    operationId: getAssetHistoricalSupplyDaily
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: asset
+      in: query
+      value: $inputs.assetSymbol
+    - name: limit
+      in: query
+      value: 90
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      supplyHistory: $response.body#/Data
+  - stepId: searchAssetNews
+    description: >-
+      Search the news feed for articles mentioning the focus asset to add
+      narrative context to the fundamentals.
+    operationId: getNewsArticleList
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: lang
+      in: query
+      value: EN
+    - name: search_string
+      in: query
+      value: $inputs.assetSymbol
+    - name: limit
+      in: query
+      value: 20
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      articles: $response.body#/Data
+  outputs:
+    assetList: $steps.getTopAssets.outputs.assetList
+    assetId: $steps.getAssetDetail.outputs.assetId
+    supplyHistory: $steps.getSupplyHistory.outputs.supplyHistory
+    articles: $steps.searchAssetNews.outputs.articles

@@ -1,0 +1,130 @@
+arazzo: 1.0.1
+info:
+  title: CryptoCompare Coin Price Snapshot
+  summary: Resolve a coin, read its live price, full ticker, and daily OHLCV history.
+  description: >-
+    An analyst flow that builds a complete picture of a single cryptocurrency.
+    It first confirms the coin exists in the CryptoCompare coin list, then reads
+    the latest aggregated price against one or more quote currencies, pulls the
+    full ticker envelope (24h volume, high, low, change, market cap), and finally
+    retrieves daily OHLCV candles so the live snapshot can be placed in
+    historical context. Every step spells out its request inline, including the
+    api_key, so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: cryptocompareMinApi
+  url: ../openapi/cryptocompare-min-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: coin-price-snapshot
+  summary: Resolve a coin then read its live price, full ticker, and daily candles.
+  description: >-
+    Confirms the source symbol is present in the coin list, reads the latest
+    price and full ticker against the requested quote currency, and pulls the
+    most recent window of daily OHLCV candles.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - fsym
+    - tsym
+    properties:
+      apiKey:
+        type: string
+        description: CryptoCompare API key supplied as the api_key query parameter.
+      fsym:
+        type: string
+        description: From-symbol (base cryptocurrency), e.g. BTC.
+      tsym:
+        type: string
+        description: To-symbol (quote currency), e.g. USD.
+      limit:
+        type: integer
+        description: Number of daily OHLCV candles to return.
+        default: 30
+  steps:
+  - stepId: resolveCoin
+    description: >-
+      Read the full coin list and confirm the requested from-symbol is a known
+      CryptoCompare coin before pulling pricing.
+    operationId: getAllCoinsList
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: summary
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      coinData: $response.body#/Data
+      responseStatus: $response.body#/Response
+  - stepId: getLivePrice
+    description: >-
+      Read the latest aggregated CCCAGG price for the from-symbol converted into
+      the quote currency.
+    operationId: getSingleSymbolPrice
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: fsym
+      in: query
+      value: $inputs.fsym
+    - name: tsyms
+      in: query
+      value: $inputs.tsym
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      priceMap: $response.body
+  - stepId: getFullTicker
+    description: >-
+      Read the full ticker envelope (RAW and DISPLAY) for the pair so volume,
+      high, low, change, and market cap are available alongside the price.
+    operationId: getMultipleSymbolsFullPrice
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: fsyms
+      in: query
+      value: $inputs.fsym
+    - name: tsyms
+      in: query
+      value: $inputs.tsym
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      raw: $response.body#/RAW
+      display: $response.body#/DISPLAY
+  - stepId: getDailyHistory
+    description: >-
+      Pull the most recent window of daily OHLCV candles for the pair to place
+      the live price in historical context.
+    operationId: getHistoricalDailyOHLCV
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: fsym
+      in: query
+      value: $inputs.fsym
+    - name: tsym
+      in: query
+      value: $inputs.tsym
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      candles: $response.body#/Data/Data
+      timeFrom: $response.body#/Data/TimeFrom
+      timeTo: $response.body#/Data/TimeTo
+  outputs:
+    priceMap: $steps.getLivePrice.outputs.priceMap
+    raw: $steps.getFullTicker.outputs.raw
+    candles: $steps.getDailyHistory.outputs.candles

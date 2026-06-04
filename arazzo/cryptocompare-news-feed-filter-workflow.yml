@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: CryptoCompare News Feed Filter
+  summary: Resolve news categories and sources, then pull a filtered latest-news feed.
+  description: >-
+    A newsroom flow that reads the available news categories and source feeds,
+    confirms the catalog is populated, and then pulls the latest news articles
+    filtered by language, category, and source. It branches on whether any
+    categories were returned: when the catalog is populated it runs the filtered
+    feed, otherwise it ends cleanly. Every step spells out its request inline,
+    including the api_key, so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: cryptocompareMinApi
+  url: ../openapi/cryptocompare-min-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: news-feed-filter
+  summary: Resolve categories and sources, then pull a filtered latest-news feed.
+  description: >-
+    Reads the news category and source catalogs, branches on whether categories
+    exist, and pulls the latest news articles filtered by language, category,
+    and source feeds.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    properties:
+      apiKey:
+        type: string
+        description: CryptoCompare API key supplied as the api_key query parameter.
+      lang:
+        type: string
+        description: ISO 639-1 language code for the news feed.
+        default: EN
+      categories:
+        type: string
+        description: Comma-separated category keys to include, e.g. BTC,ETH.
+      feeds:
+        type: string
+        description: Comma-separated source feed keys to include.
+      limit:
+        type: integer
+        description: Number of articles to return.
+        default: 50
+  steps:
+  - stepId: getCategories
+    description: >-
+      Read the list of news categories used for tagging articles, then branch
+      on whether the catalog is populated.
+    operationId: getNewsCategories
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      categories: $response.body
+    onSuccess:
+    - name: hasCategories
+      type: goto
+      stepId: getSources
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: noCategories
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: getSources
+    description: >-
+      Read the list of news source feeds available for filtering.
+    operationId: getNewsSources
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sources: $response.body
+  - stepId: getFilteredNews
+    description: >-
+      Pull the latest news articles filtered by language, categories, and source
+      feeds, sorted by most recent.
+    operationId: getLatestNewsArticles
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: lang
+      in: query
+      value: $inputs.lang
+    - name: categories
+      in: query
+      value: $inputs.categories
+    - name: feeds
+      in: query
+      value: $inputs.feeds
+    - name: sortOrder
+      in: query
+      value: latest
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      articles: $response.body#/Data
+  outputs:
+    categories: $steps.getCategories.outputs.categories
+    sources: $steps.getSources.outputs.sources
+    articles: $steps.getFilteredNews.outputs.articles

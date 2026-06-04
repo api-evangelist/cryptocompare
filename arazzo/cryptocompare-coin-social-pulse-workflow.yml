@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: CryptoCompare Coin Social Pulse
+  summary: Read latest and historical social stats for a coin alongside its live price.
+  description: >-
+    A community-sentiment flow that reads the latest aggregated social
+    statistics (Twitter, Reddit, code repository) for a coin identified by its
+    CryptoCompare numeric coin ID, pulls the daily history of those social
+    stats, and reads the coin's live price so social momentum can be lined up
+    against market price. Every step spells out its request inline, including
+    the api_key, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: cryptocompareMinApi
+  url: ../openapi/cryptocompare-min-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: coin-social-pulse
+  summary: Read latest plus historical social stats for a coin and its live price.
+  description: >-
+    Reads the latest social statistics for a coin by its numeric coin ID, pulls
+    the daily social-stats history, and reads the coin's live price for the
+    requested quote currency.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - coinId
+    - fsym
+    - tsym
+    properties:
+      apiKey:
+        type: string
+        description: CryptoCompare API key supplied as the api_key query parameter.
+      coinId:
+        type: integer
+        description: CryptoCompare numeric coin ID (e.g. 1182 for BTC).
+      fsym:
+        type: string
+        description: From-symbol of the same coin for the price read, e.g. BTC.
+      tsym:
+        type: string
+        description: Quote currency for the price read, e.g. USD.
+      limit:
+        type: integer
+        description: Number of daily social-stats data points to return.
+        default: 30
+  steps:
+  - stepId: getSocialLatest
+    description: >-
+      Read the latest aggregated social statistics for the coin identified by
+      its numeric coin ID.
+    operationId: getCoinSocialStatsLatest
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: coinId
+      in: query
+      value: $inputs.coinId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      general: $response.body#/Data/General
+      cryptoCompare: $response.body#/Data/CryptoCompare
+  - stepId: getSocialDailyHistory
+    description: >-
+      Pull the daily history of social statistics for the coin to chart social
+      momentum over time.
+    operationId: getCoinSocialStatsDaily
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: coinId
+      in: query
+      value: $inputs.coinId
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      socialHistory: $response.body#/Data
+  - stepId: getLivePrice
+    description: >-
+      Read the coin's live price so social momentum can be lined up against the
+      current market price.
+    operationId: getSingleSymbolPrice
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    - name: fsym
+      in: query
+      value: $inputs.fsym
+    - name: tsyms
+      in: query
+      value: $inputs.tsym
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      priceMap: $response.body
+  outputs:
+    general: $steps.getSocialLatest.outputs.general
+    socialHistory: $steps.getSocialDailyHistory.outputs.socialHistory
+    priceMap: $steps.getLivePrice.outputs.priceMap
