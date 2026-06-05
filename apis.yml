@@ -25,24 +25,17 @@ x-category: Cryptocurrency
 x-tier: 3
 x-tier-reason: bulk-registered-from-public-apis
 description: >-
-  CryptoCompare (now CoinDesk Data / CCData, acquired by CoinDesk in late
-  2024) is a long-standing crypto market data aggregator covering 300+
-  exchanges, 10,000+ assets, and 300,000+ trading pairs. The platform exposes
-  two REST API surfaces — the legacy min-api.cryptocompare.com (Price,
-  Historical OHLCV, Top Lists, News, Social, Order Book, Exchanges,
-  Blockchain) and the modern data-api.cryptocompare.com / CoinDesk Data API
-  (Spot, Index / Reference Rates including CADLI and CCIX, Asset, News,
-  On-Chain, Futures, Options, Overview) — plus a unified WebSocket streamer
-  at wss://streamer.cryptocompare.com/v2 that multiplexes Trade, Ticker,
-  CCCAGG aggregate index, Order Book L2 updates and snapshots, Full Volume,
-  Top Tier Full Volume, OHLC Candles, and Top of Book channels.
-  Authentication uses an API key supplied as the api_key query parameter or
-  as an `Authorization: Apikey {key}` header. Access is metered by monthly
-  call credits with per-second / per-minute / per-hour / per-day ceilings;
-  the Free tier issues 100,000 monthly credits and commercial Starter /
-  Professional / Enterprise tiers escalate credit budgets, history depth,
-  and surface coverage (news, social, on-chain, derivatives, full streamer,
-  on-demand bulk exports, reference-rate licensing).
+  CryptoCompare (now CoinDesk Data / CCData, acquired by CoinDesk in late 2024) is a long-standing crypto market data
+  aggregator covering 300+ exchanges, 10,000+ assets, and 300,000+ trading pairs. The platform exposes two REST API
+  surfaces — the legacy min-api.cryptocompare.com (Price, Historical OHLCV, Top Lists, News, Social, Order Book,
+  Exchanges, Blockchain) and the modern data-api.cryptocompare.com / CoinDesk Data API (Spot, Index / Reference Rates
+  including CADLI and CCIX, Asset, News, On-Chain, Futures, Options, Overview) — plus a unified WebSocket streamer at
+  wss://streamer.cryptocompare.com/v2 that multiplexes Trade, Ticker, CCCAGG aggregate index, Order Book L2 updates and
+  snapshots, Full Volume, Top Tier Full Volume, OHLC Candles, and Top of Book channels. Authentication uses an API key
+  supplied as the api_key query parameter or as an `Authorization: Apikey {key}` header. Access is metered by monthly
+  call credits with per-second / per-minute / per-hour / per-day ceilings; the Free tier issues 100,000 monthly credits
+  and commercial Starter / Professional / Enterprise tiers escalate credit budgets, history depth, and surface coverage
+  (news, social, on-chain, derivatives, full streamer, on-demand bulk exports, reference-rate licensing).
 apis:
   - aid: cryptocompare:min-api
     name: CryptoCompare min-api (Legacy)
@@ -84,32 +77,16 @@ apis:
         url: examples/cryptocompare-getTopListByTotalVolumeFull-example.json
       - type: Example
         url: examples/cryptocompare-getLatestNewsArticles-example.json
-      - type: NaftikoCapability
-        url: capabilities/min-api-price.yaml
-      - type: NaftikoCapability
-        url: capabilities/min-api-historical.yaml
-      - type: NaftikoCapability
-        url: capabilities/min-api-top-lists.yaml
-      - type: NaftikoCapability
-        url: capabilities/min-api-news.yaml
-      - type: NaftikoCapability
-        url: capabilities/min-api-social.yaml
-      - type: NaftikoCapability
-        url: capabilities/min-api-blockchain.yaml
-      - type: NaftikoCapability
-        url: capabilities/min-api-exchanges-coins.yaml
       - type: SignUp
         url: https://www.cryptocompare.com/cryptopian/api-keys
       - type: Authentication
         url: https://min-api.cryptocompare.com/documentation
     description: >-
-      Legacy CryptoCompare REST API. Single endpoint surface for current and
-      historical Price, OHLCV (minute / hour / day) candles, Top Lists by
-      24h volume / market cap / pair volume / exchange volume, News articles
-      with sources and categories, Social statistics, top-of-book Order
-      Book L1, Exchanges reference data and full coin listing, and
-      Blockchain on-chain data including transaction count, active
-      addresses, hashrate, difficulty, and balance distribution.
+      Legacy CryptoCompare REST API. Single endpoint surface for current and historical Price, OHLCV (minute / hour /
+      day) candles, Top Lists by 24h volume / market cap / pair volume / exchange volume, News articles with sources and
+      categories, Social statistics, top-of-book Order Book L1, Exchanges reference data and full coin listing, and
+      Blockchain on-chain data including transaction count, active addresses, hashrate, difficulty, and balance
+      distribution.
     x-features:
       - 31 REST operations across 9 functional groups
       - CCCAGG cross-exchange aggregate index as default price source
@@ -149,24 +126,16 @@ apis:
         url: json-schema/cryptocompare-asset-schema.json
       - type: Example
         url: examples/cryptocompare-getIndexLatestTick-example.json
-      - type: NaftikoCapability
-        url: capabilities/data-api-spot.yaml
-      - type: NaftikoCapability
-        url: capabilities/data-api-index.yaml
-      - type: NaftikoCapability
-        url: capabilities/data-api-asset-news.yaml
       - type: SignUp
         url: https://developers.coindesk.com/pricing/
       - type: Authentication
         url: https://developers.coindesk.com/documentation/data-api/introduction
     description: >-
-      Modern, institutional-grade replacement for the legacy min-api.
-      Consolidated surface across Spot (latest tick, instrument metadata,
-      historical OHLCV, trades, order book L1), CoinDesk Indices and
-      Reference Rates (CADLI, CCIX, CCIXBE) with composition endpoint,
-      Asset metadata and supply history, News articles with full search,
-      On-Chain metrics, Futures, Options, and Overview market cap.
-      Standardized request and response envelope across every endpoint.
+      Modern, institutional-grade replacement for the legacy min-api. Consolidated surface across Spot (latest tick,
+      instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX,
+      CCIXBE) with composition endpoint, Asset metadata and supply history, News articles with full search, On-Chain
+      metrics, Futures, Options, and Overview market cap. Standardized request and response envelope across every
+      endpoint.
     x-features:
       - Unified endpoint shape across spot, index, asset, news, on-chain, and derivatives
       - CADLI institutional reference rate (regulated index methodology)
@@ -200,15 +169,11 @@ apis:
       - type: AsyncAPI
         url: asyncapi/cryptocompare-asyncapi.yml
     description: >-
-      Single secure WebSocket endpoint multiplexing every subscription via
-      tilde-delimited subscription strings (e.g. 5~CCCAGG~BTC~USD). Channel
-      types: Trade (0), Ticker (2), Aggregate Index / CCCAGG (5), Order Book
-      L2 update (8), Order Book L2 snapshot (9), Full Volume (11), Top Tier
-      Full Volume (21), OHLC Candles (24), and Top of Order Book (30).
-      Control envelopes include Welcome (20), SubscribeComplete (16),
-      UnsubscribeComplete (17), LoadComplete (3), UnsubscribeAllComplete
-      (18), Heartbeat (999), Unauthorized (401), RateLimit (429), and
-      ServerError (500).
+      Single secure WebSocket endpoint multiplexing every subscription via tilde-delimited subscription strings (e.g.
+      5~CCCAGG~BTC~USD). Channel types: Trade (0), Ticker (2), Aggregate Index / CCCAGG (5), Order Book L2 update (8),
+      Order Book L2 snapshot (9), Full Volume (11), Top Tier Full Volume (21), OHLC Candles (24), and Top of Order Book
+      (30). Control envelopes include Welcome (20), SubscribeComplete (16), UnsubscribeComplete (17), LoadComplete (3),
+      UnsubscribeAllComplete (18), Heartbeat (999), Unauthorized (401), RateLimit (429), and ServerError (500).
     x-features:
       - One socket multiplexes every channel and subscription
       - Wildcards (*) for enterprise bulk subscription
@@ -228,39 +193,39 @@ apis:
       - type: Documentation
         url: https://data.coindesk.com/research/exchange-benchmark
     description: >-
-      Quantitative ranking of integrated exchanges across Legal, KYC and
-      Transaction Risk, Team, Data Provision, Asset Quality and Diversity,
-      Market Quality, Security, and Negative Reports Penalty. Grade points
-      and per-criterion splits are surfaced on the /exchanges/general
-      endpoint of the min-api.
+      Quantitative ranking of integrated exchanges across Legal, KYC and Transaction Risk, Team, Data Provision, Asset
+      Quality and Diversity, Market Quality, Security, and Negative Reports Penalty. Grade points and per-criterion
+      splits are surfaced on the /exchanges/general endpoint of the min-api.
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/cryptocompare/overview
   - type: ArazzoWorkflows
     url: arazzo/
     workflows:
-    - url: arazzo/cryptocompare-asset-research-workflow.yml
-      name: CryptoCompare Asset Research
-      summary: Rank assets, read one asset's detail and supply history, then search news.
-    - url: arazzo/cryptocompare-coin-price-snapshot-workflow.yml
-      name: CryptoCompare Coin Price Snapshot
-      summary: Resolve a coin, read its live price, full ticker, and daily OHLCV history.
-    - url: arazzo/cryptocompare-coin-social-pulse-workflow.yml
-      name: CryptoCompare Coin Social Pulse
-      summary: Read latest and historical social stats for a coin alongside its live price.
-    - url: arazzo/cryptocompare-exchange-discovery-workflow.yml
-      name: CryptoCompare Exchange Discovery
-      summary: List exchanges, read general info, then rank top exchanges for a pair.
-    - url: arazzo/cryptocompare-market-cap-leaders-workflow.yml
-      name: CryptoCompare Market Cap Leaders
-      summary: Rank coins by market cap, read full multi-symbol prices, then daily history.
-    - url: arazzo/cryptocompare-news-feed-filter-workflow.yml
-      name: CryptoCompare News Feed Filter
-      summary: Resolve news categories and sources, then pull a filtered latest-news feed.
-    - url: arazzo/cryptocompare-spot-instrument-analysis-workflow.yml
-      name: CryptoCompare Spot Instrument Analysis
-      summary: Confirm a market, read instrument metadata, latest tick, then daily OHLCV.
-    - url: arazzo/cryptocompare-top-volume-deep-dive-workflow.yml
-      name: CryptoCompare Top Volume Deep Dive
-      summary: Rank coins by 24h volume, pull full data, then branch into the news feed.
+      - url: arazzo/cryptocompare-asset-research-workflow.yml
+        name: CryptoCompare Asset Research
+        summary: Rank assets, read one asset's detail and supply history, then search news.
+      - url: arazzo/cryptocompare-coin-price-snapshot-workflow.yml
+        name: CryptoCompare Coin Price Snapshot
+        summary: Resolve a coin, read its live price, full ticker, and daily OHLCV history.
+      - url: arazzo/cryptocompare-coin-social-pulse-workflow.yml
+        name: CryptoCompare Coin Social Pulse
+        summary: Read latest and historical social stats for a coin alongside its live price.
+      - url: arazzo/cryptocompare-exchange-discovery-workflow.yml
+        name: CryptoCompare Exchange Discovery
+        summary: List exchanges, read general info, then rank top exchanges for a pair.
+      - url: arazzo/cryptocompare-market-cap-leaders-workflow.yml
+        name: CryptoCompare Market Cap Leaders
+        summary: Rank coins by market cap, read full multi-symbol prices, then daily history.
+      - url: arazzo/cryptocompare-news-feed-filter-workflow.yml
+        name: CryptoCompare News Feed Filter
+        summary: Resolve news categories and sources, then pull a filtered latest-news feed.
+      - url: arazzo/cryptocompare-spot-instrument-analysis-workflow.yml
+        name: CryptoCompare Spot Instrument Analysis
+        summary: Confirm a market, read instrument metadata, latest tick, then daily OHLCV.
+      - url: arazzo/cryptocompare-top-volume-deep-dive-workflow.yml
+        name: CryptoCompare Top Volume Deep Dive
+        summary: Rank coins by 24h volume, pull full data, then branch into the news feed.
   - type: Website
     url: https://data.coindesk.com/
   - type: Portal
@@ -308,13 +273,17 @@ common:
       - name: Real-time WebSocket streamer
         description: Single secure socket multiplexes Trade, Ticker, CCCAGG, Order Book L2, OHLC, and Top of Book channels.
       - name: News aggregation with sentiment
-        description: Crypto-native news across hundreds of sources with category tagging and POSITIVE / NEUTRAL / NEGATIVE sentiment.
+        description: >-
+          Crypto-native news across hundreds of sources with category tagging and POSITIVE / NEUTRAL / NEGATIVE
+          sentiment.
       - name: Per-coin social statistics
         description: Aggregated Twitter, Reddit, Facebook, and source-repo engagement metrics.
       - name: On-chain blockchain data
         description: Transaction count, active addresses, hashrate, difficulty, and balance distribution across 30+ chains.
       - name: Exchange Benchmark grading
-        description: Quantitative exchange ranking (AA / A / B / C / D / E / F) across Legal, KYC, Security, and Market Quality dimensions.
+        description: >-
+          Quantitative exchange ranking (AA / A / B / C / D / E / F) across Legal, KYC, Security, and Market Quality
+          dimensions.
   - type: UseCases
     data:
       - name: Retail price ticker and portfolio dashboard
