@@ -1,0 +1,947 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CryptoCompare min-api (Legacy)",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Price",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Single Symbol Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/price",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns the latest aggregated price for a single source cryptocurrency converted into one or more target currencies. Uses CCCAGG by default."
+        },
+        {
+          "info": {
+            "name": "Get Multiple Symbols Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/pricemulti",
+            "params": [
+              {
+                "name": "fsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns the latest aggregated prices for multiple source cryptocurrencies converted into multiple target currencies in a single call."
+        },
+        {
+          "info": {
+            "name": "Get Multiple Symbols Full Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/pricemultifull",
+            "params": [
+              {
+                "name": "fsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns full ticker data (price, 24h volume, high, low, open, change, market cap) for multiple from-symbols and to-symbols in one call. Same envelope is used by the CCCAGG WebSocket index."
+        },
+        {
+          "info": {
+            "name": "Get Custom Average Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/generateAvg",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of exchanges to include in the average."
+              }
+            ]
+          },
+          "docs": "Computes a custom average across a chosen set of exchanges for a single cryptocurrency pair (CUSTOMAGG)."
+        },
+        {
+          "info": {
+            "name": "Get Historical Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/pricehistorical",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "ts",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) of the desired historical price."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns the price of a cryptocurrency at a given historical timestamp. Falls back to the closest available candle close."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Historical",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Historical Daily OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/v2/histoday",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns daily OHLCV candles for a cryptocurrency pair, ordered ascending by timestamp. Up to 2000 data points per call."
+        },
+        {
+          "info": {
+            "name": "Get Historical Hourly OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/v2/histohour",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns hourly OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call."
+        },
+        {
+          "info": {
+            "name": "Get Historical Minute OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/v2/histominute",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns minute OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call and up to 7 days of history on the free tier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Top Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Top List by Total Volume (Full Data)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/top/totalvolfull",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number for paginated top-list endpoints."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "Quote currency for the volume conversion."
+              }
+            ]
+          },
+          "docs": "Returns the top cryptocurrencies by 24-hour total volume converted into a target currency, including full ticker data per coin."
+        },
+        {
+          "info": {
+            "name": "Get Top List by Market Cap (Full Data)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/top/mktcapfull",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number for paginated top-list endpoints."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "Quote currency for the market-cap conversion."
+              }
+            ]
+          },
+          "docs": "Returns the top cryptocurrencies by market capitalization with full ticker data per coin."
+        },
+        {
+          "info": {
+            "name": "Get Top Exchanges by Pair Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/top/exchanges",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              }
+            ]
+          },
+          "docs": "Returns the top exchanges ranked by 24-hour volume for a given pair."
+        },
+        {
+          "info": {
+            "name": "Get Top Exchanges (Full Data) by Pair Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/top/exchanges/full",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              }
+            ]
+          },
+          "docs": "Returns the top exchanges by 24-hour pair volume with full ticker data per exchange."
+        },
+        {
+          "info": {
+            "name": "Get Top Volumes by Currency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/top/volumes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "Quote currency for the ranking."
+              }
+            ]
+          },
+          "docs": "Returns the top cryptocurrencies by aggregate 24-hour volume against a given quote currency. Lighter payload than totalvolfull."
+        },
+        {
+          "info": {
+            "name": "Get Top Pairs by Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/top/pairs",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              }
+            ]
+          },
+          "docs": "Returns the most active trading pairs for a given from-symbol across every integrated exchange."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "News",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Latest News Articles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/v2/news/",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "ISO 639-1 language code. Defaults to EN."
+              },
+              {
+                "name": "feeds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of source feed keys."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of category keys."
+              },
+              {
+                "name": "excludeCategories",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of categories to exclude."
+              },
+              {
+                "name": "lTs",
+                "value": "",
+                "type": "query",
+                "description": "Latest timestamp (seconds) to return articles before."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, latest or popular."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of articles to return (default 50)."
+              }
+            ]
+          },
+          "docs": "Returns the most recent cryptocurrency news articles aggregated from every integrated source. Filterable by language, source, and category."
+        },
+        {
+          "info": {
+            "name": "Get News Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/news/feeds"
+          },
+          "docs": "Returns the list of news source feeds available for filtering."
+        },
+        {
+          "info": {
+            "name": "Get News Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/news/categories"
+          },
+          "docs": "Returns the list of news categories used for tagging articles."
+        },
+        {
+          "info": {
+            "name": "Get News Feeds and Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/news/feedsandcategories"
+          },
+          "docs": "Returns both available source feeds and categories in a single call."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Social",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Latest Coin Social Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/social/coin/latest",
+            "params": [
+              {
+                "name": "coinId",
+                "value": "",
+                "type": "query",
+                "description": "CryptoCompare coin ID (e.g. 1182 for BTC)."
+              }
+            ]
+          },
+          "docs": "Returns the latest aggregated social statistics (Twitter, Reddit, code repository) for a single coin identified by its CryptoCompare coin ID."
+        },
+        {
+          "info": {
+            "name": "Get Historical Daily Coin Social Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/social/coin/histo/day",
+            "params": [
+              {
+                "name": "coinId",
+                "value": "",
+                "type": "query",
+                "description": "CryptoCompare coin ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              }
+            ]
+          },
+          "docs": "Returns daily historical social statistics for a coin."
+        },
+        {
+          "info": {
+            "name": "Get Historical Hourly Coin Social Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/social/coin/histo/hour",
+            "params": [
+              {
+                "name": "coinId",
+                "value": "",
+                "type": "query",
+                "description": "CryptoCompare coin ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              }
+            ]
+          },
+          "docs": "Returns hourly historical social statistics for a coin."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Order Book",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Order Book Top of Book",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/v2/ob/l1/top",
+            "params": [
+              {
+                "name": "fsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of exchanges."
+              }
+            ]
+          },
+          "docs": "Returns the top of the order book (best bid and ask) for one or more pairs across one or more exchanges. Requires an API key on most tiers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Exchanges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Exchanges and Trading Pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/all/exchanges"
+          },
+          "docs": "Returns the full list of integrated exchanges and the trading pairs each exchange currently exposes."
+        },
+        {
+          "info": {
+            "name": "Get Exchanges General Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/exchanges/general"
+          },
+          "docs": "Returns descriptive metadata, ranking grade, country, URL, and feature flags for every integrated exchange."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Coins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Coins List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/all/coinlist",
+            "params": [
+              {
+                "name": "summary",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns a slimmer payload without descriptions."
+              }
+            ]
+          },
+          "docs": "Returns the complete CryptoCompare coin list with mapping, image URLs, algorithm, proof type, supply data, and CCData taxonomy."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Blockchain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Available Blockchain Data Coins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/blockchain/list"
+          },
+          "docs": "Returns the list of coins that have on-chain blockchain data available (transaction count, active addresses, average transaction value, etc.)."
+        },
+        {
+          "info": {
+            "name": "Get Latest Blockchain Day",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/blockchain/latest",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (coin) of the blockchain dataset."
+              }
+            ]
+          },
+          "docs": "Returns the latest day of on-chain data for a coin including transaction count, average transaction value, active addresses, hashrate, difficulty, and large transaction count."
+        },
+        {
+          "info": {
+            "name": "Get Historical Daily Blockchain Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/blockchain/histo/day",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (coin) of the blockchain dataset."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              }
+            ]
+          },
+          "docs": "Returns daily on-chain data history (transaction count, value, active addresses, hashrate, difficulty) for a coin."
+        },
+        {
+          "info": {
+            "name": "Get Historical Daily Blockchain Balance Distribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://min-api.cryptocompare.com/data/blockchain/balancedistribution/histo/day",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (coin) of the dataset."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              }
+            ]
+          },
+          "docs": "Returns daily history of on-chain balance distribution buckets for a coin (addresses with 0-0.001, 0.001-0.01, etc., units of the asset)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

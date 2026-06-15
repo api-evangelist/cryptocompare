@@ -1,0 +1,3021 @@
+{
+  "item": [
+    {
+      "id": "999ca826-8693-4cc0-93ef-0469075b4549",
+      "name": "Spot",
+      "description": {
+        "content": "Spot market data including latest tick, historical OHLCV, trades, order book L1, and instrument metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1408adb1-b1cf-4629-bd7f-7201a95a4d57",
+          "name": "Get Spot Latest Tick",
+          "request": {
+            "name": "Get Spot Latest Tick",
+            "description": {
+              "content": "Returns the latest tick (trade or top-of-book update) for one or more spot instruments on a given market.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spot",
+                "v1",
+                "latest",
+                "tick"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "groups",
+                  "value": "<string>",
+                  "description": "Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e41b5a86-aec2-4e1a-be73-a4cd8e68588a",
+              "name": "Latest tick envelope per instrument.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spot",
+                    "v1",
+                    "latest",
+                    "tick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groups",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"CCSEQ\": 6467,\n      \"PRICE\": 321.75612352463355,\n      \"PRICE_LAST_UPDATE_TS\": 6824,\n      \"VOLUME\": 4303.273237392859,\n      \"QUOTE_VOLUME\": 7965.7419811868795,\n      \"VOLUME_TOP_TIER\": 6944.1896174443455,\n      \"QUOTE_VOLUME_TOP_TIER\": 1742.6293092179578,\n      \"CURRENT_HOUR_VOLUME\": 1629.2979154846564,\n      \"CURRENT_HOUR_QUOTE_VOLUME\": 3330.96262142108,\n      \"CURRENT_HOUR_OPEN\": 9591.216878982557,\n      \"CURRENT_HOUR_HIGH\": 6739.5492158184325,\n      \"CURRENT_HOUR_LOW\": 7707.207840438159,\n      \"CURRENT_HOUR_CHANGE\": 6723.613605321361,\n      \"CURRENT_HOUR_CHANGE_PERCENTAGE\": 4595.383550446521,\n      \"CURRENT_DAY_OPEN\": 2978.1044621001142,\n      \"CURRENT_DAY_HIGH\": 4967.955205622252,\n      \"CURRENT_DAY_LOW\": 4182.860337722172,\n      \"CURRENT_DAY_CHANGE\": 4867.730291985216,\n      \"CURRENT_DAY_CHANGE_PERCENTAGE\": 6969.718343141891,\n      \"MOVING_24_HOUR_VOLUME\": 5970.101709639352,\n      \"MOVING_24_HOUR_QUOTE_VOLUME\": 3592.5250777908814,\n      \"MOVING_24_HOUR_OPEN\": 8107.928037567135,\n      \"MOVING_24_HOUR_HIGH\": 4290.254957781164,\n      \"MOVING_24_HOUR_LOW\": 9875.785518400553,\n      \"MOVING_24_HOUR_CHANGE\": 2914.730431589434,\n      \"MOVING_24_HOUR_CHANGE_PERCENTAGE\": 796.4816390663742,\n      \"LIFETIME_FIRST_TRADE_TS\": 8871,\n      \"LIFETIME_HIGH\": 2182.6159235337295,\n      \"LIFETIME_LOW\": 7149.1525845721635\n    },\n    \"key_1\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"CCSEQ\": 806,\n      \"PRICE\": 1373.2995002610792,\n      \"PRICE_LAST_UPDATE_TS\": 6834,\n      \"VOLUME\": 3039.9654722592463,\n      \"QUOTE_VOLUME\": 565.6682646796885,\n      \"VOLUME_TOP_TIER\": 8356.553503615754,\n      \"QUOTE_VOLUME_TOP_TIER\": 217.0890483124488,\n      \"CURRENT_HOUR_VOLUME\": 3565.607063995192,\n      \"CURRENT_HOUR_QUOTE_VOLUME\": 3921.906529948946,\n      \"CURRENT_HOUR_OPEN\": 6534.3998858648165,\n      \"CURRENT_HOUR_HIGH\": 8564.643210574577,\n      \"CURRENT_HOUR_LOW\": 4898.7417495752525,\n      \"CURRENT_HOUR_CHANGE\": 8249.0336719216,\n      \"CURRENT_HOUR_CHANGE_PERCENTAGE\": 4408.741560243961,\n      \"CURRENT_DAY_OPEN\": 6014.589686960633,\n      \"CURRENT_DAY_HIGH\": 9990.953133988949,\n      \"CURRENT_DAY_LOW\": 1037.9239227453663,\n      \"CURRENT_DAY_CHANGE\": 5831.1784399766275,\n      \"CURRENT_DAY_CHANGE_PERCENTAGE\": 4293.875146915985,\n      \"MOVING_24_HOUR_VOLUME\": 7055.277074284696,\n      \"MOVING_24_HOUR_QUOTE_VOLUME\": 2675.916755231261,\n      \"MOVING_24_HOUR_OPEN\": 1600.1346444911446,\n      \"MOVING_24_HOUR_HIGH\": 5539.899042737861,\n      \"MOVING_24_HOUR_LOW\": 2509.606678403666,\n      \"MOVING_24_HOUR_CHANGE\": 4317.105234883126,\n      \"MOVING_24_HOUR_CHANGE_PERCENTAGE\": 6885.6333350487885,\n      \"LIFETIME_FIRST_TRADE_TS\": 285,\n      \"LIFETIME_HIGH\": 4882.442658720362,\n      \"LIFETIME_LOW\": 3476.2270833287043\n    }\n  },\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "222ffc2c-ceda-45e8-a76a-711d82c1c9ce",
+          "name": "List Spot Markets",
+          "request": {
+            "name": "List Spot Markets",
+            "description": {
+              "content": "Returns the list of integrated spot exchanges and their status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spot",
+                "v2",
+                "markets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ee41201-b345-477f-bf97-c878a3a3629f",
+              "name": "Markets list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spot",
+                    "v2",
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"TYPE\": \"string\",\n      \"EXCHANGE_STATUS\": \"string\",\n      \"MAPPED_INSTRUMENTS_TOTAL\": 8483,\n      \"UNMAPPED_INSTRUMENTS_TOTAL\": 779,\n      \"INSTRUMENT_STATUS\": {},\n      \"TOTAL_TRADES_SPOT\": 1442,\n      \"HAS_ORDERBOOK_L2_MINUTE_SNAPSHOTS_ENABLED\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "456d01d9-a600-43c6-9156-8170a98f6b8a",
+          "name": "Get Spot Instrument Metadata",
+          "request": {
+            "name": "Get Spot Instrument Metadata",
+            "description": {
+              "content": "Returns reference metadata for spot instruments on a given market including base/quote symbols, tick sizes, status, and mapping.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spot",
+                "v1",
+                "markets",
+                "instruments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c55d2f1-5bca-4f32-8552-c1c080e9027b",
+              "name": "Instrument metadata envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spot",
+                    "v1",
+                    "markets",
+                    "instruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"METADATA_VERSION\": 4982,\n      \"INSTRUMENT_STATUS\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"HISTO_SHARD\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"INSTRUMENT_MAPPING\": {},\n      \"HAS_TRADES_SPOT\": false,\n      \"FIRST_TRADE_SPOT_TIMESTAMP\": 3167,\n      \"LAST_TRADE_SPOT_TIMESTAMP\": 5512,\n      \"TOTAL_TRADES_SPOT\": 9317\n    },\n    \"key_1\": {\n      \"METADATA_VERSION\": 12,\n      \"INSTRUMENT_STATUS\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"HISTO_SHARD\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"INSTRUMENT_MAPPING\": {},\n      \"HAS_TRADES_SPOT\": false,\n      \"FIRST_TRADE_SPOT_TIMESTAMP\": 3254,\n      \"LAST_TRADE_SPOT_TIMESTAMP\": 7014,\n      \"TOTAL_TRADES_SPOT\": 8288\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "147bac66-fea0-42e4-b74a-3cb4a1e471e3",
+          "name": "Get Spot Historical Daily OHLCV",
+          "request": {
+            "name": "Get Spot Historical Daily OHLCV",
+            "description": {
+              "content": "Returns daily OHLCV candles for a single spot instrument on a given market, ordered ascending. Up to 2000 candles per call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spot",
+                "v1",
+                "historical",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregate",
+                  "value": "1",
+                  "description": "Time-period aggregation factor."
+                },
+                {
+                  "disabled": false,
+                  "key": "fill",
+                  "value": "true",
+                  "description": "Fill empty periods with zero-volume candles."
+                },
+                {
+                  "disabled": false,
+                  "key": "apply_mapping",
+                  "value": "true",
+                  "description": "Apply asset/instrument mapping for renames."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "450d4060-a612-4f4a-a509-8a9740cd225a",
+              "name": "Historical daily OHLCV envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spot",
+                    "v1",
+                    "historical",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fill",
+                      "value": "true"
+                    },
+                    {
+                      "key": "apply_mapping",
+                      "value": "true"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 4162,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 5061.175437910501,\n      \"HIGH\": 1546.1442167283012,\n      \"LOW\": 3939.2422929873105,\n      \"CLOSE\": 789.6626967542453,\n      \"FIRST_TRADE_TIMESTAMP\": 8846,\n      \"LAST_TRADE_TIMESTAMP\": 3556,\n      \"FIRST_TRADE_PRICE\": 9820.278700301464,\n      \"HIGH_TRADE_PRICE\": 7359.276275365623,\n      \"LOW_TRADE_PRICE\": 8215.527271827901,\n      \"LAST_TRADE_PRICE\": 2571.299485759757,\n      \"VOLUME\": 9468.008590957925,\n      \"QUOTE_VOLUME\": 4086.5700756368597,\n      \"VOLUME_BUY\": 5258.29126362496,\n      \"QUOTE_VOLUME_BUY\": 777.5488816266785,\n      \"VOLUME_SELL\": 3745.948002009548,\n      \"QUOTE_VOLUME_SELL\": 6258.356405700875,\n      \"TOTAL_TRADES\": 7842,\n      \"TOTAL_TRADES_BUY\": 144,\n      \"TOTAL_TRADES_SELL\": 8188,\n      \"TOTAL_TRADES_UNKNOWN\": 9825\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1127,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4276.96962780333,\n      \"HIGH\": 332.5156434313703,\n      \"LOW\": 1285.1819872760373,\n      \"CLOSE\": 6637.286868423419,\n      \"FIRST_TRADE_TIMESTAMP\": 2839,\n      \"LAST_TRADE_TIMESTAMP\": 9140,\n      \"FIRST_TRADE_PRICE\": 8805.20688193796,\n      \"HIGH_TRADE_PRICE\": 1884.4055614397414,\n      \"LOW_TRADE_PRICE\": 2201.3491871988554,\n      \"LAST_TRADE_PRICE\": 2099.622285790225,\n      \"VOLUME\": 2388.4265941620806,\n      \"QUOTE_VOLUME\": 453.532210655081,\n      \"VOLUME_BUY\": 4463.583261859646,\n      \"QUOTE_VOLUME_BUY\": 6592.808004822414,\n      \"VOLUME_SELL\": 3867.5020505967273,\n      \"QUOTE_VOLUME_SELL\": 2138.850212075624,\n      \"TOTAL_TRADES\": 1122,\n      \"TOTAL_TRADES_BUY\": 418,\n      \"TOTAL_TRADES_SELL\": 6920,\n      \"TOTAL_TRADES_UNKNOWN\": 7483\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a28d5e11-ca87-4e76-985e-498eab7ad260",
+          "name": "Get Spot Historical Hourly OHLCV",
+          "request": {
+            "name": "Get Spot Historical Hourly OHLCV",
+            "description": {
+              "content": "Returns hourly OHLCV candles for a single spot instrument.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spot",
+                "v1",
+                "historical",
+                "hours"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregate",
+                  "value": "1",
+                  "description": "Time-period aggregation factor."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ddb1eba-bffa-4450-ad3e-2b4a0c17eacb",
+              "name": "Historical hourly OHLCV envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spot",
+                    "v1",
+                    "historical",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 4162,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 5061.175437910501,\n      \"HIGH\": 1546.1442167283012,\n      \"LOW\": 3939.2422929873105,\n      \"CLOSE\": 789.6626967542453,\n      \"FIRST_TRADE_TIMESTAMP\": 8846,\n      \"LAST_TRADE_TIMESTAMP\": 3556,\n      \"FIRST_TRADE_PRICE\": 9820.278700301464,\n      \"HIGH_TRADE_PRICE\": 7359.276275365623,\n      \"LOW_TRADE_PRICE\": 8215.527271827901,\n      \"LAST_TRADE_PRICE\": 2571.299485759757,\n      \"VOLUME\": 9468.008590957925,\n      \"QUOTE_VOLUME\": 4086.5700756368597,\n      \"VOLUME_BUY\": 5258.29126362496,\n      \"QUOTE_VOLUME_BUY\": 777.5488816266785,\n      \"VOLUME_SELL\": 3745.948002009548,\n      \"QUOTE_VOLUME_SELL\": 6258.356405700875,\n      \"TOTAL_TRADES\": 7842,\n      \"TOTAL_TRADES_BUY\": 144,\n      \"TOTAL_TRADES_SELL\": 8188,\n      \"TOTAL_TRADES_UNKNOWN\": 9825\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1127,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4276.96962780333,\n      \"HIGH\": 332.5156434313703,\n      \"LOW\": 1285.1819872760373,\n      \"CLOSE\": 6637.286868423419,\n      \"FIRST_TRADE_TIMESTAMP\": 2839,\n      \"LAST_TRADE_TIMESTAMP\": 9140,\n      \"FIRST_TRADE_PRICE\": 8805.20688193796,\n      \"HIGH_TRADE_PRICE\": 1884.4055614397414,\n      \"LOW_TRADE_PRICE\": 2201.3491871988554,\n      \"LAST_TRADE_PRICE\": 2099.622285790225,\n      \"VOLUME\": 2388.4265941620806,\n      \"QUOTE_VOLUME\": 453.532210655081,\n      \"VOLUME_BUY\": 4463.583261859646,\n      \"QUOTE_VOLUME_BUY\": 6592.808004822414,\n      \"VOLUME_SELL\": 3867.5020505967273,\n      \"QUOTE_VOLUME_SELL\": 2138.850212075624,\n      \"TOTAL_TRADES\": 1122,\n      \"TOTAL_TRADES_BUY\": 418,\n      \"TOTAL_TRADES_SELL\": 6920,\n      \"TOTAL_TRADES_UNKNOWN\": 7483\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7d61120-e67d-4cdc-9466-2d7947411fee",
+          "name": "Get Spot Historical Minute OHLCV",
+          "request": {
+            "name": "Get Spot Historical Minute OHLCV",
+            "description": {
+              "content": "Returns minute OHLCV candles for a single spot instrument.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spot",
+                "v1",
+                "historical",
+                "minutes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregate",
+                  "value": "1",
+                  "description": "Time-period aggregation factor."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d6325ae-b081-4c66-b434-a6fccc926f30",
+              "name": "Historical minute OHLCV envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spot",
+                    "v1",
+                    "historical",
+                    "minutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 4162,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 5061.175437910501,\n      \"HIGH\": 1546.1442167283012,\n      \"LOW\": 3939.2422929873105,\n      \"CLOSE\": 789.6626967542453,\n      \"FIRST_TRADE_TIMESTAMP\": 8846,\n      \"LAST_TRADE_TIMESTAMP\": 3556,\n      \"FIRST_TRADE_PRICE\": 9820.278700301464,\n      \"HIGH_TRADE_PRICE\": 7359.276275365623,\n      \"LOW_TRADE_PRICE\": 8215.527271827901,\n      \"LAST_TRADE_PRICE\": 2571.299485759757,\n      \"VOLUME\": 9468.008590957925,\n      \"QUOTE_VOLUME\": 4086.5700756368597,\n      \"VOLUME_BUY\": 5258.29126362496,\n      \"QUOTE_VOLUME_BUY\": 777.5488816266785,\n      \"VOLUME_SELL\": 3745.948002009548,\n      \"QUOTE_VOLUME_SELL\": 6258.356405700875,\n      \"TOTAL_TRADES\": 7842,\n      \"TOTAL_TRADES_BUY\": 144,\n      \"TOTAL_TRADES_SELL\": 8188,\n      \"TOTAL_TRADES_UNKNOWN\": 9825\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1127,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4276.96962780333,\n      \"HIGH\": 332.5156434313703,\n      \"LOW\": 1285.1819872760373,\n      \"CLOSE\": 6637.286868423419,\n      \"FIRST_TRADE_TIMESTAMP\": 2839,\n      \"LAST_TRADE_TIMESTAMP\": 9140,\n      \"FIRST_TRADE_PRICE\": 8805.20688193796,\n      \"HIGH_TRADE_PRICE\": 1884.4055614397414,\n      \"LOW_TRADE_PRICE\": 2201.3491871988554,\n      \"LAST_TRADE_PRICE\": 2099.622285790225,\n      \"VOLUME\": 2388.4265941620806,\n      \"QUOTE_VOLUME\": 453.532210655081,\n      \"VOLUME_BUY\": 4463.583261859646,\n      \"QUOTE_VOLUME_BUY\": 6592.808004822414,\n      \"VOLUME_SELL\": 3867.5020505967273,\n      \"QUOTE_VOLUME_SELL\": 2138.850212075624,\n      \"TOTAL_TRADES\": 1122,\n      \"TOTAL_TRADES_BUY\": 418,\n      \"TOTAL_TRADES_SELL\": 6920,\n      \"TOTAL_TRADES_UNKNOWN\": 7483\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f61fa0b-6544-42e5-a887-d26f093f04bb",
+          "name": "Get Spot Historical Trades",
+          "request": {
+            "name": "Get Spot Historical Trades",
+            "description": {
+              "content": "Returns raw historical trade prints for a single spot instrument.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spot",
+                "v1",
+                "historical",
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "43d86df6-bef5-40ce-8bf4-244b19f5e380",
+              "name": "Trades envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spot",
+                    "v1",
+                    "historical",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"SIDE\": \"BUY\",\n      \"ID\": \"string\",\n      \"TIMESTAMP\": 8849,\n      \"TIMESTAMP_NS\": 1158,\n      \"RECEIVED_TIMESTAMP\": 6152,\n      \"QUANTITY\": 1448.975525434656,\n      \"PRICE\": 2774.9837145057577,\n      \"QUOTE_QUANTITY\": 7352.451228444381,\n      \"CCSEQ\": 7588\n    },\n    {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"SIDE\": \"UNKNOWN\",\n      \"ID\": \"string\",\n      \"TIMESTAMP\": 7963,\n      \"TIMESTAMP_NS\": 9234,\n      \"RECEIVED_TIMESTAMP\": 9926,\n      \"QUANTITY\": 358.20898010561984,\n      \"PRICE\": 2341.3942562721713,\n      \"QUOTE_QUANTITY\": 3707.15334640224,\n      \"CCSEQ\": 1336\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33806013-8818-4af1-bab0-a14201c096aa",
+          "name": "Get Spot Order Book L1 Top",
+          "request": {
+            "name": "Get Spot Order Book L1 Top",
+            "description": {
+              "content": "Returns the top of the order book (best bid and best ask) for one or more spot instruments. Updated continuously.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spot",
+                "v1",
+                "latest",
+                "orderbook",
+                "l1",
+                "top"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "120747c0-fc2a-4116-b358-47700529f182",
+              "name": "L1 top of book envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spot",
+                    "v1",
+                    "latest",
+                    "orderbook",
+                    "l1",
+                    "top"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"BEST_BID\": 8688.116615146631,\n      \"BEST_BID_QUANTITY\": 495.37104242405985,\n      \"BEST_ASK\": 6031.315272850399,\n      \"BEST_ASK_QUANTITY\": 7380.811338795665,\n      \"BEST_BID_LAST_UPDATE_TS\": 6373,\n      \"BEST_ASK_LAST_UPDATE_TS\": 9759\n    },\n    \"key_1\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"BEST_BID\": 5537.79186538396,\n      \"BEST_BID_QUANTITY\": 9952.043027447717,\n      \"BEST_ASK\": 8684.473288678988,\n      \"BEST_ASK_QUANTITY\": 7861.729033788133,\n      \"BEST_BID_LAST_UPDATE_TS\": 5657,\n      \"BEST_ASK_LAST_UPDATE_TS\": 6033\n    },\n    \"key_2\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"BEST_BID\": 8413.961840484979,\n      \"BEST_BID_QUANTITY\": 379.8172830558799,\n      \"BEST_ASK\": 4434.573006485553,\n      \"BEST_ASK_QUANTITY\": 4982.318258405104,\n      \"BEST_BID_LAST_UPDATE_TS\": 5992,\n      \"BEST_ASK_LAST_UPDATE_TS\": 352\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9d2774ba-5b7a-4113-9e41-f7bc8f9f92c9",
+      "name": "Index",
+      "description": {
+        "content": "CoinDesk Indices (CADLI, CCIX, CCIXBE) latest tick, historical values, and composition.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "79fb4526-5524-47ec-9716-dfb7580777db",
+          "name": "Get Index Latest Tick",
+          "request": {
+            "name": "Get Index Latest Tick",
+            "description": {
+              "content": "Returns the latest tick for one or more CoinDesk indices on the chosen index family (cadli, ccix, ccixbe). Includes current period stats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "latest",
+                "tick"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "groups",
+                  "value": "<string>",
+                  "description": "Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41e1648c-eaad-4bea-af50-5f205c63fe11",
+              "name": "Latest index tick envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "latest",
+                    "tick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groups",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"CCSEQ\": 7238,\n      \"VALUE\": 6276.716496626999,\n      \"VALUE_FLAG\": \"UP\",\n      \"VALUE_LAST_UPDATE_TS\": 741,\n      \"CURRENT_HOUR_OPEN\": 4428.792387030245,\n      \"CURRENT_HOUR_HIGH\": 6513.987103969449,\n      \"CURRENT_HOUR_LOW\": 9718.044001626899,\n      \"CURRENT_HOUR_CHANGE\": 2522.28135339866,\n      \"CURRENT_HOUR_CHANGE_PERCENTAGE\": 7451.909527195516,\n      \"CURRENT_DAY_OPEN\": 3556.5073898734977,\n      \"CURRENT_DAY_HIGH\": 5641.910497868151,\n      \"CURRENT_DAY_LOW\": 6983.144605288849,\n      \"CURRENT_DAY_CHANGE\": 6416.17871700822,\n      \"CURRENT_DAY_CHANGE_PERCENTAGE\": 3751.6793000733305,\n      \"CURRENT_DAY_VOLUME\": 7685.27358504769,\n      \"CURRENT_DAY_QUOTE_VOLUME\": 6657.255554945829,\n      \"LIFETIME_HIGH\": 9096.01080667345,\n      \"LIFETIME_LOW\": 1621.6897102420535,\n      \"LIFETIME_FIRST_TRADE_TS\": 1180\n    },\n    \"key_1\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"CCSEQ\": 257,\n      \"VALUE\": 5807.114995942339,\n      \"VALUE_FLAG\": \"DOWN\",\n      \"VALUE_LAST_UPDATE_TS\": 4281,\n      \"CURRENT_HOUR_OPEN\": 9548.166264962381,\n      \"CURRENT_HOUR_HIGH\": 6022.014497673222,\n      \"CURRENT_HOUR_LOW\": 9420.296871315872,\n      \"CURRENT_HOUR_CHANGE\": 5594.995104141461,\n      \"CURRENT_HOUR_CHANGE_PERCENTAGE\": 1834.0028856739566,\n      \"CURRENT_DAY_OPEN\": 8677.67827535759,\n      \"CURRENT_DAY_HIGH\": 2333.5516347076577,\n      \"CURRENT_DAY_LOW\": 6771.99279804312,\n      \"CURRENT_DAY_CHANGE\": 4093.1428240643795,\n      \"CURRENT_DAY_CHANGE_PERCENTAGE\": 840.8045048435764,\n      \"CURRENT_DAY_VOLUME\": 774.7829334811618,\n      \"CURRENT_DAY_QUOTE_VOLUME\": 895.6277234433473,\n      \"LIFETIME_HIGH\": 4010.9938298361512,\n      \"LIFETIME_LOW\": 860.6254562936977,\n      \"LIFETIME_FIRST_TRADE_TS\": 1109\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10ef91be-f24f-454a-97d3-afbb2f536a5c",
+          "name": "Get Index Historical Daily Values",
+          "request": {
+            "name": "Get Index Historical Daily Values",
+            "description": {
+              "content": "Returns daily index OHLC values for a CoinDesk index instrument.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "historical",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ec3f697-644f-42cd-a4ec-138d31c375f8",
+              "name": "Historical daily index envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "historical",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 4162,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 5061.175437910501,\n      \"HIGH\": 1546.1442167283012,\n      \"LOW\": 3939.2422929873105,\n      \"CLOSE\": 789.6626967542453,\n      \"FIRST_TRADE_TIMESTAMP\": 8846,\n      \"LAST_TRADE_TIMESTAMP\": 3556,\n      \"FIRST_TRADE_PRICE\": 9820.278700301464,\n      \"HIGH_TRADE_PRICE\": 7359.276275365623,\n      \"LOW_TRADE_PRICE\": 8215.527271827901,\n      \"LAST_TRADE_PRICE\": 2571.299485759757,\n      \"VOLUME\": 9468.008590957925,\n      \"QUOTE_VOLUME\": 4086.5700756368597,\n      \"VOLUME_BUY\": 5258.29126362496,\n      \"QUOTE_VOLUME_BUY\": 777.5488816266785,\n      \"VOLUME_SELL\": 3745.948002009548,\n      \"QUOTE_VOLUME_SELL\": 6258.356405700875,\n      \"TOTAL_TRADES\": 7842,\n      \"TOTAL_TRADES_BUY\": 144,\n      \"TOTAL_TRADES_SELL\": 8188,\n      \"TOTAL_TRADES_UNKNOWN\": 9825\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1127,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4276.96962780333,\n      \"HIGH\": 332.5156434313703,\n      \"LOW\": 1285.1819872760373,\n      \"CLOSE\": 6637.286868423419,\n      \"FIRST_TRADE_TIMESTAMP\": 2839,\n      \"LAST_TRADE_TIMESTAMP\": 9140,\n      \"FIRST_TRADE_PRICE\": 8805.20688193796,\n      \"HIGH_TRADE_PRICE\": 1884.4055614397414,\n      \"LOW_TRADE_PRICE\": 2201.3491871988554,\n      \"LAST_TRADE_PRICE\": 2099.622285790225,\n      \"VOLUME\": 2388.4265941620806,\n      \"QUOTE_VOLUME\": 453.532210655081,\n      \"VOLUME_BUY\": 4463.583261859646,\n      \"QUOTE_VOLUME_BUY\": 6592.808004822414,\n      \"VOLUME_SELL\": 3867.5020505967273,\n      \"QUOTE_VOLUME_SELL\": 2138.850212075624,\n      \"TOTAL_TRADES\": 1122,\n      \"TOTAL_TRADES_BUY\": 418,\n      \"TOTAL_TRADES_SELL\": 6920,\n      \"TOTAL_TRADES_UNKNOWN\": 7483\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7542c416-4800-4626-8a2c-d2cdc40524be",
+          "name": "Get Index Historical Hourly Values",
+          "request": {
+            "name": "Get Index Historical Hourly Values",
+            "description": {
+              "content": "Returns hourly index OHLC values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "historical",
+                "hours"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f1774c3-6663-4276-b94b-fc11e49148c8",
+              "name": "Historical hourly index envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "historical",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 4162,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 5061.175437910501,\n      \"HIGH\": 1546.1442167283012,\n      \"LOW\": 3939.2422929873105,\n      \"CLOSE\": 789.6626967542453,\n      \"FIRST_TRADE_TIMESTAMP\": 8846,\n      \"LAST_TRADE_TIMESTAMP\": 3556,\n      \"FIRST_TRADE_PRICE\": 9820.278700301464,\n      \"HIGH_TRADE_PRICE\": 7359.276275365623,\n      \"LOW_TRADE_PRICE\": 8215.527271827901,\n      \"LAST_TRADE_PRICE\": 2571.299485759757,\n      \"VOLUME\": 9468.008590957925,\n      \"QUOTE_VOLUME\": 4086.5700756368597,\n      \"VOLUME_BUY\": 5258.29126362496,\n      \"QUOTE_VOLUME_BUY\": 777.5488816266785,\n      \"VOLUME_SELL\": 3745.948002009548,\n      \"QUOTE_VOLUME_SELL\": 6258.356405700875,\n      \"TOTAL_TRADES\": 7842,\n      \"TOTAL_TRADES_BUY\": 144,\n      \"TOTAL_TRADES_SELL\": 8188,\n      \"TOTAL_TRADES_UNKNOWN\": 9825\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1127,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4276.96962780333,\n      \"HIGH\": 332.5156434313703,\n      \"LOW\": 1285.1819872760373,\n      \"CLOSE\": 6637.286868423419,\n      \"FIRST_TRADE_TIMESTAMP\": 2839,\n      \"LAST_TRADE_TIMESTAMP\": 9140,\n      \"FIRST_TRADE_PRICE\": 8805.20688193796,\n      \"HIGH_TRADE_PRICE\": 1884.4055614397414,\n      \"LOW_TRADE_PRICE\": 2201.3491871988554,\n      \"LAST_TRADE_PRICE\": 2099.622285790225,\n      \"VOLUME\": 2388.4265941620806,\n      \"QUOTE_VOLUME\": 453.532210655081,\n      \"VOLUME_BUY\": 4463.583261859646,\n      \"QUOTE_VOLUME_BUY\": 6592.808004822414,\n      \"VOLUME_SELL\": 3867.5020505967273,\n      \"QUOTE_VOLUME_SELL\": 2138.850212075624,\n      \"TOTAL_TRADES\": 1122,\n      \"TOTAL_TRADES_BUY\": 418,\n      \"TOTAL_TRADES_SELL\": 6920,\n      \"TOTAL_TRADES_UNKNOWN\": 7483\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d842fb64-3238-4c44-9554-0a19752f34d3",
+          "name": "Get Index Historical Minute Values",
+          "request": {
+            "name": "Get Index Historical Minute Values",
+            "description": {
+              "content": "Returns minute index OHLC values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "historical",
+                "minutes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c0cfa5e-3289-4313-b4da-494b8200ece1",
+              "name": "Historical minute index envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "historical",
+                    "minutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 4162,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 5061.175437910501,\n      \"HIGH\": 1546.1442167283012,\n      \"LOW\": 3939.2422929873105,\n      \"CLOSE\": 789.6626967542453,\n      \"FIRST_TRADE_TIMESTAMP\": 8846,\n      \"LAST_TRADE_TIMESTAMP\": 3556,\n      \"FIRST_TRADE_PRICE\": 9820.278700301464,\n      \"HIGH_TRADE_PRICE\": 7359.276275365623,\n      \"LOW_TRADE_PRICE\": 8215.527271827901,\n      \"LAST_TRADE_PRICE\": 2571.299485759757,\n      \"VOLUME\": 9468.008590957925,\n      \"QUOTE_VOLUME\": 4086.5700756368597,\n      \"VOLUME_BUY\": 5258.29126362496,\n      \"QUOTE_VOLUME_BUY\": 777.5488816266785,\n      \"VOLUME_SELL\": 3745.948002009548,\n      \"QUOTE_VOLUME_SELL\": 6258.356405700875,\n      \"TOTAL_TRADES\": 7842,\n      \"TOTAL_TRADES_BUY\": 144,\n      \"TOTAL_TRADES_SELL\": 8188,\n      \"TOTAL_TRADES_UNKNOWN\": 9825\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1127,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4276.96962780333,\n      \"HIGH\": 332.5156434313703,\n      \"LOW\": 1285.1819872760373,\n      \"CLOSE\": 6637.286868423419,\n      \"FIRST_TRADE_TIMESTAMP\": 2839,\n      \"LAST_TRADE_TIMESTAMP\": 9140,\n      \"FIRST_TRADE_PRICE\": 8805.20688193796,\n      \"HIGH_TRADE_PRICE\": 1884.4055614397414,\n      \"LOW_TRADE_PRICE\": 2201.3491871988554,\n      \"LAST_TRADE_PRICE\": 2099.622285790225,\n      \"VOLUME\": 2388.4265941620806,\n      \"QUOTE_VOLUME\": 453.532210655081,\n      \"VOLUME_BUY\": 4463.583261859646,\n      \"QUOTE_VOLUME_BUY\": 6592.808004822414,\n      \"VOLUME_SELL\": 3867.5020505967273,\n      \"QUOTE_VOLUME_SELL\": 2138.850212075624,\n      \"TOTAL_TRADES\": 1122,\n      \"TOTAL_TRADES_BUY\": 418,\n      \"TOTAL_TRADES_SELL\": 6920,\n      \"TOTAL_TRADES_UNKNOWN\": 7483\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e341f01-4eba-4848-9999-ed1ce79e47bb",
+          "name": "Get Index Composition",
+          "request": {
+            "name": "Get Index Composition",
+            "description": {
+              "content": "Returns the latest index value, divisor, constituent prices, supplies, adjustment factors, volumes, and weights for a multi-asset index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "latest",
+                "instrument",
+                "composition"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aa59ea4e-666f-4d97-9ee2-7e9849cc47ee",
+              "name": "Index composition envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "latest",
+                    "instrument",
+                    "composition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"INSTRUMENT\": \"string\",\n    \"MARKET\": \"string\",\n    \"VALUE\": 6305.692577937117,\n    \"DIVISOR\": 6386.210820944898,\n    \"CONSTITUENTS\": [\n      {\n        \"ASSET\": \"string\",\n        \"PRICE\": 590.9930853023093,\n        \"SUPPLY\": 2242.926566457324,\n        \"ADJUSTMENT_FACTOR\": 175.00089378868267,\n        \"VOLUME\": 6209.081274010755,\n        \"WEIGHT\": 4925.103580503166\n      },\n      {\n        \"ASSET\": \"string\",\n        \"PRICE\": 7371.143952190276,\n        \"SUPPLY\": 7066.155557798789,\n        \"ADJUSTMENT_FACTOR\": 7148.63133013683,\n        \"VOLUME\": 6023.530596636203,\n        \"WEIGHT\": 6546.155639089999\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a34c9eee-c4a4-4907-90d3-40f4122e3f47",
+      "name": "Asset",
+      "description": {
+        "content": "Asset metadata, overview, supply, and reference data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a51d15f-11f0-42e8-9c81-c375a83cb82b",
+          "name": "Get Asset Top List",
+          "request": {
+            "name": "Get Asset Top List",
+            "description": {
+              "content": "Returns the top assets ranked by selected metric (market cap, volume). Supports pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset",
+                "v1",
+                "top",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of rows to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-indexed)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort field (CIRCULATING_MKT_CAP_USD, TOTAL_MKT_CAP_USD, SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "<string>",
+                  "description": "Sort direction (ASC or DESC)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c305f924-a3f2-421f-9f08-7e0df571bb94",
+              "name": "Top asset list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset",
+                    "v1",
+                    "top",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"STATS\": {},\n    \"LIST\": [\n      {\n        \"ID\": 8347,\n        \"SYMBOL\": \"string\",\n        \"ASSET_TYPE\": \"string\",\n        \"NAME\": \"string\",\n        \"LOGO_URL\": \"string\",\n        \"LAUNCH_DATE\": 8471,\n        \"CIRCULATING_MKT_CAP_USD\": 1808.9549601206002,\n        \"TOTAL_MKT_CAP_USD\": 7245.715231787169,\n        \"SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD\": 2289.2952642468913,\n        \"PRICE_USD\": 7128.595195160571,\n        \"SUPPLY_CIRCULATING\": 9110.93154944853,\n        \"SUPPLY_MAX\": 7397.244644192322\n      },\n      {\n        \"ID\": 8229,\n        \"SYMBOL\": \"string\",\n        \"ASSET_TYPE\": \"string\",\n        \"NAME\": \"string\",\n        \"LOGO_URL\": \"string\",\n        \"LAUNCH_DATE\": 1513,\n        \"CIRCULATING_MKT_CAP_USD\": 2815.2135735851502,\n        \"TOTAL_MKT_CAP_USD\": 5824.597498526838,\n        \"SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD\": 5644.17143188482,\n        \"PRICE_USD\": 8864.335131216276,\n        \"SUPPLY_CIRCULATING\": 684.0111285043494,\n        \"SUPPLY_MAX\": 3792.264753790907\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c18a31af-504f-47b7-a830-5054c4f5e191",
+          "name": "Get Asset by Symbol",
+          "request": {
+            "name": "Get Asset by Symbol",
+            "description": {
+              "content": "Returns detailed asset metadata including supply, classifications, consensus mechanism, social and source links for a single asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset",
+                "v1",
+                "data",
+                "by",
+                "symbol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset_symbol",
+                  "value": "<string>",
+                  "description": "(Required) Asset symbol (e.g. BTC)."
+                },
+                {
+                  "disabled": false,
+                  "key": "asset_lookup_priority",
+                  "value": "SYMBOL",
+                  "description": "Asset lookup priority (SYMBOL or ID)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98a01b8d-43fe-4562-b6ac-0200255127f4",
+              "name": "Asset detail envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset",
+                    "v1",
+                    "data",
+                    "by",
+                    "symbol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset_symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_lookup_priority",
+                      "value": "SYMBOL"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"ID\": 5967,\n    \"SYMBOL\": \"string\",\n    \"ASSET_TYPE\": \"string\",\n    \"NAME\": \"string\",\n    \"LOGO_URL\": \"string\",\n    \"LAUNCH_DATE\": 5743,\n    \"DESCRIPTION\": \"string\",\n    \"SUPPLY_MAX\": 5924.358314772919,\n    \"SUPPLY_TOTAL\": 2280.642503378194,\n    \"SUPPLY_CIRCULATING\": 7630.138941705065,\n    \"SUPPLY_STAKED\": 550.6464805248868\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c32c4e7-16e9-4c73-b6d3-c2a384e7c7f9",
+          "name": "Get Asset Historical Supply Daily",
+          "request": {
+            "name": "Get Asset Historical Supply Daily",
+            "description": {
+              "content": "Returns daily history of asset supply (circulating, total, max).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset",
+                "v1",
+                "historical",
+                "supply",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset",
+                  "value": "<string>",
+                  "description": "(Required) Asset symbol or ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e4ae1ed-9fcd-4614-8c62-8b5219400aaa",
+              "name": "Daily supply history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset",
+                    "v1",
+                    "historical",
+                    "supply",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TIMESTAMP\": 4756,\n      \"ASSET_SYMBOL\": \"string\",\n      \"SUPPLY_CIRCULATING\": 1317.1940799493077,\n      \"SUPPLY_TOTAL\": 6974.215753613581,\n      \"SUPPLY_MAX\": 8928.965553025373,\n      \"SUPPLY_STAKED\": 5706.095833930665\n    },\n    {\n      \"TIMESTAMP\": 8049,\n      \"ASSET_SYMBOL\": \"string\",\n      \"SUPPLY_CIRCULATING\": 3449.4990875796693,\n      \"SUPPLY_TOTAL\": 1539.828548283415,\n      \"SUPPLY_MAX\": 5023.185497235565,\n      \"SUPPLY_STAKED\": 3039.9471467932303\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3195e452-bd5e-4db8-bb7f-a2dc3b560c56",
+      "name": "News",
+      "description": {
+        "content": "Crypto news articles, sources, categories, and search.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a83b1291-1ca4-4026-84fa-d53cb7263cb4",
+          "name": "Get News Article List",
+          "request": {
+            "name": "Get News Article List",
+            "description": {
+              "content": "Returns the most recent news articles aggregated across integrated sources. Supports filtering by language, source, category, search keyword, and timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "v1",
+                "article",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "EN",
+                  "description": "ISO 639-1 language code (default EN)."
+                },
+                {
+                  "disabled": false,
+                  "key": "source_ids",
+                  "value": "<string>",
+                  "description": "Comma-separated list of source IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "source_key",
+                  "value": "<string>",
+                  "description": "Source key (e.g. coindesk)."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Comma-separated list of category keys."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_categories",
+                  "value": "<string>",
+                  "description": "Comma-separated list of category keys to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_string",
+                  "value": "<string>",
+                  "description": "Full-text search query."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp (seconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c30b909b-691c-4ba4-a1d7-5a998c0ba185",
+              "name": "News article list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "v1",
+                    "article",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "EN"
+                    },
+                    {
+                      "key": "source_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_string",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 9143,\n      \"GUID\": \"string\",\n      \"PUBLISHED_ON\": 5464,\n      \"IMAGE_URL\": \"string\",\n      \"TITLE\": \"string\",\n      \"SUBTITLE\": \"string\",\n      \"AUTHORS\": \"string\",\n      \"URL\": \"string\",\n      \"SOURCE_ID\": 7091,\n      \"BODY\": \"string\",\n      \"KEYWORDS\": \"string\",\n      \"LANG\": \"string\",\n      \"UPVOTES\": 870,\n      \"DOWNVOTES\": 8304,\n      \"SCORE\": 7955,\n      \"SENTIMENT\": \"POSITIVE\",\n      \"STATUS\": \"string\",\n      \"CREATED_ON\": 9569,\n      \"SOURCE_DATA\": {}\n    },\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 8898,\n      \"GUID\": \"string\",\n      \"PUBLISHED_ON\": 499,\n      \"IMAGE_URL\": \"string\",\n      \"TITLE\": \"string\",\n      \"SUBTITLE\": \"string\",\n      \"AUTHORS\": \"string\",\n      \"URL\": \"string\",\n      \"SOURCE_ID\": 49,\n      \"BODY\": \"string\",\n      \"KEYWORDS\": \"string\",\n      \"LANG\": \"string\",\n      \"UPVOTES\": 9769,\n      \"DOWNVOTES\": 9625,\n      \"SCORE\": 6465,\n      \"SENTIMENT\": \"NEUTRAL\",\n      \"STATUS\": \"string\",\n      \"CREATED_ON\": 8063,\n      \"SOURCE_DATA\": {}\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83015870-2e79-459d-9d93-61fe1bbfa7f8",
+          "name": "Get News Source List",
+          "request": {
+            "name": "Get News Source List",
+            "description": {
+              "content": "Returns the list of integrated news sources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "v1",
+                "source",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Filter sources by language."
+                },
+                {
+                  "disabled": false,
+                  "key": "source_type",
+                  "value": "<string>",
+                  "description": "Filter sources by type (RSS, TWITTER, API)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61f350a6-1a9c-486c-8f16-352412b7b2e5",
+              "name": "News source list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "v1",
+                    "source",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 8026,\n      \"SOURCE_KEY\": \"string\",\n      \"NAME\": \"string\",\n      \"URL\": \"string\",\n      \"LANG\": \"string\",\n      \"SOURCE_TYPE\": \"string\",\n      \"LAUNCH_DATE\": 9374,\n      \"BENCHMARK_SCORE\": 3177.5728192033757,\n      \"STATUS\": \"string\"\n    },\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 588,\n      \"SOURCE_KEY\": \"string\",\n      \"NAME\": \"string\",\n      \"URL\": \"string\",\n      \"LANG\": \"string\",\n      \"SOURCE_TYPE\": \"string\",\n      \"LAUNCH_DATE\": 5850,\n      \"BENCHMARK_SCORE\": 2408.015648518438,\n      \"STATUS\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cad65fc6-d185-4976-8405-4e3762fb2d1a",
+          "name": "Get News Category List",
+          "request": {
+            "name": "Get News Category List",
+            "description": {
+              "content": "Returns the list of news categories used for tagging articles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "v1",
+                "category",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6cf3f4d1-289e-45f5-99af-d1562d5c4296",
+              "name": "News category list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "v1",
+                    "category",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 812,\n      \"NAME\": \"string\",\n      \"CATEGORY\": \"string\"\n    },\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 9424,\n      \"NAME\": \"string\",\n      \"CATEGORY\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c7e81014-c442-4bc8-8fb6-ebfa31b55591",
+      "name": "On-Chain",
+      "description": {
+        "content": "On-chain blockchain metrics aggregated across chains.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "acef1c73-99f6-46cc-a7a9-0157570fc8ca",
+          "name": "Get On-Chain Historical Supply Daily",
+          "request": {
+            "name": "Get On-Chain Historical Supply Daily",
+            "description": {
+              "content": "Returns daily on-chain supply history (active, circulating, total) for a given chain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "onchain",
+                "v1",
+                "historical",
+                "supply",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain_symbol",
+                  "value": "<string>",
+                  "description": "(Required) Chain symbol (e.g. BTC, ETH)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80ee9292-72ec-4327-ab0b-02bf69a4068a",
+              "name": "On-chain supply history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "onchain",
+                    "v1",
+                    "historical",
+                    "supply",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain_symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TIMESTAMP\": 5499,\n      \"CHAIN_SYMBOL\": \"string\",\n      \"SUPPLY_CIRCULATING\": 7485.342585097932,\n      \"SUPPLY_TOTAL\": 5339.406412921189,\n      \"SUPPLY_BURNT\": 6332.950524141029,\n      \"SUPPLY_LOCKED\": 4013.966525854765\n    },\n    {\n      \"TIMESTAMP\": 3664,\n      \"CHAIN_SYMBOL\": \"string\",\n      \"SUPPLY_CIRCULATING\": 7214.913497841385,\n      \"SUPPLY_TOTAL\": 184.2787038526328,\n      \"SUPPLY_BURNT\": 1490.8578714459343,\n      \"SUPPLY_LOCKED\": 6569.2463162445665\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cce19bbc-24b4-4394-8868-2cfbd1c7f6b6",
+          "name": "Get On-Chain Historical Active Addresses Daily",
+          "request": {
+            "name": "Get On-Chain Historical Active Addresses Daily",
+            "description": {
+              "content": "Returns daily active address counts for a given chain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "onchain",
+                "v1",
+                "historical",
+                "active-addresses",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain_symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85119d41-525f-4836-a597-bb6e78156218",
+              "name": "Active addresses history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "onchain",
+                    "v1",
+                    "historical",
+                    "active-addresses",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain_symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"key_0\": false\n    },\n    {\n      \"key_0\": 6672\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "cca346aa-4883-4c77-b581-b3e237597b11",
+      "name": "Futures",
+      "description": {
+        "content": "Futures market data across integrated derivatives venues.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b792c85-45b5-46fd-bbbe-c860a0e3db64",
+          "name": "Get Futures Latest Tick",
+          "request": {
+            "name": "Get Futures Latest Tick",
+            "description": {
+              "content": "Returns the latest tick for futures instruments on a derivatives market.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "futures",
+                "v1",
+                "latest",
+                "tick"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4fab5ba7-bfe6-456b-be88-36b933466603",
+              "name": "Futures tick envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "futures",
+                    "v1",
+                    "latest",
+                    "tick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"key_0\": 9275\n    },\n    \"key_1\": {\n      \"key_0\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64202064-a891-48ee-8028-654c94e100bb",
+          "name": "Get Futures Historical Daily OHLCV",
+          "request": {
+            "name": "Get Futures Historical Daily OHLCV",
+            "description": {
+              "content": "Returns daily OHLCV for a futures instrument.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "futures",
+                "v1",
+                "historical",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "102c544c-a787-4551-9d8f-6c62d76101c8",
+              "name": "Daily futures OHLCV envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "futures",
+                    "v1",
+                    "historical",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 4162,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 5061.175437910501,\n      \"HIGH\": 1546.1442167283012,\n      \"LOW\": 3939.2422929873105,\n      \"CLOSE\": 789.6626967542453,\n      \"FIRST_TRADE_TIMESTAMP\": 8846,\n      \"LAST_TRADE_TIMESTAMP\": 3556,\n      \"FIRST_TRADE_PRICE\": 9820.278700301464,\n      \"HIGH_TRADE_PRICE\": 7359.276275365623,\n      \"LOW_TRADE_PRICE\": 8215.527271827901,\n      \"LAST_TRADE_PRICE\": 2571.299485759757,\n      \"VOLUME\": 9468.008590957925,\n      \"QUOTE_VOLUME\": 4086.5700756368597,\n      \"VOLUME_BUY\": 5258.29126362496,\n      \"QUOTE_VOLUME_BUY\": 777.5488816266785,\n      \"VOLUME_SELL\": 3745.948002009548,\n      \"QUOTE_VOLUME_SELL\": 6258.356405700875,\n      \"TOTAL_TRADES\": 7842,\n      \"TOTAL_TRADES_BUY\": 144,\n      \"TOTAL_TRADES_SELL\": 8188,\n      \"TOTAL_TRADES_UNKNOWN\": 9825\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1127,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4276.96962780333,\n      \"HIGH\": 332.5156434313703,\n      \"LOW\": 1285.1819872760373,\n      \"CLOSE\": 6637.286868423419,\n      \"FIRST_TRADE_TIMESTAMP\": 2839,\n      \"LAST_TRADE_TIMESTAMP\": 9140,\n      \"FIRST_TRADE_PRICE\": 8805.20688193796,\n      \"HIGH_TRADE_PRICE\": 1884.4055614397414,\n      \"LOW_TRADE_PRICE\": 2201.3491871988554,\n      \"LAST_TRADE_PRICE\": 2099.622285790225,\n      \"VOLUME\": 2388.4265941620806,\n      \"QUOTE_VOLUME\": 453.532210655081,\n      \"VOLUME_BUY\": 4463.583261859646,\n      \"QUOTE_VOLUME_BUY\": 6592.808004822414,\n      \"VOLUME_SELL\": 3867.5020505967273,\n      \"QUOTE_VOLUME_SELL\": 2138.850212075624,\n      \"TOTAL_TRADES\": 1122,\n      \"TOTAL_TRADES_BUY\": 418,\n      \"TOTAL_TRADES_SELL\": 6920,\n      \"TOTAL_TRADES_UNKNOWN\": 7483\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7cf6e0c4-8f17-4beb-91dd-2979203b0fe7",
+      "name": "Options",
+      "description": {
+        "content": "Options market data across integrated derivatives venues.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b2299de0-5a73-44f7-8574-fcd814a87867",
+          "name": "Get Options Latest Tick",
+          "request": {
+            "name": "Get Options Latest Tick",
+            "description": {
+              "content": "Returns the latest tick for options instruments on a derivatives market.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "options",
+                "v1",
+                "latest",
+                "tick"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "96a54334-05e5-4cf5-b20d-87a73e05feb3",
+              "name": "Options tick envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "options",
+                    "v1",
+                    "latest",
+                    "tick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"key_0\": 9275\n    },\n    \"key_1\": {\n      \"key_0\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c0e5bd53-9835-43e3-b361-57cda4600670",
+      "name": "Overview",
+      "description": {
+        "content": "Cross-cutting overview endpoints (market cap, dominance).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "92355b85-7e5b-4a74-a977-57729bf37916",
+          "name": "Get Overview Historical Total Market Cap Daily",
+          "request": {
+            "name": "Get Overview Historical Total Market Cap Daily",
+            "description": {
+              "content": "Returns daily history of total crypto market capitalization across all tracked assets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "overview",
+                "v1",
+                "historical",
+                "marketcap",
+                "all-assets",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "quote_asset",
+                  "value": "USD",
+                  "description": "Quote asset for the market cap (default USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d59ad7a-f55a-4918-b69a-c696e0f4838d",
+              "name": "Overview market-cap history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "overview",
+                    "v1",
+                    "historical",
+                    "marketcap",
+                    "all-assets",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "quote_asset",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TIMESTAMP\": 4382,\n      \"MKT_CAP_USD\": 1308.1474160856155,\n      \"VOLUME_USD\": 4919.6027080532185,\n      \"DOMINANCE_BTC\": 9335.710279003879,\n      \"DOMINANCE_ETH\": 4452.619786982568,\n      \"DOMINANCE_STABLECOINS\": 2172.285376307933\n    },\n    {\n      \"TIMESTAMP\": 8834,\n      \"MKT_CAP_USD\": 5031.207823684108,\n      \"VOLUME_USD\": 1188.5307465249862,\n      \"DOMINANCE_BTC\": 3677.888585946042,\n      \"DOMINANCE_ETH\": 8289.167237964959,\n      \"DOMINANCE_STABLECOINS\": 4176.530972185685\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "25720c84-9f85-4d9e-924d-557b410babff",
+    "name": "CoinDesk Data API (CCData)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

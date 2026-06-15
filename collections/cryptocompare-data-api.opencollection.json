@@ -1,0 +1,896 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData)",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Spot",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Spot Latest Tick",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/latest/tick",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              },
+              {
+                "name": "groups",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME)."
+              }
+            ]
+          },
+          "docs": "Returns the latest tick (trade or top-of-book update) for one or more spot instruments on a given market."
+        },
+        {
+          "info": {
+            "name": "List Spot Markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v2/markets",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              }
+            ]
+          },
+          "docs": "Returns the list of integrated spot exchanges and their status."
+        },
+        {
+          "info": {
+            "name": "Get Spot Instrument Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/markets/instruments",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              }
+            ]
+          },
+          "docs": "Returns reference metadata for spot instruments on a given market including base/quote symbols, tick sizes, status, and mapping."
+        },
+        {
+          "info": {
+            "name": "Get Spot Historical Daily OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/historical/days",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor."
+              },
+              {
+                "name": "fill",
+                "value": "",
+                "type": "query",
+                "description": "Fill empty periods with zero-volume candles."
+              },
+              {
+                "name": "apply_mapping",
+                "value": "",
+                "type": "query",
+                "description": "Apply asset/instrument mapping for renames."
+              }
+            ]
+          },
+          "docs": "Returns daily OHLCV candles for a single spot instrument on a given market, ordered ascending. Up to 2000 candles per call."
+        },
+        {
+          "info": {
+            "name": "Get Spot Historical Hourly OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/historical/hours",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor."
+              }
+            ]
+          },
+          "docs": "Returns hourly OHLCV candles for a single spot instrument."
+        },
+        {
+          "info": {
+            "name": "Get Spot Historical Minute OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/historical/minutes",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor."
+              }
+            ]
+          },
+          "docs": "Returns minute OHLCV candles for a single spot instrument."
+        },
+        {
+          "info": {
+            "name": "Get Spot Historical Trades",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/historical/trades",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns raw historical trade prints for a single spot instrument."
+        },
+        {
+          "info": {
+            "name": "Get Spot Order Book L1 Top",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/latest/orderbook/l1/top",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              }
+            ]
+          },
+          "docs": "Returns the top of the order book (best bid and best ask) for one or more spot instruments. Updated continuously."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Index",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Index Latest Tick",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/latest/tick",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              },
+              {
+                "name": "groups",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME)."
+              }
+            ]
+          },
+          "docs": "Returns the latest tick for one or more CoinDesk indices on the chosen index family (cadli, ccix, ccixbe). Includes current period stats."
+        },
+        {
+          "info": {
+            "name": "Get Index Historical Daily Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/historical/days",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily index OHLC values for a CoinDesk index instrument."
+        },
+        {
+          "info": {
+            "name": "Get Index Historical Hourly Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/historical/hours",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns hourly index OHLC values."
+        },
+        {
+          "info": {
+            "name": "Get Index Historical Minute Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/historical/minutes",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns minute index OHLC values."
+        },
+        {
+          "info": {
+            "name": "Get Index Composition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/latest/instrument/composition",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              }
+            ]
+          },
+          "docs": "Returns the latest index value, divisor, constituent prices, supplies, adjustment factors, volumes, and weights for a multi-asset index."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Asset",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Asset Top List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/asset/v1/top/list",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-indexed)."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort field (CIRCULATING_MKT_CAP_USD, TOTAL_MKT_CAP_USD, SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD)."
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction (ASC or DESC)."
+              }
+            ]
+          },
+          "docs": "Returns the top assets ranked by selected metric (market cap, volume). Supports pagination."
+        },
+        {
+          "info": {
+            "name": "Get Asset by Symbol",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/asset/v1/data/by/symbol",
+            "params": [
+              {
+                "name": "asset_symbol",
+                "value": "",
+                "type": "query",
+                "description": "Asset symbol (e.g. BTC)."
+              },
+              {
+                "name": "asset_lookup_priority",
+                "value": "",
+                "type": "query",
+                "description": "Asset lookup priority (SYMBOL or ID)."
+              }
+            ]
+          },
+          "docs": "Returns detailed asset metadata including supply, classifications, consensus mechanism, social and source links for a single asset."
+        },
+        {
+          "info": {
+            "name": "Get Asset Historical Supply Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/asset/v1/historical/supply/days",
+            "params": [
+              {
+                "name": "asset",
+                "value": "",
+                "type": "query",
+                "description": "Asset symbol or ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily history of asset supply (circulating, total, max)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "News",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get News Article List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/v1/article/list",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "ISO 639-1 language code (default EN)."
+              },
+              {
+                "name": "source_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of source IDs."
+              },
+              {
+                "name": "source_key",
+                "value": "",
+                "type": "query",
+                "description": "Source key (e.g. coindesk)."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of category keys."
+              },
+              {
+                "name": "exclude_categories",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of category keys to exclude."
+              },
+              {
+                "name": "search_string",
+                "value": "",
+                "type": "query",
+                "description": "Full-text search query."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp (seconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              }
+            ]
+          },
+          "docs": "Returns the most recent news articles aggregated across integrated sources. Supports filtering by language, source, category, search keyword, and timestamp."
+        },
+        {
+          "info": {
+            "name": "Get News Source List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/v1/source/list",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Filter sources by language."
+              },
+              {
+                "name": "source_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter sources by type (RSS, TWITTER, API)."
+              }
+            ]
+          },
+          "docs": "Returns the list of integrated news sources."
+        },
+        {
+          "info": {
+            "name": "Get News Category List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/v1/category/list"
+          },
+          "docs": "Returns the list of news categories used for tagging articles."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "On-Chain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get On-Chain Historical Supply Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/onchain/v1/historical/supply/days",
+            "params": [
+              {
+                "name": "chain_symbol",
+                "value": "",
+                "type": "query",
+                "description": "Chain symbol (e.g. BTC, ETH)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily on-chain supply history (active, circulating, total) for a given chain."
+        },
+        {
+          "info": {
+            "name": "Get On-Chain Historical Active Addresses Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/onchain/v1/historical/active-addresses/days",
+            "params": [
+              {
+                "name": "chain_symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily active address counts for a given chain."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Futures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Futures Latest Tick",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/futures/v1/latest/tick",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              }
+            ]
+          },
+          "docs": "Returns the latest tick for futures instruments on a derivatives market."
+        },
+        {
+          "info": {
+            "name": "Get Futures Historical Daily OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/futures/v1/historical/days",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily OHLCV for a futures instrument."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Options",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Options Latest Tick",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/options/v1/latest/tick",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              }
+            ]
+          },
+          "docs": "Returns the latest tick for options instruments on a derivatives market."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Overview",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Overview Historical Total Market Cap Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/overview/v1/historical/marketcap/all-assets/days",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              },
+              {
+                "name": "quote_asset",
+                "value": "",
+                "type": "query",
+                "description": "Quote asset for the market cap (default USD)."
+              }
+            ]
+          },
+          "docs": "Returns daily history of total crypto market capitalization across all tracked assets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

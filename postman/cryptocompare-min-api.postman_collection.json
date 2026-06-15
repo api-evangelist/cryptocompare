@@ -1,0 +1,3540 @@
+{
+  "info": {
+    "_postman_id": "7108e2e2-c4af-44c5-99c0-4d1efa50d0b7",
+    "name": "CryptoCompare min-api (Legacy)",
+    "description": "The CryptoCompare min-api (now CoinDesk Data Legacy API) provides cryptocurrency market data including current and historical prices, OHLCV candles (minute/hour/day), top lists by volume and market cap, news, social statistics, order book data, blockchain data, and exchange information. The REST API is available at https://min-api.cryptocompare.com/data and supports authenticated access via an API key passed either as the api_key query parameter or in the Authorization header. Free-tier traffic is metered in monthly call credits; paid commercial tiers expand the monthly budget and enable additional endpoints such as news, social, blockchain, top lists, and order book.\n\nContact Support:\n Name: CryptoCompare / CoinDesk Data Support\n Email: data@cryptocompare.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:14:08.000Z",
+    "updatedAt": "2026-06-05T13:14:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7108e2e2-c4af-44c5-99c0-4d1efa50d0b7"
+  },
+  "item": [
+    {
+      "name": "price",
+      "item": [
+        {
+          "name": "Get Single Symbol Price",
+          "id": "cd1816f2-9f30-4ad9-8905-98805fa42fb9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/price?fsym=<string>&tsyms=<string>&e=CCCAGG&tryConversion=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "price"
+              ],
+              "query": [
+                {
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                  "key": "fsym",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                  "key": "tsyms",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Source exchange (default CCCAGG aggregate index).",
+                  "key": "e",
+                  "value": "CCCAGG"
+                },
+                {
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                  "key": "tryConversion",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Returns the latest aggregated price for a single source cryptocurrency converted into one or more target currencies. Uses CCCAGG by default."
+          },
+          "response": [
+            {
+              "id": "1ad08d40-ccaa-4ca4-8516-3440f1bb90e9",
+              "name": "Mapping of target symbol to current price.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/price?fsym=<string>&tsyms=<string>&e=CCCAGG&tryConversion=true&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "price"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Source exchange (default CCCAGG aggregate index).",
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"velit5\": \"<number>\",\n  \"fugiat_0\": \"<number>\"\n}",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-1ad08d40-ccaa-4ca4-8516-3440f1bb90e9"
+            }
+          ],
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-cd1816f2-9f30-4ad9-8905-98805fa42fb9"
+        }
+      ],
+      "id": "39786fba-837a-4b63-960f-38a54b1c92b7",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-39786fba-837a-4b63-960f-38a54b1c92b7"
+    },
+    {
+      "name": "pricemulti",
+      "item": [
+        {
+          "name": "Get Multiple Symbols Price",
+          "id": "481f39b3-8d17-4a50-8181-1fd6d309f394",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pricemulti?fsyms=<string>&tsyms=<string>&e=CCCAGG&tryConversion=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pricemulti"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.",
+                  "key": "fsyms",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                  "key": "tsyms",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Source exchange (default CCCAGG aggregate index).",
+                  "key": "e",
+                  "value": "CCCAGG"
+                },
+                {
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                  "key": "tryConversion",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Returns the latest aggregated prices for multiple source cryptocurrencies converted into multiple target currencies in a single call."
+          },
+          "response": [
+            {
+              "id": "54b7e6f0-88ab-452c-a224-12d74aa39da1",
+              "name": "Nested mapping of from-symbol to to-symbol to price.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pricemulti?fsyms=<string>&tsyms=<string>&e=CCCAGG&tryConversion=true&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pricemulti"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.",
+                      "key": "fsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Source exchange (default CCCAGG aggregate index).",
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ad4c1\": {\n    \"laborum_38\": \"<number>\",\n    \"adipisicing_980\": \"<number>\"\n  },\n  \"veniam_6b\": {\n    \"velit15\": \"<number>\",\n    \"ut_6_a\": \"<number>\"\n  }\n}",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-54b7e6f0-88ab-452c-a224-12d74aa39da1"
+            }
+          ],
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-481f39b3-8d17-4a50-8181-1fd6d309f394"
+        }
+      ],
+      "id": "167d4de8-db61-47a3-93eb-40076813fb3e",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-167d4de8-db61-47a3-93eb-40076813fb3e"
+    },
+    {
+      "name": "pricemultifull",
+      "item": [
+        {
+          "name": "Get Multiple Symbols Full Price",
+          "id": "e8d9ab7d-7d55-4361-903b-2970383a1fc5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pricemultifull?fsyms=<string>&tsyms=<string>&e=CCCAGG&tryConversion=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pricemultifull"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.",
+                  "key": "fsyms",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                  "key": "tsyms",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Source exchange (default CCCAGG aggregate index).",
+                  "key": "e",
+                  "value": "CCCAGG"
+                },
+                {
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                  "key": "tryConversion",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Returns full ticker data (price, 24h volume, high, low, open, change, market cap) for multiple from-symbols and to-symbols in one call. Same envelope is used by the CCCAGG WebSocket index."
+          },
+          "response": [
+            {
+              "id": "524414ec-b702-4600-95d0-9226173c7acc",
+              "name": "Object with RAW and DISPLAY sections per pair.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pricemultifull?fsyms=<string>&tsyms=<string>&e=CCCAGG&tryConversion=true&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pricemultifull"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.",
+                      "key": "fsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Source exchange (default CCCAGG aggregate index).",
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"RAW\": {\n    \"quis_a7\": {\n      \"sunteb\": {\n        \"TYPE\": \"<string>\",\n        \"MARKET\": \"<string>\",\n        \"FROMSYMBOL\": \"<string>\",\n        \"TOSYMBOL\": \"<string>\",\n        \"PRICE\": \"<number>\",\n        \"LASTUPDATE\": \"<long>\",\n        \"MEDIAN\": \"<number>\",\n        \"LASTVOLUME\": \"<number>\",\n        \"LASTVOLUMETO\": \"<number>\",\n        \"VOLUME24HOUR\": \"<number>\",\n        \"VOLUME24HOURTO\": \"<number>\",\n        \"OPEN24HOUR\": \"<number>\",\n        \"HIGH24HOUR\": \"<number>\",\n        \"LOW24HOUR\": \"<number>\",\n        \"CHANGE24HOUR\": \"<number>\",\n        \"CHANGEPCT24HOUR\": \"<number>\",\n        \"MKTCAP\": \"<number>\",\n        \"CIRCULATINGSUPPLY\": \"<number>\",\n        \"SUPPLY\": \"<number>\",\n        \"TOTALVOLUME24H\": \"<number>\",\n        \"TOTALVOLUME24HTO\": \"<number>\",\n        \"LASTMARKET\": \"<string>\",\n        \"CONVERSIONTYPE\": \"<string>\",\n        \"CONVERSIONSYMBOL\": \"<string>\"\n      },\n      \"eu11\": {\n        \"TYPE\": \"<string>\",\n        \"MARKET\": \"<string>\",\n        \"FROMSYMBOL\": \"<string>\",\n        \"TOSYMBOL\": \"<string>\",\n        \"PRICE\": \"<number>\",\n        \"LASTUPDATE\": \"<long>\",\n        \"MEDIAN\": \"<number>\",\n        \"LASTVOLUME\": \"<number>\",\n        \"LASTVOLUMETO\": \"<number>\",\n        \"VOLUME24HOUR\": \"<number>\",\n        \"VOLUME24HOURTO\": \"<number>\",\n        \"OPEN24HOUR\": \"<number>\",\n        \"HIGH24HOUR\": \"<number>\",\n        \"LOW24HOUR\": \"<number>\",\n        \"CHANGE24HOUR\": \"<number>\",\n        \"CHANGEPCT24HOUR\": \"<number>\",\n        \"MKTCAP\": \"<number>\",\n        \"CIRCULATINGSUPPLY\": \"<number>\",\n        \"SUPPLY\": \"<number>\",\n        \"TOTALVOLUME24H\": \"<number>\",\n        \"TOTALVOLUME24HTO\": \"<number>\",\n        \"LASTMARKET\": \"<string>\",\n        \"CONVERSIONTYPE\": \"<string>\",\n        \"CONVERSIONSYMBOL\": \"<string>\"\n      }\n    },\n    \"pariatur_4\": {\n      \"laboris_4a\": {\n        \"TYPE\": \"<string>\",\n        \"MARKET\": \"<string>\",\n        \"FROMSYMBOL\": \"<string>\",\n        \"TOSYMBOL\": \"<string>\",\n        \"PRICE\": \"<number>\",\n        \"LASTUPDATE\": \"<long>\",\n        \"MEDIAN\": \"<number>\",\n        \"LASTVOLUME\": \"<number>\",\n        \"LASTVOLUMETO\": \"<number>\",\n        \"VOLUME24HOUR\": \"<number>\",\n        \"VOLUME24HOURTO\": \"<number>\",\n        \"OPEN24HOUR\": \"<number>\",\n        \"HIGH24HOUR\": \"<number>\",\n        \"LOW24HOUR\": \"<number>\",\n        \"CHANGE24HOUR\": \"<number>\",\n        \"CHANGEPCT24HOUR\": \"<number>\",\n        \"MKTCAP\": \"<number>\",\n        \"CIRCULATINGSUPPLY\": \"<number>\",\n        \"SUPPLY\": \"<number>\",\n        \"TOTALVOLUME24H\": \"<number>\",\n        \"TOTALVOLUME24HTO\": \"<number>\",\n        \"LASTMARKET\": \"<string>\",\n        \"CONVERSIONTYPE\": \"<string>\",\n        \"CONVERSIONSYMBOL\": \"<string>\"\n      }\n    },\n    \"sed__\": {\n      \"quis487\": {\n        \"TYPE\": \"<string>\",\n        \"MARKET\": \"<string>\",\n        \"FROMSYMBOL\": \"<string>\",\n        \"TOSYMBOL\": \"<string>\",\n        \"PRICE\": \"<number>\",\n        \"LASTUPDATE\": \"<long>\",\n        \"MEDIAN\": \"<number>\",\n        \"LASTVOLUME\": \"<number>\",\n        \"LASTVOLUMETO\": \"<number>\",\n        \"VOLUME24HOUR\": \"<number>\",\n        \"VOLUME24HOURTO\": \"<number>\",\n        \"OPEN24HOUR\": \"<number>\",\n        \"HIGH24HOUR\": \"<number>\",\n        \"LOW24HOUR\": \"<number>\",\n        \"CHANGE24HOUR\": \"<number>\",\n        \"CHANGEPCT24HOUR\": \"<number>\",\n        \"MKTCAP\": \"<number>\",\n        \"CIRCULATINGSUPPLY\": \"<number>\",\n        \"SUPPLY\": \"<number>\",\n        \"TOTALVOLUME24H\": \"<number>\",\n        \"TOTALVOLUME24HTO\": \"<number>\",\n        \"LASTMARKET\": \"<string>\",\n        \"CONVERSIONTYPE\": \"<string>\",\n        \"CONVERSIONSYMBOL\": \"<string>\"\n      },\n      \"in_b\": {\n        \"TYPE\": \"<string>\",\n        \"MARKET\": \"<string>\",\n        \"FROMSYMBOL\": \"<string>\",\n        \"TOSYMBOL\": \"<string>\",\n        \"PRICE\": \"<number>\",\n        \"LASTUPDATE\": \"<long>\",\n        \"MEDIAN\": \"<number>\",\n        \"LASTVOLUME\": \"<number>\",\n        \"LASTVOLUMETO\": \"<number>\",\n        \"VOLUME24HOUR\": \"<number>\",\n        \"VOLUME24HOURTO\": \"<number>\",\n        \"OPEN24HOUR\": \"<number>\",\n        \"HIGH24HOUR\": \"<number>\",\n        \"LOW24HOUR\": \"<number>\",\n        \"CHANGE24HOUR\": \"<number>\",\n        \"CHANGEPCT24HOUR\": \"<number>\",\n        \"MKTCAP\": \"<number>\",\n        \"CIRCULATINGSUPPLY\": \"<number>\",\n        \"SUPPLY\": \"<number>\",\n        \"TOTALVOLUME24H\": \"<number>\",\n        \"TOTALVOLUME24HTO\": \"<number>\",\n        \"LASTMARKET\": \"<string>\",\n        \"CONVERSIONTYPE\": \"<string>\",\n        \"CONVERSIONSYMBOL\": \"<string>\"\n      },\n      \"aliqua_d\": {\n        \"TYPE\": \"<string>\",\n        \"MARKET\": \"<string>\",\n        \"FROMSYMBOL\": \"<string>\",\n        \"TOSYMBOL\": \"<string>\",\n        \"PRICE\": \"<number>\",\n        \"LASTUPDATE\": \"<long>\",\n        \"MEDIAN\": \"<number>\",\n        \"LASTVOLUME\": \"<number>\",\n        \"LASTVOLUMETO\": \"<number>\",\n        \"VOLUME24HOUR\": \"<number>\",\n        \"VOLUME24HOURTO\": \"<number>\",\n        \"OPEN24HOUR\": \"<number>\",\n        \"HIGH24HOUR\": \"<number>\",\n        \"LOW24HOUR\": \"<number>\",\n        \"CHANGE24HOUR\": \"<number>\",\n        \"CHANGEPCT24HOUR\": \"<number>\",\n        \"MKTCAP\": \"<number>\",\n        \"CIRCULATINGSUPPLY\": \"<number>\",\n        \"SUPPLY\": \"<number>\",\n        \"TOTALVOLUME24H\": \"<number>\",\n        \"TOTALVOLUME24HTO\": \"<number>\",\n        \"LASTMARKET\": \"<string>\",\n        \"CONVERSIONTYPE\": \"<string>\",\n        \"CONVERSIONSYMBOL\": \"<string>\"\n      }\n    }\n  },\n  \"DISPLAY\": {\n    \"Excepteur_63\": {\n      \"do1a\": {}\n    },\n    \"velit_b7c\": {\n      \"ipsum_d\": {},\n      \"id5d3\": {},\n      \"Ut_57\": {},\n      \"dolore565\": {}\n    },\n    \"aliqua7d8\": {\n      \"Excepteur_\": {},\n      \"et_48\": {}\n    }\n  }\n}",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-524414ec-b702-4600-95d0-9226173c7acc"
+            }
+          ],
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-e8d9ab7d-7d55-4361-903b-2970383a1fc5"
+        }
+      ],
+      "id": "37ccbeee-ba57-46c1-9e44-5764a2983a62",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-37ccbeee-ba57-46c1-9e44-5764a2983a62"
+    },
+    {
+      "name": "generateAvg",
+      "item": [
+        {
+          "name": "Get Custom Average Price",
+          "id": "2a4ce7b2-0b7a-445e-bdd3-685c7bc3c9f9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/generateAvg?fsym=<string>&tsym=<string>&e=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "generateAvg"
+              ],
+              "query": [
+                {
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                  "key": "fsym",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) To-symbol (target currency), e.g. USD.",
+                  "key": "tsym",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Comma-separated list of exchanges to include in the average.",
+                  "key": "e",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Computes a custom average across a chosen set of exchanges for a single cryptocurrency pair (CUSTOMAGG)."
+          },
+          "response": [
+            {
+              "id": "3a8893e6-5e50-49cd-a101-ca904bda443d",
+              "name": "CUSTOMAGG ticker envelope (RAW + DISPLAY).",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/generateAvg?fsym=<string>&tsym=<string>&e=<string>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "generateAvg"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) To-symbol (target currency), e.g. USD.",
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated list of exchanges to include in the average.",
+                      "key": "e",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"RAW\": {\n    \"TYPE\": \"<string>\",\n    \"MARKET\": \"<string>\",\n    \"FROMSYMBOL\": \"<string>\",\n    \"TOSYMBOL\": \"<string>\",\n    \"PRICE\": \"<number>\",\n    \"LASTUPDATE\": \"<long>\",\n    \"MEDIAN\": \"<number>\",\n    \"LASTVOLUME\": \"<number>\",\n    \"LASTVOLUMETO\": \"<number>\",\n    \"VOLUME24HOUR\": \"<number>\",\n    \"VOLUME24HOURTO\": \"<number>\",\n    \"OPEN24HOUR\": \"<number>\",\n    \"HIGH24HOUR\": \"<number>\",\n    \"LOW24HOUR\": \"<number>\",\n    \"CHANGE24HOUR\": \"<number>\",\n    \"CHANGEPCT24HOUR\": \"<number>\",\n    \"MKTCAP\": \"<number>\",\n    \"CIRCULATINGSUPPLY\": \"<number>\",\n    \"SUPPLY\": \"<number>\",\n    \"TOTALVOLUME24H\": \"<number>\",\n    \"TOTALVOLUME24HTO\": \"<number>\",\n    \"LASTMARKET\": \"<string>\",\n    \"CONVERSIONTYPE\": \"<string>\",\n    \"CONVERSIONSYMBOL\": \"<string>\"\n  },\n  \"DISPLAY\": {}\n}",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-3a8893e6-5e50-49cd-a101-ca904bda443d"
+            }
+          ],
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-2a4ce7b2-0b7a-445e-bdd3-685c7bc3c9f9"
+        }
+      ],
+      "id": "7445d8da-bd6b-4ffe-854e-6f9ded9eecbc",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-7445d8da-bd6b-4ffe-854e-6f9ded9eecbc"
+    },
+    {
+      "name": "pricehistorical",
+      "item": [
+        {
+          "name": "Get Historical Price",
+          "id": "5e8adb2a-59ec-4289-95c8-99db4eb2793a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pricehistorical?fsym=<string>&tsyms=<string>&ts=<long>&e=CCCAGG&tryConversion=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pricehistorical"
+              ],
+              "query": [
+                {
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                  "key": "fsym",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                  "key": "tsyms",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Unix timestamp (seconds) of the desired historical price.",
+                  "key": "ts",
+                  "value": "<long>"
+                },
+                {
+                  "description": "Source exchange (default CCCAGG aggregate index).",
+                  "key": "e",
+                  "value": "CCCAGG"
+                },
+                {
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                  "key": "tryConversion",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Returns the price of a cryptocurrency at a given historical timestamp. Falls back to the closest available candle close."
+          },
+          "response": [
+            {
+              "id": "3efd3a12-6a55-4ea7-a04a-98fdf8358ed7",
+              "name": "Historical price envelope.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pricehistorical?fsym=<string>&tsyms=<string>&ts=<long>&e=CCCAGG&tryConversion=true&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pricehistorical"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Unix timestamp (seconds) of the desired historical price.",
+                      "key": "ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "Source exchange (default CCCAGG aggregate index).",
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"elit_11\": {\n    \"sint_6c7\": \"<number>\"\n  },\n  \"sed_c\": {\n    \"dolor62c\": \"<number>\",\n    \"exercitation_64\": \"<number>\"\n  }\n}",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-3efd3a12-6a55-4ea7-a04a-98fdf8358ed7"
+            }
+          ],
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-5e8adb2a-59ec-4289-95c8-99db4eb2793a"
+        }
+      ],
+      "id": "8736c9bc-0939-4ad5-bd9b-60a9e2bfc6bb",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-8736c9bc-0939-4ad5-bd9b-60a9e2bfc6bb"
+    },
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "histoday",
+          "item": [
+            {
+              "name": "Get Historical Daily OHLCV",
+              "id": "8731a876-471e-4dd7-884f-4a6d8f4aea74",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/histoday?fsym=<string>&tsym=<string>&limit=30&aggregate=1&toTs=<long>&e=CCCAGG&tryConversion=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "histoday"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) To-symbol (target currency), e.g. USD.",
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Number of data points to return (max 2000 for OHLCV).",
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).",
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "Source exchange (default CCCAGG aggregate index).",
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                      "key": "tryConversion",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Returns daily OHLCV candles for a cryptocurrency pair, ordered ascending by timestamp. Up to 2000 data points per call."
+              },
+              "response": [
+                {
+                  "id": "6afa5169-2c51-4c2b-905f-c6e9889967b2",
+                  "name": "Historical daily OHLCV envelope.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/histoday?fsym=<string>&tsym=<string>&limit=30&aggregate=1&toTs=<long>&e=CCCAGG&tryConversion=true&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "histoday"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                          "key": "fsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) To-symbol (target currency), e.g. USD.",
+                          "key": "tsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of data points to return (max 2000 for OHLCV).",
+                          "key": "limit",
+                          "value": "30"
+                        },
+                        {
+                          "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).",
+                          "key": "aggregate",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                          "key": "toTs",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "Source exchange (default CCCAGG aggregate index).",
+                          "key": "e",
+                          "value": "CCCAGG"
+                        },
+                        {
+                          "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                          "key": "tryConversion",
+                          "value": "true"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"Success\",\n  \"Message\": \"<string>\",\n  \"HasWarning\": \"<boolean>\",\n  \"Type\": \"<integer>\",\n  \"RateLimit\": {},\n  \"Data\": {\n    \"Aggregated\": \"<boolean>\",\n    \"TimeFrom\": \"<long>\",\n    \"TimeTo\": \"<long>\",\n    \"Data\": [\n      {\n        \"time\": \"<long>\",\n        \"high\": \"<number>\",\n        \"low\": \"<number>\",\n        \"open\": \"<number>\",\n        \"close\": \"<number>\",\n        \"volumefrom\": \"<number>\",\n        \"volumeto\": \"<number>\",\n        \"conversionType\": \"<string>\",\n        \"conversionSymbol\": \"<string>\"\n      },\n      {\n        \"time\": \"<long>\",\n        \"high\": \"<number>\",\n        \"low\": \"<number>\",\n        \"open\": \"<number>\",\n        \"close\": \"<number>\",\n        \"volumefrom\": \"<number>\",\n        \"volumeto\": \"<number>\",\n        \"conversionType\": \"<string>\",\n        \"conversionSymbol\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-6afa5169-2c51-4c2b-905f-c6e9889967b2"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-8731a876-471e-4dd7-884f-4a6d8f4aea74"
+            }
+          ],
+          "id": "fb4767e5-4a36-4d54-a3e0-28e264def8c6",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-fb4767e5-4a36-4d54-a3e0-28e264def8c6"
+        },
+        {
+          "name": "histohour",
+          "item": [
+            {
+              "name": "Get Historical Hourly OHLCV",
+              "id": "498a872f-7777-4bd1-a0a3-1018119e551f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/histohour?fsym=<string>&tsym=<string>&limit=30&aggregate=1&toTs=<long>&e=CCCAGG&tryConversion=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "histohour"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) To-symbol (target currency), e.g. USD.",
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Number of data points to return (max 2000 for OHLCV).",
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).",
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "Source exchange (default CCCAGG aggregate index).",
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                      "key": "tryConversion",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Returns hourly OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call."
+              },
+              "response": [
+                {
+                  "id": "4c61aa38-a29e-45d4-a9f2-3bc040a7f523",
+                  "name": "Historical hourly OHLCV envelope.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/histohour?fsym=<string>&tsym=<string>&limit=30&aggregate=1&toTs=<long>&e=CCCAGG&tryConversion=true&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "histohour"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                          "key": "fsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) To-symbol (target currency), e.g. USD.",
+                          "key": "tsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of data points to return (max 2000 for OHLCV).",
+                          "key": "limit",
+                          "value": "30"
+                        },
+                        {
+                          "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).",
+                          "key": "aggregate",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                          "key": "toTs",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "Source exchange (default CCCAGG aggregate index).",
+                          "key": "e",
+                          "value": "CCCAGG"
+                        },
+                        {
+                          "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                          "key": "tryConversion",
+                          "value": "true"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"Success\",\n  \"Message\": \"<string>\",\n  \"HasWarning\": \"<boolean>\",\n  \"Type\": \"<integer>\",\n  \"RateLimit\": {},\n  \"Data\": {\n    \"Aggregated\": \"<boolean>\",\n    \"TimeFrom\": \"<long>\",\n    \"TimeTo\": \"<long>\",\n    \"Data\": [\n      {\n        \"time\": \"<long>\",\n        \"high\": \"<number>\",\n        \"low\": \"<number>\",\n        \"open\": \"<number>\",\n        \"close\": \"<number>\",\n        \"volumefrom\": \"<number>\",\n        \"volumeto\": \"<number>\",\n        \"conversionType\": \"<string>\",\n        \"conversionSymbol\": \"<string>\"\n      },\n      {\n        \"time\": \"<long>\",\n        \"high\": \"<number>\",\n        \"low\": \"<number>\",\n        \"open\": \"<number>\",\n        \"close\": \"<number>\",\n        \"volumefrom\": \"<number>\",\n        \"volumeto\": \"<number>\",\n        \"conversionType\": \"<string>\",\n        \"conversionSymbol\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-4c61aa38-a29e-45d4-a9f2-3bc040a7f523"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-498a872f-7777-4bd1-a0a3-1018119e551f"
+            }
+          ],
+          "id": "6947d235-5278-4bdf-ac02-b863971bc97c",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-6947d235-5278-4bdf-ac02-b863971bc97c"
+        },
+        {
+          "name": "histominute",
+          "item": [
+            {
+              "name": "Get Historical Minute OHLCV",
+              "id": "cf984231-1cca-4b39-9696-4e81d94c1638",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/histominute?fsym=<string>&tsym=<string>&limit=30&aggregate=1&toTs=<long>&e=CCCAGG&tryConversion=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "histominute"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) To-symbol (target currency), e.g. USD.",
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Number of data points to return (max 2000 for OHLCV).",
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).",
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "Source exchange (default CCCAGG aggregate index).",
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                      "key": "tryConversion",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Returns minute OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call and up to 7 days of history on the free tier."
+              },
+              "response": [
+                {
+                  "id": "7f697c2a-7931-4493-8419-44285dce4950",
+                  "name": "Historical minute OHLCV envelope.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/histominute?fsym=<string>&tsym=<string>&limit=30&aggregate=1&toTs=<long>&e=CCCAGG&tryConversion=true&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "histominute"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                          "key": "fsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) To-symbol (target currency), e.g. USD.",
+                          "key": "tsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of data points to return (max 2000 for OHLCV).",
+                          "key": "limit",
+                          "value": "30"
+                        },
+                        {
+                          "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).",
+                          "key": "aggregate",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                          "key": "toTs",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "Source exchange (default CCCAGG aggregate index).",
+                          "key": "e",
+                          "value": "CCCAGG"
+                        },
+                        {
+                          "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable.",
+                          "key": "tryConversion",
+                          "value": "true"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"Success\",\n  \"Message\": \"<string>\",\n  \"HasWarning\": \"<boolean>\",\n  \"Type\": \"<integer>\",\n  \"RateLimit\": {},\n  \"Data\": {\n    \"Aggregated\": \"<boolean>\",\n    \"TimeFrom\": \"<long>\",\n    \"TimeTo\": \"<long>\",\n    \"Data\": [\n      {\n        \"time\": \"<long>\",\n        \"high\": \"<number>\",\n        \"low\": \"<number>\",\n        \"open\": \"<number>\",\n        \"close\": \"<number>\",\n        \"volumefrom\": \"<number>\",\n        \"volumeto\": \"<number>\",\n        \"conversionType\": \"<string>\",\n        \"conversionSymbol\": \"<string>\"\n      },\n      {\n        \"time\": \"<long>\",\n        \"high\": \"<number>\",\n        \"low\": \"<number>\",\n        \"open\": \"<number>\",\n        \"close\": \"<number>\",\n        \"volumefrom\": \"<number>\",\n        \"volumeto\": \"<number>\",\n        \"conversionType\": \"<string>\",\n        \"conversionSymbol\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-7f697c2a-7931-4493-8419-44285dce4950"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-cf984231-1cca-4b39-9696-4e81d94c1638"
+            }
+          ],
+          "id": "a8984f3d-43c1-41e3-a595-0a801296f450",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-a8984f3d-43c1-41e3-a595-0a801296f450"
+        },
+        {
+          "name": "news",
+          "item": [
+            {
+              "name": "Get Latest News Articles",
+              "id": "6c291044-229f-4ef0-9d72-3bff1212cda6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/news/?lang=EN&feeds=<string>&categories=<string>&excludeCategories=<string>&lTs=<long>&sortOrder=popular&limit=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "news",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "ISO 639-1 language code. Defaults to EN.",
+                      "key": "lang",
+                      "value": "EN"
+                    },
+                    {
+                      "description": "Comma-separated list of source feed keys.",
+                      "key": "feeds",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of category keys.",
+                      "key": "categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of categories to exclude.",
+                      "key": "excludeCategories",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Latest timestamp (seconds) to return articles before.",
+                      "key": "lTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "Sort order, latest or popular.",
+                      "key": "sortOrder",
+                      "value": "popular"
+                    },
+                    {
+                      "description": "Number of articles to return (default 50).",
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ]
+                },
+                "description": "Returns the most recent cryptocurrency news articles aggregated from every integrated source. Filterable by language, source, and category."
+              },
+              "response": [
+                {
+                  "id": "26f1306b-a40a-49b1-9041-4232db286f08",
+                  "name": "List of news articles with source and category metadata.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/news/?lang=EN&feeds=<string>&categories=<string>&excludeCategories=<string>&lTs=<long>&sortOrder=popular&limit=50&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "news",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "ISO 639-1 language code. Defaults to EN.",
+                          "key": "lang",
+                          "value": "EN"
+                        },
+                        {
+                          "description": "Comma-separated list of source feed keys.",
+                          "key": "feeds",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of category keys.",
+                          "key": "categories",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of categories to exclude.",
+                          "key": "excludeCategories",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Latest timestamp (seconds) to return articles before.",
+                          "key": "lTs",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "Sort order, latest or popular.",
+                          "key": "sortOrder",
+                          "value": "popular"
+                        },
+                        {
+                          "description": "Number of articles to return (default 50).",
+                          "key": "limit",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Type\": \"<integer>\",\n  \"Message\": \"<string>\",\n  \"Data\": [\n    {\n      \"TYPE\": \"<string>\",\n      \"ID\": \"<integer>\",\n      \"GUID\": \"<string>\",\n      \"PUBLISHED_ON\": \"<long>\",\n      \"IMAGE_URL\": \"<string>\",\n      \"TITLE\": \"<string>\",\n      \"SUBTITLE\": \"<string>\",\n      \"AUTHORS\": \"<string>\",\n      \"URL\": \"<string>\",\n      \"SOURCE_ID\": \"<integer>\",\n      \"BODY\": \"<string>\",\n      \"KEYWORDS\": \"<string>\",\n      \"LANG\": \"<string>\",\n      \"UPVOTES\": \"<integer>\",\n      \"DOWNVOTES\": \"<integer>\",\n      \"SCORE\": \"<integer>\",\n      \"SENTIMENT\": \"NEGATIVE\",\n      \"STATUS\": \"<string>\",\n      \"CREATED_ON\": \"<long>\",\n      \"SOURCE_DATA\": {}\n    },\n    {\n      \"TYPE\": \"<string>\",\n      \"ID\": \"<integer>\",\n      \"GUID\": \"<string>\",\n      \"PUBLISHED_ON\": \"<long>\",\n      \"IMAGE_URL\": \"<string>\",\n      \"TITLE\": \"<string>\",\n      \"SUBTITLE\": \"<string>\",\n      \"AUTHORS\": \"<string>\",\n      \"URL\": \"<string>\",\n      \"SOURCE_ID\": \"<integer>\",\n      \"BODY\": \"<string>\",\n      \"KEYWORDS\": \"<string>\",\n      \"LANG\": \"<string>\",\n      \"UPVOTES\": \"<integer>\",\n      \"DOWNVOTES\": \"<integer>\",\n      \"SCORE\": \"<integer>\",\n      \"SENTIMENT\": \"NEGATIVE\",\n      \"STATUS\": \"<string>\",\n      \"CREATED_ON\": \"<long>\",\n      \"SOURCE_DATA\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-26f1306b-a40a-49b1-9041-4232db286f08"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-6c291044-229f-4ef0-9d72-3bff1212cda6"
+            }
+          ],
+          "id": "db4bd6ba-4a2a-4e99-afe9-4db7ce07aa7d",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-db4bd6ba-4a2a-4e99-afe9-4db7ce07aa7d"
+        },
+        {
+          "name": "ob",
+          "item": [
+            {
+              "name": "l1",
+              "item": [
+                {
+                  "name": "top",
+                  "item": [
+                    {
+                      "name": "Get Order Book Top of Book",
+                      "id": "4bf483b4-9180-4bea-bc94-37a13c175b02",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/ob/l1/top?fsyms=<string>&tsyms=<string>&e=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "ob",
+                            "l1",
+                            "top"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.",
+                              "key": "fsyms",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                              "key": "tsyms",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of exchanges.",
+                              "key": "e",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "Returns the top of the order book (best bid and ask) for one or more pairs across one or more exchanges. Requires an API key on most tiers."
+                      },
+                      "response": [
+                        {
+                          "id": "1c9cb8ea-6e5d-40d8-99f9-ccb8687ec600",
+                          "name": "Top-of-book envelope.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/ob/l1/top?fsyms=<string>&tsyms=<string>&e=<string>&api_key=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "ob",
+                                "l1",
+                                "top"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.",
+                                  "key": "fsyms",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR.",
+                                  "key": "tsyms",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Comma-separated list of exchanges.",
+                                  "key": "e",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "api_key",
+                                  "value": "<API Key>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {}\n}",
+                          "createdAt": "2026-06-05T13:14:08.000Z",
+                          "updatedAt": "2026-06-05T13:14:08.000Z",
+                          "uid": "35240-1c9cb8ea-6e5d-40d8-99f9-ccb8687ec600"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T13:14:08.000Z",
+                      "updatedAt": "2026-06-05T13:14:08.000Z",
+                      "uid": "35240-4bf483b4-9180-4bea-bc94-37a13c175b02"
+                    }
+                  ],
+                  "id": "13fce55c-d4c8-44ce-8cec-5ed6b6711d0c",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-13fce55c-d4c8-44ce-8cec-5ed6b6711d0c"
+                }
+              ],
+              "id": "ed251c2b-e221-4e1f-8d4e-93b91e8c13b2",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-ed251c2b-e221-4e1f-8d4e-93b91e8c13b2"
+            }
+          ],
+          "id": "c2718f02-2dcb-4f78-89c9-5158d75fb344",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-c2718f02-2dcb-4f78-89c9-5158d75fb344"
+        }
+      ],
+      "id": "c05d5def-7717-48c7-841c-fb147414d73c",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-c05d5def-7717-48c7-841c-fb147414d73c"
+    },
+    {
+      "name": "top",
+      "item": [
+        {
+          "name": "totalvolfull",
+          "item": [
+            {
+              "name": "Get Top List by Total Volume (Full Data)",
+              "id": "26861de6-5b6b-4bb0-bfc0-dd9397d4cb2a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/top/totalvolfull?limit=10&page=0&tsym=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "top",
+                    "totalvolfull"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Zero-indexed page number for paginated top-list endpoints.",
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "description": "(Required) Quote currency for the volume conversion.",
+                      "key": "tsym",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns the top cryptocurrencies by 24-hour total volume converted into a target currency, including full ticker data per coin."
+              },
+              "response": [
+                {
+                  "id": "e689ef54-102a-45c3-81bb-f970aa6fa8c1",
+                  "name": "List of coins with CoinInfo, RAW, and DISPLAY blocks.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/top/totalvolfull?limit=10&page=0&tsym=<string>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "top",
+                        "totalvolfull"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Zero-indexed page number for paginated top-list endpoints.",
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "description": "(Required) Quote currency for the volume conversion.",
+                          "key": "tsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"MetaData\": {\n    \"Count\": \"<integer>\"\n  },\n  \"Data\": [\n    {\n      \"CoinInfo\": {\n        \"Id\": \"<string>\",\n        \"Name\": \"<string>\",\n        \"FullName\": \"<string>\",\n        \"Internal\": \"<string>\",\n        \"ImageUrl\": \"<string>\",\n        \"Url\": \"<string>\",\n        \"Algorithm\": \"<string>\",\n        \"ProofType\": \"<string>\",\n        \"Rating\": {},\n        \"NetHashesPerSecond\": \"<number>\",\n        \"BlockNumber\": \"<integer>\",\n        \"BlockTime\": \"<number>\",\n        \"BlockReward\": \"<number>\",\n        \"AssetLaunchDate\": \"<string>\",\n        \"MaxSupply\": \"<number>\",\n        \"Type\": \"<integer>\",\n        \"DocumentType\": \"<string>\"\n      },\n      \"RAW\": {},\n      \"DISPLAY\": {}\n    },\n    {\n      \"CoinInfo\": {\n        \"Id\": \"<string>\",\n        \"Name\": \"<string>\",\n        \"FullName\": \"<string>\",\n        \"Internal\": \"<string>\",\n        \"ImageUrl\": \"<string>\",\n        \"Url\": \"<string>\",\n        \"Algorithm\": \"<string>\",\n        \"ProofType\": \"<string>\",\n        \"Rating\": {},\n        \"NetHashesPerSecond\": \"<number>\",\n        \"BlockNumber\": \"<integer>\",\n        \"BlockTime\": \"<number>\",\n        \"BlockReward\": \"<number>\",\n        \"AssetLaunchDate\": \"<string>\",\n        \"MaxSupply\": \"<number>\",\n        \"Type\": \"<integer>\",\n        \"DocumentType\": \"<string>\"\n      },\n      \"RAW\": {},\n      \"DISPLAY\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-e689ef54-102a-45c3-81bb-f970aa6fa8c1"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-26861de6-5b6b-4bb0-bfc0-dd9397d4cb2a"
+            }
+          ],
+          "id": "e090bc9b-2bc8-47a4-878f-844f3b546d2c",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-e090bc9b-2bc8-47a4-878f-844f3b546d2c"
+        },
+        {
+          "name": "mktcapfull",
+          "item": [
+            {
+              "name": "Get Top List by Market Cap (Full Data)",
+              "id": "df151d0d-6922-4477-9a81-e199a28639f3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/top/mktcapfull?limit=10&page=0&tsym=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "top",
+                    "mktcapfull"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Zero-indexed page number for paginated top-list endpoints.",
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "description": "(Required) Quote currency for the market-cap conversion.",
+                      "key": "tsym",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns the top cryptocurrencies by market capitalization with full ticker data per coin."
+              },
+              "response": [
+                {
+                  "id": "77b1bff2-b94c-4cb4-987c-c74ebbcb0504",
+                  "name": "Top coins by market cap.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/top/mktcapfull?limit=10&page=0&tsym=<string>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "top",
+                        "mktcapfull"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Zero-indexed page number for paginated top-list endpoints.",
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "description": "(Required) Quote currency for the market-cap conversion.",
+                          "key": "tsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"MetaData\": {\n    \"Count\": \"<integer>\"\n  },\n  \"Data\": [\n    {\n      \"CoinInfo\": {\n        \"Id\": \"<string>\",\n        \"Name\": \"<string>\",\n        \"FullName\": \"<string>\",\n        \"Internal\": \"<string>\",\n        \"ImageUrl\": \"<string>\",\n        \"Url\": \"<string>\",\n        \"Algorithm\": \"<string>\",\n        \"ProofType\": \"<string>\",\n        \"Rating\": {},\n        \"NetHashesPerSecond\": \"<number>\",\n        \"BlockNumber\": \"<integer>\",\n        \"BlockTime\": \"<number>\",\n        \"BlockReward\": \"<number>\",\n        \"AssetLaunchDate\": \"<string>\",\n        \"MaxSupply\": \"<number>\",\n        \"Type\": \"<integer>\",\n        \"DocumentType\": \"<string>\"\n      },\n      \"RAW\": {},\n      \"DISPLAY\": {}\n    },\n    {\n      \"CoinInfo\": {\n        \"Id\": \"<string>\",\n        \"Name\": \"<string>\",\n        \"FullName\": \"<string>\",\n        \"Internal\": \"<string>\",\n        \"ImageUrl\": \"<string>\",\n        \"Url\": \"<string>\",\n        \"Algorithm\": \"<string>\",\n        \"ProofType\": \"<string>\",\n        \"Rating\": {},\n        \"NetHashesPerSecond\": \"<number>\",\n        \"BlockNumber\": \"<integer>\",\n        \"BlockTime\": \"<number>\",\n        \"BlockReward\": \"<number>\",\n        \"AssetLaunchDate\": \"<string>\",\n        \"MaxSupply\": \"<number>\",\n        \"Type\": \"<integer>\",\n        \"DocumentType\": \"<string>\"\n      },\n      \"RAW\": {},\n      \"DISPLAY\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-77b1bff2-b94c-4cb4-987c-c74ebbcb0504"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-df151d0d-6922-4477-9a81-e199a28639f3"
+            }
+          ],
+          "id": "83b3a008-8fb7-409e-bfeb-3fa4fa68871f",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-83b3a008-8fb7-409e-bfeb-3fa4fa68871f"
+        },
+        {
+          "name": "exchanges",
+          "item": [
+            {
+              "name": "full",
+              "item": [
+                {
+                  "name": "Get Top Exchanges (Full Data) by Pair Volume",
+                  "id": "35591ca7-fb6c-45b0-80e0-6aa888d3a1ac",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/top/exchanges/full?fsym=<string>&tsym=<string>&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "top",
+                        "exchanges",
+                        "full"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                          "key": "fsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) To-symbol (target currency), e.g. USD.",
+                          "key": "tsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    },
+                    "description": "Returns the top exchanges by 24-hour pair volume with full ticker data per exchange."
+                  },
+                  "response": [
+                    {
+                      "id": "1d1ce79a-2709-4435-afd6-40e7f2d0383b",
+                      "name": "Top exchanges full data envelope.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/top/exchanges/full?fsym=<string>&tsym=<string>&limit=10&api_key=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "top",
+                            "exchanges",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                              "key": "fsym",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) To-symbol (target currency), e.g. USD.",
+                              "key": "tsym",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "api_key",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {\n    \"CoinInfo\": {\n      \"Id\": \"<string>\",\n      \"Name\": \"<string>\",\n      \"FullName\": \"<string>\",\n      \"Internal\": \"<string>\",\n      \"ImageUrl\": \"<string>\",\n      \"Url\": \"<string>\",\n      \"Algorithm\": \"<string>\",\n      \"ProofType\": \"<string>\",\n      \"Rating\": {},\n      \"NetHashesPerSecond\": \"<number>\",\n      \"BlockNumber\": \"<integer>\",\n      \"BlockTime\": \"<number>\",\n      \"BlockReward\": \"<number>\",\n      \"AssetLaunchDate\": \"<string>\",\n      \"MaxSupply\": \"<number>\",\n      \"Type\": \"<integer>\",\n      \"DocumentType\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T13:14:08.000Z",
+                      "updatedAt": "2026-06-05T13:14:08.000Z",
+                      "uid": "35240-1d1ce79a-2709-4435-afd6-40e7f2d0383b"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-35591ca7-fb6c-45b0-80e0-6aa888d3a1ac"
+                }
+              ],
+              "id": "e883a428-0125-4910-b8b8-33b1a4f3259a",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-e883a428-0125-4910-b8b8-33b1a4f3259a"
+            },
+            {
+              "name": "Get Top Exchanges by Pair Volume",
+              "id": "76de4327-a124-4ff7-b566-9e5ce307d43a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/top/exchanges?fsym=<string>&tsym=<string>&limit=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "top",
+                    "exchanges"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) To-symbol (target currency), e.g. USD.",
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "Returns the top exchanges ranked by 24-hour volume for a given pair."
+              },
+              "response": [
+                {
+                  "id": "6191d9cf-1699-4cbc-9a76-ed4d9417228c",
+                  "name": "Top exchanges for the pair.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/top/exchanges?fsym=<string>&tsym=<string>&limit=10&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "top",
+                        "exchanges"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                          "key": "fsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) To-symbol (target currency), e.g. USD.",
+                          "key": "tsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": [\n    {\n      \"exchange\": \"<string>\",\n      \"fromSymbol\": \"<string>\",\n      \"toSymbol\": \"<string>\",\n      \"volume24h\": \"<number>\",\n      \"volume24hTo\": \"<number>\"\n    },\n    {\n      \"exchange\": \"<string>\",\n      \"fromSymbol\": \"<string>\",\n      \"toSymbol\": \"<string>\",\n      \"volume24h\": \"<number>\",\n      \"volume24hTo\": \"<number>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-6191d9cf-1699-4cbc-9a76-ed4d9417228c"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-76de4327-a124-4ff7-b566-9e5ce307d43a"
+            }
+          ],
+          "id": "5b5af914-ee63-4678-ae64-eae59ff2e3ec",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-5b5af914-ee63-4678-ae64-eae59ff2e3ec"
+        },
+        {
+          "name": "volumes",
+          "item": [
+            {
+              "name": "Get Top Volumes by Currency",
+              "id": "d2abdded-065a-4f68-8e4c-744c567492ac",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/top/volumes?limit=10&tsym=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "top",
+                    "volumes"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "(Required) Quote currency for the ranking.",
+                      "key": "tsym",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns the top cryptocurrencies by aggregate 24-hour volume against a given quote currency. Lighter payload than totalvolfull."
+              },
+              "response": [
+                {
+                  "id": "e08f5cc6-03de-4c81-b647-cc549d57eaef",
+                  "name": "Ranked list of coin volumes.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/top/volumes?limit=10&tsym=<string>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "top",
+                        "volumes"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "(Required) Quote currency for the ranking.",
+                          "key": "tsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": [\n    {\n      \"SYMBOL\": \"<string>\",\n      \"SUPPLY\": \"<number>\",\n      \"FULLVOLUME\": \"<string>\",\n      \"TOPTIERVOLUME24HOUR\": \"<string>\"\n    },\n    {\n      \"SYMBOL\": \"<string>\",\n      \"SUPPLY\": \"<number>\",\n      \"FULLVOLUME\": \"<string>\",\n      \"TOPTIERVOLUME24HOUR\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-e08f5cc6-03de-4c81-b647-cc549d57eaef"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-d2abdded-065a-4f68-8e4c-744c567492ac"
+            }
+          ],
+          "id": "980da4dc-aa12-401f-ab95-44c95ad47b38",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-980da4dc-aa12-401f-ab95-44c95ad47b38"
+        },
+        {
+          "name": "pairs",
+          "item": [
+            {
+              "name": "Get Top Pairs by Volume",
+              "id": "4087a308-b2eb-4991-8ac1-91a24b92d6df",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/top/pairs?fsym=<string>&limit=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "top",
+                    "pairs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "Returns the most active trading pairs for a given from-symbol across every integrated exchange."
+              },
+              "response": [
+                {
+                  "id": "70fc040b-3163-4f9f-82b4-0d1a9614429e",
+                  "name": "Top trading pairs envelope.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/top/pairs?fsym=<string>&limit=10&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "top",
+                        "pairs"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC.",
+                          "key": "fsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of rows to return (max varies per endpoint, typically 100).",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": [\n    {\n      \"exchange\": \"<string>\",\n      \"fromSymbol\": \"<string>\",\n      \"toSymbol\": \"<string>\",\n      \"volume24h\": \"<number>\",\n      \"volume24hTo\": \"<number>\"\n    },\n    {\n      \"exchange\": \"<string>\",\n      \"fromSymbol\": \"<string>\",\n      \"toSymbol\": \"<string>\",\n      \"volume24h\": \"<number>\",\n      \"volume24hTo\": \"<number>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-70fc040b-3163-4f9f-82b4-0d1a9614429e"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-4087a308-b2eb-4991-8ac1-91a24b92d6df"
+            }
+          ],
+          "id": "4bcd5ea9-8bab-443c-be14-0bd016d5ec98",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-4bcd5ea9-8bab-443c-be14-0bd016d5ec98"
+        }
+      ],
+      "id": "5840209d-54c6-4c21-a025-478246ed3d67",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-5840209d-54c6-4c21-a025-478246ed3d67"
+    },
+    {
+      "name": "news",
+      "item": [
+        {
+          "name": "feeds",
+          "item": [
+            {
+              "name": "Get News Sources",
+              "id": "a49ff134-f074-4b7a-b0f8-67f400298fff",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/news/feeds",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "news",
+                    "feeds"
+                  ]
+                },
+                "description": "Returns the list of news source feeds available for filtering."
+              },
+              "response": [
+                {
+                  "id": "ae52f70f-4b7b-48d2-bafa-d55ba2255e67",
+                  "name": "List of news sources.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/news/feeds?api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "news",
+                        "feeds"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": [\n    {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"img\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"img\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-ae52f70f-4b7b-48d2-bafa-d55ba2255e67"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-a49ff134-f074-4b7a-b0f8-67f400298fff"
+            }
+          ],
+          "id": "3e222b91-30a2-4261-9a09-3d54fb3d9808",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-3e222b91-30a2-4261-9a09-3d54fb3d9808"
+        },
+        {
+          "name": "categories",
+          "item": [
+            {
+              "name": "Get News Categories",
+              "id": "21b9d142-f214-4d4b-b8fc-22138a8feb82",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/news/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "news",
+                    "categories"
+                  ]
+                },
+                "description": "Returns the list of news categories used for tagging articles."
+              },
+              "response": [
+                {
+                  "id": "838a8e34-9b6b-400a-9ccb-4bd542f0d8c8",
+                  "name": "List of news categories.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/news/categories?api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "news",
+                        "categories"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": [\n    {\n      \"categoryName\": \"<string>\",\n      \"wordsAssociatedWithCategory\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"categoryName\": \"<string>\",\n      \"wordsAssociatedWithCategory\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-838a8e34-9b6b-400a-9ccb-4bd542f0d8c8"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-21b9d142-f214-4d4b-b8fc-22138a8feb82"
+            }
+          ],
+          "id": "32f01cb8-1260-45fa-8c11-21e3e18ace90",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-32f01cb8-1260-45fa-8c11-21e3e18ace90"
+        },
+        {
+          "name": "feedsandcategories",
+          "item": [
+            {
+              "name": "Get News Feeds and Categories",
+              "id": "1ec90da5-80dd-46e9-b4eb-0b15223ff299",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/news/feedsandcategories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "news",
+                    "feedsandcategories"
+                  ]
+                },
+                "description": "Returns both available source feeds and categories in a single call."
+              },
+              "response": [
+                {
+                  "id": "2a34f719-6404-4aa6-be87-9f5a4716bded",
+                  "name": "Feeds and categories envelope.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/news/feedsandcategories?api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "news",
+                        "feedsandcategories"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Type\": \"<integer>\",\n  \"Message\": \"<string>\",\n  \"Data\": {}\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-2a34f719-6404-4aa6-be87-9f5a4716bded"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-1ec90da5-80dd-46e9-b4eb-0b15223ff299"
+            }
+          ],
+          "id": "0924a9e6-e307-47f3-bc06-b0661f7fcb4c",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-0924a9e6-e307-47f3-bc06-b0661f7fcb4c"
+        }
+      ],
+      "id": "2de4b957-107a-46f9-affb-7196969b9a0c",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-2de4b957-107a-46f9-affb-7196969b9a0c"
+    },
+    {
+      "name": "social",
+      "item": [
+        {
+          "name": "coin",
+          "item": [
+            {
+              "name": "latest",
+              "item": [
+                {
+                  "name": "Get Latest Coin Social Stats",
+                  "id": "aaf4e435-3370-4783-b290-3fcf1a704428",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/coin/latest?coinId=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "coin",
+                        "latest"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) CryptoCompare coin ID (e.g. 1182 for BTC).",
+                          "key": "coinId",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Returns the latest aggregated social statistics (Twitter, Reddit, code repository) for a single coin identified by its CryptoCompare coin ID."
+                  },
+                  "response": [
+                    {
+                      "id": "cee21d89-711a-4a22-9880-8dd04a6a9231",
+                      "name": "Social stats envelope (requires API key).",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/coin/latest?coinId=<integer>&api_key=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "coin",
+                            "latest"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) CryptoCompare coin ID (e.g. 1182 for BTC).",
+                              "key": "coinId",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "api_key",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {\n    \"General\": {\n      \"Points\": \"<integer>\",\n      \"Name\": \"<string>\",\n      \"CoinName\": \"<string>\",\n      \"Type\": \"<string>\"\n    },\n    \"CryptoCompare\": {\n      \"Points\": \"<integer>\",\n      \"Followers\": \"<integer>\",\n      \"Posts\": \"<integer>\",\n      \"Comments\": \"<integer>\",\n      \"PageViewsSplit\": {},\n      \"PageViews\": \"<integer>\"\n    },\n    \"Twitter\": {\n      \"followers\": \"<integer>\",\n      \"following\": \"<integer>\",\n      \"statuses\": \"<integer>\",\n      \"lists\": \"<integer>\",\n      \"favourites\": \"<integer>\",\n      \"Points\": \"<integer>\",\n      \"account_creation\": \"<long>\",\n      \"name\": \"<string>\",\n      \"link\": \"<string>\"\n    },\n    \"Reddit\": {\n      \"subscribers\": \"<integer>\",\n      \"active_users\": \"<integer>\",\n      \"community_creation\": \"<long>\",\n      \"posts_per_hour\": \"<number>\",\n      \"posts_per_day\": \"<number>\",\n      \"comments_per_hour\": \"<number>\",\n      \"comments_per_day\": \"<number>\",\n      \"Points\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"link\": \"<string>\"\n    },\n    \"Facebook\": {},\n    \"CodeRepository\": {\n      \"Points\": \"<integer>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T13:14:08.000Z",
+                      "updatedAt": "2026-06-05T13:14:08.000Z",
+                      "uid": "35240-cee21d89-711a-4a22-9880-8dd04a6a9231"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-aaf4e435-3370-4783-b290-3fcf1a704428"
+                }
+              ],
+              "id": "32326c3c-e28b-4a28-9179-f725edf18027",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-32326c3c-e28b-4a28-9179-f725edf18027"
+            },
+            {
+              "name": "histo",
+              "item": [
+                {
+                  "name": "day",
+                  "item": [
+                    {
+                      "name": "Get Historical Daily Coin Social Stats",
+                      "id": "182c4d0e-d551-4a44-b0c5-bc67ce5a7cb5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/coin/histo/day?coinId=<integer>&limit=30&toTs=<long>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "coin",
+                            "histo",
+                            "day"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) CryptoCompare coin ID.",
+                              "key": "coinId",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of data points to return (max 2000 for OHLCV).",
+                              "key": "limit",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                              "key": "toTs",
+                              "value": "<long>"
+                            }
+                          ]
+                        },
+                        "description": "Returns daily historical social statistics for a coin."
+                      },
+                      "response": [
+                        {
+                          "id": "9037f7ed-a172-4dd5-ab79-82be75e7fa83",
+                          "name": "Daily social stats history.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/social/coin/histo/day?coinId=<integer>&limit=30&toTs=<long>&api_key=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "social",
+                                "coin",
+                                "histo",
+                                "day"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) CryptoCompare coin ID.",
+                                  "key": "coinId",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of data points to return (max 2000 for OHLCV).",
+                                  "key": "limit",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                                  "key": "toTs",
+                                  "value": "<long>"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "api_key",
+                                  "value": "<API Key>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": [\n    {\n      \"time\": \"<long>\",\n      \"comments\": \"<integer>\",\n      \"posts\": \"<integer>\",\n      \"followers\": \"<integer>\",\n      \"points\": \"<integer>\",\n      \"overview_page_views\": \"<integer>\",\n      \"analysis_page_views\": \"<integer>\",\n      \"markets_page_views\": \"<integer>\",\n      \"charts_page_views\": \"<integer>\",\n      \"trades_page_views\": \"<integer>\",\n      \"forum_page_views\": \"<integer>\",\n      \"influence_page_views\": \"<integer>\",\n      \"total_page_views\": \"<integer>\",\n      \"reddit_comments_per_hour\": \"<number>\",\n      \"reddit_posts_per_hour\": \"<number>\",\n      \"reddit_comments_per_day\": \"<number>\",\n      \"reddit_posts_per_day\": \"<number>\",\n      \"reddit_subscribers\": \"<integer>\",\n      \"reddit_active_users\": \"<integer>\",\n      \"twitter_followers\": \"<integer>\",\n      \"twitter_following\": \"<integer>\",\n      \"twitter_lists\": \"<integer>\",\n      \"twitter_favourites\": \"<integer>\",\n      \"twitter_statuses\": \"<integer>\",\n      \"code_repo_stars\": \"<integer>\",\n      \"code_repo_forks\": \"<integer>\",\n      \"code_repo_subscribers\": \"<integer>\",\n      \"code_repo_open_pull_issues\": \"<integer>\",\n      \"code_repo_closed_pull_issues\": \"<integer>\",\n      \"code_repo_open_issues\": \"<integer>\",\n      \"code_repo_closed_issues\": \"<integer>\",\n      \"code_repo_contributors\": \"<integer>\",\n      \"fb_likes\": \"<integer>\",\n      \"fb_talking_about\": \"<integer>\"\n    },\n    {\n      \"time\": \"<long>\",\n      \"comments\": \"<integer>\",\n      \"posts\": \"<integer>\",\n      \"followers\": \"<integer>\",\n      \"points\": \"<integer>\",\n      \"overview_page_views\": \"<integer>\",\n      \"analysis_page_views\": \"<integer>\",\n      \"markets_page_views\": \"<integer>\",\n      \"charts_page_views\": \"<integer>\",\n      \"trades_page_views\": \"<integer>\",\n      \"forum_page_views\": \"<integer>\",\n      \"influence_page_views\": \"<integer>\",\n      \"total_page_views\": \"<integer>\",\n      \"reddit_comments_per_hour\": \"<number>\",\n      \"reddit_posts_per_hour\": \"<number>\",\n      \"reddit_comments_per_day\": \"<number>\",\n      \"reddit_posts_per_day\": \"<number>\",\n      \"reddit_subscribers\": \"<integer>\",\n      \"reddit_active_users\": \"<integer>\",\n      \"twitter_followers\": \"<integer>\",\n      \"twitter_following\": \"<integer>\",\n      \"twitter_lists\": \"<integer>\",\n      \"twitter_favourites\": \"<integer>\",\n      \"twitter_statuses\": \"<integer>\",\n      \"code_repo_stars\": \"<integer>\",\n      \"code_repo_forks\": \"<integer>\",\n      \"code_repo_subscribers\": \"<integer>\",\n      \"code_repo_open_pull_issues\": \"<integer>\",\n      \"code_repo_closed_pull_issues\": \"<integer>\",\n      \"code_repo_open_issues\": \"<integer>\",\n      \"code_repo_closed_issues\": \"<integer>\",\n      \"code_repo_contributors\": \"<integer>\",\n      \"fb_likes\": \"<integer>\",\n      \"fb_talking_about\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T13:14:08.000Z",
+                          "updatedAt": "2026-06-05T13:14:08.000Z",
+                          "uid": "35240-9037f7ed-a172-4dd5-ab79-82be75e7fa83"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T13:14:08.000Z",
+                      "updatedAt": "2026-06-05T13:14:08.000Z",
+                      "uid": "35240-182c4d0e-d551-4a44-b0c5-bc67ce5a7cb5"
+                    }
+                  ],
+                  "id": "9cb06713-5d9a-43bc-900f-ba266343fc5a",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-9cb06713-5d9a-43bc-900f-ba266343fc5a"
+                },
+                {
+                  "name": "hour",
+                  "item": [
+                    {
+                      "name": "Get Historical Hourly Coin Social Stats",
+                      "id": "6fa9d781-4fde-4a1e-9557-8efad132812f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/coin/histo/hour?coinId=<integer>&limit=30&toTs=<long>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "coin",
+                            "histo",
+                            "hour"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) CryptoCompare coin ID.",
+                              "key": "coinId",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of data points to return (max 2000 for OHLCV).",
+                              "key": "limit",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                              "key": "toTs",
+                              "value": "<long>"
+                            }
+                          ]
+                        },
+                        "description": "Returns hourly historical social statistics for a coin."
+                      },
+                      "response": [
+                        {
+                          "id": "1136610b-aff0-45e0-930a-91c1dc641e1a",
+                          "name": "Hourly social stats history.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/social/coin/histo/hour?coinId=<integer>&limit=30&toTs=<long>&api_key=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "social",
+                                "coin",
+                                "histo",
+                                "hour"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) CryptoCompare coin ID.",
+                                  "key": "coinId",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of data points to return (max 2000 for OHLCV).",
+                                  "key": "limit",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                                  "key": "toTs",
+                                  "value": "<long>"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "api_key",
+                                  "value": "<API Key>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": [\n    {\n      \"time\": \"<long>\",\n      \"comments\": \"<integer>\",\n      \"posts\": \"<integer>\",\n      \"followers\": \"<integer>\",\n      \"points\": \"<integer>\",\n      \"overview_page_views\": \"<integer>\",\n      \"analysis_page_views\": \"<integer>\",\n      \"markets_page_views\": \"<integer>\",\n      \"charts_page_views\": \"<integer>\",\n      \"trades_page_views\": \"<integer>\",\n      \"forum_page_views\": \"<integer>\",\n      \"influence_page_views\": \"<integer>\",\n      \"total_page_views\": \"<integer>\",\n      \"reddit_comments_per_hour\": \"<number>\",\n      \"reddit_posts_per_hour\": \"<number>\",\n      \"reddit_comments_per_day\": \"<number>\",\n      \"reddit_posts_per_day\": \"<number>\",\n      \"reddit_subscribers\": \"<integer>\",\n      \"reddit_active_users\": \"<integer>\",\n      \"twitter_followers\": \"<integer>\",\n      \"twitter_following\": \"<integer>\",\n      \"twitter_lists\": \"<integer>\",\n      \"twitter_favourites\": \"<integer>\",\n      \"twitter_statuses\": \"<integer>\",\n      \"code_repo_stars\": \"<integer>\",\n      \"code_repo_forks\": \"<integer>\",\n      \"code_repo_subscribers\": \"<integer>\",\n      \"code_repo_open_pull_issues\": \"<integer>\",\n      \"code_repo_closed_pull_issues\": \"<integer>\",\n      \"code_repo_open_issues\": \"<integer>\",\n      \"code_repo_closed_issues\": \"<integer>\",\n      \"code_repo_contributors\": \"<integer>\",\n      \"fb_likes\": \"<integer>\",\n      \"fb_talking_about\": \"<integer>\"\n    },\n    {\n      \"time\": \"<long>\",\n      \"comments\": \"<integer>\",\n      \"posts\": \"<integer>\",\n      \"followers\": \"<integer>\",\n      \"points\": \"<integer>\",\n      \"overview_page_views\": \"<integer>\",\n      \"analysis_page_views\": \"<integer>\",\n      \"markets_page_views\": \"<integer>\",\n      \"charts_page_views\": \"<integer>\",\n      \"trades_page_views\": \"<integer>\",\n      \"forum_page_views\": \"<integer>\",\n      \"influence_page_views\": \"<integer>\",\n      \"total_page_views\": \"<integer>\",\n      \"reddit_comments_per_hour\": \"<number>\",\n      \"reddit_posts_per_hour\": \"<number>\",\n      \"reddit_comments_per_day\": \"<number>\",\n      \"reddit_posts_per_day\": \"<number>\",\n      \"reddit_subscribers\": \"<integer>\",\n      \"reddit_active_users\": \"<integer>\",\n      \"twitter_followers\": \"<integer>\",\n      \"twitter_following\": \"<integer>\",\n      \"twitter_lists\": \"<integer>\",\n      \"twitter_favourites\": \"<integer>\",\n      \"twitter_statuses\": \"<integer>\",\n      \"code_repo_stars\": \"<integer>\",\n      \"code_repo_forks\": \"<integer>\",\n      \"code_repo_subscribers\": \"<integer>\",\n      \"code_repo_open_pull_issues\": \"<integer>\",\n      \"code_repo_closed_pull_issues\": \"<integer>\",\n      \"code_repo_open_issues\": \"<integer>\",\n      \"code_repo_closed_issues\": \"<integer>\",\n      \"code_repo_contributors\": \"<integer>\",\n      \"fb_likes\": \"<integer>\",\n      \"fb_talking_about\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T13:14:08.000Z",
+                          "updatedAt": "2026-06-05T13:14:08.000Z",
+                          "uid": "35240-1136610b-aff0-45e0-930a-91c1dc641e1a"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T13:14:08.000Z",
+                      "updatedAt": "2026-06-05T13:14:08.000Z",
+                      "uid": "35240-6fa9d781-4fde-4a1e-9557-8efad132812f"
+                    }
+                  ],
+                  "id": "fdc5ac38-de9b-4511-aaf8-e430b9089c0c",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-fdc5ac38-de9b-4511-aaf8-e430b9089c0c"
+                }
+              ],
+              "id": "d80ae4ec-e448-4fc1-b12f-dd6a51f1f6d0",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-d80ae4ec-e448-4fc1-b12f-dd6a51f1f6d0"
+            }
+          ],
+          "id": "fab06221-d8d4-4363-a871-26a822072eb2",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-fab06221-d8d4-4363-a871-26a822072eb2"
+        }
+      ],
+      "id": "78ca2767-da45-4346-b585-9e9dc2a68678",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-78ca2767-da45-4346-b585-9e9dc2a68678"
+    },
+    {
+      "name": "all",
+      "item": [
+        {
+          "name": "exchanges",
+          "item": [
+            {
+              "name": "Get All Exchanges and Trading Pairs",
+              "id": "bbe29a43-c2b6-4a80-90c6-8a3a6150da37",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/all/exchanges",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "all",
+                    "exchanges"
+                  ]
+                },
+                "description": "Returns the full list of integrated exchanges and the trading pairs each exchange currently exposes."
+              },
+              "response": [
+                {
+                  "id": "281d9494-a16b-47b0-878c-fb18d31596bd",
+                  "name": "Map of exchange name to traded pairs.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/all/exchanges?api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "all",
+                        "exchanges"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"aliqua_44\": {\n    \"commodo9a\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"id_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-281d9494-a16b-47b0-878c-fb18d31596bd"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-bbe29a43-c2b6-4a80-90c6-8a3a6150da37"
+            }
+          ],
+          "id": "0de2aa99-0aff-488d-80bd-b338bb8e7ec1",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-0de2aa99-0aff-488d-80bd-b338bb8e7ec1"
+        },
+        {
+          "name": "coinlist",
+          "item": [
+            {
+              "name": "Get All Coins List",
+              "id": "46ed00ba-e4e6-44f4-8b9b-aa19c424ddd7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/all/coinlist?summary=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "all",
+                    "coinlist"
+                  ],
+                  "query": [
+                    {
+                      "description": "When true, returns a slimmer payload without descriptions.",
+                      "key": "summary",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "description": "Returns the complete CryptoCompare coin list with mapping, image URLs, algorithm, proof type, supply data, and CCData taxonomy."
+              },
+              "response": [
+                {
+                  "id": "9e7e4bf2-d92c-46b1-aff8-5f75946a2177",
+                  "name": "Coin list envelope.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/all/coinlist?summary=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "all",
+                        "coinlist"
+                      ],
+                      "query": [
+                        {
+                          "description": "When true, returns a slimmer payload without descriptions.",
+                          "key": "summary",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {\n    \"Ut_\": {\n      \"Id\": \"<string>\",\n      \"Url\": \"<string>\",\n      \"ImageUrl\": \"<string>\",\n      \"ContentCreatedOn\": \"<long>\",\n      \"Name\": \"<string>\",\n      \"Symbol\": \"<string>\",\n      \"CoinName\": \"<string>\",\n      \"FullName\": \"<string>\",\n      \"Description\": \"<string>\",\n      \"AssetTokenStatus\": \"<string>\",\n      \"Algorithm\": \"<string>\",\n      \"ProofType\": \"<string>\",\n      \"SortOrder\": \"<string>\",\n      \"Sponsored\": \"<boolean>\",\n      \"Taxonomy\": {},\n      \"Rating\": {},\n      \"IsTrading\": \"<boolean>\"\n    },\n    \"ex_b\": {\n      \"Id\": \"<string>\",\n      \"Url\": \"<string>\",\n      \"ImageUrl\": \"<string>\",\n      \"ContentCreatedOn\": \"<long>\",\n      \"Name\": \"<string>\",\n      \"Symbol\": \"<string>\",\n      \"CoinName\": \"<string>\",\n      \"FullName\": \"<string>\",\n      \"Description\": \"<string>\",\n      \"AssetTokenStatus\": \"<string>\",\n      \"Algorithm\": \"<string>\",\n      \"ProofType\": \"<string>\",\n      \"SortOrder\": \"<string>\",\n      \"Sponsored\": \"<boolean>\",\n      \"Taxonomy\": {},\n      \"Rating\": {},\n      \"IsTrading\": \"<boolean>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-9e7e4bf2-d92c-46b1-aff8-5f75946a2177"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-46ed00ba-e4e6-44f4-8b9b-aa19c424ddd7"
+            }
+          ],
+          "id": "9c7c558f-1f00-487d-bb66-0a50f777ba97",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-9c7c558f-1f00-487d-bb66-0a50f777ba97"
+        }
+      ],
+      "id": "e1fc0195-4dd4-4bf7-8004-a59834279279",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-e1fc0195-4dd4-4bf7-8004-a59834279279"
+    },
+    {
+      "name": "exchanges",
+      "item": [
+        {
+          "name": "general",
+          "item": [
+            {
+              "name": "Get Exchanges General Info",
+              "id": "70b6bd45-1aeb-4a4b-9d32-fef62c450ca8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/exchanges/general",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "exchanges",
+                    "general"
+                  ]
+                },
+                "description": "Returns descriptive metadata, ranking grade, country, URL, and feature flags for every integrated exchange."
+              },
+              "response": [
+                {
+                  "id": "79bdb8ce-bf58-4e24-bc27-63cc0c563440",
+                  "name": "Exchange general info envelope.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/exchanges/general?api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "exchanges",
+                        "general"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {\n    \"laborumc_\": {\n      \"Id\": \"<string>\",\n      \"Name\": \"<string>\",\n      \"Url\": \"<string>\",\n      \"LogoUrl\": \"<string>\",\n      \"ItemType\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"CentralizationType\": \"<string>\",\n      \"InternalName\": \"<string>\",\n      \"GradePoints\": \"<number>\",\n      \"Grade\": \"<string>\",\n      \"GradePointsSplit\": {},\n      \"AffiliateURL\": \"<string>\",\n      \"Country\": \"<string>\",\n      \"OrderBook\": \"<boolean>\",\n      \"Trades\": \"<boolean>\",\n      \"Description\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-79bdb8ce-bf58-4e24-bc27-63cc0c563440"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-70b6bd45-1aeb-4a4b-9d32-fef62c450ca8"
+            }
+          ],
+          "id": "158f5107-b255-43a1-a521-bfff8a1225b5",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-158f5107-b255-43a1-a521-bfff8a1225b5"
+        }
+      ],
+      "id": "b7808596-2e95-4950-8157-05b9c2eef5a6",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-b7808596-2e95-4950-8157-05b9c2eef5a6"
+    },
+    {
+      "name": "blockchain",
+      "item": [
+        {
+          "name": "list",
+          "item": [
+            {
+              "name": "Get Available Blockchain Data Coins",
+              "id": "93827062-5dae-4dc9-8764-a0acefce6bd3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blockchain/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blockchain",
+                    "list"
+                  ]
+                },
+                "description": "Returns the list of coins that have on-chain blockchain data available (transaction count, active addresses, average transaction value, etc.)."
+              },
+              "response": [
+                {
+                  "id": "ebdd4fa8-9632-4a5b-aeff-a899d989be58",
+                  "name": "Available blockchain coins envelope.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blockchain/list?api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blockchain",
+                        "list"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {\n    \"ipsum_\": {\n      \"id\": \"<integer>\",\n      \"symbol\": \"<string>\",\n      \"partner_symbol\": \"<string>\",\n      \"data_available_from\": \"<long>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-ebdd4fa8-9632-4a5b-aeff-a899d989be58"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-93827062-5dae-4dc9-8764-a0acefce6bd3"
+            }
+          ],
+          "id": "86c02ae4-4b02-4f3c-9538-41c268c91b0f",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-86c02ae4-4b02-4f3c-9538-41c268c91b0f"
+        },
+        {
+          "name": "latest",
+          "item": [
+            {
+              "name": "Get Latest Blockchain Day",
+              "id": "2916d571-9c85-49e4-a85d-850d433cdbb6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blockchain/latest?fsym=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blockchain",
+                    "latest"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) From-symbol (coin) of the blockchain dataset.",
+                      "key": "fsym",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns the latest day of on-chain data for a coin including transaction count, average transaction value, active addresses, hashrate, difficulty, and large transaction count."
+              },
+              "response": [
+                {
+                  "id": "1f5fb612-b491-4d35-9879-eaae426bd794",
+                  "name": "Latest blockchain data point.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blockchain/latest?fsym=<string>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blockchain",
+                        "latest"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) From-symbol (coin) of the blockchain dataset.",
+                          "key": "fsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {\n    \"id\": \"<integer>\",\n    \"time\": \"<long>\",\n    \"symbol\": \"<string>\",\n    \"zero_balance_addresses_all_time\": \"<integer>\",\n    \"unique_addresses_all_time\": \"<integer>\",\n    \"new_addresses\": \"<integer>\",\n    \"active_addresses\": \"<integer>\",\n    \"transaction_count\": \"<integer>\",\n    \"transaction_count_all_time\": \"<integer>\",\n    \"large_transaction_count\": \"<integer>\",\n    \"average_transaction_value\": \"<number>\",\n    \"block_height\": \"<integer>\",\n    \"hashrate\": \"<number>\",\n    \"difficulty\": \"<number>\",\n    \"block_time\": \"<number>\",\n    \"block_size\": \"<integer>\",\n    \"current_supply\": \"<number>\"\n  }\n}",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-1f5fb612-b491-4d35-9879-eaae426bd794"
+                }
+              ],
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-2916d571-9c85-49e4-a85d-850d433cdbb6"
+            }
+          ],
+          "id": "dd16d3a3-86a3-40de-8d89-296d4bd86ceb",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-dd16d3a3-86a3-40de-8d89-296d4bd86ceb"
+        },
+        {
+          "name": "histo",
+          "item": [
+            {
+              "name": "day",
+              "item": [
+                {
+                  "name": "Get Historical Daily Blockchain Data",
+                  "id": "7a4840bb-1312-4614-9e96-74add4eaf9db",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blockchain/histo/day?fsym=<string>&limit=30&toTs=<long>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blockchain",
+                        "histo",
+                        "day"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) From-symbol (coin) of the blockchain dataset.",
+                          "key": "fsym",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of data points to return (max 2000 for OHLCV).",
+                          "key": "limit",
+                          "value": "30"
+                        },
+                        {
+                          "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                          "key": "toTs",
+                          "value": "<long>"
+                        }
+                      ]
+                    },
+                    "description": "Returns daily on-chain data history (transaction count, value, active addresses, hashrate, difficulty) for a coin."
+                  },
+                  "response": [
+                    {
+                      "id": "85a4210d-5e39-469a-b092-68188acdccf5",
+                      "name": "Daily blockchain history envelope.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blockchain/histo/day?fsym=<string>&limit=30&toTs=<long>&api_key=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blockchain",
+                            "histo",
+                            "day"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) From-symbol (coin) of the blockchain dataset.",
+                              "key": "fsym",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of data points to return (max 2000 for OHLCV).",
+                              "key": "limit",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                              "key": "toTs",
+                              "value": "<long>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "api_key",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {\n    \"Aggregated\": \"<boolean>\",\n    \"TimeFrom\": \"<long>\",\n    \"TimeTo\": \"<long>\",\n    \"Data\": [\n      {\n        \"id\": \"<integer>\",\n        \"time\": \"<long>\",\n        \"symbol\": \"<string>\",\n        \"zero_balance_addresses_all_time\": \"<integer>\",\n        \"unique_addresses_all_time\": \"<integer>\",\n        \"new_addresses\": \"<integer>\",\n        \"active_addresses\": \"<integer>\",\n        \"transaction_count\": \"<integer>\",\n        \"transaction_count_all_time\": \"<integer>\",\n        \"large_transaction_count\": \"<integer>\",\n        \"average_transaction_value\": \"<number>\",\n        \"block_height\": \"<integer>\",\n        \"hashrate\": \"<number>\",\n        \"difficulty\": \"<number>\",\n        \"block_time\": \"<number>\",\n        \"block_size\": \"<integer>\",\n        \"current_supply\": \"<number>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"time\": \"<long>\",\n        \"symbol\": \"<string>\",\n        \"zero_balance_addresses_all_time\": \"<integer>\",\n        \"unique_addresses_all_time\": \"<integer>\",\n        \"new_addresses\": \"<integer>\",\n        \"active_addresses\": \"<integer>\",\n        \"transaction_count\": \"<integer>\",\n        \"transaction_count_all_time\": \"<integer>\",\n        \"large_transaction_count\": \"<integer>\",\n        \"average_transaction_value\": \"<number>\",\n        \"block_height\": \"<integer>\",\n        \"hashrate\": \"<number>\",\n        \"difficulty\": \"<number>\",\n        \"block_time\": \"<number>\",\n        \"block_size\": \"<integer>\",\n        \"current_supply\": \"<number>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-06-05T13:14:08.000Z",
+                      "updatedAt": "2026-06-05T13:14:08.000Z",
+                      "uid": "35240-85a4210d-5e39-469a-b092-68188acdccf5"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-7a4840bb-1312-4614-9e96-74add4eaf9db"
+                }
+              ],
+              "id": "40ce9ed2-d3ef-44e9-88b3-19add718a831",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-40ce9ed2-d3ef-44e9-88b3-19add718a831"
+            }
+          ],
+          "id": "652766f4-450f-4507-8024-48b089be6d3d",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-652766f4-450f-4507-8024-48b089be6d3d"
+        },
+        {
+          "name": "balancedistribution",
+          "item": [
+            {
+              "name": "histo",
+              "item": [
+                {
+                  "name": "day",
+                  "item": [
+                    {
+                      "name": "Get Historical Daily Blockchain Balance Distribution",
+                      "id": "3611f65f-dc15-402c-a3a4-6c212cd19704",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blockchain/balancedistribution/histo/day?fsym=<string>&limit=30&toTs=<long>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blockchain",
+                            "balancedistribution",
+                            "histo",
+                            "day"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) From-symbol (coin) of the dataset.",
+                              "key": "fsym",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of data points to return (max 2000 for OHLCV).",
+                              "key": "limit",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                              "key": "toTs",
+                              "value": "<long>"
+                            }
+                          ]
+                        },
+                        "description": "Returns daily history of on-chain balance distribution buckets for a coin (addresses with 0-0.001, 0.001-0.01, etc., units of the asset)."
+                      },
+                      "response": [
+                        {
+                          "id": "d6f1214b-ac92-402f-8e07-5355997befa4",
+                          "name": "Daily balance distribution envelope.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/blockchain/balancedistribution/histo/day?fsym=<string>&limit=30&toTs=<long>&api_key=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "blockchain",
+                                "balancedistribution",
+                                "histo",
+                                "day"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) From-symbol (coin) of the dataset.",
+                                  "key": "fsym",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of data points to return (max 2000 for OHLCV).",
+                                  "key": "limit",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window.",
+                                  "key": "toTs",
+                                  "value": "<long>"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "api_key",
+                                  "value": "<API Key>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Response\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Type\": \"<integer>\",\n  \"Data\": {\n    \"Aggregated\": \"<boolean>\",\n    \"TimeFrom\": \"<long>\",\n    \"TimeTo\": \"<long>\",\n    \"Data\": [\n      {\n        \"time\": \"<long>\",\n        \"symbol\": \"<string>\",\n        \"balance_distribution\": [\n          {\n            \"from\": \"<number>\",\n            \"to\": \"<number>\",\n            \"totalVolume\": \"<number>\",\n            \"addressesCount\": \"<integer>\"\n          },\n          {\n            \"from\": \"<number>\",\n            \"to\": \"<number>\",\n            \"totalVolume\": \"<number>\",\n            \"addressesCount\": \"<integer>\"\n          }\n        ]\n      },\n      {\n        \"time\": \"<long>\",\n        \"symbol\": \"<string>\",\n        \"balance_distribution\": [\n          {\n            \"from\": \"<number>\",\n            \"to\": \"<number>\",\n            \"totalVolume\": \"<number>\",\n            \"addressesCount\": \"<integer>\"\n          },\n          {\n            \"from\": \"<number>\",\n            \"to\": \"<number>\",\n            \"totalVolume\": \"<number>\",\n            \"addressesCount\": \"<integer>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-06-05T13:14:08.000Z",
+                          "updatedAt": "2026-06-05T13:14:08.000Z",
+                          "uid": "35240-d6f1214b-ac92-402f-8e07-5355997befa4"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T13:14:08.000Z",
+                      "updatedAt": "2026-06-05T13:14:08.000Z",
+                      "uid": "35240-3611f65f-dc15-402c-a3a4-6c212cd19704"
+                    }
+                  ],
+                  "id": "58ebafc6-da71-4e4a-800a-e54fa6290f1d",
+                  "createdAt": "2026-06-05T13:14:08.000Z",
+                  "updatedAt": "2026-06-05T13:14:08.000Z",
+                  "uid": "35240-58ebafc6-da71-4e4a-800a-e54fa6290f1d"
+                }
+              ],
+              "id": "8efdfbc5-46f9-4714-b3fa-ab29dbe18376",
+              "createdAt": "2026-06-05T13:14:08.000Z",
+              "updatedAt": "2026-06-05T13:14:08.000Z",
+              "uid": "35240-8efdfbc5-46f9-4714-b3fa-ab29dbe18376"
+            }
+          ],
+          "id": "060b8305-3989-4f94-b4d3-beb3b0e8d7cd",
+          "createdAt": "2026-06-05T13:14:08.000Z",
+          "updatedAt": "2026-06-05T13:14:08.000Z",
+          "uid": "35240-060b8305-3989-4f94-b4d3-beb3b0e8d7cd"
+        }
+      ],
+      "id": "f1937820-5904-4a69-bdaa-dc39c6a2dfe1",
+      "createdAt": "2026-06-05T13:14:08.000Z",
+      "updatedAt": "2026-06-05T13:14:08.000Z",
+      "uid": "35240-f1937820-5904-4a69-bdaa-dc39c6a2dfe1"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://min-api.cryptocompare.com/data"
+    }
+  ]
+}
