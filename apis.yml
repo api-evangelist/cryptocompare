@@ -14,7 +14,7 @@ tags:
   - Index
 type: Index
 kind: company
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2026-05-28'
 modified: '2026-05-30'
@@ -45,7 +45,7 @@ apis:
       - News
       - Social
       - Blockchain
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://min-api.cryptocompare.com/data
     humanURL: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
     properties:
@@ -112,7 +112,7 @@ apis:
       - Derivatives
       - On-Chain
       - News
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://data-api.cryptocompare.com
     humanURL: https://developers.coindesk.com/documentation/data-api/introduction
     properties:
@@ -158,7 +158,7 @@ apis:
       - WebSocket
       - Order Book
       - OHLCV
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: wss://streamer.cryptocompare.com/v2
     humanURL: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
     properties:
@@ -186,7 +186,7 @@ apis:
       - Exchange Ratings
       - Methodology
       - Risk
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://data.coindesk.com/research/exchange-benchmark
     humanURL: https://data.coindesk.com/research/exchange-benchmark
     properties:
