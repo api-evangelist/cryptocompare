@@ -69,15 +69,15 @@ apis:
         url: json-schema/cryptocompare-socialstats-schema.json
       - type: JSONSchema
         url: json-schema/cryptocompare-orderbookl1-schema.json
-      - type: Example
+      - type: Examples
         url: examples/cryptocompare-getSingleSymbolPrice-example.json
-      - type: Example
+      - type: Examples
         url: examples/cryptocompare-getHistoricalDailyOHLCV-example.json
-      - type: Example
+      - type: Examples
         url: examples/cryptocompare-getTopListByTotalVolumeFull-example.json
-      - type: Example
+      - type: Examples
         url: examples/cryptocompare-getLatestNewsArticles-example.json
-      - type: SignUp
+      - type: Signup
         url: https://www.cryptocompare.com/cryptopian/api-keys
       - type: Authentication
         url: https://min-api.cryptocompare.com/documentation
@@ -124,9 +124,9 @@ apis:
         url: json-schema/cryptocompare-indextick-schema.json
       - type: JSONSchema
         url: json-schema/cryptocompare-asset-schema.json
-      - type: Example
+      - type: Examples
         url: examples/cryptocompare-getIndexLatestTick-example.json
-      - type: SignUp
+      - type: Signup
         url: https://developers.coindesk.com/pricing/
       - type: Authentication
         url: https://developers.coindesk.com/documentation/data-api/introduction
@@ -199,38 +199,35 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/cryptocompare/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/cryptocompare-asset-research-workflow.yml
-        name: CryptoCompare Asset Research
-        summary: Rank assets, read one asset's detail and supply history, then search news.
-      - url: arazzo/cryptocompare-coin-price-snapshot-workflow.yml
-        name: CryptoCompare Coin Price Snapshot
-        summary: Resolve a coin, read its live price, full ticker, and daily OHLCV history.
-      - url: arazzo/cryptocompare-coin-social-pulse-workflow.yml
-        name: CryptoCompare Coin Social Pulse
-        summary: Read latest and historical social stats for a coin alongside its live price.
-      - url: arazzo/cryptocompare-exchange-discovery-workflow.yml
-        name: CryptoCompare Exchange Discovery
-        summary: List exchanges, read general info, then rank top exchanges for a pair.
-      - url: arazzo/cryptocompare-market-cap-leaders-workflow.yml
-        name: CryptoCompare Market Cap Leaders
-        summary: Rank coins by market cap, read full multi-symbol prices, then daily history.
-      - url: arazzo/cryptocompare-news-feed-filter-workflow.yml
-        name: CryptoCompare News Feed Filter
-        summary: Resolve news categories and sources, then pull a filtered latest-news feed.
-      - url: arazzo/cryptocompare-spot-instrument-analysis-workflow.yml
-        name: CryptoCompare Spot Instrument Analysis
-        summary: Confirm a market, read instrument metadata, latest tick, then daily OHLCV.
-      - url: arazzo/cryptocompare-top-volume-deep-dive-workflow.yml
-        name: CryptoCompare Top Volume Deep Dive
-        summary: Rank coins by 24h volume, pull full data, then branch into the news feed.
+  - type: Arazzo
+    url: arazzo/cryptocompare-asset-research-workflow.yml
+    name: CryptoCompare Asset Research
+  - type: Arazzo
+    url: arazzo/cryptocompare-coin-price-snapshot-workflow.yml
+    name: CryptoCompare Coin Price Snapshot
+  - type: Arazzo
+    url: arazzo/cryptocompare-coin-social-pulse-workflow.yml
+    name: CryptoCompare Coin Social Pulse
+  - type: Arazzo
+    url: arazzo/cryptocompare-exchange-discovery-workflow.yml
+    name: CryptoCompare Exchange Discovery
+  - type: Arazzo
+    url: arazzo/cryptocompare-market-cap-leaders-workflow.yml
+    name: CryptoCompare Market Cap Leaders
+  - type: Arazzo
+    url: arazzo/cryptocompare-news-feed-filter-workflow.yml
+    name: CryptoCompare News Feed Filter
+  - type: Arazzo
+    url: arazzo/cryptocompare-spot-instrument-analysis-workflow.yml
+    name: CryptoCompare Spot Instrument Analysis
+  - type: Arazzo
+    url: arazzo/cryptocompare-top-volume-deep-dive-workflow.yml
+    name: CryptoCompare Top Volume Deep Dive
   - type: Website
     url: https://data.coindesk.com/
   - type: Portal
     url: https://developers.coindesk.com/
-  - type: SignUp
+  - type: Signup
     url: https://www.cryptocompare.com/cryptopian/api-keys
   - type: Pricing
     url: https://developers.coindesk.com/pricing/
@@ -244,9 +241,9 @@ common:
     url: https://data.coindesk.com/blog
   - type: GitHubOrganization
     url: https://github.com/CryptoCompare
-  - type: SDK
+  - type: SDKs
     url: https://github.com/CryptoCompare/API
-  - type: SDK
+  - type: SDKs
     url: https://github.com/CryptoCompare/CryptoCompareIOS
   - type: PublicAPIsListing
     url: https://github.com/public-apis/public-apis
@@ -254,7 +251,7 @@ common:
     url: rules/cryptocompare-rules.yml
   - type: Vocabulary
     url: vocabulary/cryptocompare-vocabulary.yml
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/cryptocompare-context.jsonld
   - type: JSONStructure
     url: json-structure/cryptocompare-structure.json
