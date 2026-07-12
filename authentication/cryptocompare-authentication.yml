@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/cryptocompare-data-api-openapi.yml, openapi/cryptocompare-min-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: apiKeyQuery
+  type: apiKey
+  in: query
+  parameter: api_key
+  description: API key supplied as the api_key query parameter.
+  sources:
+  - openapi/cryptocompare-data-api-openapi.yml
+  - openapi/cryptocompare-min-api-openapi.yml
+- name: apiKeyHeader
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+  sources:
+  - openapi/cryptocompare-data-api-openapi.yml
+  - openapi/cryptocompare-min-api-openapi.yml

@@ -1,0 +1,32 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: data.coindesk.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  7 14:06:11 2026 GMT
+  hsts: false
+- host: developers.coindesk.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Sep  4 15:02:27 2026 GMT
+  hsts: false
+- host: min-api.cryptocompare.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 22:09:34 2026 GMT
+  hsts: null
+domains:
+- domain: coindesk.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: cryptocompare.com
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
