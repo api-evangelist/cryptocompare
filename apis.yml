@@ -197,6 +197,8 @@ apis:
       Quality and Diversity, Market Quality, Security, and Negative Reports Penalty. Grade points and per-criterion
       splits are surfaced on the /exchanges/general endpoint of the min-api.
 common:
+  - type: AgenticAccess
+    url: agentic-access/cryptocompare-agentic-access.yml
   - type: DomainSecurity
     url: security/cryptocompare-domain-security.yml
   - type: Authentication

@@ -1,0 +1,554 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/cryptocompare-data-api-openapi.yml, openapi/cryptocompare-min-api-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 54
+  by_action_class:
+    connected: 54
+  by_consequence:
+    read: 54
+  human_in_the_loop_required: 0
+operations:
+- path: /spot/v1/latest/tick
+  method: get
+  operationId: getSpotLatestTick
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /spot/v2/markets
+  method: get
+  operationId: getSpotMarketsList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /spot/v1/markets/instruments
+  method: get
+  operationId: getSpotInstrumentMetadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /spot/v1/historical/days
+  method: get
+  operationId: getSpotHistoricalDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /spot/v1/historical/hours
+  method: get
+  operationId: getSpotHistoricalHourly
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /spot/v1/historical/minutes
+  method: get
+  operationId: getSpotHistoricalMinute
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /spot/v1/historical/trades
+  method: get
+  operationId: getSpotHistoricalTrades
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /spot/v1/latest/orderbook/l1/top
+  method: get
+  operationId: getSpotOrderbookL1Top
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /index/cc/v1/latest/tick
+  method: get
+  operationId: getIndexLatestTick
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /index/cc/v1/historical/days
+  method: get
+  operationId: getIndexHistoricalDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /index/cc/v1/historical/hours
+  method: get
+  operationId: getIndexHistoricalHourly
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /index/cc/v1/historical/minutes
+  method: get
+  operationId: getIndexHistoricalMinute
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /index/cc/v1/latest/instrument/composition
+  method: get
+  operationId: getIndexComposition
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /asset/v1/top/list
+  method: get
+  operationId: getAssetTopList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /asset/v1/data/by/symbol
+  method: get
+  operationId: getAssetBySymbol
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /asset/v1/historical/supply/days
+  method: get
+  operationId: getAssetHistoricalSupplyDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /news/v1/article/list
+  method: get
+  operationId: getNewsArticleList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /news/v1/source/list
+  method: get
+  operationId: getNewsSourceList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /news/v1/category/list
+  method: get
+  operationId: getNewsCategoryList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /onchain/v1/historical/supply/days
+  method: get
+  operationId: getOnchainHistoricalSupplyDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /onchain/v1/historical/active-addresses/days
+  method: get
+  operationId: getOnchainHistoricalActiveAddressesDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/latest/tick
+  method: get
+  operationId: getFuturesLatestTick
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/historical/days
+  method: get
+  operationId: getFuturesHistoricalDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /options/v1/latest/tick
+  method: get
+  operationId: getOptionsLatestTick
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /overview/v1/historical/marketcap/all-assets/days
+  method: get
+  operationId: getOverviewHistoricalMarketCapDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /price
+  method: get
+  operationId: getSingleSymbolPrice
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pricemulti
+  method: get
+  operationId: getMultipleSymbolsPrice
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pricemultifull
+  method: get
+  operationId: getMultipleSymbolsFullPrice
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /generateAvg
+  method: get
+  operationId: getCustomAverage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pricehistorical
+  method: get
+  operationId: getPriceHistorical
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/histoday
+  method: get
+  operationId: getHistoricalDailyOHLCV
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/histohour
+  method: get
+  operationId: getHistoricalHourlyOHLCV
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/histominute
+  method: get
+  operationId: getHistoricalMinuteOHLCV
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /top/totalvolfull
+  method: get
+  operationId: getTopListByTotalVolumeFull
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /top/mktcapfull
+  method: get
+  operationId: getTopListByMarketCapFull
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /top/exchanges
+  method: get
+  operationId: getTopExchangesByPairVolume
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /top/exchanges/full
+  method: get
+  operationId: getTopExchangesFullByPairVolume
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /top/volumes
+  method: get
+  operationId: getTopVolumesByCurrency
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /top/pairs
+  method: get
+  operationId: getTopPairsByVolume
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/news/
+  method: get
+  operationId: getLatestNewsArticles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /news/feeds
+  method: get
+  operationId: getNewsSources
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /news/categories
+  method: get
+  operationId: getNewsCategories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /news/feedsandcategories
+  method: get
+  operationId: getNewsFeedsAndCategories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /social/coin/latest
+  method: get
+  operationId: getCoinSocialStatsLatest
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /social/coin/histo/day
+  method: get
+  operationId: getCoinSocialStatsDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /social/coin/histo/hour
+  method: get
+  operationId: getCoinSocialStatsHourly
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/ob/l1/top
+  method: get
+  operationId: getOrderBookTopOfBook
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /all/exchanges
+  method: get
+  operationId: getAllExchanges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /exchanges/general
+  method: get
+  operationId: getExchangesGeneralInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /all/coinlist
+  method: get
+  operationId: getAllCoinsList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /blockchain/list
+  method: get
+  operationId: getBlockchainAvailableCoinList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /blockchain/latest
+  method: get
+  operationId: getBlockchainLatestDay
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /blockchain/histo/day
+  method: get
+  operationId: getBlockchainHistoricalDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /blockchain/balancedistribution/histo/day
+  method: get
+  operationId: getBlockchainBalanceDistributionDaily
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
