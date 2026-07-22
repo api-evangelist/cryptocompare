@@ -1,0 +1,51 @@
+generated: '2026-07-22'
+method: searched
+source: github.com/CryptoCompare + registry.npmjs.org + pypi.org
+packages:
+- language: python
+  registry: github
+  name: CryptoCompare/API
+  url: https://github.com/CryptoCompare/API
+  install: git clone https://github.com/CryptoCompare/API
+  official: true
+  note: First-party "CryptoCompare APIs Python" repository (examples/wrapper); not published to PyPI.
+- language: swift
+  registry: github
+  name: CryptoCompare/CryptoCompareIOS
+  url: https://github.com/CryptoCompare/CryptoCompareIOS
+  install: git clone https://github.com/CryptoCompare/CryptoCompareIOS
+  official: true
+  note: First-party iOS (Swift) client repository; not published to a package registry.
+- language: javascript
+  registry: npm
+  name: cryptocompare
+  url: https://www.npmjs.com/package/cryptocompare
+  install: npm install cryptocompare
+  official: false
+  note: Community "CryptoCompare JavaScript API" wrapper (ryanzim).
+- language: python
+  registry: pypi
+  name: cryptocompare
+  url: https://pypi.org/project/cryptocompare/
+  install: pip install cryptocompare
+  official: false
+  note: Community wrapper (lagerfeuer), v0.7.6.
+- language: javascript
+  registry: npm
+  name: node-red-contrib-cryptocompare
+  url: https://www.npmjs.com/package/node-red-contrib-cryptocompare
+  install: npm install node-red-contrib-cryptocompare
+  official: false
+  note: Community Node-RED nodes for CryptoCompare services.
+- language: javascript
+  registry: npm
+  name: '@pipeworx/mcp-cryptocompare'
+  url: https://www.npmjs.com/package/@pipeworx/mcp-cryptocompare
+  install: npm install @pipeworx/mcp-cryptocompare
+  official: false
+  note: Community (unofficial) MCP server wrapping CryptoCompare prices, OHLC, social, news, exchanges.
+notes: >-
+  No first-party packages are published to npm, PyPI, Maven Central, NuGet,
+  pkg.go.dev, RubyGems, Packagist, or crates.io — official client code lives only
+  in the CryptoCompare GitHub org. The official agent-facing distribution is the
+  hosted MCP server (mcp/cryptocompare-mcp.yml), not a registry package.

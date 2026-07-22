@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Order Book API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Order Book
+  description: Top-of-book order book data across integrated exchanges.
+paths:
+  /v2/ob/l1/top:
+    get:
+      operationId: getOrderBookTopOfBook
+      summary: Get Order Book Top of Book
+      description: Returns the top of the order book (best bid and ask) for one or more pairs across one or more exchanges. Requires an API key on most tiers.
+      tags:
+      - Order Book
+      parameters:
+      - $ref: '#/components/parameters/FsymsParam'
+      - $ref: '#/components/parameters/TsymsParam'
+      - name: e
+        in: query
+        description: Comma-separated list of exchanges.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Top-of-book envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderBookTopResponse'
+components:
+  schemas:
+    OrderBookTopResponse:
+      type: object
+      properties:
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          description: Nested mapping of fsym to tsym to exchange to top-of-book entry.
+  parameters:
+    TsymsParam:
+      name: tsyms
+      in: query
+      required: true
+      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
+      schema:
+        type: string
+    FsymsParam:
+      name: fsyms
+      in: query
+      required: true
+      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

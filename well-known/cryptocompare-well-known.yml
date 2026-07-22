@@ -1,0 +1,54 @@
+generated: '2026-07-22'
+method: searched
+source: live probes of apis.yml + OpenAPI + MCP hosts
+notes: >-
+  min-api.cryptocompare.com and data-api.cryptocompare.com return HTTP 401 for every
+  path (the whole host is API-key gated since the 2026-05-21 free-tier retirement).
+  developers.coindesk.com is a catch-all SPA that returns HTTP 200 with an HTML shell
+  for any path, so its 200s are not real well-known documents. The only genuine
+  well-known documents found are the RFC 8414 / RFC 9728 OAuth metadata published by
+  the official MCP server host mcp.coindesk.com.
+hosts:
+- host: https://mcp.coindesk.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: cryptocompare-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: cryptocompare-oauth-protected-resource.json
+- host: https://min-api.cryptocompare.com
+  documents:
+  - {path: /.well-known/security.txt, status: 401}
+  - {path: /.well-known/openid-configuration, status: 401}
+  - {path: /.well-known/oauth-authorization-server, status: 401}
+  - {path: /.well-known/api-catalog, status: 401}
+  - {path: /.well-known/ai-plugin.json, status: 401}
+- host: https://data-api.cryptocompare.com
+  documents:
+  - {path: /.well-known/security.txt, status: 401}
+  - {path: /.well-known/openid-configuration, status: 401}
+  - {path: /.well-known/oauth-authorization-server, status: 401}
+  - {path: /.well-known/api-catalog, status: 401}
+  - {path: /.well-known/ai-plugin.json, status: 401}
+- host: https://developers.coindesk.com
+  documents:
+  - {path: /.well-known/security.txt, status: 200, note: catch-all SPA HTML shell, real: false}
+  - {path: /.well-known/openid-configuration, status: 200, note: catch-all SPA HTML shell, real: false}
+  - {path: /.well-known/oauth-authorization-server, status: 200, note: catch-all SPA HTML shell, real: false}
+  - {path: /.well-known/api-catalog, status: 200, note: catch-all SPA HTML shell, real: false}
+  - {path: /.well-known/ai-plugin.json, status: 200, note: catch-all SPA HTML shell, real: false}
+- host: https://data.coindesk.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://www.cryptocompare.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}

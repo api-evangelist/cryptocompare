@@ -1,0 +1,152 @@
+generated: '2026-07-22'
+method: derived
+source: mcp/cryptocompare-mcp.yml + openapi/cryptocompare-*-openapi.yml
+notes: >-
+  The live MCP tools/list is OAuth-gated (401), so bindings are mapped by
+  name/semantics between the published tool list on https://mcp.coindesk.com/ and
+  the operationIds captured in this repo's OpenAPI specs. Confidence is set
+  honestly: high only where tool name and REST path clearly describe the same
+  endpoint. Many futures/options/on-chain-DEX tools have no backing operation in
+  the repo's captured specs — those data-api endpoint families exist upstream but
+  were never harvested, so they are recorded as mcp_only with that reason rather
+  than guessed at.
+surfaces:
+  openapi: openapi/ (15 per-tag specs refined from data-api + min-api originals in openapi/_original/)
+  mcp:
+    url: https://mcp.coindesk.com/mcp
+    gated: true
+    note: tools/list requires OAuth bearer token; published tool names only
+  graphql: null
+crosswalk:
+- tool: fetch_spot_instruments
+  category: spot
+  rest: [getSpotMarketsList]
+  binding: rest
+  confidence: medium
+  note: markets/instrument listing; may also draw on /spot/v1/markets/instruments
+- tool: fetch_spot_instrument_details
+  category: spot
+  rest: [getSpotInstrumentMetadata]
+  binding: rest
+  confidence: high
+- tool: fetch_spot_tick
+  category: spot
+  rest: [getSpotLatestTick]
+  binding: rest
+  confidence: high
+- tool: fetch_spot_ohlcv
+  category: spot
+  rest: [getSpotHistoricalDaily, getSpotHistoricalHourly, getSpotHistoricalMinute]
+  binding: rest
+  confidence: high
+  note: fans out across the three historical OHLCV granularities
+- tool: fetch_spot_orderbook_snapshot
+  category: spot
+  rest: [getSpotOrderbookL1Top]
+  binding: rest
+  confidence: medium
+  note: repo spec captures L1 top-of-book only; full snapshot endpoint not harvested
+- tool: fetch_spot_trades
+  category: spot
+  rest: [getSpotHistoricalTrades]
+  binding: rest
+  confidence: high
+- tool: fetch_spot_toplist
+  category: spot
+  rest: [getAssetTopList, getTopListByTotalVolumeFull, getTopListByMarketCapFull]
+  binding: rest
+  confidence: medium
+  note: toplist semantics span the asset top list and legacy min-api top lists
+- tool: fetch_index_tick
+  category: index
+  rest: [getIndexLatestTick]
+  binding: rest
+  confidence: high
+- tool: fetch_index_ohlcv
+  category: index
+  rest: [getIndexHistoricalDaily, getIndexHistoricalHourly, getIndexHistoricalMinute]
+  binding: rest
+  confidence: high
+  note: fans out across index historical granularities
+- tool: fetch_futures_tick
+  category: futures
+  rest: [getFuturesLatestTick]
+  binding: rest
+  confidence: high
+- tool: fetch_futures_ohlcv
+  category: futures
+  rest: [getFuturesHistoricalDaily]
+  binding: rest
+  confidence: medium
+  note: repo spec captures daily granularity only
+- tool: fetch_options_tick
+  category: options
+  rest: [getOptionsLatestTick]
+  binding: rest
+  confidence: high
+- tool: fetch_news
+  category: news
+  rest: [getNewsArticleList, getLatestNewsArticles]
+  binding: rest
+  confidence: medium
+  note: data-api /news/v1/article/list is the modern surface; legacy /v2/news/ equivalent
+- tool: fetch_onchain_historical_supply
+  category: onchain
+  rest: [getOnchainHistoricalSupplyDaily, getAssetHistoricalSupplyDaily]
+  binding: rest
+  confidence: medium
+mcp_only:
+- {tool: fetch_spot_orderbook_metrics, reason: order book metrics endpoint not captured in repo OpenAPI}
+- {tool: fetch_futures_instruments, reason: futures markets/instruments endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_instrument_details, reason: futures instrument metadata endpoint not captured in repo OpenAPI}
+- {tool: fetch_futures_oi_tick, reason: futures open-interest endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_oi_ohlcv, reason: futures open-interest endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_fr_tick, reason: futures funding-rate endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_fr_ohlcv, reason: futures funding-rate endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_oi_by_hour, reason: futures open-interest endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_fr_by_hour, reason: futures funding-rate endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_orderbook_metrics, reason: futures order book endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_orderbook_snapshot, reason: futures order book endpoints not captured in repo OpenAPI}
+- {tool: fetch_futures_trades, reason: futures trades endpoint not captured in repo OpenAPI}
+- {tool: fetch_options_instruments, reason: options markets/instruments endpoints not captured in repo OpenAPI}
+- {tool: fetch_options_instrument_details, reason: options instrument metadata endpoint not captured in repo OpenAPI}
+- {tool: fetch_options_ohlcv, reason: options historical OHLCV endpoint not captured in repo OpenAPI}
+- {tool: fetch_options_oi_tick, reason: options open-interest endpoints not captured in repo OpenAPI}
+- {tool: fetch_options_oi_ohlcv, reason: options open-interest endpoints not captured in repo OpenAPI}
+- {tool: fetch_options_oi_by_hour, reason: options open-interest endpoints not captured in repo OpenAPI}
+- {tool: fetch_options_orderbook_metrics, reason: options order book endpoints not captured in repo OpenAPI}
+- {tool: fetch_options_orderbook_snapshot, reason: options order book endpoints not captured in repo OpenAPI}
+- {tool: fetch_options_trades, reason: options trades endpoint not captured in repo OpenAPI}
+- {tool: fetch_onchain_dex_instruments, reason: on-chain DEX (AMM) endpoint family not captured in repo OpenAPI}
+- {tool: fetch_onchain_dex_instrument_details, reason: on-chain DEX (AMM) endpoint family not captured in repo OpenAPI}
+- {tool: fetch_onchain_dex_tick, reason: on-chain DEX (AMM) endpoint family not captured in repo OpenAPI}
+- {tool: fetch_onchain_dex_ohlcv, reason: on-chain DEX (AMM) endpoint family not captured in repo OpenAPI}
+rest_only:
+- capability: legacy price endpoints
+  operations: [getSingleSymbolPrice, getMultipleSymbolsPrice, getMultipleSymbolsFullPrice, getPriceHistorical, getCustomAverage]
+- capability: legacy historical OHLCV
+  operations: [getHistoricalDailyOHLCV, getHistoricalHourlyOHLCV, getHistoricalMinuteOHLCV]
+- capability: coins and asset reference
+  operations: [getAllCoinsList, getAssetBySymbol]
+- capability: exchanges
+  operations: [getAllExchanges, getExchangesGeneralInfo]
+- capability: social stats
+  operations: [getCoinSocialStatsLatest, getCoinSocialStatsDaily, getCoinSocialStatsHourly]
+- capability: blockchain (non-DEX on-chain)
+  operations: [getBlockchainAvailableCoinList, getBlockchainLatestDay, getBlockchainHistoricalDaily, getBlockchainBalanceDistributionDaily, getOnchainHistoricalActiveAddressesDaily]
+- capability: legacy top lists
+  operations: [getTopPairsByVolume, getTopVolumesByCurrency, getTopExchangesByPairVolume, getTopExchangesFullByPairVolume]
+- capability: order book (legacy)
+  operations: [getOrderBookTopOfBook]
+- capability: overview
+  operations: [getOverviewHistoricalMarketCapDaily]
+- capability: news taxonomy
+  operations: [getNewsSourceList, getNewsCategoryList, getNewsSources, getNewsCategories, getNewsFeedsAndCategories]
+- capability: index composition
+  operations: [getIndexComposition]
+coverage:
+  mcp_tools_published: 39
+  mcp_tools_bound: 14
+  mcp_only: 25
+  rest_operations_total: 56
+  rest_operations_with_tool: 22

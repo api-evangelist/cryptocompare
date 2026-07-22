@@ -1,0 +1,39 @@
+generated: '2026-07-22'
+method: searched
+source: https://data.coindesk.com/blogs/changes-to-coindesk-data-indices-api-free-tier-access
+versioning:
+  scheme: uri-path
+  note: >-
+    Endpoint families are versioned in the path (e.g. /spot/v1/, /spot/v2/markets,
+    /index/cc/v1/, /news/v1/ on data-api; /data/... and /data/v2/... on the legacy
+    min-api). No date-based or header-based versioning.
+  docs: https://developers.coindesk.com/documentation/data-api/introduction
+deprecation:
+  policy_url: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
+  sunset_header: false
+  legacy_surface: >-
+    The original CryptoCompare min-api.cryptocompare.com endpoints are documented
+    under a "legacy" section of the developer portal; the modern
+    data-api.cryptocompare.com (CoinDesk Data API) is the successor surface.
+  migration_guide: https://downloads.coindesk.com/cd3/CDI/IA/CoinDesk%20Indices_CCData_API_Migration_Guide.pdf
+  events:
+  - date: '2026-05-21'
+    change: >-
+      Free API tier retired: "we will be retiring our free API tier and accounts
+      without a subscription will no longer have API access" — keys without an
+      active subscription stop returning data. Confirmed live: both min-api and
+      data-api now return HTTP 401 with the Data/Err envelope for unauthenticated
+      requests on every path.
+    source: https://data.coindesk.com/blogs/changes-to-coindesk-data-indices-api-free-tier-access
+  - date: '2024-11-01'
+    change: CCData (CryptoCompare) acquired by CoinDesk; developer surface rebranded to CoinDesk Data (developers.coindesk.com).
+    source: https://developers.coindesk.com/
+sla:
+  url: null
+  note: No public SLA page found; uptime commitments are handled per Enterprise contract.
+status_page: https://status.coindesk.com
+status_page_aliases:
+- https://status.cryptocompare.com
+- https://status.ccdata.io
+deprecated_operations: []
+deprecated_operations_note: No operation carries deprecated true in the captured OpenAPI specs.

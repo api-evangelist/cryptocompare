@@ -1,0 +1,81 @@
+generated: '2026-07-22'
+method: searched
+status: published
+source: https://mcp.coindesk.com/
+announcement: https://data.coindesk.com/blogs/coindesk-data-now-available-via-claude-mcp-connector
+announced: '2026-05-13'
+server:
+  name: coindesk
+  vendor: CoinDesk Data (CryptoCompare / CCData)
+  transport: http
+  url: https://mcp.coindesk.com/mcp
+  registry_listing: Claude Connectors directory (search "CoinDesk")
+  install:
+    claude_cli: claude mcp add --transport http coindesk https://mcp.coindesk.com/mcp
+    gemini_cli: gemini mcp add -t http coindesk https://mcp.coindesk.com/mcp
+authentication:
+  scheme: oauth2
+  flow: authorizationCode
+  pkce: true
+  authorization_endpoint: https://mcp.coindesk.com/authorize
+  token_endpoint: https://mcp.coindesk.com/token
+  registration_endpoint: https://mcp.coindesk.com/register
+  resource_metadata: https://mcp.coindesk.com/.well-known/oauth-protected-resource
+  note: >-
+    OAuth 2.0 with PKCE and dynamic client registration wraps the underlying CoinDesk
+    Data API key: on first connection the user supplies their API key from the
+    developers.coindesk.com dashboard, which the server stores encrypted.
+    scopes_supported is empty — there is no scope surface.
+introspection:
+  tools_list_status: 401
+  note: >-
+    POST tools/list returns HTTP 401 "no bearer token" with a WWW-Authenticate
+    Bearer resource_metadata challenge — live inputSchemas require authenticated
+    introspection. The tool list below is the published list from
+    https://mcp.coindesk.com/ (names only; schemas gated).
+tools:
+  spot_and_index:
+  - fetch_spot_instruments
+  - fetch_spot_instrument_details
+  - fetch_spot_tick
+  - fetch_spot_ohlcv
+  - fetch_spot_orderbook_metrics
+  - fetch_spot_orderbook_snapshot
+  - fetch_spot_trades
+  - fetch_spot_toplist
+  - fetch_index_tick
+  - fetch_index_ohlcv
+  futures:
+  - fetch_futures_instruments
+  - fetch_futures_instrument_details
+  - fetch_futures_tick
+  - fetch_futures_ohlcv
+  - fetch_futures_oi_tick
+  - fetch_futures_oi_ohlcv
+  - fetch_futures_fr_tick
+  - fetch_futures_fr_ohlcv
+  - fetch_futures_oi_by_hour
+  - fetch_futures_fr_by_hour
+  - fetch_futures_orderbook_metrics
+  - fetch_futures_orderbook_snapshot
+  - fetch_futures_trades
+  options:
+  - fetch_options_instruments
+  - fetch_options_instrument_details
+  - fetch_options_tick
+  - fetch_options_ohlcv
+  - fetch_options_oi_tick
+  - fetch_options_oi_ohlcv
+  - fetch_options_oi_by_hour
+  - fetch_options_orderbook_metrics
+  - fetch_options_orderbook_snapshot
+  - fetch_options_trades
+  news:
+  - fetch_news
+  onchain:
+  - fetch_onchain_dex_instruments
+  - fetch_onchain_dex_instrument_details
+  - fetch_onchain_dex_tick
+  - fetch_onchain_dex_ohlcv
+  - fetch_onchain_historical_supply
+tool_count: 39

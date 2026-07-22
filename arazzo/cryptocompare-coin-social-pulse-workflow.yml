@@ -13,7 +13,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: cryptocompareMinApi
-  url: ../openapi/cryptocompare-min-api-openapi.yml
+  url: ../openapi/_original/cryptocompare-min-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: coin-social-pulse

@@ -1,0 +1,260 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Asset
+  description: Asset metadata, overview, supply, and reference data.
+paths:
+  /asset/v1/top/list:
+    get:
+      operationId: getAssetTopList
+      summary: Get Asset Top List
+      description: Returns the top assets ranked by selected metric (market cap, volume). Supports pagination.
+      tags:
+      - Asset
+      parameters:
+      - $ref: '#/components/parameters/LimitTopParam'
+      - $ref: '#/components/parameters/PageParam'
+      - name: sort_by
+        in: query
+        description: Sort field (CIRCULATING_MKT_CAP_USD, TOTAL_MKT_CAP_USD, SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD).
+        schema:
+          type: string
+      - name: sort_direction
+        in: query
+        description: Sort direction (ASC or DESC).
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      responses:
+        '200':
+          description: Top asset list envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetTopListResponse'
+  /asset/v1/data/by/symbol:
+    get:
+      operationId: getAssetBySymbol
+      summary: Get Asset by Symbol
+      description: Returns detailed asset metadata including supply, classifications, consensus mechanism, social and source links for a single asset.
+      tags:
+      - Asset
+      parameters:
+      - name: asset_symbol
+        in: query
+        required: true
+        description: Asset symbol (e.g. BTC).
+        schema:
+          type: string
+      - name: asset_lookup_priority
+        in: query
+        description: Asset lookup priority (SYMBOL or ID).
+        schema:
+          type: string
+          default: SYMBOL
+      responses:
+        '200':
+          description: Asset detail envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDataResponse'
+  /asset/v1/historical/supply/days:
+    get:
+      operationId: getAssetHistoricalSupplyDaily
+      summary: Get Asset Historical Supply Daily
+      description: Returns daily history of asset supply (circulating, total, max).
+      tags:
+      - Asset
+      parameters:
+      - name: asset
+        in: query
+        required: true
+        description: Asset symbol or ID.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Daily supply history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetSupplyHistoryResponse'
+components:
+  parameters:
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-indexed).
+      schema:
+        type: integer
+        default: 1
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return.
+      schema:
+        type: integer
+        default: 50
+        maximum: 100
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+  schemas:
+    AssetSupplyHistoryResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              ASSET_SYMBOL:
+                type: string
+              SUPPLY_CIRCULATING:
+                type: number
+              SUPPLY_TOTAL:
+                type: number
+              SUPPLY_MAX:
+                type: number
+              SUPPLY_STAKED:
+                type: number
+    AssetTopListResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            STATS:
+              type: object
+            LIST:
+              type: array
+              items:
+                $ref: '#/components/schemas/AssetSummary'
+    AssetSummary:
+      type: object
+      properties:
+        ID:
+          type: integer
+        SYMBOL:
+          type: string
+        ASSET_TYPE:
+          type: string
+        NAME:
+          type: string
+        LOGO_URL:
+          type: string
+        LAUNCH_DATE:
+          type: integer
+          format: int64
+        CIRCULATING_MKT_CAP_USD:
+          type: number
+        TOTAL_MKT_CAP_USD:
+          type: number
+        SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD:
+          type: number
+        PRICE_USD:
+          type: number
+        SUPPLY_CIRCULATING:
+          type: number
+        SUPPLY_MAX:
+          type: number
+    AssetDataResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            ID:
+              type: integer
+            SYMBOL:
+              type: string
+            ASSET_TYPE:
+              type: string
+            NAME:
+              type: string
+            LOGO_URL:
+              type: string
+            LAUNCH_DATE:
+              type: integer
+              format: int64
+            DESCRIPTION:
+              type: string
+            CONSENSUS_MECHANISMS:
+              type: array
+              items:
+                type: object
+            HASHING_ALGORITHMS:
+              type: array
+              items:
+                type: object
+            SUPPLY_MAX:
+              type: number
+            SUPPLY_TOTAL:
+              type: number
+            SUPPLY_CIRCULATING:
+              type: number
+            SUPPLY_STAKED:
+              type: number
+            ASSET_INDUSTRIES:
+              type: array
+              items:
+                type: object
+            SUPPORTED_PLATFORMS:
+              type: array
+              items:
+                type: object
+            CLASSIFICATIONS:
+              type: array
+              items:
+                type: object
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

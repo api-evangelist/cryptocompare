@@ -1,0 +1,63 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/cryptocompare-*-openapi.yml + json-schema/cryptocompare-*-schema.json
+entities:
+- name: Asset
+  description: A cryptocurrency or fiat asset (symbol, name, supply, launch metadata).
+  schema: json-schema/cryptocompare-asset-schema.json
+- name: Coin
+  description: Legacy min-api coin list entry (Id, Name, CoinName, Algorithm, ProofType).
+  schema: json-schema/cryptocompare-coinlistentry-schema.json
+- name: Exchange
+  description: Integrated trading venue with Exchange Benchmark grade and pair coverage.
+  schema: json-schema/cryptocompare-exchange-schema.json
+- name: Market
+  description: data-api market identifier (e.g. coinbase, kraken) used to scope instruments.
+- name: Instrument
+  description: A tradable pair on a market (e.g. BTC-USD), with mapping/status metadata.
+- name: Index
+  description: CoinDesk index (CADLI, CCIX, CCIXBE, CCCAGG) with tick values and composition.
+  schema: json-schema/cryptocompare-indextick-schema.json
+- name: OHLCVCandle
+  description: Open/high/low/close/volume candle at day, hour, or minute granularity.
+  schema: json-schema/cryptocompare-ohlcvcandle-schema.json
+- name: Trade
+  description: Individual spot trade record (historical trades endpoints).
+- name: OrderBookL1
+  description: Top-of-book bid/ask snapshot.
+  schema: json-schema/cryptocompare-orderbookl1-schema.json
+- name: NewsArticle
+  description: Aggregated news article with sentiment, categories, and source.
+  schema: json-schema/cryptocompare-newsarticle-schema.json
+- name: NewsSource
+  description: News feed/source registered in the aggregation taxonomy.
+- name: NewsCategory
+  description: Category tag applied to articles.
+- name: SocialStats
+  description: Per-coin social engagement metrics (Twitter, Reddit, Facebook, repo).
+  schema: json-schema/cryptocompare-socialstats-schema.json
+- name: BlockchainDataPoint
+  description: Chain-level on-chain metrics (active addresses, hashrate, supply) per day.
+  schema: json-schema/cryptocompare-blockchaindatapoint-schema.json
+relationships:
+- {from: Market, to: Instrument, kind: has_many, via: market parameter on /spot/v1/markets/instruments}
+- {from: Instrument, to: Market, kind: belongs_to, via: market}
+- {from: Instrument, to: OHLCVCandle, kind: has_many, via: instrument parameter on /spot/v1/historical/*}
+- {from: Instrument, to: Trade, kind: has_many, via: instrument parameter on /spot/v1/historical/trades}
+- {from: Instrument, to: OrderBookL1, kind: has_one, via: instruments parameter on /spot/v1/latest/orderbook/l1/top}
+- {from: Index, to: OHLCVCandle, kind: has_many, via: instrument parameter on /index/cc/v1/historical/*}
+- {from: Index, to: Asset, kind: has_many, via: constituents on /index/cc/v1/latest/instrument/composition}
+- {from: Asset, to: SocialStats, kind: has_many, via: coinId on social/coin endpoints}
+- {from: Asset, to: BlockchainDataPoint, kind: has_many, via: fsym on blockchain/histo/day}
+- {from: Asset, to: OHLCVCandle, kind: has_many, via: fsym/tsym on legacy v2/histoday|histohour|histominute}
+- {from: Exchange, to: Instrument, kind: has_many, via: pairs map on /exchanges/general}
+- {from: NewsSource, to: NewsArticle, kind: has_many, via: source_key on /news/v1/article/list}
+- {from: NewsArticle, to: NewsCategory, kind: has_many, via: CATEGORY_DATA / categories field}
+- {from: Asset, to: NewsArticle, kind: has_many, via: categories filter (asset symbol categories)}
+id_conventions:
+  note: >-
+    Legacy min-api keys records by symbol (fsym/tsym, e.g. BTC, USD) and numeric
+    coin Id; data-api keys by market + instrument string (e.g. coinbase / BTC-USD)
+    and groups selectors. Indices are keyed by index family + instrument (cadli /
+    BTC-USD).
+render: null

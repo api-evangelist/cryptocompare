@@ -1,0 +1,19 @@
+generated: '2026-07-22'
+method: generated
+skills:
+- file: cryptocompare-spot-market-analysis.md
+  name: CryptoCompare spot market analysis
+  api: openapi/cryptocompare-spot-api-openapi.yml
+  operations: [getSpotMarketsList, getSpotInstrumentMetadata, getSpotLatestTick, getSpotHistoricalDaily, getSpotHistoricalTrades]
+- file: cryptocompare-index-reference-rates.md
+  name: CoinDesk index reference rates
+  api: openapi/cryptocompare-index-api-openapi.yml
+  operations: [getIndexLatestTick, getIndexHistoricalDaily, getIndexHistoricalHourly, getIndexHistoricalMinute, getIndexComposition]
+- file: cryptocompare-news-monitoring.md
+  name: Crypto news monitoring
+  api: openapi/cryptocompare-news-api-openapi.yml
+  operations: [getNewsSourceList, getNewsCategoryList, getNewsArticleList, getLatestNewsArticles]
+- file: cryptocompare-price-snapshot.md
+  name: Legacy price snapshot
+  api: openapi/cryptocompare-price-api-openapi.yml
+  operations: [getSingleSymbolPrice, getMultipleSymbolsPrice, getMultipleSymbolsFullPrice, getPriceHistorical]

@@ -1,0 +1,46 @@
+# CryptoCompare (CoinDesk Data / CCData)
+
+> Crypto market data aggregator covering 300+ exchanges, 10,000+ assets, and 300,000+ trading pairs. Two REST surfaces — the legacy min-api.cryptocompare.com and the modern data-api.cryptocompare.com (CoinDesk Data API: Spot, Index/Reference Rates, Futures, Options, News, On-Chain, Asset) — plus a WebSocket streamer at wss://streamer.cryptocompare.com/v2 and an official MCP server at https://mcp.coindesk.com/mcp. Authentication is an API key (`Authorization: Apikey {key}` header or `api_key` query parameter); the free tier was retired on 2026-05-21, so a paid subscription is required.
+
+<!-- generated: 2026-07-22 | method: generated | source: apis.yml + repo artifacts (no /llms.txt is published by the provider; developers.coindesk.com is a catch-all SPA) -->
+
+## Docs
+
+- [Developer portal](https://developers.coindesk.com/): CoinDesk Data developer portal
+- [Data API introduction](https://developers.coindesk.com/documentation/data-api/introduction): modern data-api reference
+- [Legacy min-api docs](https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint): legacy endpoint reference
+- [WebSocket streamer docs](https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect): streaming channels and envelopes
+- [Pricing](https://developers.coindesk.com/pricing/): plans and credits
+- [API status](https://status.coindesk.com): CoinDesk API Status page
+
+## APIs
+
+- [Spot API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-spot-api-openapi.yml): latest tick, historical OHLCV, trades, order book L1, instrument metadata
+- [Index API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-index-api-openapi.yml): CoinDesk Indices (CADLI, CCIX) tick, history, composition
+- [Futures API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-futures-api-openapi.yml): futures tick and history
+- [Options API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-options-api-openapi.yml): options tick
+- [News API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-news-api-openapi.yml): articles, sources, categories
+- [On-Chain API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-on-chain-api-openapi.yml): supply and active addresses
+- [Asset API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-asset-api-openapi.yml): asset metadata and top lists
+- [Price API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-price-api-openapi.yml): legacy single/multi symbol prices
+- [Historical API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-historical-api-openapi.yml): legacy OHLCV day/hour/minute
+- [Top Lists API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-top-lists-api-openapi.yml): volume and market-cap top lists
+- [Exchanges API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-exchanges-api-openapi.yml): exchange metadata and pairs
+- [Social API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-social-api-openapi.yml): per-coin social stats
+- [Blockchain API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-blockchain-api-openapi.yml): chain-level metrics
+- [Coins API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-coins-api-openapi.yml): coin list and mapping
+- [Order Book API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-order-book-api-openapi.yml): top-of-book data
+- [Overview API](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/openapi/cryptocompare-overview-api-openapi.yml): market cap history
+- [Streaming WebSocket (AsyncAPI)](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/asyncapi/cryptocompare-asyncapi.yml): Trade, Ticker, CCCAGG, Order Book L2, OHLC, Top of Book channels
+
+## Agent surfaces
+
+- [Official MCP server](https://mcp.coindesk.com/): 39 tools (spot, index, futures, options, news, on-chain DEX) over HTTP with OAuth 2.0 PKCE
+- [MCP manifest (this repo)](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/mcp/cryptocompare-mcp.yml): captured server profile
+- [Tool crosswalk](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/mcp/cryptocompare-tool-crosswalk.yml): MCP tool to OpenAPI operationId bindings
+
+## Conventions
+
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/conventions/cryptocompare-conventions.yml): auth, envelope, pagination, rate limits
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/errors/cryptocompare-problem-types.yml): Data/Err envelope and error types
+- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/lifecycle/cryptocompare-lifecycle.yml): versioning, legacy migration, free-tier retirement

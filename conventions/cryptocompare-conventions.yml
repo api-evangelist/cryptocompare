@@ -1,0 +1,65 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/cryptocompare-*-openapi.yml + live probes of min-api/data-api + developer portal
+authentication:
+  style: api-key
+  header: 'Authorization: Apikey {key}'
+  query_parameter: api_key
+  note: Same key works on both min-api and data-api; see authentication/cryptocompare-authentication.yml.
+  artifact: authentication/cryptocompare-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    Read-only market-data API — every captured operation is an HTTP GET and
+    therefore naturally idempotent, but the provider documents no Idempotency-Key
+    header or replay-safety contract (none is needed for a read-only surface).
+pagination:
+  style: cursor-by-timestamp
+  parameters:
+  - name: limit
+    description: Number of data points / articles to return.
+  - name: to_ts
+    description: >-
+      Unix timestamp upper bound on data-api historical endpoints — page backwards
+      through history by passing the earliest TIMESTAMP of the previous response.
+  - name: toTs
+    description: Legacy min-api equivalent of to_ts on histoday/histohour/histominute.
+  response_fields:
+  - TimeFrom / TimeTo (legacy historical envelopes)
+  - TIMESTAMP (per data-api record)
+field_expansion:
+  supported: false
+  note: No expand/sparse-field mechanism; data-api endpoints select instruments via market + instruments parameters and groups selectors.
+metadata:
+  supported: false
+request_tracing:
+  header: x-request-id
+  direction: response
+  note: Observed x-request-id on mcp.coindesk.com responses; the REST APIs do not document a client-supplied trace header.
+versioning:
+  style: uri-path
+  artifact: lifecycle/cryptocompare-lifecycle.yml
+error_envelope:
+  shape: '{"Data": {...}, "Err": {...}}'
+  fields:
+  - name: Err.type
+    description: Numeric error type (e.g. 2 = API key required).
+  - name: Err.message
+    description: Human-readable error message.
+  - name: Err.http_status_code
+    description: HTTP status mirrored inside the envelope.
+  - name: Err.frontend
+    description: Nested display-oriented copy of type + message.
+  evidence: >-
+    Live unauthenticated GETs to min-api.cryptocompare.com/data/price and
+    data-api.cryptocompare.com/spot/v1/latest/tick both returned HTTP 401 with
+    {"Data":{},"Err":{"type":2,"message":"API key required...","http_status_code":401,...}}
+    (probed 2026-07-22).
+  artifact: errors/cryptocompare-problem-types.yml
+rate_limits:
+  signaling: >-
+    Metered by monthly call credits with per-second/minute/hour/day ceilings;
+    the legacy min-api exposes /stats/rate/limit for live quota telemetry and the
+    WebSocket streamer reports per-account limits in its Welcome (type 20) envelope
+    and emits a 429 RateLimit envelope when exceeded.
+  artifact: rate-limits/cryptocompare-rate-limits.yml

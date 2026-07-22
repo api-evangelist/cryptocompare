@@ -1,0 +1,42 @@
+generated: '2026-07-22'
+method: derived
+source: live probes of min-api.cryptocompare.com + data-api.cryptocompare.com (2026-07-22) + asyncapi/cryptocompare-asyncapi.yml
+format: vendor-envelope
+note: >-
+  Not RFC 9457: errors are returned as a vendor envelope {"Data": {}, "Err": {...}}
+  with the HTTP status mirrored in Err.http_status_code. The captured OpenAPI specs
+  declare only 200 responses, so this catalog is derived from live probes and the
+  documented WebSocket error envelopes — it records only observed/documented cases.
+envelope:
+  container: Err
+  fields: [type, message, http_status_code, frontend]
+problems:
+- status: 401
+  err_type: 2
+  title: API key required
+  detail: >-
+    Returned for any request without a valid API key on both hosts since the
+    2026-05-21 free-tier retirement. Observed body: {"Data":{},"Err":{"type":2,
+    "message":"API key required, please refer to the documentation at
+    https://developers.coindesk.com/","http_status_code":401,"frontend":{...}}}.
+  remediation: 'Supply a key via `Authorization: Apikey {key}` or `api_key` query parameter under an active subscription.'
+- status: 429
+  title: Rate limit exceeded
+  detail: >-
+    Call-credit or per-interval ceiling exceeded. The WebSocket streamer emits a
+    RateLimit envelope (message type 429); REST quotas can be inspected on the
+    legacy /stats/rate/limit endpoint.
+  remediation: Back off until the per-second/minute/hour/day window resets, or upgrade the subscription tier.
+streaming_errors:
+- channel_type: 401
+  title: Unauthorized
+  detail: WebSocket Unauthorized envelope — invalid or missing api_key on the streamer connection.
+- channel_type: 429
+  title: RateLimit
+  detail: WebSocket RateLimit envelope — too many connections or subscriptions for the account tier.
+- channel_type: 500
+  title: ServerError
+  detail: WebSocket ServerError envelope.
+source_operations_note: >-
+  OpenAPI specs in openapi/ declare 200-only responses (56 operations); no per-operation
+  4xx/5xx schemas are published to derive from.

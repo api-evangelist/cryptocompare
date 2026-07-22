@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Futures API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Futures
+  description: Futures market data across integrated derivatives venues.
+paths:
+  /futures/v1/latest/tick:
+    get:
+      operationId: getFuturesLatestTick
+      summary: Get Futures Latest Tick
+      description: Returns the latest tick for futures instruments on a derivatives market.
+      tags:
+      - Futures
+      parameters:
+      - $ref: '#/components/parameters/MarketParam'
+      - $ref: '#/components/parameters/InstrumentsParam'
+      responses:
+        '200':
+          description: Futures tick envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesTickResponse'
+  /futures/v1/historical/days:
+    get:
+      operationId: getFuturesHistoricalDaily
+      summary: Get Futures Historical Daily OHLCV
+      description: Returns daily OHLCV for a futures instrument.
+      tags:
+      - Futures
+      parameters:
+      - $ref: '#/components/parameters/MarketParam'
+      - $ref: '#/components/parameters/InstrumentParam'
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Daily futures OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+components:
+  schemas:
+    FuturesTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: true
+    HistoricalOHLCVRow:
+      type: object
+      properties:
+        UNIT:
+          type: string
+          enum:
+          - MINUTE
+          - HOUR
+          - DAY
+        TIMESTAMP:
+          type: integer
+          format: int64
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        INSTRUMENT:
+          type: string
+        MAPPED_INSTRUMENT:
+          type: string
+        BASE:
+          type: string
+        QUOTE:
+          type: string
+        OPEN:
+          type: number
+        HIGH:
+          type: number
+        LOW:
+          type: number
+        CLOSE:
+          type: number
+        FIRST_TRADE_TIMESTAMP:
+          type: integer
+          format: int64
+        LAST_TRADE_TIMESTAMP:
+          type: integer
+          format: int64
+        FIRST_TRADE_PRICE:
+          type: number
+        HIGH_TRADE_PRICE:
+          type: number
+        LOW_TRADE_PRICE:
+          type: number
+        LAST_TRADE_PRICE:
+          type: number
+        VOLUME:
+          type: number
+        QUOTE_VOLUME:
+          type: number
+        VOLUME_BUY:
+          type: number
+        QUOTE_VOLUME_BUY:
+          type: number
+        VOLUME_SELL:
+          type: number
+        QUOTE_VOLUME_SELL:
+          type: number
+        TOTAL_TRADES:
+          type: integer
+        TOTAL_TRADES_BUY:
+          type: integer
+        TOTAL_TRADES_SELL:
+          type: integer
+        TOTAL_TRADES_UNKNOWN:
+          type: integer
+    HistoricalOHLCVResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoricalOHLCVRow'
+        Err:
+          type: object
+  parameters:
+    MarketParam:
+      name: market
+      in: query
+      required: true
+      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
+      schema:
+        type: string
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    InstrumentsParam:
+      name: instruments
+      in: query
+      required: true
+      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
+      schema:
+        type: string
+    InstrumentParam:
+      name: instrument
+      in: query
+      required: true
+      description: Single instrument identifier (e.g. BTC-USD).
+      schema:
+        type: string
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

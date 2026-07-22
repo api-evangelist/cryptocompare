@@ -1,0 +1,79 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Options API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Options
+  description: Options market data across integrated derivatives venues.
+paths:
+  /options/v1/latest/tick:
+    get:
+      operationId: getOptionsLatestTick
+      summary: Get Options Latest Tick
+      description: Returns the latest tick for options instruments on a derivatives market.
+      tags:
+      - Options
+      parameters:
+      - $ref: '#/components/parameters/MarketParam'
+      - $ref: '#/components/parameters/InstrumentsParam'
+      responses:
+        '200':
+          description: Options tick envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionsTickResponse'
+components:
+  schemas:
+    OptionsTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: true
+  parameters:
+    MarketParam:
+      name: market
+      in: query
+      required: true
+      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
+      schema:
+        type: string
+    InstrumentsParam:
+      name: instruments
+      in: query
+      required: true
+      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

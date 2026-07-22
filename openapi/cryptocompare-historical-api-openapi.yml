@@ -1,0 +1,211 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Historical API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Historical
+  description: Historical OHLCV candle data by day, hour, and minute.
+paths:
+  /v2/histoday:
+    get:
+      operationId: getHistoricalDailyOHLCV
+      summary: Get Historical Daily OHLCV
+      description: Returns daily OHLCV candles for a cryptocurrency pair, ordered ascending by timestamp. Up to 2000 data points per call.
+      tags:
+      - Historical
+      parameters:
+      - $ref: '#/components/parameters/FsymParam'
+      - $ref: '#/components/parameters/TsymParam'
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/AggregateParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      - $ref: '#/components/parameters/EParam'
+      - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Historical daily OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OHLCVResponse'
+  /v2/histohour:
+    get:
+      operationId: getHistoricalHourlyOHLCV
+      summary: Get Historical Hourly OHLCV
+      description: Returns hourly OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call.
+      tags:
+      - Historical
+      parameters:
+      - $ref: '#/components/parameters/FsymParam'
+      - $ref: '#/components/parameters/TsymParam'
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/AggregateParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      - $ref: '#/components/parameters/EParam'
+      - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Historical hourly OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OHLCVResponse'
+  /v2/histominute:
+    get:
+      operationId: getHistoricalMinuteOHLCV
+      summary: Get Historical Minute OHLCV
+      description: Returns minute OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call and up to 7 days of history on the free tier.
+      tags:
+      - Historical
+      parameters:
+      - $ref: '#/components/parameters/FsymParam'
+      - $ref: '#/components/parameters/TsymParam'
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/AggregateParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      - $ref: '#/components/parameters/EParam'
+      - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Historical minute OHLCV envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OHLCVResponse'
+components:
+  parameters:
+    TryConversionParam:
+      name: tryConversion
+      in: query
+      description: When false, do not multi-hop convert via BTC if a direct pair is unavailable.
+      schema:
+        type: boolean
+        default: true
+    EParam:
+      name: e
+      in: query
+      description: Source exchange (default CCCAGG aggregate index).
+      schema:
+        type: string
+        default: CCCAGG
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+    ToTsParam:
+      name: toTs
+      in: query
+      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return (max 2000 for OHLCV).
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    AggregateParam:
+      name: aggregate
+      in: query
+      description: Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).
+      schema:
+        type: integer
+        default: 1
+  schemas:
+    OHLCVResponse:
+      type: object
+      description: Standard v2 OHLCV response envelope.
+      properties:
+        Response:
+          type: string
+          enum:
+          - Success
+          - Error
+        Message:
+          type: string
+        HasWarning:
+          type: boolean
+        Type:
+          type: integer
+        RateLimit:
+          type: object
+        Data:
+          type: object
+          properties:
+            Aggregated:
+              type: boolean
+            TimeFrom:
+              type: integer
+              format: int64
+            TimeTo:
+              type: integer
+              format: int64
+            Data:
+              type: array
+              items:
+                $ref: '#/components/schemas/OHLCVCandle'
+    OHLCVCandle:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: Period start timestamp in seconds.
+        high:
+          type: number
+        low:
+          type: number
+        open:
+          type: number
+        close:
+          type: number
+        volumefrom:
+          type: number
+        volumeto:
+          type: number
+        conversionType:
+          type: string
+        conversionSymbol:
+          type: string
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

@@ -1,12 +1,16 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/cryptocompare-data-api-openapi.yml, openapi/cryptocompare-min-api-openapi.yml
+generated: '2026-07-22'
+method: searched
+source: openapi/cryptocompare-*-openapi.yml + https://mcp.coindesk.com/.well-known/oauth-authorization-server + live 401 probes
+docs: https://developers.coindesk.com/documentation/data-api/introduction
 summary:
   types:
   - apiKey
+  - oauth2
   api_key_in:
   - header
   - query
+  oauth2_flows:
+  - authorizationCode
 schemes:
 - name: apiKeyQuery
   type: apiKey
@@ -14,13 +18,31 @@ schemes:
   parameter: api_key
   description: API key supplied as the api_key query parameter.
   sources:
-  - openapi/cryptocompare-data-api-openapi.yml
-  - openapi/cryptocompare-min-api-openapi.yml
+  - openapi/_original/cryptocompare-data-api-openapi.yml
+  - openapi/_original/cryptocompare-min-api-openapi.yml
 - name: apiKeyHeader
   type: apiKey
   in: header
   parameter: Authorization
   description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
   sources:
-  - openapi/cryptocompare-data-api-openapi.yml
-  - openapi/cryptocompare-min-api-openapi.yml
+  - openapi/_original/cryptocompare-data-api-openapi.yml
+  - openapi/_original/cryptocompare-min-api-openapi.yml
+- name: mcpOAuth
+  type: oauth2
+  description: >-
+    OAuth 2.0 authorization code + PKCE (S256) with dynamic client registration,
+    used only by the official MCP server at https://mcp.coindesk.com/mcp — it
+    wraps the user's CoinDesk Data API key, which is stored encrypted. No scopes
+    (scopes_supported is empty).
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://mcp.coindesk.com/authorize
+    tokenUrl: https://mcp.coindesk.com/token
+  sources:
+  - well-known/cryptocompare-oauth-authorization-server.json
+notes: >-
+  Since 2026-05-21 the free tier is retired: every request without a key under an
+  active subscription returns HTTP 401 with Err.type 2 "API key required"
+  (verified live 2026-07-22 on both min-api and data-api). Keys are managed in the
+  developers.coindesk.com dashboard.

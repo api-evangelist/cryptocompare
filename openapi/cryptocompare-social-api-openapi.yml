@@ -1,0 +1,306 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Social API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Social
+  description: Social statistics for coins and assets.
+paths:
+  /social/coin/latest:
+    get:
+      operationId: getCoinSocialStatsLatest
+      summary: Get Latest Coin Social Stats
+      description: Returns the latest aggregated social statistics (Twitter, Reddit, code repository) for a single coin identified by its CryptoCompare coin ID.
+      tags:
+      - Social
+      parameters:
+      - name: coinId
+        in: query
+        required: true
+        description: CryptoCompare coin ID (e.g. 1182 for BTC).
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Social stats envelope (requires API key).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialStatsResponse'
+  /social/coin/histo/day:
+    get:
+      operationId: getCoinSocialStatsDaily
+      summary: Get Historical Daily Coin Social Stats
+      description: Returns daily historical social statistics for a coin.
+      tags:
+      - Social
+      parameters:
+      - name: coinId
+        in: query
+        required: true
+        description: CryptoCompare coin ID.
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Daily social stats history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialStatsHistoryResponse'
+  /social/coin/histo/hour:
+    get:
+      operationId: getCoinSocialStatsHourly
+      summary: Get Historical Hourly Coin Social Stats
+      description: Returns hourly historical social statistics for a coin.
+      tags:
+      - Social
+      parameters:
+      - name: coinId
+        in: query
+        required: true
+        description: CryptoCompare coin ID.
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Hourly social stats history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialStatsHistoryResponse'
+components:
+  parameters:
+    ToTsParam:
+      name: toTs
+      in: query
+      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return (max 2000 for OHLCV).
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+  schemas:
+    SocialStatsHistoryResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              time:
+                type: integer
+                format: int64
+              comments:
+                type: integer
+              posts:
+                type: integer
+              followers:
+                type: integer
+              points:
+                type: integer
+              overview_page_views:
+                type: integer
+              analysis_page_views:
+                type: integer
+              markets_page_views:
+                type: integer
+              charts_page_views:
+                type: integer
+              trades_page_views:
+                type: integer
+              forum_page_views:
+                type: integer
+              influence_page_views:
+                type: integer
+              total_page_views:
+                type: integer
+              reddit_comments_per_hour:
+                type: number
+              reddit_posts_per_hour:
+                type: number
+              reddit_comments_per_day:
+                type: number
+              reddit_posts_per_day:
+                type: number
+              reddit_subscribers:
+                type: integer
+              reddit_active_users:
+                type: integer
+              twitter_followers:
+                type: integer
+              twitter_following:
+                type: integer
+              twitter_lists:
+                type: integer
+              twitter_favourites:
+                type: integer
+              twitter_statuses:
+                type: integer
+              code_repo_stars:
+                type: integer
+              code_repo_forks:
+                type: integer
+              code_repo_subscribers:
+                type: integer
+              code_repo_open_pull_issues:
+                type: integer
+              code_repo_closed_pull_issues:
+                type: integer
+              code_repo_open_issues:
+                type: integer
+              code_repo_closed_issues:
+                type: integer
+              code_repo_contributors:
+                type: integer
+              fb_likes:
+                type: integer
+              fb_talking_about:
+                type: integer
+    SocialStatsResponse:
+      type: object
+      properties:
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            General:
+              type: object
+              properties:
+                Points:
+                  type: integer
+                Name:
+                  type: string
+                CoinName:
+                  type: string
+                Type:
+                  type: string
+            CryptoCompare:
+              type: object
+              properties:
+                SimilarItems:
+                  type: array
+                  items:
+                    type: object
+                CryptopianFollowers:
+                  type: array
+                  items:
+                    type: object
+                Points:
+                  type: integer
+                Followers:
+                  type: integer
+                Posts:
+                  type: integer
+                Comments:
+                  type: integer
+                PageViewsSplit:
+                  type: object
+                PageViews:
+                  type: integer
+            Twitter:
+              type: object
+              properties:
+                followers:
+                  type: integer
+                following:
+                  type: integer
+                statuses:
+                  type: integer
+                lists:
+                  type: integer
+                favourites:
+                  type: integer
+                Points:
+                  type: integer
+                account_creation:
+                  type: integer
+                  format: int64
+                name:
+                  type: string
+                link:
+                  type: string
+            Reddit:
+              type: object
+              properties:
+                subscribers:
+                  type: integer
+                active_users:
+                  type: integer
+                community_creation:
+                  type: integer
+                  format: int64
+                posts_per_hour:
+                  type: number
+                posts_per_day:
+                  type: number
+                comments_per_hour:
+                  type: number
+                comments_per_day:
+                  type: number
+                Points:
+                  type: integer
+                name:
+                  type: string
+                link:
+                  type: string
+            Facebook:
+              type: object
+            CodeRepository:
+              type: object
+              properties:
+                Points:
+                  type: integer
+                List:
+                  type: array
+                  items:
+                    type: object
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

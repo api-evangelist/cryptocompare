@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for CoinDesk Data API (CCData) Asset Coins API
+  version: 1.0.0
+extends: openapi/cryptocompare-coins-api-openapi.yml
+x-generated: '2026-07-22'
+x-method: generated
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      provider: cryptocompare
+      catalog: https://raw.githubusercontent.com/api-evangelist/cryptocompare/refs/heads/main/apis.yml
+      conventions: conventions/cryptocompare-conventions.yml
+      errors: errors/cryptocompare-problem-types.yml
+      lifecycle: lifecycle/cryptocompare-lifecycle.yml
+      authentication: authentication/cryptocompare-authentication.yml
+      rate_limits: rate-limits/cryptocompare-rate-limits.yml
+      operation_count: 1
+- target: $.info
+  update:
+    x-error-envelope:
+      container: Err
+      fields:
+      - type
+      - message
+      - http_status_code
+      - frontend
+      note: Non-empty Err means failure even on HTTP 200; 401 Err.type 2 = API key
+        required (free tier retired 2026-05-21).

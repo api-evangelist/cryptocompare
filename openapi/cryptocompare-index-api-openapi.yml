@@ -1,0 +1,345 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Index API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Index
+  description: CoinDesk Indices (CADLI, CCIX, CCIXBE) latest tick, historical values, and composition.
+paths:
+  /index/cc/v1/latest/tick:
+    get:
+      operationId: getIndexLatestTick
+      summary: Get Index Latest Tick
+      description: Returns the latest tick for one or more CoinDesk indices on the chosen index family (cadli, ccix, ccixbe). Includes current period stats.
+      tags:
+      - Index
+      parameters:
+      - $ref: '#/components/parameters/IndexMarketParam'
+      - $ref: '#/components/parameters/InstrumentsParam'
+      - $ref: '#/components/parameters/GroupsParam'
+      responses:
+        '200':
+          description: Latest index tick envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexTickResponse'
+  /index/cc/v1/historical/days:
+    get:
+      operationId: getIndexHistoricalDaily
+      summary: Get Index Historical Daily Values
+      description: Returns daily index OHLC values for a CoinDesk index instrument.
+      tags:
+      - Index
+      parameters:
+      - $ref: '#/components/parameters/IndexMarketParam'
+      - $ref: '#/components/parameters/InstrumentParam'
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Historical daily index envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /index/cc/v1/historical/hours:
+    get:
+      operationId: getIndexHistoricalHourly
+      summary: Get Index Historical Hourly Values
+      description: Returns hourly index OHLC values.
+      tags:
+      - Index
+      parameters:
+      - $ref: '#/components/parameters/IndexMarketParam'
+      - $ref: '#/components/parameters/InstrumentParam'
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Historical hourly index envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /index/cc/v1/historical/minutes:
+    get:
+      operationId: getIndexHistoricalMinute
+      summary: Get Index Historical Minute Values
+      description: Returns minute index OHLC values.
+      tags:
+      - Index
+      parameters:
+      - $ref: '#/components/parameters/IndexMarketParam'
+      - $ref: '#/components/parameters/InstrumentParam'
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Historical minute index envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalOHLCVResponse'
+  /index/cc/v1/latest/instrument/composition:
+    get:
+      operationId: getIndexComposition
+      summary: Get Index Composition
+      description: Returns the latest index value, divisor, constituent prices, supplies, adjustment factors, volumes, and weights for a multi-asset index.
+      tags:
+      - Index
+      parameters:
+      - $ref: '#/components/parameters/IndexMarketParam'
+      - $ref: '#/components/parameters/InstrumentParam'
+      responses:
+        '200':
+          description: Index composition envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexCompositionResponse'
+components:
+  parameters:
+    InstrumentsParam:
+      name: instruments
+      in: query
+      required: true
+      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
+      schema:
+        type: string
+    GroupsParam:
+      name: groups
+      in: query
+      description: Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME).
+      schema:
+        type: string
+    InstrumentParam:
+      name: instrument
+      in: query
+      required: true
+      description: Single instrument identifier (e.g. BTC-USD).
+      schema:
+        type: string
+    IndexMarketParam:
+      name: market
+      in: query
+      required: true
+      description: Index family (cadli, ccix, ccixbe).
+      schema:
+        type: string
+        enum:
+        - cadli
+        - ccix
+        - ccixbe
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+  schemas:
+    IndexCompositionResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            INSTRUMENT:
+              type: string
+            MARKET:
+              type: string
+            VALUE:
+              type: number
+            DIVISOR:
+              type: number
+            CONSTITUENTS:
+              type: array
+              items:
+                type: object
+                properties:
+                  ASSET:
+                    type: string
+                  PRICE:
+                    type: number
+                  SUPPLY:
+                    type: number
+                  ADJUSTMENT_FACTOR:
+                    type: number
+                  VOLUME:
+                    type: number
+                  WEIGHT:
+                    type: number
+    IndexTick:
+      type: object
+      properties:
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        INSTRUMENT:
+          type: string
+        CCSEQ:
+          type: integer
+          format: int64
+        VALUE:
+          type: number
+        VALUE_FLAG:
+          type: string
+          enum:
+          - UP
+          - DOWN
+          - UNCHANGED
+        VALUE_LAST_UPDATE_TS:
+          type: integer
+          format: int64
+        CURRENT_HOUR_OPEN:
+          type: number
+        CURRENT_HOUR_HIGH:
+          type: number
+        CURRENT_HOUR_LOW:
+          type: number
+        CURRENT_HOUR_CHANGE:
+          type: number
+        CURRENT_HOUR_CHANGE_PERCENTAGE:
+          type: number
+        CURRENT_DAY_OPEN:
+          type: number
+        CURRENT_DAY_HIGH:
+          type: number
+        CURRENT_DAY_LOW:
+          type: number
+        CURRENT_DAY_CHANGE:
+          type: number
+        CURRENT_DAY_CHANGE_PERCENTAGE:
+          type: number
+        CURRENT_DAY_VOLUME:
+          type: number
+        CURRENT_DAY_QUOTE_VOLUME:
+          type: number
+        LIFETIME_HIGH:
+          type: number
+        LIFETIME_LOW:
+          type: number
+        LIFETIME_FIRST_TRADE_TS:
+          type: integer
+          format: int64
+    HistoricalOHLCVResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoricalOHLCVRow'
+        Err:
+          type: object
+    IndexTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IndexTick'
+    HistoricalOHLCVRow:
+      type: object
+      properties:
+        UNIT:
+          type: string
+          enum:
+          - MINUTE
+          - HOUR
+          - DAY
+        TIMESTAMP:
+          type: integer
+          format: int64
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        INSTRUMENT:
+          type: string
+        MAPPED_INSTRUMENT:
+          type: string
+        BASE:
+          type: string
+        QUOTE:
+          type: string
+        OPEN:
+          type: number
+        HIGH:
+          type: number
+        LOW:
+          type: number
+        CLOSE:
+          type: number
+        FIRST_TRADE_TIMESTAMP:
+          type: integer
+          format: int64
+        LAST_TRADE_TIMESTAMP:
+          type: integer
+          format: int64
+        FIRST_TRADE_PRICE:
+          type: number
+        HIGH_TRADE_PRICE:
+          type: number
+        LOW_TRADE_PRICE:
+          type: number
+        LAST_TRADE_PRICE:
+          type: number
+        VOLUME:
+          type: number
+        QUOTE_VOLUME:
+          type: number
+        VOLUME_BUY:
+          type: number
+        QUOTE_VOLUME_BUY:
+          type: number
+        VOLUME_SELL:
+          type: number
+        QUOTE_VOLUME_SELL:
+          type: number
+        TOTAL_TRADES:
+          type: integer
+        TOTAL_TRADES_BUY:
+          type: integer
+        TOTAL_TRADES_SELL:
+          type: integer
+        TOTAL_TRADES_UNKNOWN:
+          type: integer
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

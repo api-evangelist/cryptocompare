@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Overview API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Overview
+  description: Cross-cutting overview endpoints (market cap, dominance).
+paths:
+  /overview/v1/historical/marketcap/all-assets/days:
+    get:
+      operationId: getOverviewHistoricalMarketCapDaily
+      summary: Get Overview Historical Total Market Cap Daily
+      description: Returns daily history of total crypto market capitalization across all tracked assets.
+      tags:
+      - Overview
+      parameters:
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      - name: quote_asset
+        in: query
+        description: Quote asset for the market cap (default USD).
+        schema:
+          type: string
+          default: USD
+      responses:
+        '200':
+          description: Overview market-cap history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverviewMarketCapResponse'
+components:
+  schemas:
+    OverviewMarketCapResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              MKT_CAP_USD:
+                type: number
+              VOLUME_USD:
+                type: number
+              DOMINANCE_BTC:
+                type: number
+              DOMINANCE_ETH:
+                type: number
+              DOMINANCE_STABLECOINS:
+                type: number
+  parameters:
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

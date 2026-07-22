@@ -1,0 +1,110 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Coins API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Coins
+  description: General coin listing, mapping, and reference metadata.
+paths:
+  /all/coinlist:
+    get:
+      operationId: getAllCoinsList
+      summary: Get All Coins List
+      description: Returns the complete CryptoCompare coin list with mapping, image URLs, algorithm, proof type, supply data, and CCData taxonomy.
+      tags:
+      - Coins
+      parameters:
+      - name: summary
+        in: query
+        description: When true, returns a slimmer payload without descriptions.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Coin list envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoinListResponse'
+components:
+  schemas:
+    CoinListEntry:
+      type: object
+      properties:
+        Id:
+          type: string
+        Url:
+          type: string
+        ImageUrl:
+          type: string
+        ContentCreatedOn:
+          type: integer
+          format: int64
+        Name:
+          type: string
+        Symbol:
+          type: string
+        CoinName:
+          type: string
+        FullName:
+          type: string
+        Description:
+          type: string
+        AssetTokenStatus:
+          type: string
+        Algorithm:
+          type: string
+        ProofType:
+          type: string
+        SortOrder:
+          type: string
+        Sponsored:
+          type: boolean
+        Taxonomy:
+          type: object
+        Rating:
+          type: object
+        IsTrading:
+          type: boolean
+    CoinListResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CoinListEntry'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

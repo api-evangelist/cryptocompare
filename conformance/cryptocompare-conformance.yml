@@ -1,0 +1,48 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/cryptocompare-*-openapi.yml + well-known/cryptocompare-well-known.yml + live probes
+standards:
+- id: api-key-auth
+  conforms: true
+  evidence: All 56 captured operations secured by apiKey schemes (Authorization Apikey header or api_key query) in openapi/ securitySchemes.
+- id: oauth2
+  conforms: true
+  evidence: >-
+    The REST APIs are API-key only, but the official MCP server (mcp.coindesk.com)
+    implements OAuth 2.0 authorization code + PKCE with dynamic client registration
+    (RFC 7591) — see well-known/cryptocompare-oauth-authorization-server.json.
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: HTTP 200 at https://mcp.coindesk.com/.well-known/oauth-authorization-server (saved verbatim in well-known/).
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: HTTP 200 at https://mcp.coindesk.com/.well-known/oauth-protected-resource (saved verbatim in well-known/).
+- id: oidc
+  conforms: false
+  evidence: No openid-configuration published on any host (401/404/catch-all HTML).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a vendor {"Data","Err"} envelope, not application/problem+json — see errors/cryptocompare-problem-types.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt missing on all probed hosts (401/404/catch-all HTML).
+- id: pagination
+  conforms: true
+  evidence: Timestamp-cursor pagination (limit + to_ts/toTs) across historical endpoints — see conventions/cryptocompare-conventions.yml.
+- id: idempotency
+  conforms: false
+  evidence: Read-only GET surface; no Idempotency-Key contract documented (none required).
+- id: json-api
+  conforms: false
+  evidence: Vendor envelope, not JSON:API media type.
+- id: asyncapi
+  conforms: true
+  evidence: WebSocket streamer captured as AsyncAPI 2.6 in asyncapi/cryptocompare-asyncapi.yml (spec authored in-repo; provider publishes prose docs only).
+- id: mcp
+  conforms: true
+  evidence: Official hosted MCP server at https://mcp.coindesk.com/mcp (Streamable HTTP, OAuth PKCE) — see mcp/cryptocompare-mcp.yml.
+compliance_note: >-
+  No published trust center, SOC 2 / ISO 27001 certification page, or compliance
+  program was found (probe-security-programs.py: vdp=none trust=none), so no
+  Compliance pointer is emitted. CoinDesk Indices' regulated benchmark methodology
+  (CADLI/CCIX) is a product feature, not an audited security compliance program.

@@ -1,0 +1,260 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Exchanges API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Exchanges
+  description: Exchange metadata and exchange-pair listings.
+paths:
+  /top/exchanges:
+    get:
+      operationId: getTopExchangesByPairVolume
+      summary: Get Top Exchanges by Pair Volume
+      description: Returns the top exchanges ranked by 24-hour volume for a given pair.
+      tags:
+      - Exchanges
+      parameters:
+      - $ref: '#/components/parameters/FsymParam'
+      - $ref: '#/components/parameters/TsymParam'
+      - $ref: '#/components/parameters/LimitTopParam'
+      responses:
+        '200':
+          description: Top exchanges for the pair.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopExchangesResponse'
+  /top/exchanges/full:
+    get:
+      operationId: getTopExchangesFullByPairVolume
+      summary: Get Top Exchanges (Full Data) by Pair Volume
+      description: Returns the top exchanges by 24-hour pair volume with full ticker data per exchange.
+      tags:
+      - Exchanges
+      parameters:
+      - $ref: '#/components/parameters/FsymParam'
+      - $ref: '#/components/parameters/TsymParam'
+      - $ref: '#/components/parameters/LimitTopParam'
+      responses:
+        '200':
+          description: Top exchanges full data envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopExchangesFullResponse'
+  /all/exchanges:
+    get:
+      operationId: getAllExchanges
+      summary: Get All Exchanges and Trading Pairs
+      description: Returns the full list of integrated exchanges and the trading pairs each exchange currently exposes.
+      tags:
+      - Exchanges
+      responses:
+        '200':
+          description: Map of exchange name to traded pairs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllExchangesResponse'
+  /exchanges/general:
+    get:
+      operationId: getExchangesGeneralInfo
+      summary: Get Exchanges General Info
+      description: Returns descriptive metadata, ranking grade, country, URL, and feature flags for every integrated exchange.
+      tags:
+      - Exchanges
+      responses:
+        '200':
+          description: Exchange general info envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangesGeneralResponse'
+components:
+  parameters:
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return (max varies per endpoint, typically 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+  schemas:
+    TopExchangesFullResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            CoinInfo:
+              $ref: '#/components/schemas/CoinInfo'
+            Exchanges:
+              type: array
+              items:
+                type: object
+    ExchangesGeneralResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              Id:
+                type: string
+              Name:
+                type: string
+              Url:
+                type: string
+              LogoUrl:
+                type: string
+              ItemType:
+                type: array
+                items:
+                  type: string
+              CentralizationType:
+                type: string
+              InternalName:
+                type: string
+              GradePoints:
+                type: number
+              Grade:
+                type: string
+              GradePointsSplit:
+                type: object
+              AffiliateURL:
+                type: string
+              Country:
+                type: string
+              OrderBook:
+                type: boolean
+              Trades:
+                type: boolean
+              Description:
+                type: string
+    AllExchangesResponse:
+      type: object
+      description: Map of exchange name to base symbol to list of quote symbols traded.
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
+    CoinInfo:
+      type: object
+      properties:
+        Id:
+          type: string
+        Name:
+          type: string
+        FullName:
+          type: string
+        Internal:
+          type: string
+        ImageUrl:
+          type: string
+        Url:
+          type: string
+        Algorithm:
+          type: string
+        ProofType:
+          type: string
+        Rating:
+          type: object
+        NetHashesPerSecond:
+          type: number
+        BlockNumber:
+          type: integer
+        BlockTime:
+          type: number
+        BlockReward:
+          type: number
+        AssetLaunchDate:
+          type: string
+        MaxSupply:
+          type: number
+        Type:
+          type: integer
+        DocumentType:
+          type: string
+    TopExchangesResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              exchange:
+                type: string
+              fromSymbol:
+                type: string
+              toSymbol:
+                type: string
+              volume24h:
+                type: number
+              volume24hTo:
+                type: number
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

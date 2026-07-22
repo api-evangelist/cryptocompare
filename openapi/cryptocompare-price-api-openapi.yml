@@ -1,0 +1,285 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset Price API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: Price
+  description: Real-time and historical price endpoints for single and multi-symbol queries.
+paths:
+  /price:
+    get:
+      operationId: getSingleSymbolPrice
+      summary: Get Single Symbol Price
+      description: Returns the latest aggregated price for a single source cryptocurrency converted into one or more target currencies. Uses CCCAGG by default.
+      tags:
+      - Price
+      parameters:
+      - $ref: '#/components/parameters/FsymParam'
+      - $ref: '#/components/parameters/TsymsParam'
+      - $ref: '#/components/parameters/EParam'
+      - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Mapping of target symbol to current price.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SymbolPriceMap'
+              examples:
+                btcUsd:
+                  value:
+                    USD: 73826.5
+  /pricemulti:
+    get:
+      operationId: getMultipleSymbolsPrice
+      summary: Get Multiple Symbols Price
+      description: Returns the latest aggregated prices for multiple source cryptocurrencies converted into multiple target currencies in a single call.
+      tags:
+      - Price
+      parameters:
+      - $ref: '#/components/parameters/FsymsParam'
+      - $ref: '#/components/parameters/TsymsParam'
+      - $ref: '#/components/parameters/EParam'
+      - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Nested mapping of from-symbol to to-symbol to price.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiSymbolPriceMap'
+  /pricemultifull:
+    get:
+      operationId: getMultipleSymbolsFullPrice
+      summary: Get Multiple Symbols Full Price
+      description: Returns full ticker data (price, 24h volume, high, low, open, change, market cap) for multiple from-symbols and to-symbols in one call. Same envelope is used by the CCCAGG WebSocket index.
+      tags:
+      - Price
+      parameters:
+      - $ref: '#/components/parameters/FsymsParam'
+      - $ref: '#/components/parameters/TsymsParam'
+      - $ref: '#/components/parameters/EParam'
+      - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Object with RAW and DISPLAY sections per pair.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullPriceResponse'
+  /generateAvg:
+    get:
+      operationId: getCustomAverage
+      summary: Get Custom Average Price
+      description: Computes a custom average across a chosen set of exchanges for a single cryptocurrency pair (CUSTOMAGG).
+      tags:
+      - Price
+      parameters:
+      - $ref: '#/components/parameters/FsymParam'
+      - $ref: '#/components/parameters/TsymParam'
+      - name: e
+        in: query
+        required: true
+        description: Comma-separated list of exchanges to include in the average.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: CUSTOMAGG ticker envelope (RAW + DISPLAY).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomAverageResponse'
+  /pricehistorical:
+    get:
+      operationId: getPriceHistorical
+      summary: Get Historical Price
+      description: Returns the price of a cryptocurrency at a given historical timestamp. Falls back to the closest available candle close.
+      tags:
+      - Price
+      parameters:
+      - $ref: '#/components/parameters/FsymParam'
+      - $ref: '#/components/parameters/TsymsParam'
+      - name: ts
+        in: query
+        description: Unix timestamp (seconds) of the desired historical price.
+        schema:
+          type: integer
+          format: int64
+      - $ref: '#/components/parameters/EParam'
+      - $ref: '#/components/parameters/TryConversionParam'
+      responses:
+        '200':
+          description: Historical price envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalPriceMap'
+components:
+  parameters:
+    EParam:
+      name: e
+      in: query
+      description: Source exchange (default CCCAGG aggregate index).
+      schema:
+        type: string
+        default: CCCAGG
+    FsymsParam:
+      name: fsyms
+      in: query
+      required: true
+      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
+      schema:
+        type: string
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+    TsymsParam:
+      name: tsyms
+      in: query
+      required: true
+      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
+      schema:
+        type: string
+    TryConversionParam:
+      name: tryConversion
+      in: query
+      description: When false, do not multi-hop convert via BTC if a direct pair is unavailable.
+      schema:
+        type: boolean
+        default: true
+  schemas:
+    MultiSymbolPriceMap:
+      type: object
+      description: Nested map of from-symbol to to-symbol to current price.
+      additionalProperties:
+        $ref: '#/components/schemas/SymbolPriceMap'
+    SymbolPriceMap:
+      type: object
+      description: Map of to-symbol to current price.
+      additionalProperties:
+        type: number
+      example:
+        USD: 73826.5
+    FullPriceResponse:
+      type: object
+      properties:
+        RAW:
+          type: object
+          description: Raw numeric ticker data keyed by from-symbol then to-symbol.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/FullTicker'
+        DISPLAY:
+          type: object
+          description: Display-formatted equivalents of the RAW block.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: object
+    HistoricalPriceMap:
+      type: object
+      description: Nested map of from-symbol to to-symbol to historical price.
+      additionalProperties:
+        $ref: '#/components/schemas/SymbolPriceMap'
+    CustomAverageResponse:
+      type: object
+      properties:
+        RAW:
+          $ref: '#/components/schemas/FullTicker'
+        DISPLAY:
+          type: object
+    FullTicker:
+      type: object
+      description: Full ticker data emitted by pricemultifull and the CCCAGG WebSocket index.
+      properties:
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        FROMSYMBOL:
+          type: string
+        TOSYMBOL:
+          type: string
+        PRICE:
+          type: number
+        LASTUPDATE:
+          type: integer
+          format: int64
+        MEDIAN:
+          type: number
+        LASTVOLUME:
+          type: number
+        LASTVOLUMETO:
+          type: number
+        VOLUME24HOUR:
+          type: number
+        VOLUME24HOURTO:
+          type: number
+        OPEN24HOUR:
+          type: number
+        HIGH24HOUR:
+          type: number
+        LOW24HOUR:
+          type: number
+        CHANGE24HOUR:
+          type: number
+        CHANGEPCT24HOUR:
+          type: number
+        MKTCAP:
+          type: number
+        CIRCULATINGSUPPLY:
+          type: number
+        SUPPLY:
+          type: number
+        TOTALVOLUME24H:
+          type: number
+        TOTALVOLUME24HTO:
+          type: number
+        LASTMARKET:
+          type: string
+        CONVERSIONTYPE:
+          type: string
+        CONVERSIONSYMBOL:
+          type: string
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction

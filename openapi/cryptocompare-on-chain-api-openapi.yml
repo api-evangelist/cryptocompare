@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: CoinDesk Data API (CCData) Asset On-Chain API
+  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  version: '1.0'
+  contact:
+    name: CoinDesk Data Support
+    url: https://developers.coindesk.com/support
+    email: data@cryptocompare.com
+  termsOfService: https://data.coindesk.com/terms
+  license:
+    name: CoinDesk Data API Terms
+    url: https://data.coindesk.com/terms
+servers:
+- url: https://data-api.cryptocompare.com
+  description: Production Server
+security:
+- apiKeyQuery: []
+- apiKeyHeader: []
+tags:
+- name: On-Chain
+  description: On-chain blockchain metrics aggregated across chains.
+paths:
+  /onchain/v1/historical/supply/days:
+    get:
+      operationId: getOnchainHistoricalSupplyDaily
+      summary: Get On-Chain Historical Supply Daily
+      description: Returns daily on-chain supply history (active, circulating, total) for a given chain.
+      tags:
+      - On-Chain
+      parameters:
+      - name: chain_symbol
+        in: query
+        required: true
+        description: Chain symbol (e.g. BTC, ETH).
+        schema:
+          type: string
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: On-chain supply history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnchainSupplyHistoryResponse'
+  /onchain/v1/historical/active-addresses/days:
+    get:
+      operationId: getOnchainHistoricalActiveAddressesDaily
+      summary: Get On-Chain Historical Active Addresses Daily
+      description: Returns daily active address counts for a given chain.
+      tags:
+      - On-Chain
+      parameters:
+      - name: chain_symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/LimitParam'
+      - $ref: '#/components/parameters/ToTsParam'
+      responses:
+        '200':
+          description: Active addresses history envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnchainMetricResponse'
+components:
+  schemas:
+    OnchainSupplyHistoryResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              CHAIN_SYMBOL:
+                type: string
+              SUPPLY_CIRCULATING:
+                type: number
+              SUPPLY_TOTAL:
+                type: number
+              SUPPLY_BURNT:
+                type: number
+              SUPPLY_LOCKED:
+                type: number
+    OnchainMetricResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+  parameters:
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: api_key
+      in: query
+      description: API key supplied as the api_key query parameter.
+    apiKeyHeader:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+externalDocs:
+  description: CoinDesk Data API Documentation
+  url: https://developers.coindesk.com/documentation/data-api/introduction
