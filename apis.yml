@@ -64,8 +64,6 @@ apis:
   properties:
   - type: Documentation
     url: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
-  - type: WebSocket
-    url: wss://streamer.cryptocompare.com/v2
   - type: AsyncAPI
     url: asyncapi/cryptocompare-asyncapi.yml
   description: >-
