@@ -1,0 +1,193 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Index API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Index",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Index Latest Tick",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/latest/tick",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              },
+              {
+                "name": "groups",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME)."
+              }
+            ]
+          },
+          "docs": "Returns the latest tick for one or more CoinDesk indices on the chosen index family (cadli, ccix, ccixbe). Includes current period stats."
+        },
+        {
+          "info": {
+            "name": "Get Index Historical Daily Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/historical/days",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily index OHLC values for a CoinDesk index instrument."
+        },
+        {
+          "info": {
+            "name": "Get Index Historical Hourly Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/historical/hours",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns hourly index OHLC values."
+        },
+        {
+          "info": {
+            "name": "Get Index Historical Minute Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/historical/minutes",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns minute index OHLC values."
+        },
+        {
+          "info": {
+            "name": "Get Index Composition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/index/cc/v1/latest/instrument/composition",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Index family (cadli, ccix, ccixbe)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              }
+            ]
+          },
+          "docs": "Returns the latest index value, divisor, constituent prices, supplies, adjustment factors, volumes, and weights for a multi-asset index."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

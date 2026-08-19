@@ -1,0 +1,436 @@
+{
+  "item": [
+    {
+      "id": "9a9019eb-35d3-43cc-8825-60c262481ba8",
+      "name": "Blockchain",
+      "description": {
+        "content": "On-chain blockchain data including history and balance distribution.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4b9722d4-cf0d-4614-822a-1079ddf755b7",
+          "name": "Get Available Blockchain Data Coins",
+          "request": {
+            "name": "Get Available Blockchain Data Coins",
+            "description": {
+              "content": "Returns the list of coins that have on-chain blockchain data available (transaction count, active addresses, average transaction value, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "blockchain",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68a7b817-f527-4c01-9c48-af1394276f4a",
+              "name": "Available blockchain coins envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blockchain",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 5888,\n  \"Data\": {\n    \"key_0\": {\n      \"id\": 997,\n      \"symbol\": \"string\",\n      \"partner_symbol\": \"string\",\n      \"data_available_from\": 6791\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1eb476f-767a-4548-9d4a-7572b79d1c32",
+          "name": "Get Latest Blockchain Day",
+          "request": {
+            "name": "Get Latest Blockchain Day",
+            "description": {
+              "content": "Returns the latest day of on-chain data for a coin including transaction count, average transaction value, active addresses, hashrate, difficulty, and large transaction count.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "blockchain",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (coin) of the blockchain dataset."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "97ad890f-4914-43bb-adc4-7da9932f8685",
+              "name": "Latest blockchain data point.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blockchain",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 1874,\n  \"Data\": {\n    \"id\": 1938,\n    \"time\": 3789,\n    \"symbol\": \"string\",\n    \"zero_balance_addresses_all_time\": 9069,\n    \"unique_addresses_all_time\": 1118,\n    \"new_addresses\": 1271,\n    \"active_addresses\": 7146,\n    \"transaction_count\": 2040,\n    \"transaction_count_all_time\": 8089,\n    \"large_transaction_count\": 9487,\n    \"average_transaction_value\": 6909.490646481069,\n    \"block_height\": 1699,\n    \"hashrate\": 8748.87286715352,\n    \"difficulty\": 6973.218338875719,\n    \"block_time\": 6143.979863851705,\n    \"block_size\": 3267,\n    \"current_supply\": 8885.19125267037\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0023147-ddf0-4bc4-9bcc-b573ff3999b5",
+          "name": "Get Historical Daily Blockchain Data",
+          "request": {
+            "name": "Get Historical Daily Blockchain Data",
+            "description": {
+              "content": "Returns daily on-chain data history (transaction count, value, active addresses, hashrate, difficulty) for a coin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "blockchain",
+                "histo",
+                "day"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (coin) of the blockchain dataset."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return (max 2000 for OHLCV)."
+                },
+                {
+                  "disabled": false,
+                  "key": "toTs",
+                  "value": "<long>",
+                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ef3dde9-d938-405c-9fa4-eb6d633b467d",
+              "name": "Daily blockchain history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blockchain",
+                    "histo",
+                    "day"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 318,\n  \"Data\": {\n    \"Aggregated\": true,\n    \"TimeFrom\": 6755,\n    \"TimeTo\": 1728,\n    \"Data\": [\n      {\n        \"id\": 7833,\n        \"time\": 7957,\n        \"symbol\": \"string\",\n        \"zero_balance_addresses_all_time\": 9688,\n        \"unique_addresses_all_time\": 8653,\n        \"new_addresses\": 4972,\n        \"active_addresses\": 3673,\n        \"transaction_count\": 2414,\n        \"transaction_count_all_time\": 4240,\n        \"large_transaction_count\": 9758,\n        \"average_transaction_value\": 4167.550998733529,\n        \"block_height\": 9738,\n        \"hashrate\": 7331.415674295291,\n        \"difficulty\": 2032.6175588852102,\n        \"block_time\": 5986.268678685574,\n        \"block_size\": 2444,\n        \"current_supply\": 3777.0394237524706\n      },\n      {\n        \"id\": 8122,\n        \"time\": 4282,\n        \"symbol\": \"string\",\n        \"zero_balance_addresses_all_time\": 3132,\n        \"unique_addresses_all_time\": 1588,\n        \"new_addresses\": 3662,\n        \"active_addresses\": 1855,\n        \"transaction_count\": 6490,\n        \"transaction_count_all_time\": 9779,\n        \"large_transaction_count\": 8130,\n        \"average_transaction_value\": 959.5648414893066,\n        \"block_height\": 7118,\n        \"hashrate\": 2040.1655769219906,\n        \"difficulty\": 8183.089948989916,\n        \"block_time\": 2527.16231810841,\n        \"block_size\": 2442,\n        \"current_supply\": 1712.4850559724525\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7225fcdf-c4a9-4109-881c-153f96e5078b",
+          "name": "Get Historical Daily Blockchain Balance Distribution",
+          "request": {
+            "name": "Get Historical Daily Blockchain Balance Distribution",
+            "description": {
+              "content": "Returns daily history of on-chain balance distribution buckets for a coin (addresses with 0-0.001, 0.001-0.01, etc., units of the asset).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "blockchain",
+                "balancedistribution",
+                "histo",
+                "day"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (coin) of the dataset."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return (max 2000 for OHLCV)."
+                },
+                {
+                  "disabled": false,
+                  "key": "toTs",
+                  "value": "<long>",
+                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4cfd4ed5-4fe0-4345-acaf-70908dea0edb",
+              "name": "Daily balance distribution envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blockchain",
+                    "balancedistribution",
+                    "histo",
+                    "day"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 7648,\n  \"Data\": {\n    \"Aggregated\": true,\n    \"TimeFrom\": 1242,\n    \"TimeTo\": 8205,\n    \"Data\": [\n      {\n        \"time\": 2228,\n        \"symbol\": \"string\",\n        \"balance_distribution\": [\n          {\n            \"from\": 440.225119785258,\n            \"to\": 662.7335572151394,\n            \"totalVolume\": 1595.4308260896687,\n            \"addressesCount\": 6803\n          },\n          {\n            \"from\": 4004.1283397991256,\n            \"to\": 8365.402691638299,\n            \"totalVolume\": 5364.4172644173,\n            \"addressesCount\": 8365\n          }\n        ]\n      },\n      {\n        \"time\": 2725,\n        \"symbol\": \"string\",\n        \"balance_distribution\": [\n          {\n            \"from\": 5614.185475513344,\n            \"to\": 7751.17996028864,\n            \"totalVolume\": 4910.4426239413615,\n            \"addressesCount\": 2580\n          },\n          {\n            \"from\": 9570.45799957279,\n            \"to\": 3075.779409372319,\n            \"totalVolume\": 4805.528246211738,\n            \"addressesCount\": 4582\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3ff57cd9-a619-4a59-b54d-6703ac0138b4",
+    "name": "CoinDesk Data API (CCData) Asset Blockchain API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

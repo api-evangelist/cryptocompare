@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Exchanges API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchanges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Top Exchanges by Pair Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/top/exchanges",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              }
+            ]
+          },
+          "docs": "Returns the top exchanges ranked by 24-hour volume for a given pair."
+        },
+        {
+          "info": {
+            "name": "Get Top Exchanges (Full Data) by Pair Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/top/exchanges/full",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              }
+            ]
+          },
+          "docs": "Returns the top exchanges by 24-hour pair volume with full ticker data per exchange."
+        },
+        {
+          "info": {
+            "name": "Get All Exchanges and Trading Pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/all/exchanges"
+          },
+          "docs": "Returns the full list of integrated exchanges and the trading pairs each exchange currently exposes."
+        },
+        {
+          "info": {
+            "name": "Get Exchanges General Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/exchanges/general"
+          },
+          "docs": "Returns descriptive metadata, ranking grade, country, URL, and feature flags for every integrated exchange."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

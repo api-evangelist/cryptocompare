@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Overview API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Overview",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Overview Historical Total Market Cap Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/overview/v1/historical/marketcap/all-assets/days",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              },
+              {
+                "name": "quote_asset",
+                "value": "",
+                "type": "query",
+                "description": "Quote asset for the market cap (default USD)."
+              }
+            ]
+          },
+          "docs": "Returns daily history of total crypto market capitalization across all tracked assets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

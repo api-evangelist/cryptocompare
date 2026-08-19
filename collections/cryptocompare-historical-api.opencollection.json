@@ -1,0 +1,191 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Historical API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Historical",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Historical Daily OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/v2/histoday",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns daily OHLCV candles for a cryptocurrency pair, ordered ascending by timestamp. Up to 2000 data points per call."
+        },
+        {
+          "info": {
+            "name": "Get Historical Hourly OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/v2/histohour",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns hourly OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call."
+        },
+        {
+          "info": {
+            "name": "Get Historical Minute OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/v2/histominute",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns minute OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call and up to 7 days of history on the free tier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

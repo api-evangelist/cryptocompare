@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Coins API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Coins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Coins List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/all/coinlist",
+            "params": [
+              {
+                "name": "summary",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns a slimmer payload without descriptions."
+              }
+            ]
+          },
+          "docs": "Returns the complete CryptoCompare coin list with mapping, image URLs, algorithm, proof type, supply data, and CCData taxonomy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

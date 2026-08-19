@@ -1,0 +1,629 @@
+{
+  "item": [
+    {
+      "id": "ef20ec0c-eb59-4528-8632-b986a88f73be",
+      "name": "Price",
+      "description": {
+        "content": "Real-time and historical price endpoints for single and multi-symbol queries.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef22edf4-b7e8-43f7-91cd-40572ca7b68f",
+          "name": "Get Single Symbol Price",
+          "request": {
+            "name": "Get Single Symbol Price",
+            "description": {
+              "content": "Returns the latest aggregated price for a single source cryptocurrency converted into one or more target currencies. Uses CCCAGG by default.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "price"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsyms",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "CCCAGG",
+                  "description": "Source exchange (default CCCAGG aggregate index)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tryConversion",
+                  "value": "true",
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a404b1e-cd1b-468b-b371-8541aedd691b",
+              "name": "Mapping of target symbol to current price.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"USD\": 73826.5\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "551493ad-8f0c-4e86-a973-78f684d933bd",
+          "name": "Get Multiple Symbols Price",
+          "request": {
+            "name": "Get Multiple Symbols Price",
+            "description": {
+              "content": "Returns the latest aggregated prices for multiple source cryptocurrencies converted into multiple target currencies in a single call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pricemulti"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsyms",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsyms",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "CCCAGG",
+                  "description": "Source exchange (default CCCAGG aggregate index)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tryConversion",
+                  "value": "true",
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e12f362b-8414-4873-a1e7-62041041fca9",
+              "name": "Nested mapping of from-symbol to to-symbol to price.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricemulti"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"USD\": 73826.5\n  },\n  \"key_1\": {\n    \"USD\": 73826.5\n  },\n  \"key_2\": {\n    \"USD\": 73826.5\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6083337-a989-4295-89e5-c589ceff0841",
+          "name": "Get Multiple Symbols Full Price",
+          "request": {
+            "name": "Get Multiple Symbols Full Price",
+            "description": {
+              "content": "Returns full ticker data (price, 24h volume, high, low, open, change, market cap) for multiple from-symbols and to-symbols in one call. Same envelope is used by the CCCAGG WebSocket index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pricemultifull"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsyms",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsyms",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "CCCAGG",
+                  "description": "Source exchange (default CCCAGG aggregate index)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tryConversion",
+                  "value": "true",
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ae0aab2-d548-4c2d-8c6c-a6ccf88541a8",
+              "name": "Object with RAW and DISPLAY sections per pair.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricemultifull"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"RAW\": {\n    \"key_0\": {\n      \"key_0\": {\n        \"TYPE\": \"string\",\n        \"MARKET\": \"string\",\n        \"FROMSYMBOL\": \"string\",\n        \"TOSYMBOL\": \"string\",\n        \"PRICE\": 6113.83640928336,\n        \"LASTUPDATE\": 7871,\n        \"MEDIAN\": 9547.014993751192,\n        \"LASTVOLUME\": 9844.913821756334,\n        \"LASTVOLUMETO\": 4153.720448546977,\n        \"VOLUME24HOUR\": 6866.924326213185,\n        \"VOLUME24HOURTO\": 3417.591618821897,\n        \"OPEN24HOUR\": 676.5858002272573,\n        \"HIGH24HOUR\": 7781.898709609003,\n        \"LOW24HOUR\": 7516.674079822795,\n        \"CHANGE24HOUR\": 5871.063891515659,\n        \"CHANGEPCT24HOUR\": 5061.168964957044,\n        \"MKTCAP\": 7997.019683405695,\n        \"CIRCULATINGSUPPLY\": 1474.1579071762678,\n        \"SUPPLY\": 194.56644310704817,\n        \"TOTALVOLUME24H\": 1604.601240223833,\n        \"TOTALVOLUME24HTO\": 9916.72960501491,\n        \"LASTMARKET\": \"string\",\n        \"CONVERSIONTYPE\": \"string\",\n        \"CONVERSIONSYMBOL\": \"string\"\n      },\n      \"key_1\": {\n        \"TYPE\": \"string\",\n        \"MARKET\": \"string\",\n        \"FROMSYMBOL\": \"string\",\n        \"TOSYMBOL\": \"string\",\n        \"PRICE\": 9766.501824963938,\n        \"LASTUPDATE\": 1866,\n        \"MEDIAN\": 5737.547751754535,\n        \"LASTVOLUME\": 2798.8703590307496,\n        \"LASTVOLUMETO\": 8992.193957683305,\n        \"VOLUME24HOUR\": 9097.073973270888,\n        \"VOLUME24HOURTO\": 4735.008597867004,\n        \"OPEN24HOUR\": 598.1454162302402,\n        \"HIGH24HOUR\": 1079.8091291516187,\n        \"LOW24HOUR\": 5620.558321666957,\n        \"CHANGE24HOUR\": 8513.113261407198,\n        \"CHANGEPCT24HOUR\": 6176.733043922765,\n        \"MKTCAP\": 224.34048506143833,\n        \"CIRCULATINGSUPPLY\": 2031.4896354690836,\n        \"SUPPLY\": 8046.7575445674875,\n        \"TOTALVOLUME24H\": 4460.136059385105,\n        \"TOTALVOLUME24HTO\": 3191.027967282317,\n        \"LASTMARKET\": \"string\",\n        \"CONVERSIONTYPE\": \"string\",\n        \"CONVERSIONSYMBOL\": \"string\"\n      }\n    }\n  },\n  \"DISPLAY\": {\n    \"key_0\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"key_1\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23895b30-6554-40ff-8db4-74aea7ca8f21",
+          "name": "Get Custom Average Price",
+          "request": {
+            "name": "Get Custom Average Price",
+            "description": {
+              "content": "Computes a custom average across a chosen set of exchanges for a single cryptocurrency pair (CUSTOMAGG).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "generateAvg"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) To-symbol (target currency), e.g. USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of exchanges to include in the average."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "70b7d021-75fd-458a-8f63-63464759b0df",
+              "name": "CUSTOMAGG ticker envelope (RAW + DISPLAY).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generateAvg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"RAW\": {\n    \"TYPE\": \"string\",\n    \"MARKET\": \"string\",\n    \"FROMSYMBOL\": \"string\",\n    \"TOSYMBOL\": \"string\",\n    \"PRICE\": 7075.719132555497,\n    \"LASTUPDATE\": 4783,\n    \"MEDIAN\": 3552.5259214618777,\n    \"LASTVOLUME\": 5835.686125033247,\n    \"LASTVOLUMETO\": 4351.2666920363845,\n    \"VOLUME24HOUR\": 4916.063212196899,\n    \"VOLUME24HOURTO\": 3765.9800138131227,\n    \"OPEN24HOUR\": 6459.331668887753,\n    \"HIGH24HOUR\": 6966.841374723265,\n    \"LOW24HOUR\": 7010.564399441415,\n    \"CHANGE24HOUR\": 8588.669762830104,\n    \"CHANGEPCT24HOUR\": 4653.310350645079,\n    \"MKTCAP\": 6902.55473041907,\n    \"CIRCULATINGSUPPLY\": 9639.847074941952,\n    \"SUPPLY\": 1648.8433355054942,\n    \"TOTALVOLUME24H\": 3149.346151833429,\n    \"TOTALVOLUME24HTO\": 3265.433160300718,\n    \"LASTMARKET\": \"string\",\n    \"CONVERSIONTYPE\": \"string\",\n    \"CONVERSIONSYMBOL\": \"string\"\n  },\n  \"DISPLAY\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "add73b0f-6eb1-484d-8e11-80039a5b4c1d",
+          "name": "Get Historical Price",
+          "request": {
+            "name": "Get Historical Price",
+            "description": {
+              "content": "Returns the price of a cryptocurrency at a given historical timestamp. Falls back to the closest available candle close.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pricehistorical"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsyms",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+                },
+                {
+                  "disabled": false,
+                  "key": "ts",
+                  "value": "<long>",
+                  "description": "Unix timestamp (seconds) of the desired historical price."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "CCCAGG",
+                  "description": "Source exchange (default CCCAGG aggregate index)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tryConversion",
+                  "value": "true",
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd1de0c7-461d-485a-8421-11cf57268fc4",
+              "name": "Historical price envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricehistorical"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"USD\": 73826.5\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d220b70b-30af-4498-bc74-23dfadc83c5b",
+    "name": "CoinDesk Data API (CCData) Asset Price API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

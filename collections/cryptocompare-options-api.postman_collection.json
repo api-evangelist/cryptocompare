@@ -1,0 +1,151 @@
+{
+  "item": [
+    {
+      "id": "dfb5a498-6e21-4167-a6cc-c4be47385b14",
+      "name": "Options",
+      "description": {
+        "content": "Options market data across integrated derivatives venues.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d65ad0d-29c3-4837-ab25-9574c2a82d9d",
+          "name": "Get Options Latest Tick",
+          "request": {
+            "name": "Get Options Latest Tick",
+            "description": {
+              "content": "Returns the latest tick for options instruments on a derivatives market.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "options",
+                "v1",
+                "latest",
+                "tick"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24a79070-7262-4e8b-a573-b6b257a48093",
+              "name": "Options tick envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "options",
+                    "v1",
+                    "latest",
+                    "tick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"key_0\": false,\n      \"key_1\": 573\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8329670c-5368-474b-9f84-073aa4215e23",
+    "name": "CoinDesk Data API (CCData) Asset Options API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

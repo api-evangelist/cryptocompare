@@ -1,0 +1,304 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Spot API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Spot",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Spot Latest Tick",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/latest/tick",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              },
+              {
+                "name": "groups",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME)."
+              }
+            ]
+          },
+          "docs": "Returns the latest tick (trade or top-of-book update) for one or more spot instruments on a given market."
+        },
+        {
+          "info": {
+            "name": "List Spot Markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v2/markets",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              }
+            ]
+          },
+          "docs": "Returns the list of integrated spot exchanges and their status."
+        },
+        {
+          "info": {
+            "name": "Get Spot Instrument Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/markets/instruments",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              }
+            ]
+          },
+          "docs": "Returns reference metadata for spot instruments on a given market including base/quote symbols, tick sizes, status, and mapping."
+        },
+        {
+          "info": {
+            "name": "Get Spot Historical Daily OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/historical/days",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor."
+              },
+              {
+                "name": "fill",
+                "value": "",
+                "type": "query",
+                "description": "Fill empty periods with zero-volume candles."
+              },
+              {
+                "name": "apply_mapping",
+                "value": "",
+                "type": "query",
+                "description": "Apply asset/instrument mapping for renames."
+              }
+            ]
+          },
+          "docs": "Returns daily OHLCV candles for a single spot instrument on a given market, ordered ascending. Up to 2000 candles per call."
+        },
+        {
+          "info": {
+            "name": "Get Spot Historical Hourly OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/historical/hours",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor."
+              }
+            ]
+          },
+          "docs": "Returns hourly OHLCV candles for a single spot instrument."
+        },
+        {
+          "info": {
+            "name": "Get Spot Historical Minute OHLCV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/historical/minutes",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "Time-period aggregation factor."
+              }
+            ]
+          },
+          "docs": "Returns minute OHLCV candles for a single spot instrument."
+        },
+        {
+          "info": {
+            "name": "Get Spot Historical Trades",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/historical/trades",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Single instrument identifier (e.g. BTC-USD)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns raw historical trade prints for a single spot instrument."
+        },
+        {
+          "info": {
+            "name": "Get Spot Order Book L1 Top",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/spot/v1/latest/orderbook/l1/top",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              }
+            ]
+          },
+          "docs": "Returns the top of the order book (best bid and best ask) for one or more spot instruments. Updated continuously."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

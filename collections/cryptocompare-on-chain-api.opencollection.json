@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset On-Chain API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "On-Chain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get On-Chain Historical Supply Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/onchain/v1/historical/supply/days",
+            "params": [
+              {
+                "name": "chain_symbol",
+                "value": "",
+                "type": "query",
+                "description": "Chain symbol (e.g. BTC, ETH)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily on-chain supply history (active, circulating, total) for a given chain."
+        },
+        {
+          "info": {
+            "name": "Get On-Chain Historical Active Addresses Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/onchain/v1/historical/active-addresses/days",
+            "params": [
+              {
+                "name": "chain_symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily active address counts for a given chain."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

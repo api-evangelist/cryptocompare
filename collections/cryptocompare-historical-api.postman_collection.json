@@ -1,0 +1,493 @@
+{
+  "item": [
+    {
+      "id": "0b421da8-99cd-4d94-a662-cd20763cdae4",
+      "name": "Historical",
+      "description": {
+        "content": "Historical OHLCV candle data by day, hour, and minute.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4c07af30-a26a-4aa8-8a96-8971d302295b",
+          "name": "Get Historical Daily OHLCV",
+          "request": {
+            "name": "Get Historical Daily OHLCV",
+            "description": {
+              "content": "Returns daily OHLCV candles for a cryptocurrency pair, ordered ascending by timestamp. Up to 2000 data points per call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "histoday"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) To-symbol (target currency), e.g. USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return (max 2000 for OHLCV)."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregate",
+                  "value": "1",
+                  "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+                },
+                {
+                  "disabled": false,
+                  "key": "toTs",
+                  "value": "<long>",
+                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "CCCAGG",
+                  "description": "Source exchange (default CCCAGG aggregate index)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tryConversion",
+                  "value": "true",
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "455f6b3f-a857-498e-8300-dcb88a956424",
+              "name": "Historical daily OHLCV envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "histoday"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"Success\",\n  \"Message\": \"string\",\n  \"HasWarning\": true,\n  \"Type\": 9613,\n  \"RateLimit\": {},\n  \"Data\": {\n    \"Aggregated\": true,\n    \"TimeFrom\": 8656,\n    \"TimeTo\": 4841,\n    \"Data\": [\n      {\n        \"time\": 6446,\n        \"high\": 6857.439627921278,\n        \"low\": 960.8652753572577,\n        \"open\": 3611.858361651583,\n        \"close\": 7288.274927548738,\n        \"volumefrom\": 5553.111454183988,\n        \"volumeto\": 1652.563157880219,\n        \"conversionType\": \"string\",\n        \"conversionSymbol\": \"string\"\n      },\n      {\n        \"time\": 455,\n        \"high\": 3044.9861468382323,\n        \"low\": 4987.422196186419,\n        \"open\": 9678.625580230431,\n        \"close\": 2169.2754042277597,\n        \"volumefrom\": 2195.816196610364,\n        \"volumeto\": 4670.2874739479375,\n        \"conversionType\": \"string\",\n        \"conversionSymbol\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d52a612-ad41-43a4-9db8-c9639f919b66",
+          "name": "Get Historical Hourly OHLCV",
+          "request": {
+            "name": "Get Historical Hourly OHLCV",
+            "description": {
+              "content": "Returns hourly OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "histohour"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) To-symbol (target currency), e.g. USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return (max 2000 for OHLCV)."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregate",
+                  "value": "1",
+                  "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+                },
+                {
+                  "disabled": false,
+                  "key": "toTs",
+                  "value": "<long>",
+                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "CCCAGG",
+                  "description": "Source exchange (default CCCAGG aggregate index)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tryConversion",
+                  "value": "true",
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ed5c9b3-9a71-441f-b004-2354a86aad84",
+              "name": "Historical hourly OHLCV envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "histohour"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"Success\",\n  \"Message\": \"string\",\n  \"HasWarning\": true,\n  \"Type\": 9613,\n  \"RateLimit\": {},\n  \"Data\": {\n    \"Aggregated\": true,\n    \"TimeFrom\": 8656,\n    \"TimeTo\": 4841,\n    \"Data\": [\n      {\n        \"time\": 6446,\n        \"high\": 6857.439627921278,\n        \"low\": 960.8652753572577,\n        \"open\": 3611.858361651583,\n        \"close\": 7288.274927548738,\n        \"volumefrom\": 5553.111454183988,\n        \"volumeto\": 1652.563157880219,\n        \"conversionType\": \"string\",\n        \"conversionSymbol\": \"string\"\n      },\n      {\n        \"time\": 455,\n        \"high\": 3044.9861468382323,\n        \"low\": 4987.422196186419,\n        \"open\": 9678.625580230431,\n        \"close\": 2169.2754042277597,\n        \"volumefrom\": 2195.816196610364,\n        \"volumeto\": 4670.2874739479375,\n        \"conversionType\": \"string\",\n        \"conversionSymbol\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fac44dd-807e-4e96-a7d9-1fc1258bd69d",
+          "name": "Get Historical Minute OHLCV",
+          "request": {
+            "name": "Get Historical Minute OHLCV",
+            "description": {
+              "content": "Returns minute OHLCV candles for a cryptocurrency pair. Up to 2000 data points per call and up to 7 days of history on the free tier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "histominute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) To-symbol (target currency), e.g. USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return (max 2000 for OHLCV)."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregate",
+                  "value": "1",
+                  "description": "Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute)."
+                },
+                {
+                  "disabled": false,
+                  "key": "toTs",
+                  "value": "<long>",
+                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "CCCAGG",
+                  "description": "Source exchange (default CCCAGG aggregate index)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tryConversion",
+                  "value": "true",
+                  "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c005ec8-ed0d-4b0d-934a-ea2840e1b3ad",
+              "name": "Historical minute OHLCV envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "histominute"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "1"
+                    },
+                    {
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "CCCAGG"
+                    },
+                    {
+                      "key": "tryConversion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"Success\",\n  \"Message\": \"string\",\n  \"HasWarning\": true,\n  \"Type\": 9613,\n  \"RateLimit\": {},\n  \"Data\": {\n    \"Aggregated\": true,\n    \"TimeFrom\": 8656,\n    \"TimeTo\": 4841,\n    \"Data\": [\n      {\n        \"time\": 6446,\n        \"high\": 6857.439627921278,\n        \"low\": 960.8652753572577,\n        \"open\": 3611.858361651583,\n        \"close\": 7288.274927548738,\n        \"volumefrom\": 5553.111454183988,\n        \"volumeto\": 1652.563157880219,\n        \"conversionType\": \"string\",\n        \"conversionSymbol\": \"string\"\n      },\n      {\n        \"time\": 455,\n        \"high\": 3044.9861468382323,\n        \"low\": 4987.422196186419,\n        \"open\": 9678.625580230431,\n        \"close\": 2169.2754042277597,\n        \"volumefrom\": 2195.816196610364,\n        \"volumeto\": 4670.2874739479375,\n        \"conversionType\": \"string\",\n        \"conversionSymbol\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5a786437-5ffb-4ebe-b3f3-8fd50a6d0e60",
+    "name": "CoinDesk Data API (CCData) Asset Historical API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

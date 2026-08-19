@@ -1,0 +1,775 @@
+{
+  "item": [
+    {
+      "id": "b063f318-43fb-4f19-bfe0-49abeefc7105",
+      "name": "News",
+      "description": {
+        "content": "Crypto news articles, sources, categories, and search.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "005453ef-7fbd-446b-9587-cb8e566bba58",
+          "name": "Get News Article List",
+          "request": {
+            "name": "Get News Article List",
+            "description": {
+              "content": "Returns the most recent news articles aggregated across integrated sources. Supports filtering by language, source, category, search keyword, and timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "v1",
+                "article",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "EN",
+                  "description": "ISO 639-1 language code (default EN)."
+                },
+                {
+                  "disabled": false,
+                  "key": "source_ids",
+                  "value": "<string>",
+                  "description": "Comma-separated list of source IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "source_key",
+                  "value": "<string>",
+                  "description": "Source key (e.g. coindesk)."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Comma-separated list of category keys."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_categories",
+                  "value": "<string>",
+                  "description": "Comma-separated list of category keys to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_string",
+                  "value": "<string>",
+                  "description": "Full-text search query."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp (seconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c64f4352-7023-45e7-afdb-dc6a1d03184f",
+              "name": "News article list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "v1",
+                    "article",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "EN"
+                    },
+                    {
+                      "key": "source_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_string",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 2628,\n      \"GUID\": \"string\",\n      \"PUBLISHED_ON\": 6634,\n      \"IMAGE_URL\": \"string\",\n      \"TITLE\": \"string\",\n      \"SUBTITLE\": \"string\",\n      \"AUTHORS\": \"string\",\n      \"URL\": \"string\",\n      \"SOURCE_ID\": 8388,\n      \"BODY\": \"string\",\n      \"KEYWORDS\": \"string\",\n      \"LANG\": \"string\",\n      \"UPVOTES\": 4228,\n      \"DOWNVOTES\": 1675,\n      \"SCORE\": 2475,\n      \"SENTIMENT\": \"NEGATIVE\",\n      \"STATUS\": \"string\",\n      \"CREATED_ON\": 1225,\n      \"SOURCE_DATA\": {}\n    },\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 1637,\n      \"GUID\": \"string\",\n      \"PUBLISHED_ON\": 1058,\n      \"IMAGE_URL\": \"string\",\n      \"TITLE\": \"string\",\n      \"SUBTITLE\": \"string\",\n      \"AUTHORS\": \"string\",\n      \"URL\": \"string\",\n      \"SOURCE_ID\": 6612,\n      \"BODY\": \"string\",\n      \"KEYWORDS\": \"string\",\n      \"LANG\": \"string\",\n      \"UPVOTES\": 867,\n      \"DOWNVOTES\": 6851,\n      \"SCORE\": 5629,\n      \"SENTIMENT\": \"NEGATIVE\",\n      \"STATUS\": \"string\",\n      \"CREATED_ON\": 667,\n      \"SOURCE_DATA\": {}\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b8d7bcb-deee-4300-a51d-d05e7bccdae4",
+          "name": "Get News Source List",
+          "request": {
+            "name": "Get News Source List",
+            "description": {
+              "content": "Returns the list of integrated news sources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "v1",
+                "source",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Filter sources by language."
+                },
+                {
+                  "disabled": false,
+                  "key": "source_type",
+                  "value": "<string>",
+                  "description": "Filter sources by type (RSS, TWITTER, API)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ce678a7-34a2-4f06-8f17-355f92f87ded",
+              "name": "News source list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "v1",
+                    "source",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 7958,\n      \"SOURCE_KEY\": \"string\",\n      \"NAME\": \"string\",\n      \"URL\": \"string\",\n      \"LANG\": \"string\",\n      \"SOURCE_TYPE\": \"string\",\n      \"LAUNCH_DATE\": 4224,\n      \"BENCHMARK_SCORE\": 141.91240050555166,\n      \"STATUS\": \"string\"\n    },\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 8462,\n      \"SOURCE_KEY\": \"string\",\n      \"NAME\": \"string\",\n      \"URL\": \"string\",\n      \"LANG\": \"string\",\n      \"SOURCE_TYPE\": \"string\",\n      \"LAUNCH_DATE\": 4158,\n      \"BENCHMARK_SCORE\": 131.65659263580488,\n      \"STATUS\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ddd28e36-5d91-4769-ad05-15a7b6a1b775",
+          "name": "Get News Category List",
+          "request": {
+            "name": "Get News Category List",
+            "description": {
+              "content": "Returns the list of news categories used for tagging articles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "v1",
+                "category",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "038a16c7-da06-46e7-aef6-d861600c3e3f",
+              "name": "News category list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "v1",
+                    "category",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 5519,\n      \"NAME\": \"string\",\n      \"CATEGORY\": \"string\"\n    },\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 1604,\n      \"NAME\": \"string\",\n      \"CATEGORY\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38bd0d1c-7c71-459d-9681-72dfbe817be2",
+          "name": "Get Latest News Articles",
+          "request": {
+            "name": "Get Latest News Articles",
+            "description": {
+              "content": "Returns the most recent cryptocurrency news articles aggregated from every integrated source. Filterable by language, source, and category.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "news",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "EN",
+                  "description": "ISO 639-1 language code. Defaults to EN."
+                },
+                {
+                  "disabled": false,
+                  "key": "feeds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of source feed keys."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Comma-separated list of category keys."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeCategories",
+                  "value": "<string>",
+                  "description": "Comma-separated list of categories to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "lTs",
+                  "value": "<long>",
+                  "description": "Latest timestamp (seconds) to return articles before."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Sort order, latest or popular."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of articles to return (default 50)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "efd2c267-9c8b-4ed4-b943-9b6e2ce584ef",
+              "name": "List of news articles with source and category metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "news",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "EN"
+                    },
+                    {
+                      "key": "feeds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeCategories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": 6079,\n  \"Message\": \"string\",\n  \"Data\": [\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 6323,\n      \"GUID\": \"string\",\n      \"PUBLISHED_ON\": 34,\n      \"IMAGE_URL\": \"string\",\n      \"TITLE\": \"string\",\n      \"SUBTITLE\": \"string\",\n      \"AUTHORS\": \"string\",\n      \"URL\": \"string\",\n      \"SOURCE_ID\": 9424,\n      \"BODY\": \"string\",\n      \"KEYWORDS\": \"string\",\n      \"LANG\": \"string\",\n      \"UPVOTES\": 4622,\n      \"DOWNVOTES\": 1351,\n      \"SCORE\": 3913,\n      \"SENTIMENT\": \"NEUTRAL\",\n      \"STATUS\": \"string\",\n      \"CREATED_ON\": 6122,\n      \"SOURCE_DATA\": {}\n    },\n    {\n      \"TYPE\": \"string\",\n      \"ID\": 219,\n      \"GUID\": \"string\",\n      \"PUBLISHED_ON\": 2267,\n      \"IMAGE_URL\": \"string\",\n      \"TITLE\": \"string\",\n      \"SUBTITLE\": \"string\",\n      \"AUTHORS\": \"string\",\n      \"URL\": \"string\",\n      \"SOURCE_ID\": 6251,\n      \"BODY\": \"string\",\n      \"KEYWORDS\": \"string\",\n      \"LANG\": \"string\",\n      \"UPVOTES\": 7854,\n      \"DOWNVOTES\": 8536,\n      \"SCORE\": 9518,\n      \"SENTIMENT\": \"POSITIVE\",\n      \"STATUS\": \"string\",\n      \"CREATED_ON\": 1418,\n      \"SOURCE_DATA\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7bdfd4e1-bc9a-41bb-bcfb-fabaa99a70b7",
+          "name": "Get News Sources",
+          "request": {
+            "name": "Get News Sources",
+            "description": {
+              "content": "Returns the list of news source feeds available for filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "feeds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80ba332d-ede3-4db7-85ec-87bfda45722d",
+              "name": "List of news sources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Type\": 8584,\n  \"Data\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"lang\": \"string\",\n      \"img\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"lang\": \"string\",\n      \"img\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "042a5bb0-dce1-42b7-beb6-9834ce219415",
+          "name": "Get News Categories",
+          "request": {
+            "name": "Get News Categories",
+            "description": {
+              "content": "Returns the list of news categories used for tagging articles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cca209d9-3f67-40ba-a26b-d9cd296c8728",
+              "name": "List of news categories.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Type\": 1950,\n  \"Data\": [\n    {\n      \"categoryName\": \"string\",\n      \"wordsAssociatedWithCategory\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"categoryName\": \"string\",\n      \"wordsAssociatedWithCategory\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df819ee0-3e4b-4bc1-9f1f-d6ef4159cf88",
+          "name": "Get News Feeds and Categories",
+          "request": {
+            "name": "Get News Feeds and Categories",
+            "description": {
+              "content": "Returns both available source feeds and categories in a single call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "feedsandcategories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b34805fa-e3ed-4501-bca3-738b4e9b4373",
+              "name": "Feeds and categories envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "feedsandcategories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": 9629,\n  \"Message\": \"string\",\n  \"Data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ed3178f6-93b4-47dd-a27d-4f913b77c1ea",
+    "name": "CoinDesk Data API (CCData) Asset News API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

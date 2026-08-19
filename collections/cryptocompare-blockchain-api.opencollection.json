@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Blockchain API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blockchain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Available Blockchain Data Coins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/blockchain/list"
+          },
+          "docs": "Returns the list of coins that have on-chain blockchain data available (transaction count, active addresses, average transaction value, etc.)."
+        },
+        {
+          "info": {
+            "name": "Get Latest Blockchain Day",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/blockchain/latest",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (coin) of the blockchain dataset."
+              }
+            ]
+          },
+          "docs": "Returns the latest day of on-chain data for a coin including transaction count, average transaction value, active addresses, hashrate, difficulty, and large transaction count."
+        },
+        {
+          "info": {
+            "name": "Get Historical Daily Blockchain Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/blockchain/histo/day",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (coin) of the blockchain dataset."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              }
+            ]
+          },
+          "docs": "Returns daily on-chain data history (transaction count, value, active addresses, hashrate, difficulty) for a coin."
+        },
+        {
+          "info": {
+            "name": "Get Historical Daily Blockchain Balance Distribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/blockchain/balancedistribution/histo/day",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (coin) of the dataset."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              }
+            ]
+          },
+          "docs": "Returns daily history of on-chain balance distribution buckets for a coin (addresses with 0-0.001, 0.001-0.01, etc., units of the asset)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

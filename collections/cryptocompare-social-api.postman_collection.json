@@ -1,0 +1,363 @@
+{
+  "item": [
+    {
+      "id": "b97ca2a0-edde-4fe0-8ad3-a035db48dfe7",
+      "name": "Social",
+      "description": {
+        "content": "Social statistics for coins and assets.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cfd82f45-ef24-44e8-8cce-5675921cbc06",
+          "name": "Get Latest Coin Social Stats",
+          "request": {
+            "name": "Get Latest Coin Social Stats",
+            "description": {
+              "content": "Returns the latest aggregated social statistics (Twitter, Reddit, code repository) for a single coin identified by its CryptoCompare coin ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "social",
+                "coin",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "coinId",
+                  "value": "<integer>",
+                  "description": "(Required) CryptoCompare coin ID (e.g. 1182 for BTC)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05328343-274e-4dc8-b868-30370d4861d4",
+              "name": "Social stats envelope (requires API key).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "social",
+                    "coin",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "coinId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Type\": 5824,\n  \"Data\": {\n    \"General\": {\n      \"Points\": 1901,\n      \"Name\": \"string\",\n      \"CoinName\": \"string\",\n      \"Type\": \"string\"\n    },\n    \"CryptoCompare\": {\n      \"Points\": 6526,\n      \"Followers\": 942,\n      \"Posts\": 7490,\n      \"Comments\": 4234,\n      \"PageViewsSplit\": {},\n      \"PageViews\": 8522\n    },\n    \"Twitter\": {\n      \"followers\": 6610,\n      \"following\": 1741,\n      \"statuses\": 3465,\n      \"lists\": 5821,\n      \"favourites\": 624,\n      \"Points\": 9411,\n      \"account_creation\": 7064,\n      \"name\": \"string\",\n      \"link\": \"string\"\n    },\n    \"Reddit\": {\n      \"subscribers\": 9938,\n      \"active_users\": 8735,\n      \"community_creation\": 9194,\n      \"posts_per_hour\": 8283.553845873008,\n      \"posts_per_day\": 5670.7300440332465,\n      \"comments_per_hour\": 4251.43086334677,\n      \"comments_per_day\": 7776.645796013207,\n      \"Points\": 826,\n      \"name\": \"string\",\n      \"link\": \"string\"\n    },\n    \"Facebook\": {},\n    \"CodeRepository\": {\n      \"Points\": 2313\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d001972-5b50-410c-8d1a-5d46bcb82427",
+          "name": "Get Historical Daily Coin Social Stats",
+          "request": {
+            "name": "Get Historical Daily Coin Social Stats",
+            "description": {
+              "content": "Returns daily historical social statistics for a coin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "social",
+                "coin",
+                "histo",
+                "day"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "coinId",
+                  "value": "<integer>",
+                  "description": "(Required) CryptoCompare coin ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return (max 2000 for OHLCV)."
+                },
+                {
+                  "disabled": false,
+                  "key": "toTs",
+                  "value": "<long>",
+                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "983589d8-9fe6-4b78-8e50-b4cce06e6cd8",
+              "name": "Daily social stats history.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "social",
+                    "coin",
+                    "histo",
+                    "day"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "coinId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 606,\n  \"Data\": [\n    {\n      \"time\": 4711,\n      \"comments\": 9372,\n      \"posts\": 3289,\n      \"followers\": 7029,\n      \"points\": 6296,\n      \"overview_page_views\": 7305,\n      \"analysis_page_views\": 9111,\n      \"markets_page_views\": 4792,\n      \"charts_page_views\": 3070,\n      \"trades_page_views\": 1289,\n      \"forum_page_views\": 9172,\n      \"influence_page_views\": 6032,\n      \"total_page_views\": 564,\n      \"reddit_comments_per_hour\": 70.70739228719924,\n      \"reddit_posts_per_hour\": 1158.5690512264334,\n      \"reddit_comments_per_day\": 3609.666936994438,\n      \"reddit_posts_per_day\": 5705.751589007328,\n      \"reddit_subscribers\": 5199,\n      \"reddit_active_users\": 5168,\n      \"twitter_followers\": 691,\n      \"twitter_following\": 5816,\n      \"twitter_lists\": 741,\n      \"twitter_favourites\": 8540,\n      \"twitter_statuses\": 6251,\n      \"code_repo_stars\": 8869,\n      \"code_repo_forks\": 4647,\n      \"code_repo_subscribers\": 4856,\n      \"code_repo_open_pull_issues\": 8894,\n      \"code_repo_closed_pull_issues\": 3915,\n      \"code_repo_open_issues\": 1318,\n      \"code_repo_closed_issues\": 2011,\n      \"code_repo_contributors\": 9,\n      \"fb_likes\": 8804,\n      \"fb_talking_about\": 3666\n    },\n    {\n      \"time\": 3005,\n      \"comments\": 8012,\n      \"posts\": 5951,\n      \"followers\": 6455,\n      \"points\": 2805,\n      \"overview_page_views\": 5055,\n      \"analysis_page_views\": 8863,\n      \"markets_page_views\": 7685,\n      \"charts_page_views\": 9883,\n      \"trades_page_views\": 3110,\n      \"forum_page_views\": 6719,\n      \"influence_page_views\": 2585,\n      \"total_page_views\": 8191,\n      \"reddit_comments_per_hour\": 254.33642512509235,\n      \"reddit_posts_per_hour\": 3727.9539245038504,\n      \"reddit_comments_per_day\": 5948.516465196893,\n      \"reddit_posts_per_day\": 7630.258473116141,\n      \"reddit_subscribers\": 2388,\n      \"reddit_active_users\": 6320,\n      \"twitter_followers\": 6052,\n      \"twitter_following\": 9788,\n      \"twitter_lists\": 3423,\n      \"twitter_favourites\": 8279,\n      \"twitter_statuses\": 9745,\n      \"code_repo_stars\": 2000,\n      \"code_repo_forks\": 722,\n      \"code_repo_subscribers\": 9524,\n      \"code_repo_open_pull_issues\": 9036,\n      \"code_repo_closed_pull_issues\": 7319,\n      \"code_repo_open_issues\": 672,\n      \"code_repo_closed_issues\": 3820,\n      \"code_repo_contributors\": 7794,\n      \"fb_likes\": 8913,\n      \"fb_talking_about\": 2083\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "036220cd-9120-4b6c-bb6e-24ef286126a2",
+          "name": "Get Historical Hourly Coin Social Stats",
+          "request": {
+            "name": "Get Historical Hourly Coin Social Stats",
+            "description": {
+              "content": "Returns hourly historical social statistics for a coin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "social",
+                "coin",
+                "histo",
+                "hour"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "coinId",
+                  "value": "<integer>",
+                  "description": "(Required) CryptoCompare coin ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return (max 2000 for OHLCV)."
+                },
+                {
+                  "disabled": false,
+                  "key": "toTs",
+                  "value": "<long>",
+                  "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33f75cea-6fc3-4541-a877-a15e34ed0489",
+              "name": "Hourly social stats history.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "social",
+                    "coin",
+                    "histo",
+                    "hour"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "coinId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "toTs",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 606,\n  \"Data\": [\n    {\n      \"time\": 4711,\n      \"comments\": 9372,\n      \"posts\": 3289,\n      \"followers\": 7029,\n      \"points\": 6296,\n      \"overview_page_views\": 7305,\n      \"analysis_page_views\": 9111,\n      \"markets_page_views\": 4792,\n      \"charts_page_views\": 3070,\n      \"trades_page_views\": 1289,\n      \"forum_page_views\": 9172,\n      \"influence_page_views\": 6032,\n      \"total_page_views\": 564,\n      \"reddit_comments_per_hour\": 70.70739228719924,\n      \"reddit_posts_per_hour\": 1158.5690512264334,\n      \"reddit_comments_per_day\": 3609.666936994438,\n      \"reddit_posts_per_day\": 5705.751589007328,\n      \"reddit_subscribers\": 5199,\n      \"reddit_active_users\": 5168,\n      \"twitter_followers\": 691,\n      \"twitter_following\": 5816,\n      \"twitter_lists\": 741,\n      \"twitter_favourites\": 8540,\n      \"twitter_statuses\": 6251,\n      \"code_repo_stars\": 8869,\n      \"code_repo_forks\": 4647,\n      \"code_repo_subscribers\": 4856,\n      \"code_repo_open_pull_issues\": 8894,\n      \"code_repo_closed_pull_issues\": 3915,\n      \"code_repo_open_issues\": 1318,\n      \"code_repo_closed_issues\": 2011,\n      \"code_repo_contributors\": 9,\n      \"fb_likes\": 8804,\n      \"fb_talking_about\": 3666\n    },\n    {\n      \"time\": 3005,\n      \"comments\": 8012,\n      \"posts\": 5951,\n      \"followers\": 6455,\n      \"points\": 2805,\n      \"overview_page_views\": 5055,\n      \"analysis_page_views\": 8863,\n      \"markets_page_views\": 7685,\n      \"charts_page_views\": 9883,\n      \"trades_page_views\": 3110,\n      \"forum_page_views\": 6719,\n      \"influence_page_views\": 2585,\n      \"total_page_views\": 8191,\n      \"reddit_comments_per_hour\": 254.33642512509235,\n      \"reddit_posts_per_hour\": 3727.9539245038504,\n      \"reddit_comments_per_day\": 5948.516465196893,\n      \"reddit_posts_per_day\": 7630.258473116141,\n      \"reddit_subscribers\": 2388,\n      \"reddit_active_users\": 6320,\n      \"twitter_followers\": 6052,\n      \"twitter_following\": 9788,\n      \"twitter_lists\": 3423,\n      \"twitter_favourites\": 8279,\n      \"twitter_statuses\": 9745,\n      \"code_repo_stars\": 2000,\n      \"code_repo_forks\": 722,\n      \"code_repo_subscribers\": 9524,\n      \"code_repo_open_pull_issues\": 9036,\n      \"code_repo_closed_pull_issues\": 7319,\n      \"code_repo_open_issues\": 672,\n      \"code_repo_closed_issues\": 3820,\n      \"code_repo_contributors\": 7794,\n      \"fb_likes\": 8913,\n      \"fb_talking_about\": 2083\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8b5f651e-3c19-4ba8-a52d-9865195306d6",
+    "name": "CoinDesk Data API (CCData) Asset Social API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

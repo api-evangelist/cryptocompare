@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Top Lists API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Top Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Top List by Total Volume (Full Data)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/top/totalvolfull",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number for paginated top-list endpoints."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "Quote currency for the volume conversion."
+              }
+            ]
+          },
+          "docs": "Returns the top cryptocurrencies by 24-hour total volume converted into a target currency, including full ticker data per coin."
+        },
+        {
+          "info": {
+            "name": "Get Top List by Market Cap (Full Data)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/top/mktcapfull",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number for paginated top-list endpoints."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "Quote currency for the market-cap conversion."
+              }
+            ]
+          },
+          "docs": "Returns the top cryptocurrencies by market capitalization with full ticker data per coin."
+        },
+        {
+          "info": {
+            "name": "Get Top Exchanges by Pair Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/top/exchanges",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              }
+            ]
+          },
+          "docs": "Returns the top exchanges ranked by 24-hour volume for a given pair."
+        },
+        {
+          "info": {
+            "name": "Get Top Exchanges (Full Data) by Pair Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/top/exchanges/full",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              }
+            ]
+          },
+          "docs": "Returns the top exchanges by 24-hour pair volume with full ticker data per exchange."
+        },
+        {
+          "info": {
+            "name": "Get Top Volumes by Currency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/top/volumes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "Quote currency for the ranking."
+              }
+            ]
+          },
+          "docs": "Returns the top cryptocurrencies by aggregate 24-hour volume against a given quote currency. Lighter payload than totalvolfull."
+        },
+        {
+          "info": {
+            "name": "Get Top Pairs by Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/top/pairs",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return (max varies per endpoint, typically 100)."
+              }
+            ]
+          },
+          "docs": "Returns the most active trading pairs for a given from-symbol across every integrated exchange."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,679 @@
+{
+  "item": [
+    {
+      "id": "fc98ea8b-1b43-42e6-8933-8995a88fc039",
+      "name": "Top Lists",
+      "description": {
+        "content": "Top list endpoints by 24h volume, market cap, exchange volume, and pair volume.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "06f52e37-0c91-41b3-9877-5eb4c29b3cf3",
+          "name": "Get Top List by Total Volume (Full Data)",
+          "request": {
+            "name": "Get Top List by Total Volume (Full Data)",
+            "description": {
+              "content": "Returns the top cryptocurrencies by 24-hour total volume converted into a target currency, including full ticker data per coin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "top",
+                "totalvolfull"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of rows to return (max varies per endpoint, typically 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Zero-indexed page number for paginated top-list endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) Quote currency for the volume conversion."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c3cb1824-49a2-46e8-8554-08b11ff7b1f6",
+              "name": "List of coins with CoinInfo, RAW, and DISPLAY blocks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "top",
+                    "totalvolfull"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Type\": 704,\n  \"MetaData\": {\n    \"Count\": 6182\n  },\n  \"Data\": [\n    {\n      \"CoinInfo\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\",\n        \"FullName\": \"string\",\n        \"Internal\": \"string\",\n        \"ImageUrl\": \"string\",\n        \"Url\": \"string\",\n        \"Algorithm\": \"string\",\n        \"ProofType\": \"string\",\n        \"Rating\": {},\n        \"NetHashesPerSecond\": 2757.574993994558,\n        \"BlockNumber\": 5957,\n        \"BlockTime\": 6857.903185035663,\n        \"BlockReward\": 3286.7257308934095,\n        \"AssetLaunchDate\": \"string\",\n        \"MaxSupply\": 8003.501252507802,\n        \"Type\": 1804,\n        \"DocumentType\": \"string\"\n      },\n      \"RAW\": {},\n      \"DISPLAY\": {}\n    },\n    {\n      \"CoinInfo\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\",\n        \"FullName\": \"string\",\n        \"Internal\": \"string\",\n        \"ImageUrl\": \"string\",\n        \"Url\": \"string\",\n        \"Algorithm\": \"string\",\n        \"ProofType\": \"string\",\n        \"Rating\": {},\n        \"NetHashesPerSecond\": 9947.47632101386,\n        \"BlockNumber\": 3817,\n        \"BlockTime\": 3119.8657725362555,\n        \"BlockReward\": 9704.781480624499,\n        \"AssetLaunchDate\": \"string\",\n        \"MaxSupply\": 3990.386967822993,\n        \"Type\": 9015,\n        \"DocumentType\": \"string\"\n      },\n      \"RAW\": {},\n      \"DISPLAY\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91071303-eae8-49ca-b267-75fb5f579e57",
+          "name": "Get Top List by Market Cap (Full Data)",
+          "request": {
+            "name": "Get Top List by Market Cap (Full Data)",
+            "description": {
+              "content": "Returns the top cryptocurrencies by market capitalization with full ticker data per coin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "top",
+                "mktcapfull"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of rows to return (max varies per endpoint, typically 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Zero-indexed page number for paginated top-list endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) Quote currency for the market-cap conversion."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "833dc64d-47c3-4fd1-bb86-77b3f4b2c345",
+              "name": "Top coins by market cap.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "top",
+                    "mktcapfull"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Type\": 704,\n  \"MetaData\": {\n    \"Count\": 6182\n  },\n  \"Data\": [\n    {\n      \"CoinInfo\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\",\n        \"FullName\": \"string\",\n        \"Internal\": \"string\",\n        \"ImageUrl\": \"string\",\n        \"Url\": \"string\",\n        \"Algorithm\": \"string\",\n        \"ProofType\": \"string\",\n        \"Rating\": {},\n        \"NetHashesPerSecond\": 2757.574993994558,\n        \"BlockNumber\": 5957,\n        \"BlockTime\": 6857.903185035663,\n        \"BlockReward\": 3286.7257308934095,\n        \"AssetLaunchDate\": \"string\",\n        \"MaxSupply\": 8003.501252507802,\n        \"Type\": 1804,\n        \"DocumentType\": \"string\"\n      },\n      \"RAW\": {},\n      \"DISPLAY\": {}\n    },\n    {\n      \"CoinInfo\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\",\n        \"FullName\": \"string\",\n        \"Internal\": \"string\",\n        \"ImageUrl\": \"string\",\n        \"Url\": \"string\",\n        \"Algorithm\": \"string\",\n        \"ProofType\": \"string\",\n        \"Rating\": {},\n        \"NetHashesPerSecond\": 9947.47632101386,\n        \"BlockNumber\": 3817,\n        \"BlockTime\": 3119.8657725362555,\n        \"BlockReward\": 9704.781480624499,\n        \"AssetLaunchDate\": \"string\",\n        \"MaxSupply\": 3990.386967822993,\n        \"Type\": 9015,\n        \"DocumentType\": \"string\"\n      },\n      \"RAW\": {},\n      \"DISPLAY\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d53711c1-8427-4027-a300-e2de4666d212",
+          "name": "Get Top Exchanges by Pair Volume",
+          "request": {
+            "name": "Get Top Exchanges by Pair Volume",
+            "description": {
+              "content": "Returns the top exchanges ranked by 24-hour volume for a given pair.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "top",
+                "exchanges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) To-symbol (target currency), e.g. USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of rows to return (max varies per endpoint, typically 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78e94cf9-3bea-4ec4-a541-08c6bf38cdcc",
+              "name": "Top exchanges for the pair.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "top",
+                    "exchanges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 2755,\n  \"Data\": [\n    {\n      \"exchange\": \"string\",\n      \"fromSymbol\": \"string\",\n      \"toSymbol\": \"string\",\n      \"volume24h\": 1158.2730605759596,\n      \"volume24hTo\": 1416.5868038351437\n    },\n    {\n      \"exchange\": \"string\",\n      \"fromSymbol\": \"string\",\n      \"toSymbol\": \"string\",\n      \"volume24h\": 52.343395195671995,\n      \"volume24hTo\": 1807.0668745327011\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79da0ad2-803e-4529-add7-4b4d3b933cdf",
+          "name": "Get Top Exchanges (Full Data) by Pair Volume",
+          "request": {
+            "name": "Get Top Exchanges (Full Data) by Pair Volume",
+            "description": {
+              "content": "Returns the top exchanges by 24-hour pair volume with full ticker data per exchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "top",
+                "exchanges",
+                "full"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) To-symbol (target currency), e.g. USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of rows to return (max varies per endpoint, typically 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11e33b09-4a4b-47dc-a1d8-fa2719e99be5",
+              "name": "Top exchanges full data envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "top",
+                    "exchanges",
+                    "full"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 4778,\n  \"Data\": {\n    \"CoinInfo\": {\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"FullName\": \"string\",\n      \"Internal\": \"string\",\n      \"ImageUrl\": \"string\",\n      \"Url\": \"string\",\n      \"Algorithm\": \"string\",\n      \"ProofType\": \"string\",\n      \"Rating\": {},\n      \"NetHashesPerSecond\": 8148.035647761794,\n      \"BlockNumber\": 2386,\n      \"BlockTime\": 5319.974177679361,\n      \"BlockReward\": 4631.19273207808,\n      \"AssetLaunchDate\": \"string\",\n      \"MaxSupply\": 2968.2990916215113,\n      \"Type\": 5423,\n      \"DocumentType\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85fbc777-ae58-42eb-8fac-17b0853c4205",
+          "name": "Get Top Volumes by Currency",
+          "request": {
+            "name": "Get Top Volumes by Currency",
+            "description": {
+              "content": "Returns the top cryptocurrencies by aggregate 24-hour volume against a given quote currency. Lighter payload than totalvolfull.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "top",
+                "volumes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of rows to return (max varies per endpoint, typically 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) Quote currency for the ranking."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d94e1384-1d0d-4b26-9640-0a7c2e506c57",
+              "name": "Ranked list of coin volumes.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "top",
+                    "volumes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 7967,\n  \"Data\": [\n    {\n      \"SYMBOL\": \"string\",\n      \"SUPPLY\": 7535.499470420127,\n      \"FULLVOLUME\": \"string\",\n      \"TOPTIERVOLUME24HOUR\": \"string\"\n    },\n    {\n      \"SYMBOL\": \"string\",\n      \"SUPPLY\": 3909.1311253299377,\n      \"FULLVOLUME\": \"string\",\n      \"TOPTIERVOLUME24HOUR\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "615955e4-e7d1-4694-bb41-8b01997edf37",
+          "name": "Get Top Pairs by Volume",
+          "request": {
+            "name": "Get Top Pairs by Volume",
+            "description": {
+              "content": "Returns the most active trading pairs for a given from-symbol across every integrated exchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "top",
+                "pairs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of rows to return (max varies per endpoint, typically 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c3b19c17-e97d-4f0e-89c1-aece8ed5de05",
+              "name": "Top trading pairs envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "top",
+                    "pairs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 2755,\n  \"Data\": [\n    {\n      \"exchange\": \"string\",\n      \"fromSymbol\": \"string\",\n      \"toSymbol\": \"string\",\n      \"volume24h\": 1158.2730605759596,\n      \"volume24hTo\": 1416.5868038351437\n    },\n    {\n      \"exchange\": \"string\",\n      \"fromSymbol\": \"string\",\n      \"toSymbol\": \"string\",\n      \"volume24h\": 52.343395195671995,\n      \"volume24hTo\": 1807.0668745327011\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "67e02a45-f42c-462c-aa3e-5299b4ad0f25",
+    "name": "CoinDesk Data API (CCData) Asset Top Lists API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

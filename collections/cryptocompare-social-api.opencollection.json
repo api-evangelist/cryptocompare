@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Social API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Social",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Latest Coin Social Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/social/coin/latest",
+            "params": [
+              {
+                "name": "coinId",
+                "value": "",
+                "type": "query",
+                "description": "CryptoCompare coin ID (e.g. 1182 for BTC)."
+              }
+            ]
+          },
+          "docs": "Returns the latest aggregated social statistics (Twitter, Reddit, code repository) for a single coin identified by its CryptoCompare coin ID."
+        },
+        {
+          "info": {
+            "name": "Get Historical Daily Coin Social Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/social/coin/histo/day",
+            "params": [
+              {
+                "name": "coinId",
+                "value": "",
+                "type": "query",
+                "description": "CryptoCompare coin ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              }
+            ]
+          },
+          "docs": "Returns daily historical social statistics for a coin."
+        },
+        {
+          "info": {
+            "name": "Get Historical Hourly Coin Social Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/social/coin/histo/hour",
+            "params": [
+              {
+                "name": "coinId",
+                "value": "",
+                "type": "query",
+                "description": "CryptoCompare coin ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return (max 2000 for OHLCV)."
+              },
+              {
+                "name": "toTs",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) to use as the upper bound for the returned window."
+              }
+            ]
+          },
+          "docs": "Returns hourly historical social statistics for a coin."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

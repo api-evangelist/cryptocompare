@@ -1,0 +1,165 @@
+{
+  "item": [
+    {
+      "id": "b470a477-1f07-4319-818a-ede246858c53",
+      "name": "Overview",
+      "description": {
+        "content": "Cross-cutting overview endpoints (market cap, dominance).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e5700c78-d7d0-4250-b680-f88ae3d7a68f",
+          "name": "Get Overview Historical Total Market Cap Daily",
+          "request": {
+            "name": "Get Overview Historical Total Market Cap Daily",
+            "description": {
+              "content": "Returns daily history of total crypto market capitalization across all tracked assets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "overview",
+                "v1",
+                "historical",
+                "marketcap",
+                "all-assets",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "quote_asset",
+                  "value": "USD",
+                  "description": "Quote asset for the market cap (default USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "951527ad-e7c5-4377-8a6c-e966c94abc0e",
+              "name": "Overview market-cap history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "overview",
+                    "v1",
+                    "historical",
+                    "marketcap",
+                    "all-assets",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "quote_asset",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TIMESTAMP\": 1616,\n      \"MKT_CAP_USD\": 1151.6103793412058,\n      \"VOLUME_USD\": 9177.70572857465,\n      \"DOMINANCE_BTC\": 9725.677516045707,\n      \"DOMINANCE_ETH\": 8490.36489184653,\n      \"DOMINANCE_STABLECOINS\": 5628.0917378500935\n    },\n    {\n      \"TIMESTAMP\": 4700,\n      \"MKT_CAP_USD\": 9985.519038205795,\n      \"VOLUME_USD\": 5189.457089489082,\n      \"DOMINANCE_BTC\": 4357.303190200411,\n      \"DOMINANCE_ETH\": 8113.288169441716,\n      \"DOMINANCE_STABLECOINS\": 6872.272313562684\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cf219e5a-45ce-4da5-8060-14ec900273a2",
+    "name": "CoinDesk Data API (CCData) Asset Overview API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

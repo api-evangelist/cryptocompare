@@ -1,0 +1,641 @@
+{
+  "item": [
+    {
+      "id": "f45a5404-cd7a-4d8a-936e-eb02a80e55bd",
+      "name": "Index",
+      "description": {
+        "content": "CoinDesk Indices (CADLI, CCIX, CCIXBE) latest tick, historical values, and composition.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "37ccb345-d00c-4fbf-b5af-3e43f8a5c2b4",
+          "name": "Get Index Latest Tick",
+          "request": {
+            "name": "Get Index Latest Tick",
+            "description": {
+              "content": "Returns the latest tick for one or more CoinDesk indices on the chosen index family (cadli, ccix, ccixbe). Includes current period stats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "latest",
+                "tick"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "groups",
+                  "value": "<string>",
+                  "description": "Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b6c3ab4-fa56-4b56-86db-6aa2cbfab06b",
+              "name": "Latest index tick envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "latest",
+                    "tick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groups",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"CCSEQ\": 372,\n      \"VALUE\": 8175.198127108789,\n      \"VALUE_FLAG\": \"UP\",\n      \"VALUE_LAST_UPDATE_TS\": 1528,\n      \"CURRENT_HOUR_OPEN\": 4534.4667623253,\n      \"CURRENT_HOUR_HIGH\": 62.932666933046555,\n      \"CURRENT_HOUR_LOW\": 3499.380848098489,\n      \"CURRENT_HOUR_CHANGE\": 4792.16403460513,\n      \"CURRENT_HOUR_CHANGE_PERCENTAGE\": 8622.013982580915,\n      \"CURRENT_DAY_OPEN\": 6168.900401742142,\n      \"CURRENT_DAY_HIGH\": 356.1488291022019,\n      \"CURRENT_DAY_LOW\": 5960.0643573291045,\n      \"CURRENT_DAY_CHANGE\": 3904.278586097207,\n      \"CURRENT_DAY_CHANGE_PERCENTAGE\": 3817.4320788149676,\n      \"CURRENT_DAY_VOLUME\": 9423.937408065185,\n      \"CURRENT_DAY_QUOTE_VOLUME\": 6922.720349077137,\n      \"LIFETIME_HIGH\": 2406.140743998807,\n      \"LIFETIME_LOW\": 1278.4803976313997,\n      \"LIFETIME_FIRST_TRADE_TS\": 687\n    },\n    \"key_1\": {\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"CCSEQ\": 1816,\n      \"VALUE\": 7776.086446080924,\n      \"VALUE_FLAG\": \"UNCHANGED\",\n      \"VALUE_LAST_UPDATE_TS\": 5453,\n      \"CURRENT_HOUR_OPEN\": 7303.240615172304,\n      \"CURRENT_HOUR_HIGH\": 1012.0646108687992,\n      \"CURRENT_HOUR_LOW\": 2556.6482676221367,\n      \"CURRENT_HOUR_CHANGE\": 6781.900585055872,\n      \"CURRENT_HOUR_CHANGE_PERCENTAGE\": 9590.934226378766,\n      \"CURRENT_DAY_OPEN\": 8874.447532957032,\n      \"CURRENT_DAY_HIGH\": 4278.6886798201795,\n      \"CURRENT_DAY_LOW\": 863.9605689282159,\n      \"CURRENT_DAY_CHANGE\": 6504.882824202269,\n      \"CURRENT_DAY_CHANGE_PERCENTAGE\": 4745.030854641034,\n      \"CURRENT_DAY_VOLUME\": 2854.572929462751,\n      \"CURRENT_DAY_QUOTE_VOLUME\": 6177.62730686901,\n      \"LIFETIME_HIGH\": 1806.0918633010026,\n      \"LIFETIME_LOW\": 3783.4175903085743,\n      \"LIFETIME_FIRST_TRADE_TS\": 1477\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3aa1f570-843a-42f9-a2b2-6edcf6c63b22",
+          "name": "Get Index Historical Daily Values",
+          "request": {
+            "name": "Get Index Historical Daily Values",
+            "description": {
+              "content": "Returns daily index OHLC values for a CoinDesk index instrument.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "historical",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c99286f-1811-49ef-89bf-89366d5e4b14",
+              "name": "Historical daily index envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "historical",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 5854,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 3995.1510036446325,\n      \"HIGH\": 3927.9132120055983,\n      \"LOW\": 3078.3029161082054,\n      \"CLOSE\": 3737.333116671021,\n      \"FIRST_TRADE_TIMESTAMP\": 9880,\n      \"LAST_TRADE_TIMESTAMP\": 9525,\n      \"FIRST_TRADE_PRICE\": 3070.1289760603554,\n      \"HIGH_TRADE_PRICE\": 8028.7584485357775,\n      \"LOW_TRADE_PRICE\": 7354.456596169167,\n      \"LAST_TRADE_PRICE\": 731.7545153371052,\n      \"VOLUME\": 6119.8646237898165,\n      \"QUOTE_VOLUME\": 5666.222667817279,\n      \"VOLUME_BUY\": 8273.759477467669,\n      \"QUOTE_VOLUME_BUY\": 2405.7761116743204,\n      \"VOLUME_SELL\": 2578.636509873796,\n      \"QUOTE_VOLUME_SELL\": 5338.851239581378,\n      \"TOTAL_TRADES\": 8391,\n      \"TOTAL_TRADES_BUY\": 219,\n      \"TOTAL_TRADES_SELL\": 873,\n      \"TOTAL_TRADES_UNKNOWN\": 418\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1464,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4175.5254147444975,\n      \"HIGH\": 7343.642505050601,\n      \"LOW\": 4747.790901101447,\n      \"CLOSE\": 6830.804163577789,\n      \"FIRST_TRADE_TIMESTAMP\": 5384,\n      \"LAST_TRADE_TIMESTAMP\": 6248,\n      \"FIRST_TRADE_PRICE\": 9483.967860817049,\n      \"HIGH_TRADE_PRICE\": 6340.288602521895,\n      \"LOW_TRADE_PRICE\": 2514.900513547804,\n      \"LAST_TRADE_PRICE\": 662.2825345824934,\n      \"VOLUME\": 9324.601253734374,\n      \"QUOTE_VOLUME\": 4342.876309699458,\n      \"VOLUME_BUY\": 8883.090788486632,\n      \"QUOTE_VOLUME_BUY\": 1497.4633522039405,\n      \"VOLUME_SELL\": 5339.911418108044,\n      \"QUOTE_VOLUME_SELL\": 761.2941477482926,\n      \"TOTAL_TRADES\": 2505,\n      \"TOTAL_TRADES_BUY\": 6719,\n      \"TOTAL_TRADES_SELL\": 2905,\n      \"TOTAL_TRADES_UNKNOWN\": 167\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8f5da36-926a-4f5a-ba74-6397a34a8bca",
+          "name": "Get Index Historical Hourly Values",
+          "request": {
+            "name": "Get Index Historical Hourly Values",
+            "description": {
+              "content": "Returns hourly index OHLC values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "historical",
+                "hours"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f2ead9e-f2f4-4764-bb6c-a985eb1a6cfc",
+              "name": "Historical hourly index envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "historical",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 5854,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 3995.1510036446325,\n      \"HIGH\": 3927.9132120055983,\n      \"LOW\": 3078.3029161082054,\n      \"CLOSE\": 3737.333116671021,\n      \"FIRST_TRADE_TIMESTAMP\": 9880,\n      \"LAST_TRADE_TIMESTAMP\": 9525,\n      \"FIRST_TRADE_PRICE\": 3070.1289760603554,\n      \"HIGH_TRADE_PRICE\": 8028.7584485357775,\n      \"LOW_TRADE_PRICE\": 7354.456596169167,\n      \"LAST_TRADE_PRICE\": 731.7545153371052,\n      \"VOLUME\": 6119.8646237898165,\n      \"QUOTE_VOLUME\": 5666.222667817279,\n      \"VOLUME_BUY\": 8273.759477467669,\n      \"QUOTE_VOLUME_BUY\": 2405.7761116743204,\n      \"VOLUME_SELL\": 2578.636509873796,\n      \"QUOTE_VOLUME_SELL\": 5338.851239581378,\n      \"TOTAL_TRADES\": 8391,\n      \"TOTAL_TRADES_BUY\": 219,\n      \"TOTAL_TRADES_SELL\": 873,\n      \"TOTAL_TRADES_UNKNOWN\": 418\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1464,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4175.5254147444975,\n      \"HIGH\": 7343.642505050601,\n      \"LOW\": 4747.790901101447,\n      \"CLOSE\": 6830.804163577789,\n      \"FIRST_TRADE_TIMESTAMP\": 5384,\n      \"LAST_TRADE_TIMESTAMP\": 6248,\n      \"FIRST_TRADE_PRICE\": 9483.967860817049,\n      \"HIGH_TRADE_PRICE\": 6340.288602521895,\n      \"LOW_TRADE_PRICE\": 2514.900513547804,\n      \"LAST_TRADE_PRICE\": 662.2825345824934,\n      \"VOLUME\": 9324.601253734374,\n      \"QUOTE_VOLUME\": 4342.876309699458,\n      \"VOLUME_BUY\": 8883.090788486632,\n      \"QUOTE_VOLUME_BUY\": 1497.4633522039405,\n      \"VOLUME_SELL\": 5339.911418108044,\n      \"QUOTE_VOLUME_SELL\": 761.2941477482926,\n      \"TOTAL_TRADES\": 2505,\n      \"TOTAL_TRADES_BUY\": 6719,\n      \"TOTAL_TRADES_SELL\": 2905,\n      \"TOTAL_TRADES_UNKNOWN\": 167\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a96869b0-a480-486f-b7de-c0933d2b5bb7",
+          "name": "Get Index Historical Minute Values",
+          "request": {
+            "name": "Get Index Historical Minute Values",
+            "description": {
+              "content": "Returns minute index OHLC values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "historical",
+                "minutes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd3144c7-76f0-4311-ba52-50b5d7d12699",
+              "name": "Historical minute index envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "historical",
+                    "minutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 5854,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 3995.1510036446325,\n      \"HIGH\": 3927.9132120055983,\n      \"LOW\": 3078.3029161082054,\n      \"CLOSE\": 3737.333116671021,\n      \"FIRST_TRADE_TIMESTAMP\": 9880,\n      \"LAST_TRADE_TIMESTAMP\": 9525,\n      \"FIRST_TRADE_PRICE\": 3070.1289760603554,\n      \"HIGH_TRADE_PRICE\": 8028.7584485357775,\n      \"LOW_TRADE_PRICE\": 7354.456596169167,\n      \"LAST_TRADE_PRICE\": 731.7545153371052,\n      \"VOLUME\": 6119.8646237898165,\n      \"QUOTE_VOLUME\": 5666.222667817279,\n      \"VOLUME_BUY\": 8273.759477467669,\n      \"QUOTE_VOLUME_BUY\": 2405.7761116743204,\n      \"VOLUME_SELL\": 2578.636509873796,\n      \"QUOTE_VOLUME_SELL\": 5338.851239581378,\n      \"TOTAL_TRADES\": 8391,\n      \"TOTAL_TRADES_BUY\": 219,\n      \"TOTAL_TRADES_SELL\": 873,\n      \"TOTAL_TRADES_UNKNOWN\": 418\n    },\n    {\n      \"UNIT\": \"MINUTE\",\n      \"TIMESTAMP\": 1464,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4175.5254147444975,\n      \"HIGH\": 7343.642505050601,\n      \"LOW\": 4747.790901101447,\n      \"CLOSE\": 6830.804163577789,\n      \"FIRST_TRADE_TIMESTAMP\": 5384,\n      \"LAST_TRADE_TIMESTAMP\": 6248,\n      \"FIRST_TRADE_PRICE\": 9483.967860817049,\n      \"HIGH_TRADE_PRICE\": 6340.288602521895,\n      \"LOW_TRADE_PRICE\": 2514.900513547804,\n      \"LAST_TRADE_PRICE\": 662.2825345824934,\n      \"VOLUME\": 9324.601253734374,\n      \"QUOTE_VOLUME\": 4342.876309699458,\n      \"VOLUME_BUY\": 8883.090788486632,\n      \"QUOTE_VOLUME_BUY\": 1497.4633522039405,\n      \"VOLUME_SELL\": 5339.911418108044,\n      \"QUOTE_VOLUME_SELL\": 761.2941477482926,\n      \"TOTAL_TRADES\": 2505,\n      \"TOTAL_TRADES_BUY\": 6719,\n      \"TOTAL_TRADES_SELL\": 2905,\n      \"TOTAL_TRADES_UNKNOWN\": 167\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d30c1b21-d43c-450b-b2c8-d31eb2573f31",
+          "name": "Get Index Composition",
+          "request": {
+            "name": "Get Index Composition",
+            "description": {
+              "content": "Returns the latest index value, divisor, constituent prices, supplies, adjustment factors, volumes, and weights for a multi-asset index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "cc",
+                "v1",
+                "latest",
+                "instrument",
+                "composition"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Index family (cadli, ccix, ccixbe)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df325d5b-13e9-427d-a1d3-f68595eea0e2",
+              "name": "Index composition envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "cc",
+                    "v1",
+                    "latest",
+                    "instrument",
+                    "composition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"INSTRUMENT\": \"string\",\n    \"MARKET\": \"string\",\n    \"VALUE\": 779.0277169707904,\n    \"DIVISOR\": 2873.905861266314,\n    \"CONSTITUENTS\": [\n      {\n        \"ASSET\": \"string\",\n        \"PRICE\": 2846.3931370959326,\n        \"SUPPLY\": 9223.62494301802,\n        \"ADJUSTMENT_FACTOR\": 6405.967087065657,\n        \"VOLUME\": 5966.449288250416,\n        \"WEIGHT\": 9511.433679451413\n      },\n      {\n        \"ASSET\": \"string\",\n        \"PRICE\": 7076.640561482903,\n        \"SUPPLY\": 634.3403450745644,\n        \"ADJUSTMENT_FACTOR\": 5716.707557585704,\n        \"VOLUME\": 8055.705407575734,\n        \"WEIGHT\": 5254.616714872163\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2f4a40dc-d82d-4751-a56a-7e26592ff03d",
+    "name": "CoinDesk Data API (CCData) Asset Index API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

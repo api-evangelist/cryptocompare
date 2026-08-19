@@ -1,0 +1,211 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Price API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Price",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Single Symbol Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/price",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns the latest aggregated price for a single source cryptocurrency converted into one or more target currencies. Uses CCCAGG by default."
+        },
+        {
+          "info": {
+            "name": "Get Multiple Symbols Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/pricemulti",
+            "params": [
+              {
+                "name": "fsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns the latest aggregated prices for multiple source cryptocurrencies converted into multiple target currencies in a single call."
+        },
+        {
+          "info": {
+            "name": "Get Multiple Symbols Full Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/pricemultifull",
+            "params": [
+              {
+                "name": "fsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns full ticker data (price, 24h volume, high, low, open, change, market cap) for multiple from-symbols and to-symbols in one call. Same envelope is used by the CCCAGG WebSocket index."
+        },
+        {
+          "info": {
+            "name": "Get Custom Average Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/generateAvg",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsym",
+                "value": "",
+                "type": "query",
+                "description": "To-symbol (target currency), e.g. USD."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of exchanges to include in the average."
+              }
+            ]
+          },
+          "docs": "Computes a custom average across a chosen set of exchanges for a single cryptocurrency pair (CUSTOMAGG)."
+        },
+        {
+          "info": {
+            "name": "Get Historical Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/pricehistorical",
+            "params": [
+              {
+                "name": "fsym",
+                "value": "",
+                "type": "query",
+                "description": "From-symbol (base cryptocurrency symbol), e.g. BTC."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "ts",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp (seconds) of the desired historical price."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Source exchange (default CCCAGG aggregate index)."
+              },
+              {
+                "name": "tryConversion",
+                "value": "",
+                "type": "query",
+                "description": "When false, do not multi-hop convert via BTC if a direct pair is unavailable."
+              }
+            ]
+          },
+          "docs": "Returns the price of a cryptocurrency at a given historical timestamp. Falls back to the closest available candle close."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

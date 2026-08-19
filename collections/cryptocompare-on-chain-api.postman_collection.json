@@ -1,0 +1,277 @@
+{
+  "item": [
+    {
+      "id": "5e174b1e-c708-4f20-9ee6-245980a61c69",
+      "name": "On-Chain",
+      "description": {
+        "content": "On-chain blockchain metrics aggregated across chains.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0ddefdfb-18cd-4116-a29a-69849d0036a7",
+          "name": "Get On-Chain Historical Supply Daily",
+          "request": {
+            "name": "Get On-Chain Historical Supply Daily",
+            "description": {
+              "content": "Returns daily on-chain supply history (active, circulating, total) for a given chain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "onchain",
+                "v1",
+                "historical",
+                "supply",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain_symbol",
+                  "value": "<string>",
+                  "description": "(Required) Chain symbol (e.g. BTC, ETH)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "136cbf67-39a4-48a7-88b2-eaa3345234ca",
+              "name": "On-chain supply history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "onchain",
+                    "v1",
+                    "historical",
+                    "supply",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain_symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TIMESTAMP\": 1671,\n      \"CHAIN_SYMBOL\": \"string\",\n      \"SUPPLY_CIRCULATING\": 7215.75871447727,\n      \"SUPPLY_TOTAL\": 9675.452179752136,\n      \"SUPPLY_BURNT\": 9281.072857546516,\n      \"SUPPLY_LOCKED\": 1173.614998230047\n    },\n    {\n      \"TIMESTAMP\": 3554,\n      \"CHAIN_SYMBOL\": \"string\",\n      \"SUPPLY_CIRCULATING\": 6588.457407475221,\n      \"SUPPLY_TOTAL\": 2834.3390971568483,\n      \"SUPPLY_BURNT\": 536.5366973863684,\n      \"SUPPLY_LOCKED\": 4385.833958162324\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af1f43f3-84ed-499f-8c6b-270b97911e93",
+          "name": "Get On-Chain Historical Active Addresses Daily",
+          "request": {
+            "name": "Get On-Chain Historical Active Addresses Daily",
+            "description": {
+              "content": "Returns daily active address counts for a given chain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "onchain",
+                "v1",
+                "historical",
+                "active-addresses",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain_symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7402f9e4-1e27-4022-bd96-06f00f2ef9f3",
+              "name": "Active addresses history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "onchain",
+                    "v1",
+                    "historical",
+                    "active-addresses",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain_symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"key_0\": 971\n    },\n    {\n      \"key_0\": 7798\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "541e4603-c5fd-4e03-b7c7-896ec554f266",
+    "name": "CoinDesk Data API (CCData) Asset On-Chain API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

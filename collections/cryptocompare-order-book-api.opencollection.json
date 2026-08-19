@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Order Book API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order Book",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Order Book Top of Book",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/v2/ob/l1/top",
+            "params": [
+              {
+                "name": "fsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+              },
+              {
+                "name": "tsyms",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+              },
+              {
+                "name": "e",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of exchanges."
+              }
+            ]
+          },
+          "docs": "Returns the top of the order book (best bid and ask) for one or more pairs across one or more exchanges. Requires an API key on most tiers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

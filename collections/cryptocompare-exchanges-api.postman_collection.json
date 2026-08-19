@@ -1,0 +1,421 @@
+{
+  "item": [
+    {
+      "id": "b7632cd8-36a9-449e-a006-cee590da574a",
+      "name": "Exchanges",
+      "description": {
+        "content": "Exchange metadata and exchange-pair listings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68498be3-00a8-43f4-a271-cea0167b37cd",
+          "name": "Get Top Exchanges by Pair Volume",
+          "request": {
+            "name": "Get Top Exchanges by Pair Volume",
+            "description": {
+              "content": "Returns the top exchanges ranked by 24-hour volume for a given pair.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "top",
+                "exchanges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) To-symbol (target currency), e.g. USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of rows to return (max varies per endpoint, typically 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a119cf06-4efa-43b0-a126-ffec7aa10941",
+              "name": "Top exchanges for the pair.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "top",
+                    "exchanges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 9874,\n  \"Data\": [\n    {\n      \"exchange\": \"string\",\n      \"fromSymbol\": \"string\",\n      \"toSymbol\": \"string\",\n      \"volume24h\": 8662.782397315877,\n      \"volume24hTo\": 654.8194319569112\n    },\n    {\n      \"exchange\": \"string\",\n      \"fromSymbol\": \"string\",\n      \"toSymbol\": \"string\",\n      \"volume24h\": 2104.255013624784,\n      \"volume24hTo\": 2496.8469728345276\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af0909d6-74d5-4443-a83c-25b6b38b01d3",
+          "name": "Get Top Exchanges (Full Data) by Pair Volume",
+          "request": {
+            "name": "Get Top Exchanges (Full Data) by Pair Volume",
+            "description": {
+              "content": "Returns the top exchanges by 24-hour pair volume with full ticker data per exchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "top",
+                "exchanges",
+                "full"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsym",
+                  "value": "<string>",
+                  "description": "(Required) From-symbol (base cryptocurrency symbol), e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsym",
+                  "value": "<string>",
+                  "description": "(Required) To-symbol (target currency), e.g. USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of rows to return (max varies per endpoint, typically 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6a10540-2840-4d06-a723-fe06c956ac61",
+              "name": "Top exchanges full data envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "top",
+                    "exchanges",
+                    "full"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsym",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 7524,\n  \"Data\": {\n    \"CoinInfo\": {\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"FullName\": \"string\",\n      \"Internal\": \"string\",\n      \"ImageUrl\": \"string\",\n      \"Url\": \"string\",\n      \"Algorithm\": \"string\",\n      \"ProofType\": \"string\",\n      \"Rating\": {},\n      \"NetHashesPerSecond\": 475.1679746549964,\n      \"BlockNumber\": 1414,\n      \"BlockTime\": 3769.508851281406,\n      \"BlockReward\": 5407.551476870664,\n      \"AssetLaunchDate\": \"string\",\n      \"MaxSupply\": 5194.507163017407,\n      \"Type\": 4110,\n      \"DocumentType\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68930bc7-cc58-4b47-9e11-582c67a06c0e",
+          "name": "Get All Exchanges and Trading Pairs",
+          "request": {
+            "name": "Get All Exchanges and Trading Pairs",
+            "description": {
+              "content": "Returns the full list of integrated exchanges and the trading pairs each exchange currently exposes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "all",
+                "exchanges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd76cd08-b7d3-4030-9226-e704895587d6",
+              "name": "Map of exchange name to traded pairs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all",
+                    "exchanges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"key_1\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"key_2\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd19c7cb-9aef-4080-bb9b-15db82a870c9",
+          "name": "Get Exchanges General Info",
+          "request": {
+            "name": "Get Exchanges General Info",
+            "description": {
+              "content": "Returns descriptive metadata, ranking grade, country, URL, and feature flags for every integrated exchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "exchanges",
+                "general"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8965a4cd-c2ec-40f4-b686-c92aff2ecb52",
+              "name": "Exchange general info envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "exchanges",
+                    "general"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 9151,\n  \"Data\": {\n    \"key_0\": {\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Url\": \"string\",\n      \"LogoUrl\": \"string\",\n      \"ItemType\": [\n        \"string\",\n        \"string\"\n      ],\n      \"CentralizationType\": \"string\",\n      \"InternalName\": \"string\",\n      \"GradePoints\": 2668.1971514980883,\n      \"Grade\": \"string\",\n      \"GradePointsSplit\": {},\n      \"AffiliateURL\": \"string\",\n      \"Country\": \"string\",\n      \"OrderBook\": true,\n      \"Trades\": true,\n      \"Description\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5fca5460-431a-44c8-935f-f1d88c58ac5f",
+    "name": "CoinDesk Data API (CCData) Asset Exchanges API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

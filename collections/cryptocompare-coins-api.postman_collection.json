@@ -1,0 +1,137 @@
+{
+  "item": [
+    {
+      "id": "4289ccae-8d17-45d0-a93d-705f60904689",
+      "name": "Coins",
+      "description": {
+        "content": "General coin listing, mapping, and reference metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6959b7bb-197e-4157-8ddd-e010f82a2bf9",
+          "name": "Get All Coins List",
+          "request": {
+            "name": "Get All Coins List",
+            "description": {
+              "content": "Returns the complete CryptoCompare coin list with mapping, image URLs, algorithm, proof type, supply data, and CCData taxonomy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "all",
+                "coinlist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "summary",
+                  "value": "<boolean>",
+                  "description": "When true, returns a slimmer payload without descriptions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9bc6b534-480b-4e42-9c43-1c8e58221254",
+              "name": "Coin list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all",
+                    "coinlist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "summary",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Response\": \"string\",\n  \"Message\": \"string\",\n  \"Type\": 1129,\n  \"Data\": {\n    \"key_0\": {\n      \"Id\": \"string\",\n      \"Url\": \"string\",\n      \"ImageUrl\": \"string\",\n      \"ContentCreatedOn\": 4753,\n      \"Name\": \"string\",\n      \"Symbol\": \"string\",\n      \"CoinName\": \"string\",\n      \"FullName\": \"string\",\n      \"Description\": \"string\",\n      \"AssetTokenStatus\": \"string\",\n      \"Algorithm\": \"string\",\n      \"ProofType\": \"string\",\n      \"SortOrder\": \"string\",\n      \"Sponsored\": false,\n      \"Taxonomy\": {},\n      \"Rating\": {},\n      \"IsTrading\": true\n    },\n    \"key_1\": {\n      \"Id\": \"string\",\n      \"Url\": \"string\",\n      \"ImageUrl\": \"string\",\n      \"ContentCreatedOn\": 118,\n      \"Name\": \"string\",\n      \"Symbol\": \"string\",\n      \"CoinName\": \"string\",\n      \"FullName\": \"string\",\n      \"Description\": \"string\",\n      \"AssetTokenStatus\": \"string\",\n      \"Algorithm\": \"string\",\n      \"ProofType\": \"string\",\n      \"SortOrder\": \"string\",\n      \"Sponsored\": false,\n      \"Taxonomy\": {},\n      \"Rating\": {},\n      \"IsTrading\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "80993b09-d6a5-49d3-8c7a-6059bd6f4959",
+    "name": "CoinDesk Data API (CCData) Asset Coins API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Asset",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Asset Top List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/asset/v1/top/list",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to return."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-indexed)."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort field (CIRCULATING_MKT_CAP_USD, TOTAL_MKT_CAP_USD, SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD)."
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction (ASC or DESC)."
+              }
+            ]
+          },
+          "docs": "Returns the top assets ranked by selected metric (market cap, volume). Supports pagination."
+        },
+        {
+          "info": {
+            "name": "Get Asset by Symbol",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/asset/v1/data/by/symbol",
+            "params": [
+              {
+                "name": "asset_symbol",
+                "value": "",
+                "type": "query",
+                "description": "Asset symbol (e.g. BTC)."
+              },
+              {
+                "name": "asset_lookup_priority",
+                "value": "",
+                "type": "query",
+                "description": "Asset lookup priority (SYMBOL or ID)."
+              }
+            ]
+          },
+          "docs": "Returns detailed asset metadata including supply, classifications, consensus mechanism, social and source links for a single asset."
+        },
+        {
+          "info": {
+            "name": "Get Asset Historical Supply Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/asset/v1/historical/supply/days",
+            "params": [
+              {
+                "name": "asset",
+                "value": "",
+                "type": "query",
+                "description": "Asset symbol or ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp in seconds."
+              }
+            ]
+          },
+          "docs": "Returns daily history of asset supply (circulating, total, max)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

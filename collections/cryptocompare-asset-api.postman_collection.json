@@ -1,0 +1,389 @@
+{
+  "item": [
+    {
+      "id": "95a27878-0129-4273-938d-ae65f804df1f",
+      "name": "Asset",
+      "description": {
+        "content": "Asset metadata, overview, supply, and reference data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5f55d529-3376-4995-9ff7-1df9614af613",
+          "name": "Get Asset Top List",
+          "request": {
+            "name": "Get Asset Top List",
+            "description": {
+              "content": "Returns the top assets ranked by selected metric (market cap, volume). Supports pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset",
+                "v1",
+                "top",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of rows to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-indexed)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort field (CIRCULATING_MKT_CAP_USD, TOTAL_MKT_CAP_USD, SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "<string>",
+                  "description": "Sort direction (ASC or DESC)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a07a84b-c522-43a8-bf7a-85f2730826e8",
+              "name": "Top asset list envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset",
+                    "v1",
+                    "top",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"STATS\": {},\n    \"LIST\": [\n      {\n        \"ID\": 1344,\n        \"SYMBOL\": \"string\",\n        \"ASSET_TYPE\": \"string\",\n        \"NAME\": \"string\",\n        \"LOGO_URL\": \"string\",\n        \"LAUNCH_DATE\": 8251,\n        \"CIRCULATING_MKT_CAP_USD\": 6503.361793085252,\n        \"TOTAL_MKT_CAP_USD\": 9258.481126561166,\n        \"SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD\": 5364.191676686737,\n        \"PRICE_USD\": 4051.522007094741,\n        \"SUPPLY_CIRCULATING\": 1613.9968211715006,\n        \"SUPPLY_MAX\": 3908.950114796921\n      },\n      {\n        \"ID\": 8993,\n        \"SYMBOL\": \"string\",\n        \"ASSET_TYPE\": \"string\",\n        \"NAME\": \"string\",\n        \"LOGO_URL\": \"string\",\n        \"LAUNCH_DATE\": 8550,\n        \"CIRCULATING_MKT_CAP_USD\": 6149.00565462294,\n        \"TOTAL_MKT_CAP_USD\": 8470.520455763695,\n        \"SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD\": 481.62242501551543,\n        \"PRICE_USD\": 5039.2377278591575,\n        \"SUPPLY_CIRCULATING\": 7343.4959606466855,\n        \"SUPPLY_MAX\": 6941.291268818692\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "115287b6-16a5-4d49-9b54-8b5bd4ae6b30",
+          "name": "Get Asset by Symbol",
+          "request": {
+            "name": "Get Asset by Symbol",
+            "description": {
+              "content": "Returns detailed asset metadata including supply, classifications, consensus mechanism, social and source links for a single asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset",
+                "v1",
+                "data",
+                "by",
+                "symbol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset_symbol",
+                  "value": "<string>",
+                  "description": "(Required) Asset symbol (e.g. BTC)."
+                },
+                {
+                  "disabled": false,
+                  "key": "asset_lookup_priority",
+                  "value": "SYMBOL",
+                  "description": "Asset lookup priority (SYMBOL or ID)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50ddd561-a3c7-40de-9943-6744fc83c50f",
+              "name": "Asset detail envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset",
+                    "v1",
+                    "data",
+                    "by",
+                    "symbol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset_symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_lookup_priority",
+                      "value": "SYMBOL"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"ID\": 6181,\n    \"SYMBOL\": \"string\",\n    \"ASSET_TYPE\": \"string\",\n    \"NAME\": \"string\",\n    \"LOGO_URL\": \"string\",\n    \"LAUNCH_DATE\": 7887,\n    \"DESCRIPTION\": \"string\",\n    \"SUPPLY_MAX\": 6946.6158592647,\n    \"SUPPLY_TOTAL\": 911.3462040641784,\n    \"SUPPLY_CIRCULATING\": 3904.445289829881,\n    \"SUPPLY_STAKED\": 771.1675186710065\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea67a6a1-36f5-4df7-a641-bee701df6407",
+          "name": "Get Asset Historical Supply Daily",
+          "request": {
+            "name": "Get Asset Historical Supply Daily",
+            "description": {
+              "content": "Returns daily history of asset supply (circulating, total, max).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset",
+                "v1",
+                "historical",
+                "supply",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset",
+                  "value": "<string>",
+                  "description": "(Required) Asset symbol or ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91df5ce5-4e9d-4be1-a67b-483496aab5ad",
+              "name": "Daily supply history envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset",
+                    "v1",
+                    "historical",
+                    "supply",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"TIMESTAMP\": 1345,\n      \"ASSET_SYMBOL\": \"string\",\n      \"SUPPLY_CIRCULATING\": 7463.075198100776,\n      \"SUPPLY_TOTAL\": 1814.2105048833123,\n      \"SUPPLY_MAX\": 9632.850248522416,\n      \"SUPPLY_STAKED\": 9026.620230663615\n    },\n    {\n      \"TIMESTAMP\": 7676,\n      \"ASSET_SYMBOL\": \"string\",\n      \"SUPPLY_CIRCULATING\": 3472.606681192103,\n      \"SUPPLY_TOTAL\": 8670.089663273724,\n      \"SUPPLY_MAX\": 1943.5128359583675,\n      \"SUPPLY_STAKED\": 5372.962365928167\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "80496ce9-64c0-4b6a-adfc-17a93f094a71",
+    "name": "CoinDesk Data API (CCData) Asset API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

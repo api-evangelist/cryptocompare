@@ -21,18 +21,14 @@ authentication:
   token_endpoint: https://mcp.coindesk.com/token
   registration_endpoint: https://mcp.coindesk.com/register
   resource_metadata: https://mcp.coindesk.com/.well-known/oauth-protected-resource
-  note: >-
-    OAuth 2.0 with PKCE and dynamic client registration wraps the underlying CoinDesk
-    Data API key: on first connection the user supplies their API key from the
-    developers.coindesk.com dashboard, which the server stores encrypted.
-    scopes_supported is empty — there is no scope surface.
+  note: 'OAuth 2.0 with PKCE and dynamic client registration wraps the underlying CoinDesk Data API key:
+    on first connection the user supplies their API key from the developers.coindesk.com dashboard, which
+    the server stores encrypted. scopes_supported is empty — there is no scope surface.'
 introspection:
   tools_list_status: 401
-  note: >-
-    POST tools/list returns HTTP 401 "no bearer token" with a WWW-Authenticate
-    Bearer resource_metadata challenge — live inputSchemas require authenticated
-    introspection. The tool list below is the published list from
-    https://mcp.coindesk.com/ (names only; schemas gated).
+  note: POST tools/list returns HTTP 401 "no bearer token" with a WWW-Authenticate Bearer resource_metadata
+    challenge — live inputSchemas require authenticated introspection. The tool list below is the published
+    list from https://mcp.coindesk.com/ (names only; schemas gated).
 tools:
   spot_and_index:
   - fetch_spot_instruments
@@ -79,3 +75,10 @@ tools:
   - fetch_onchain_dex_ohlcv
   - fetch_onchain_historical_supply
 tool_count: 39
+deployment:
+  mode: remote
+  endpoint: https://mcp.coindesk.com/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census

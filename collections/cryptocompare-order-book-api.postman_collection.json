@@ -1,0 +1,161 @@
+{
+  "item": [
+    {
+      "id": "1b0d13f4-c236-47a6-ab64-0e257ff6bfd0",
+      "name": "Order Book",
+      "description": {
+        "content": "Top-of-book order book data across integrated exchanges.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f84c8828-1f5f-4a61-ba0a-bdfdd65e8bde",
+          "name": "Get Order Book Top of Book",
+          "request": {
+            "name": "Get Order Book Top of Book",
+            "description": {
+              "content": "Returns the top of the order book (best bid and ask) for one or more pairs across one or more exchanges. Requires an API key on most tiers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ob",
+                "l1",
+                "top"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fsyms",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH."
+                },
+                {
+                  "disabled": false,
+                  "key": "tsyms",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated to-symbols (target currencies), e.g. USD,EUR."
+                },
+                {
+                  "disabled": false,
+                  "key": "e",
+                  "value": "<string>",
+                  "description": "Comma-separated list of exchanges."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df2bd0a9-fba3-4635-83da-98cf615861aa",
+              "name": "Top-of-book envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ob",
+                    "l1",
+                    "top"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tsyms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "e",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Type\": 1989,\n  \"Data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e1a274ce-d938-4fcf-8fe7-9b800d603ba9",
+    "name": "CoinDesk Data API (CCData) Asset Order Book API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}

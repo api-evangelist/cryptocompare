@@ -1,0 +1,211 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset News API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "News",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get News Article List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/v1/article/list",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "ISO 639-1 language code (default EN)."
+              },
+              {
+                "name": "source_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of source IDs."
+              },
+              {
+                "name": "source_key",
+                "value": "",
+                "type": "query",
+                "description": "Source key (e.g. coindesk)."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of category keys."
+              },
+              {
+                "name": "exclude_categories",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of category keys to exclude."
+              },
+              {
+                "name": "search_string",
+                "value": "",
+                "type": "query",
+                "description": "Full-text search query."
+              },
+              {
+                "name": "to_ts",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound timestamp (seconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of data points to return."
+              }
+            ]
+          },
+          "docs": "Returns the most recent news articles aggregated across integrated sources. Supports filtering by language, source, category, search keyword, and timestamp."
+        },
+        {
+          "info": {
+            "name": "Get News Source List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/v1/source/list",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Filter sources by language."
+              },
+              {
+                "name": "source_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter sources by type (RSS, TWITTER, API)."
+              }
+            ]
+          },
+          "docs": "Returns the list of integrated news sources."
+        },
+        {
+          "info": {
+            "name": "Get News Category List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/v1/category/list"
+          },
+          "docs": "Returns the list of news categories used for tagging articles."
+        },
+        {
+          "info": {
+            "name": "Get Latest News Articles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/v2/news/",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "ISO 639-1 language code. Defaults to EN."
+              },
+              {
+                "name": "feeds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of source feed keys."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of category keys."
+              },
+              {
+                "name": "excludeCategories",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of categories to exclude."
+              },
+              {
+                "name": "lTs",
+                "value": "",
+                "type": "query",
+                "description": "Latest timestamp (seconds) to return articles before."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, latest or popular."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of articles to return (default 50)."
+              }
+            ]
+          },
+          "docs": "Returns the most recent cryptocurrency news articles aggregated from every integrated source. Filterable by language, source, and category."
+        },
+        {
+          "info": {
+            "name": "Get News Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/feeds"
+          },
+          "docs": "Returns the list of news source feeds available for filtering."
+        },
+        {
+          "info": {
+            "name": "Get News Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/categories"
+          },
+          "docs": "Returns the list of news categories used for tagging articles."
+        },
+        {
+          "info": {
+            "name": "Get News Feeds and Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/news/feedsandcategories"
+          },
+          "docs": "Returns both available source feeds and categories in a single call."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

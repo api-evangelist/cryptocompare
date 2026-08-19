@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CoinDesk Data API (CCData) Asset Options API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Options",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Options Latest Tick",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data-api.cryptocompare.com/options/v1/latest/tick",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+              },
+              {
+                "name": "instruments",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+              }
+            ]
+          },
+          "docs": "Returns the latest tick for options instruments on a derivatives market."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

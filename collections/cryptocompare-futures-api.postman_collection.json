@@ -1,0 +1,273 @@
+{
+  "item": [
+    {
+      "id": "922f206a-9ec4-4ce1-80fa-a1afef31841d",
+      "name": "Futures",
+      "description": {
+        "content": "Futures market data across integrated derivatives venues.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "25df8043-3dca-4961-beac-1307f4c2c201",
+          "name": "Get Futures Latest Tick",
+          "request": {
+            "name": "Get Futures Latest Tick",
+            "description": {
+              "content": "Returns the latest tick for futures instruments on a derivatives market.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "futures",
+                "v1",
+                "latest",
+                "tick"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instruments",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e646cab8-39d0-4880-83e7-5990d5b904b1",
+              "name": "Futures tick envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "futures",
+                    "v1",
+                    "latest",
+                    "tick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instruments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"key_0\": {\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    },\n    \"key_1\": {\n      \"key_0\": false,\n      \"key_1\": 76.80743802918278\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd68fd7a-8498-4c45-9e41-de4dbacfa401",
+          "name": "Get Futures Historical Daily OHLCV",
+          "request": {
+            "name": "Get Futures Historical Daily OHLCV",
+            "description": {
+              "content": "Returns daily OHLCV for a futures instrument.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "futures",
+                "v1",
+                "historical",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix)."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<string>",
+                  "description": "(Required) Single instrument identifier (e.g. BTC-USD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of data points to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_ts",
+                  "value": "<long>",
+                  "description": "Upper bound timestamp in seconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b0b9b5d-4a5d-4c7d-8aa8-e510a2e4b61a",
+              "name": "Daily futures OHLCV envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "futures",
+                    "v1",
+                    "historical",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "to_ts",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": [\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 7368,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4063.0484338634196,\n      \"HIGH\": 9495.585440074066,\n      \"LOW\": 8110.410262190987,\n      \"CLOSE\": 5102.917347868913,\n      \"FIRST_TRADE_TIMESTAMP\": 1493,\n      \"LAST_TRADE_TIMESTAMP\": 3978,\n      \"FIRST_TRADE_PRICE\": 9862.549663327873,\n      \"HIGH_TRADE_PRICE\": 6656.244936461816,\n      \"LOW_TRADE_PRICE\": 3922.9414262294727,\n      \"LAST_TRADE_PRICE\": 6773.35811842656,\n      \"VOLUME\": 1365.4348380714432,\n      \"QUOTE_VOLUME\": 4138.664885920016,\n      \"VOLUME_BUY\": 3890.914400621256,\n      \"QUOTE_VOLUME_BUY\": 3240.4200425142003,\n      \"VOLUME_SELL\": 497.1327005989312,\n      \"QUOTE_VOLUME_SELL\": 2610.6289296701525,\n      \"TOTAL_TRADES\": 9089,\n      \"TOTAL_TRADES_BUY\": 8680,\n      \"TOTAL_TRADES_SELL\": 5630,\n      \"TOTAL_TRADES_UNKNOWN\": 6510\n    },\n    {\n      \"UNIT\": \"HOUR\",\n      \"TIMESTAMP\": 2725,\n      \"TYPE\": \"string\",\n      \"MARKET\": \"string\",\n      \"INSTRUMENT\": \"string\",\n      \"MAPPED_INSTRUMENT\": \"string\",\n      \"BASE\": \"string\",\n      \"QUOTE\": \"string\",\n      \"OPEN\": 4219.326621189984,\n      \"HIGH\": 4539.582703693,\n      \"LOW\": 3242.7047703785915,\n      \"CLOSE\": 4850.041018952441,\n      \"FIRST_TRADE_TIMESTAMP\": 8860,\n      \"LAST_TRADE_TIMESTAMP\": 4639,\n      \"FIRST_TRADE_PRICE\": 839.0163028418896,\n      \"HIGH_TRADE_PRICE\": 9189.13559169223,\n      \"LOW_TRADE_PRICE\": 5846.823646875995,\n      \"LAST_TRADE_PRICE\": 4588.299501043537,\n      \"VOLUME\": 2562.5430457259213,\n      \"QUOTE_VOLUME\": 8163.151727423009,\n      \"VOLUME_BUY\": 6017.855282195193,\n      \"QUOTE_VOLUME_BUY\": 2456.4665766101125,\n      \"VOLUME_SELL\": 1844.0223061604377,\n      \"QUOTE_VOLUME_SELL\": 1275.0932971778373,\n      \"TOTAL_TRADES\": 2975,\n      \"TOTAL_TRADES_BUY\": 4105,\n      \"TOTAL_TRADES_SELL\": 6942,\n      \"TOTAL_TRADES_UNKNOWN\": 3363\n    }\n  ],\n  \"Err\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data-api.cryptocompare.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a56d8142-cdce-4a62-91bf-50ad46d88a9d",
+    "name": "CoinDesk Data API (CCData) Asset Futures API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.\n\nContact Support:\n Name: CoinDesk Data Support\n Email: data@cryptocompare.com",
+      "type": "text/plain"
+    }
+  }
+}
