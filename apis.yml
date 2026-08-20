@@ -8,6 +8,17 @@ tags:
 - News
 - Social
 - Blockchain
+- Onchain
+- Order Book
+- Streaming
+- Index
+tags_raw:
+- Cryptocurrency
+- Market Data
+- Reference Rates
+- News
+- Social
+- Blockchain
 - On-Chain
 - Order Book
 - Streaming
@@ -532,6 +543,8 @@ apis:
   humanURL: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
   baseURL: https://min-api.cryptocompare.com/data
   tags:
+  - Onchain
+  tags_raw:
   - On-Chain
   properties:
   - type: OpenAPI
