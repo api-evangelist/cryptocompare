@@ -13,8 +13,14 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: cryptocompareMinApi
-  url: ../openapi/_original/cryptocompare-min-api-openapi.yml
+- name: coinsApi
+  url: ../openapi/cryptocompare-coins-api-openapi.yml
+  type: openapi
+- name: historicalApi
+  url: ../openapi/cryptocompare-historical-api-openapi.yml
+  type: openapi
+- name: priceApi
+  url: ../openapi/cryptocompare-price-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: coin-price-snapshot

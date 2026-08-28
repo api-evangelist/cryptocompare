@@ -12,8 +12,8 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: cryptocompareMinApi
-  url: ../openapi/_original/cryptocompare-min-api-openapi.yml
+- name: newsApi
+  url: ../openapi/cryptocompare-news-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: news-feed-filter

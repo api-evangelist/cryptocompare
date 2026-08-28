@@ -12,8 +12,11 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: cryptocompareMinApi
-  url: ../openapi/_original/cryptocompare-min-api-openapi.yml
+- name: priceApi
+  url: ../openapi/cryptocompare-price-api-openapi.yml
+  type: openapi
+- name: socialApi
+  url: ../openapi/cryptocompare-social-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: coin-social-pulse
