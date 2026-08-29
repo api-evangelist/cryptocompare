@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: CoinDesk Data API (CCData) Asset API
   description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
@@ -110,21 +110,6 @@ components:
       schema:
         type: integer
         default: 1
-    LimitTopParam:
-      name: limit
-      in: query
-      description: Number of rows to return.
-      schema:
-        type: integer
-        default: 50
-        maximum: 100
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
     LimitParam:
       name: limit
       in: query
@@ -133,28 +118,22 @@ components:
         type: integer
         default: 30
         maximum: 2000
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return.
+      schema:
+        type: integer
+        default: 50
+        maximum: 100
   schemas:
-    AssetSupplyHistoryResponse:
-      type: object
-      properties:
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              TIMESTAMP:
-                type: integer
-                format: int64
-              ASSET_SYMBOL:
-                type: string
-              SUPPLY_CIRCULATING:
-                type: number
-              SUPPLY_TOTAL:
-                type: number
-              SUPPLY_MAX:
-                type: number
-              SUPPLY_STAKED:
-                type: number
     AssetTopListResponse:
       type: object
       properties:
@@ -167,34 +146,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/AssetSummary'
-    AssetSummary:
-      type: object
-      properties:
-        ID:
-          type: integer
-        SYMBOL:
-          type: string
-        ASSET_TYPE:
-          type: string
-        NAME:
-          type: string
-        LOGO_URL:
-          type: string
-        LAUNCH_DATE:
-          type: integer
-          format: int64
-        CIRCULATING_MKT_CAP_USD:
-          type: number
-        TOTAL_MKT_CAP_USD:
-          type: number
-        SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD:
-          type: number
-        PRICE_USD:
-          type: number
-        SUPPLY_CIRCULATING:
-          type: number
-        SUPPLY_MAX:
-          type: number
     AssetDataResponse:
       type: object
       properties:
@@ -244,6 +195,55 @@ components:
               type: array
               items:
                 type: object
+    AssetSupplyHistoryResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              ASSET_SYMBOL:
+                type: string
+              SUPPLY_CIRCULATING:
+                type: number
+              SUPPLY_TOTAL:
+                type: number
+              SUPPLY_MAX:
+                type: number
+              SUPPLY_STAKED:
+                type: number
+    AssetSummary:
+      type: object
+      properties:
+        ID:
+          type: integer
+        SYMBOL:
+          type: string
+        ASSET_TYPE:
+          type: string
+        NAME:
+          type: string
+        LOGO_URL:
+          type: string
+        LAUNCH_DATE:
+          type: integer
+          format: int64
+        CIRCULATING_MKT_CAP_USD:
+          type: number
+        TOTAL_MKT_CAP_USD:
+          type: number
+        SPOT_MOVING_24_HOUR_QUOTE_VOLUME_USD:
+          type: number
+        PRICE_USD:
+          type: number
+        SUPPLY_CIRCULATING:
+          type: number
+        SUPPLY_MAX:
+          type: number
   securitySchemes:
     apiKeyQuery:
       type: apiKey

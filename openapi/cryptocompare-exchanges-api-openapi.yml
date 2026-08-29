@@ -1,18 +1,18 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CoinDesk Data API (CCData) Asset Exchanges API
-  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  title: CryptoCompare min-api (Legacy) Exchanges API
+  description: The CryptoCompare min-api (now CoinDesk Data Legacy API) provides cryptocurrency market data including current and historical prices, OHLCV candles (minute/hour/day), top lists by volume and market cap, news, social statistics, order book data, blockchain data, and exchange information. The REST API is available at https://min-api.cryptocompare.com/data and supports authenticated access via an API key passed either as the api_key query parameter or in the Authorization header. Free-tier traffic is metered in monthly call credits; paid commercial tiers expand the monthly budget and enable additional endpoints such as news, social, blockchain, top lists, and order book.
   version: '1.0'
   contact:
-    name: CoinDesk Data Support
+    name: CryptoCompare / CoinDesk Data Support
     url: https://developers.coindesk.com/support
     email: data@cryptocompare.com
-  termsOfService: https://data.coindesk.com/terms
+  termsOfService: https://www.cryptocompare.com/api/
   license:
-    name: CoinDesk Data API Terms
-    url: https://data.coindesk.com/terms
+    name: CryptoCompare API Terms
+    url: https://www.cryptocompare.com/api/
 servers:
-- url: https://data-api.cryptocompare.com
+- url: https://min-api.cryptocompare.com/data
   description: Production Server
 security:
 - apiKeyQuery: []
@@ -87,6 +87,20 @@ paths:
                 $ref: '#/components/schemas/ExchangesGeneralResponse'
 components:
   parameters:
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
     LimitTopParam:
       name: limit
       in: query
@@ -95,39 +109,7 @@ components:
         type: integer
         default: 10
         maximum: 100
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
-    TsymParam:
-      name: tsym
-      in: query
-      required: true
-      description: To-symbol (target currency), e.g. USD.
-      schema:
-        type: string
   schemas:
-    TopExchangesFullResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          properties:
-            CoinInfo:
-              $ref: '#/components/schemas/CoinInfo'
-            Exchanges:
-              type: array
-              items:
-                type: object
     ExchangesGeneralResponse:
       type: object
       properties:
@@ -183,6 +165,48 @@ components:
           type: array
           items:
             type: string
+    TopExchangesFullResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            CoinInfo:
+              $ref: '#/components/schemas/CoinInfo'
+            Exchanges:
+              type: array
+              items:
+                type: object
+    TopExchangesResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              exchange:
+                type: string
+              fromSymbol:
+                type: string
+              toSymbol:
+                type: string
+              volume24h:
+                type: number
+              volume24hTo:
+                type: number
     CoinInfo:
       type: object
       properties:
@@ -220,41 +244,17 @@ components:
           type: integer
         DocumentType:
           type: string
-    TopExchangesResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              exchange:
-                type: string
-              fromSymbol:
-                type: string
-              toSymbol:
-                type: string
-              volume24h:
-                type: number
-              volume24hTo:
-                type: number
   securitySchemes:
     apiKeyQuery:
       type: apiKey
       name: api_key
       in: query
-      description: API key supplied as the api_key query parameter.
+      description: CryptoCompare API key supplied as the api_key query parameter.
     apiKeyHeader:
       type: apiKey
       name: Authorization
       in: header
-      description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
+      description: 'CryptoCompare API key supplied as `Authorization: Apikey {apiKey}`.'
 externalDocs:
-  description: CoinDesk Data API Documentation
-  url: https://developers.coindesk.com/documentation/data-api/introduction
+  description: CoinDesk Data Legacy API Documentation
+  url: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint

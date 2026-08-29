@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CoinDesk Data API (CCData) Asset Index API
+  title: CoinDesk Data API (CCData) Index API
   description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
   version: '1.0'
   contact:
@@ -114,85 +114,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/IndexCompositionResponse'
 components:
-  parameters:
-    InstrumentsParam:
-      name: instruments
-      in: query
-      required: true
-      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
-      schema:
-        type: string
-    GroupsParam:
-      name: groups
-      in: query
-      description: Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME).
-      schema:
-        type: string
-    InstrumentParam:
-      name: instrument
-      in: query
-      required: true
-      description: Single instrument identifier (e.g. BTC-USD).
-      schema:
-        type: string
-    IndexMarketParam:
-      name: market
-      in: query
-      required: true
-      description: Index family (cadli, ccix, ccixbe).
-      schema:
-        type: string
-        enum:
-        - cadli
-        - ccix
-        - ccixbe
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
   schemas:
-    IndexCompositionResponse:
+    IndexTickResponse:
       type: object
       properties:
         Data:
           type: object
-          properties:
-            INSTRUMENT:
-              type: string
-            MARKET:
-              type: string
-            VALUE:
-              type: number
-            DIVISOR:
-              type: number
-            CONSTITUENTS:
-              type: array
-              items:
-                type: object
-                properties:
-                  ASSET:
-                    type: string
-                  PRICE:
-                    type: number
-                  SUPPLY:
-                    type: number
-                  ADJUSTMENT_FACTOR:
-                    type: number
-                  VOLUME:
-                    type: number
-                  WEIGHT:
-                    type: number
+          additionalProperties:
+            $ref: '#/components/schemas/IndexTick'
     IndexTick:
       type: object
       properties:
@@ -256,13 +185,6 @@ components:
             $ref: '#/components/schemas/HistoricalOHLCVRow'
         Err:
           type: object
-    IndexTickResponse:
-      type: object
-      properties:
-        Data:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/IndexTick'
     HistoricalOHLCVRow:
       type: object
       properties:
@@ -329,6 +251,84 @@ components:
           type: integer
         TOTAL_TRADES_UNKNOWN:
           type: integer
+    IndexCompositionResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            INSTRUMENT:
+              type: string
+            MARKET:
+              type: string
+            VALUE:
+              type: number
+            DIVISOR:
+              type: number
+            CONSTITUENTS:
+              type: array
+              items:
+                type: object
+                properties:
+                  ASSET:
+                    type: string
+                  PRICE:
+                    type: number
+                  SUPPLY:
+                    type: number
+                  ADJUSTMENT_FACTOR:
+                    type: number
+                  VOLUME:
+                    type: number
+                  WEIGHT:
+                    type: number
+  parameters:
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    InstrumentsParam:
+      name: instruments
+      in: query
+      required: true
+      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
+      schema:
+        type: string
+    IndexMarketParam:
+      name: market
+      in: query
+      required: true
+      description: Index family (cadli, ccix, ccixbe).
+      schema:
+        type: string
+        enum:
+        - cadli
+        - ccix
+        - ccixbe
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    InstrumentParam:
+      name: instrument
+      in: query
+      required: true
+      description: Single instrument identifier (e.g. BTC-USD).
+      schema:
+        type: string
+    GroupsParam:
+      name: groups
+      in: query
+      description: Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME).
+      schema:
+        type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey

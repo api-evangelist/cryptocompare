@@ -1,18 +1,12 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CoinDesk Data API (CCData) Asset News API
-  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  title: Cryptocompare News API
   version: '1.0'
-  contact:
-    name: CoinDesk Data Support
-    url: https://developers.coindesk.com/support
-    email: data@cryptocompare.com
-  termsOfService: https://data.coindesk.com/terms
-  license:
-    name: CoinDesk Data API Terms
-    url: https://data.coindesk.com/terms
+  description: 'Operations tagged News across 2 of this provider''s published API definitions: cryptocompare-data-api-openapi.yml, cryptocompare-min-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://data-api.cryptocompare.com
+  description: Production Server
+- url: https://min-api.cryptocompare.com/data
   description: Production Server
 security:
 - apiKeyQuery: []
@@ -74,6 +68,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewsArticleListResponse'
+    servers:
+    - url: https://data-api.cryptocompare.com
+      description: Production Server
   /news/v1/source/list:
     get:
       operationId: getNewsSourceList
@@ -99,6 +96,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewsSourceListResponse'
+    servers:
+    - url: https://data-api.cryptocompare.com
+      description: Production Server
   /news/v1/category/list:
     get:
       operationId: getNewsCategoryList
@@ -113,6 +113,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewsCategoryListResponse'
+    servers:
+    - url: https://data-api.cryptocompare.com
+      description: Production Server
   /v2/news/:
     get:
       operationId: getLatestNewsArticles
@@ -169,6 +172,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewsListResponse'
+    servers:
+    - url: https://min-api.cryptocompare.com/data
+      description: Production Server
   /news/feeds:
     get:
       operationId: getNewsSources
@@ -183,6 +189,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewsSourcesResponse'
+    servers:
+    - url: https://min-api.cryptocompare.com/data
+      description: Production Server
   /news/categories:
     get:
       operationId: getNewsCategories
@@ -197,6 +206,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewsCategoriesResponse'
+    servers:
+    - url: https://min-api.cryptocompare.com/data
+      description: Production Server
   /news/feedsandcategories:
     get:
       operationId: getNewsFeedsAndCategories
@@ -211,7 +223,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewsFeedsAndCategoriesResponse'
+    servers:
+    - url: https://min-api.cryptocompare.com/data
+      description: Production Server
 components:
+  parameters:
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
   schemas:
     NewsCategoryListResponse:
       type: object
@@ -229,95 +253,6 @@ components:
                 type: string
               CATEGORY:
                 type: string
-    NewsFeedsAndCategoriesResponse:
-      type: object
-      properties:
-        Type:
-          type: integer
-        Message:
-          type: string
-        Data:
-          type: object
-          properties:
-            Feeds:
-              type: array
-              items:
-                type: object
-            Categories:
-              type: array
-              items:
-                type: object
-    NewsCategoriesResponse:
-      type: object
-      properties:
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              categoryName:
-                type: string
-              wordsAssociatedWithCategory:
-                type: array
-                items:
-                  type: string
-    NewsListResponse:
-      type: object
-      properties:
-        Type:
-          type: integer
-        Message:
-          type: string
-        Promoted:
-          type: array
-          items:
-            type: object
-        Data:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewsArticle'
-    NewsSourceListResponse:
-      type: object
-      properties:
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              TYPE:
-                type: string
-              ID:
-                type: integer
-              SOURCE_KEY:
-                type: string
-              NAME:
-                type: string
-              URL:
-                type: string
-              LANG:
-                type: string
-              SOURCE_TYPE:
-                type: string
-              LAUNCH_DATE:
-                type: integer
-                format: int64
-              BENCHMARK_SCORE:
-                type: number
-              STATUS:
-                type: string
-    NewsArticleListResponse:
-      type: object
-      properties:
-        Data:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewsArticle'
-        Err:
-          type: object
     NewsArticle:
       type: object
       properties:
@@ -371,6 +306,44 @@ components:
           type: array
           items:
             type: object
+    NewsSourceListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              ID:
+                type: integer
+              SOURCE_KEY:
+                type: string
+              NAME:
+                type: string
+              URL:
+                type: string
+              LANG:
+                type: string
+              SOURCE_TYPE:
+                type: string
+              LAUNCH_DATE:
+                type: integer
+                format: int64
+              BENCHMARK_SCORE:
+                type: number
+              STATUS:
+                type: string
+    NewsArticleListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'
+        Err:
+          type: object
     NewsSourcesResponse:
       type: object
       properties:
@@ -391,15 +364,57 @@ components:
                 type: string
               img:
                 type: string
-  parameters:
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
+    NewsFeedsAndCategoriesResponse:
+      type: object
+      properties:
+        Type:
+          type: integer
+        Message:
+          type: string
+        Data:
+          type: object
+          properties:
+            Feeds:
+              type: array
+              items:
+                type: object
+            Categories:
+              type: array
+              items:
+                type: object
+    NewsListResponse:
+      type: object
+      properties:
+        Type:
+          type: integer
+        Message:
+          type: string
+        Promoted:
+          type: array
+          items:
+            type: object
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'
+    NewsCategoriesResponse:
+      type: object
+      properties:
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              categoryName:
+                type: string
+              wordsAssociatedWithCategory:
+                type: array
+                items:
+                  type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey
@@ -411,6 +426,6 @@ components:
       name: Authorization
       in: header
       description: 'API key supplied as `Authorization: Apikey {apiKey}`.'
-externalDocs:
-  description: CoinDesk Data API Documentation
-  url: https://developers.coindesk.com/documentation/data-api/introduction
+x-refined-from:
+- cryptocompare-data-api-openapi.yml
+- cryptocompare-min-api-openapi.yml

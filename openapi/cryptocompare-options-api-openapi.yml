@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CoinDesk Data API (CCData) Asset Options API
+  title: CoinDesk Data API (CCData) Options API
   description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
   version: '1.0'
   contact:
@@ -39,15 +39,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OptionsTickResponse'
 components:
-  schemas:
-    OptionsTickResponse:
-      type: object
-      properties:
-        Data:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties: true
   parameters:
     MarketParam:
       name: market
@@ -63,6 +54,15 @@ components:
       description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
       schema:
         type: string
+  schemas:
+    OptionsTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: true
   securitySchemes:
     apiKeyQuery:
       type: apiKey
