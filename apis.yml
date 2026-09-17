@@ -90,11 +90,12 @@ apis:
   - type: AsyncAPI
     url: asyncapi/cryptocompare-asyncapi.yml
   description: >-
-    Single secure WebSocket endpoint multiplexing every subscription via tilde-delimited subscription strings (e.g. 5~CCCAGG~BTC~USD).
-    Channel types: Trade (0), Ticker (2), Aggregate Index / CCCAGG (5), Order Book L2 update (8), Order Book L2 snapshot (9),
-    Full Volume (11), Top Tier Full Volume (21), OHLC Candles (24), and Top of Order Book (30). Control envelopes include
-    Welcome (20), SubscribeComplete (16), UnsubscribeComplete (17), LoadComplete (3), UnsubscribeAllComplete (18), Heartbeat
-    (999), Unauthorized (401), RateLimit (429), and ServerError (500).
+    Single secure WebSocket endpoint multiplexing every subscription via tilde-delimited subscription
+    strings (e.g. 5~CCCAGG~BTC~USD). Channel types: Trade (0), Ticker (2), Aggregate Index / CCCAGG (5),
+    Order Book L2 update (8), Order Book L2 snapshot (9), Full Volume (11), Top Tier Full Volume (21),
+    OHLC Candles (24), and Top of Order Book (30). Control envelopes include Welcome (20), SubscribeComplete
+    (16), UnsubscribeComplete (17), LoadComplete (3), UnsubscribeAllComplete (18), Heartbeat (999), Unauthorized
+    (401), RateLimit (429), and ServerError (500).
   x-features:
   - One socket multiplexes every channel and subscription
   - Wildcards (*) for enterprise bulk subscription
@@ -114,9 +115,9 @@ apis:
   - type: Documentation
     url: https://data.coindesk.com/research/exchange-benchmark
   description: >-
-    Quantitative ranking of integrated exchanges across Legal, KYC and Transaction Risk, Team, Data Provision, Asset Quality
-    and Diversity, Market Quality, Security, and Negative Reports Penalty. Grade points and per-criterion splits are surfaced
-    on the /exchanges/general endpoint of the min-api.
+    Quantitative ranking of integrated exchanges across Legal, KYC and Transaction Risk, Team, Data Provision,
+    Asset Quality and Diversity, Market Quality, Security, and Negative Reports Penalty. Grade points
+    and per-criterion splits are surfaced on the /exchanges/general endpoint of the min-api.
 - aid: cryptocompare:cryptocompare-asset-api
   name: CryptoCompare Asset API
   description: Asset metadata, overview, supply, and reference data.
@@ -659,60 +660,6 @@ apis:
     url: https://developers.coindesk.com/pricing/
   - type: Authentication
     url: https://developers.coindesk.com/documentation/data-api/introduction
-- aid: cryptocompare:cryptocompare-order-book-api
-  name: CryptoCompare Order Book API
-  description: Top-of-book order book data across integrated exchanges.
-  humanURL: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
-  baseURL: https://min-api.cryptocompare.com/data
-  tags:
-  - Order Book
-  properties:
-  - type: OpenAPI
-    url: openapi/cryptocompare-order-book-api-openapi.yml
-  - type: Overlay
-    url: overlays/cryptocompare-order-book-api-overlay.yaml
-  - type: Documentation
-    url: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
-  - type: JSONSchema
-    url: json-schema/cryptocompare-fullticker-schema.json
-  - type: JSONSchema
-    url: json-schema/cryptocompare-ohlcvcandle-schema.json
-  - type: JSONSchema
-    url: json-schema/cryptocompare-newsarticle-schema.json
-  - type: JSONSchema
-    url: json-schema/cryptocompare-coinlistentry-schema.json
-  - type: JSONSchema
-    url: json-schema/cryptocompare-exchange-schema.json
-  - type: JSONSchema
-    url: json-schema/cryptocompare-blockchaindatapoint-schema.json
-  - type: JSONSchema
-    url: json-schema/cryptocompare-socialstats-schema.json
-  - type: JSONSchema
-    url: json-schema/cryptocompare-orderbookl1-schema.json
-  - type: Examples
-    url: examples/cryptocompare-getSingleSymbolPrice-example.json
-  - type: Examples
-    url: examples/cryptocompare-getHistoricalDailyOHLCV-example.json
-  - type: Examples
-    url: examples/cryptocompare-getTopListByTotalVolumeFull-example.json
-  - type: Examples
-    url: examples/cryptocompare-getLatestNewsArticles-example.json
-  - type: Signup
-    url: https://www.cryptocompare.com/cryptopian/api-keys
-  - type: Authentication
-    url: https://min-api.cryptocompare.com/documentation
-  - type: Documentation
-    url: https://developers.coindesk.com/documentation/data-api/introduction
-  - type: JSONSchema
-    url: json-schema/cryptocompare-indextick-schema.json
-  - type: JSONSchema
-    url: json-schema/cryptocompare-asset-schema.json
-  - type: Examples
-    url: examples/cryptocompare-getIndexLatestTick-example.json
-  - type: Signup
-    url: https://developers.coindesk.com/pricing/
-  - type: Authentication
-    url: https://developers.coindesk.com/documentation/data-api/introduction
 - aid: cryptocompare:cryptocompare-overview-api
   name: CryptoCompare Overview API
   description: Cross-cutting overview endpoints (market cap, dominance).
@@ -877,7 +824,8 @@ apis:
     url: https://developers.coindesk.com/documentation/data-api/introduction
 - aid: cryptocompare:cryptocompare-spot-api
   name: CryptoCompare Spot API
-  description: Spot market data including latest tick, historical OHLCV, trades, order book L1, and instrument metadata.
+  description: >-
+    Spot market data including latest tick, historical OHLCV, trades, order book L1, and instrument metadata.
   humanURL: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
   baseURL: https://min-api.cryptocompare.com/data
   tags:
@@ -983,7 +931,61 @@ apis:
     url: https://developers.coindesk.com/pricing/
   - type: Authentication
     url: https://developers.coindesk.com/documentation/data-api/introduction
+- aid: cryptocompare:cryptocompare-orderbook-api
+  name: CryptoCompare Orderbook API
+  description: Top-of-book order book data across integrated exchanges.
+  humanURL: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
+  baseURL: wss://streamer.cryptocompare.com/v2
+  tags:
+  - Orderbook
+  properties:
+  - type: OpenAPI
+    url: openapi/cryptocompare-orderbook-api-openapi.yml
+  - type: Documentation
+    url: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
+  - type: JSONSchema
+    url: json-schema/cryptocompare-fullticker-schema.json
+  - type: JSONSchema
+    url: json-schema/cryptocompare-ohlcvcandle-schema.json
+  - type: JSONSchema
+    url: json-schema/cryptocompare-newsarticle-schema.json
+  - type: JSONSchema
+    url: json-schema/cryptocompare-coinlistentry-schema.json
+  - type: JSONSchema
+    url: json-schema/cryptocompare-exchange-schema.json
+  - type: JSONSchema
+    url: json-schema/cryptocompare-blockchaindatapoint-schema.json
+  - type: JSONSchema
+    url: json-schema/cryptocompare-socialstats-schema.json
+  - type: JSONSchema
+    url: json-schema/cryptocompare-orderbookl1-schema.json
+  - type: Examples
+    url: examples/cryptocompare-getSingleSymbolPrice-example.json
+  - type: Examples
+    url: examples/cryptocompare-getHistoricalDailyOHLCV-example.json
+  - type: Examples
+    url: examples/cryptocompare-getTopListByTotalVolumeFull-example.json
+  - type: Examples
+    url: examples/cryptocompare-getLatestNewsArticles-example.json
+  - type: Signup
+    url: https://www.cryptocompare.com/cryptopian/api-keys
+  - type: Authentication
+    url: https://min-api.cryptocompare.com/documentation
+  - type: Documentation
+    url: https://developers.coindesk.com/documentation/data-api/introduction
+  - type: JSONSchema
+    url: json-schema/cryptocompare-indextick-schema.json
+  - type: JSONSchema
+    url: json-schema/cryptocompare-asset-schema.json
+  - type: Examples
+    url: examples/cryptocompare-getIndexLatestTick-example.json
+  - type: Signup
+    url: https://developers.coindesk.com/pricing/
+  - type: Authentication
+    url: https://developers.coindesk.com/documentation/data-api/introduction
 common:
+- type: Overlay
+  url: overlays/cryptocompare-order-book-api-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/cryptocompare-agentic-access.yml
 - type: DomainSecurity
