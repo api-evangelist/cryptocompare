@@ -286,6 +286,8 @@ apis:
   humanURL: https://developers.coindesk.com/documentation/legacy/Price/SingleSymbolPriceEndpoint
   baseURL: https://min-api.cryptocompare.com/data
   tags:
+  - Exchange
+  tags_raw:
   - Exchanges
   properties:
   - type: OpenAPI
@@ -937,6 +939,8 @@ apis:
   humanURL: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
   baseURL: wss://streamer.cryptocompare.com/v2
   tags:
+  - Order Book
+  tags_raw:
   - Orderbook
   properties:
   - type: OpenAPI
