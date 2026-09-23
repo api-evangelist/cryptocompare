@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: CoinDesk Data API (CCData) On Chain API
-  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  description: The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api.
   version: '1.0'
   contact:
     name: CoinDesk Data Support
@@ -18,7 +18,7 @@ security:
 - apiKeyQuery: []
 - apiKeyHeader: []
 tags:
-- name: On-Chain
+- name: On Chain
   description: On-chain blockchain metrics aggregated across chains.
 paths:
   /onchain/v1/historical/supply/days:
@@ -27,7 +27,7 @@ paths:
       summary: Get On-Chain Historical Supply Daily
       description: Returns daily on-chain supply history (active, circulating, total) for a given chain.
       tags:
-      - On-Chain
+      - On Chain
       parameters:
       - name: chain_symbol
         in: query
@@ -50,7 +50,7 @@ paths:
       summary: Get On-Chain Historical Active Addresses Daily
       description: Returns daily active address counts for a given chain.
       tags:
-      - On-Chain
+      - On Chain
       parameters:
       - name: chain_symbol
         in: query
@@ -67,22 +67,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OnchainMetricResponse'
 components:
-  parameters:
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
   schemas:
     OnchainMetricResponse:
       type: object
@@ -113,6 +97,22 @@ components:
                 type: number
               SUPPLY_LOCKED:
                 type: number
+  parameters:
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey

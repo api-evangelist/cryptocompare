@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: CryptoCompare min-api (Legacy) Price API
-  description: The CryptoCompare min-api (now CoinDesk Data Legacy API) provides cryptocurrency market data including current and historical prices, OHLCV candles (minute/hour/day), top lists by volume and market cap, news, social statistics, order book data, blockchain data, and exchange information. The REST API is available at https://min-api.cryptocompare.com/data and supports authenticated access via an API key passed either as the api_key query parameter or in the Authorization header. Free-tier traffic is metered in monthly call credits; paid commercial tiers expand the monthly budget and enable additional endpoints such as news, social, blockchain, top lists, and order book.
+  description: The CryptoCompare min-api (now CoinDesk Data Legacy API) provides cryptocurrency market data including current and historical prices, OHLCV candles (minute/hour/day), top lists by volume and market cap, news, social statistics, order book data, blockchain data, and exchange information.
   version: '1.0'
   contact:
     name: CryptoCompare / CoinDesk Data Support
@@ -132,11 +132,18 @@ paths:
                 $ref: '#/components/schemas/HistoricalPriceMap'
 components:
   parameters:
-    TsymParam:
-      name: tsym
+    EParam:
+      name: e
+      in: query
+      description: Source exchange (default CCCAGG aggregate index).
+      schema:
+        type: string
+        default: CCCAGG
+    FsymsParam:
+      name: fsyms
       in: query
       required: true
-      description: To-symbol (target currency), e.g. USD.
+      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
       schema:
         type: string
     FsymParam:
@@ -146,13 +153,6 @@ components:
       description: From-symbol (base cryptocurrency symbol), e.g. BTC.
       schema:
         type: string
-    TsymsParam:
-      name: tsyms
-      in: query
-      required: true
-      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
-      schema:
-        type: string
     TryConversionParam:
       name: tryConversion
       in: query
@@ -160,20 +160,20 @@ components:
       schema:
         type: boolean
         default: true
-    FsymsParam:
-      name: fsyms
+    TsymParam:
+      name: tsym
       in: query
       required: true
-      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
+      description: To-symbol (target currency), e.g. USD.
       schema:
         type: string
-    EParam:
-      name: e
+    TsymsParam:
+      name: tsyms
       in: query
-      description: Source exchange (default CCCAGG aggregate index).
+      required: true
+      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
       schema:
         type: string
-        default: CCCAGG
   schemas:
     FullTicker:
       type: object
@@ -228,30 +228,6 @@ components:
           type: string
         CONVERSIONSYMBOL:
           type: string
-    SymbolPriceMap:
-      type: object
-      description: Map of to-symbol to current price.
-      additionalProperties:
-        type: number
-      example:
-        USD: 73826.5
-    HistoricalPriceMap:
-      type: object
-      description: Nested map of from-symbol to to-symbol to historical price.
-      additionalProperties:
-        $ref: '#/components/schemas/SymbolPriceMap'
-    CustomAverageResponse:
-      type: object
-      properties:
-        RAW:
-          $ref: '#/components/schemas/FullTicker'
-        DISPLAY:
-          type: object
-    MultiSymbolPriceMap:
-      type: object
-      description: Nested map of from-symbol to to-symbol to current price.
-      additionalProperties:
-        $ref: '#/components/schemas/SymbolPriceMap'
     FullPriceResponse:
       type: object
       properties:
@@ -269,6 +245,30 @@ components:
             type: object
             additionalProperties:
               type: object
+    CustomAverageResponse:
+      type: object
+      properties:
+        RAW:
+          $ref: '#/components/schemas/FullTicker'
+        DISPLAY:
+          type: object
+    HistoricalPriceMap:
+      type: object
+      description: Nested map of from-symbol to to-symbol to historical price.
+      additionalProperties:
+        $ref: '#/components/schemas/SymbolPriceMap'
+    SymbolPriceMap:
+      type: object
+      description: Map of to-symbol to current price.
+      additionalProperties:
+        type: number
+      example:
+        USD: 73826.5
+    MultiSymbolPriceMap:
+      type: object
+      description: Nested map of from-symbol to to-symbol to current price.
+      additionalProperties:
+        $ref: '#/components/schemas/SymbolPriceMap'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

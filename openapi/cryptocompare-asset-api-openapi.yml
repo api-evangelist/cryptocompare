@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: CoinDesk Data API (CCData) Asset API
-  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  description: The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api.
   version: '1.0'
   contact:
     name: CoinDesk Data Support
@@ -102,50 +102,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AssetSupplyHistoryResponse'
 components:
-  parameters:
-    PageParam:
-      name: page
-      in: query
-      description: Page number (1-indexed).
-      schema:
-        type: integer
-        default: 1
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
-    LimitTopParam:
-      name: limit
-      in: query
-      description: Number of rows to return.
-      schema:
-        type: integer
-        default: 50
-        maximum: 100
   schemas:
-    AssetTopListResponse:
-      type: object
-      properties:
-        Data:
-          type: object
-          properties:
-            STATS:
-              type: object
-            LIST:
-              type: array
-              items:
-                $ref: '#/components/schemas/AssetSummary'
     AssetDataResponse:
       type: object
       properties:
@@ -195,27 +152,6 @@ components:
               type: array
               items:
                 type: object
-    AssetSupplyHistoryResponse:
-      type: object
-      properties:
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              TIMESTAMP:
-                type: integer
-                format: int64
-              ASSET_SYMBOL:
-                type: string
-              SUPPLY_CIRCULATING:
-                type: number
-              SUPPLY_TOTAL:
-                type: number
-              SUPPLY_MAX:
-                type: number
-              SUPPLY_STAKED:
-                type: number
     AssetSummary:
       type: object
       properties:
@@ -244,6 +180,70 @@ components:
           type: number
         SUPPLY_MAX:
           type: number
+    AssetSupplyHistoryResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              ASSET_SYMBOL:
+                type: string
+              SUPPLY_CIRCULATING:
+                type: number
+              SUPPLY_TOTAL:
+                type: number
+              SUPPLY_MAX:
+                type: number
+              SUPPLY_STAKED:
+                type: number
+    AssetTopListResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            STATS:
+              type: object
+            LIST:
+              type: array
+              items:
+                $ref: '#/components/schemas/AssetSummary'
+  parameters:
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return.
+      schema:
+        type: integer
+        default: 50
+        maximum: 100
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-indexed).
+      schema:
+        type: integer
+        default: 1
   securitySchemes:
     apiKeyQuery:
       type: apiKey

@@ -22,14 +22,18 @@
     "cryptocompare-social-api-openapi.yml",
     "cryptocompare-top-lists-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "cryptocompare-data-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "cryptocompare-min-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tag 'News' spans 2 source specs (cryptocompare-data-api-openapi.yml, cryptocompare-min-api-openapi.yml): per-path servers applied"
+    "tag 'News' spans 2 source specs (cryptocompare-data-api-openapi.yml, cryptocompare-min-api-openapi.yml): per-path servers applied",
+    "superseded outputs removed: cryptocompare-orderbook-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 18 total)"
   ],
   "skipped": [
     "cryptocompare-asset-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -42,7 +46,7 @@
     "cryptocompare-news-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "cryptocompare-on-chain-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "cryptocompare-options-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "cryptocompare-order-book-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cryptocompare-orderbook-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "cryptocompare-overview-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "cryptocompare-price-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "cryptocompare-social-api-openapi.yml: previously refined output, superseded by openapi/_original/",

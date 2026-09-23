@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: CoinDesk Data API (CCData) Overview API
-  description: 'The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api. It exposes a consolidated surface across Spot markets (latest tick, instrument metadata, historical OHLCV, trades, order book L1), CoinDesk Indices and Reference Rates (CADLI, CCIX, CCIXBE), Futures and Options derivatives, Asset metadata and overview, On-chain data, News articles, and Polling / On-demand exports. Authentication uses an API key supplied either as the api_key query parameter or as `Authorization: Apikey {apiKey}`. The base URL is https://data-api.cryptocompare.com.'
+  description: The CoinDesk Data API (formerly CCData / CryptoCompare data-api) is the modern, institutional-grade replacement for the legacy min-api.
   version: '1.0'
   contact:
     name: CoinDesk Data Support
@@ -45,22 +45,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OverviewMarketCapResponse'
 components:
-  parameters:
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
   schemas:
     OverviewMarketCapResponse:
       type: object
@@ -83,6 +67,22 @@ components:
                 type: number
               DOMINANCE_STABLECOINS:
                 type: number
+  parameters:
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey

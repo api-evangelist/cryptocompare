@@ -227,32 +227,7 @@ paths:
     - url: https://min-api.cryptocompare.com/data
       description: Production Server
 components:
-  parameters:
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
   schemas:
-    NewsCategoryListResponse:
-      type: object
-      properties:
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              TYPE:
-                type: string
-              ID:
-                type: integer
-              NAME:
-                type: string
-              CATEGORY:
-                type: string
     NewsArticle:
       type: object
       properties:
@@ -306,6 +281,31 @@ components:
           type: array
           items:
             type: object
+    NewsCategoryListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              ID:
+                type: integer
+              NAME:
+                type: string
+              CATEGORY:
+                type: string
+    NewsArticleListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'
+        Err:
+          type: object
     NewsSourceListResponse:
       type: object
       properties:
@@ -335,15 +335,24 @@ components:
                 type: number
               STATUS:
                 type: string
-    NewsArticleListResponse:
+    NewsCategoriesResponse:
       type: object
       properties:
+        Message:
+          type: string
+        Type:
+          type: integer
         Data:
           type: array
           items:
-            $ref: '#/components/schemas/NewsArticle'
-        Err:
-          type: object
+            type: object
+            properties:
+              categoryName:
+                type: string
+              wordsAssociatedWithCategory:
+                type: array
+                items:
+                  type: string
     NewsSourcesResponse:
       type: object
       properties:
@@ -397,24 +406,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NewsArticle'
-    NewsCategoriesResponse:
-      type: object
-      properties:
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              categoryName:
-                type: string
-              wordsAssociatedWithCategory:
-                type: array
-                items:
-                  type: string
+  parameters:
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
   securitySchemes:
     apiKeyQuery:
       type: apiKey

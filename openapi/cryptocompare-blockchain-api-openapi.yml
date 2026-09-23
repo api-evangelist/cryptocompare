@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: CryptoCompare min-api (Legacy) Blockchain API
-  description: The CryptoCompare min-api (now CoinDesk Data Legacy API) provides cryptocurrency market data including current and historical prices, OHLCV candles (minute/hour/day), top lists by volume and market cap, news, social statistics, order book data, blockchain data, and exchange information. The REST API is available at https://min-api.cryptocompare.com/data and supports authenticated access via an API key passed either as the api_key query parameter or in the Authorization header. Free-tier traffic is metered in monthly call credits; paid commercial tiers expand the monthly budget and enable additional endpoints such as news, social, blockchain, top lists, and order book.
+  description: The CryptoCompare min-api (now CoinDesk Data Legacy API) provides cryptocurrency market data including current and historical prices, OHLCV candles (minute/hour/day), top lists by volume and market cap, news, social statistics, order book data, blockchain data, and exchange information.
   version: '1.0'
   contact:
     name: CryptoCompare / CoinDesk Data Support
@@ -103,47 +103,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BalanceDistributionResponse'
 components:
-  parameters:
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return (max 2000 for OHLCV).
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
-    ToTsParam:
-      name: toTs
-      in: query
-      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
-      schema:
-        type: integer
-        format: int64
   schemas:
-    BlockchainHistoryResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          properties:
-            Aggregated:
-              type: boolean
-            TimeFrom:
-              type: integer
-              format: int64
-            TimeTo:
-              type: integer
-              format: int64
-            Data:
-              type: array
-              items:
-                $ref: '#/components/schemas/BlockchainDataPoint'
     BlockchainLatestResponse:
       type: object
       properties:
@@ -193,6 +153,30 @@ components:
           type: integer
         current_supply:
           type: number
+    BlockchainHistoryResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            Aggregated:
+              type: boolean
+            TimeFrom:
+              type: integer
+              format: int64
+            TimeTo:
+              type: integer
+              format: int64
+            Data:
+              type: array
+              items:
+                $ref: '#/components/schemas/BlockchainDataPoint'
     BalanceDistributionResponse:
       type: object
       properties:
@@ -259,6 +243,22 @@ components:
               data_available_from:
                 type: integer
                 format: int64
+  parameters:
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return (max 2000 for OHLCV).
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    ToTsParam:
+      name: toTs
+      in: query
+      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey
