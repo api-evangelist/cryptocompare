@@ -43,19 +43,6 @@ paths:
                 $ref: '#/components/schemas/CoinListResponse'
 components:
   schemas:
-    CoinListResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CoinListEntry'
     CoinListEntry:
       type: object
       properties:
@@ -94,6 +81,19 @@ components:
           type: object
         IsTrading:
           type: boolean
+    CoinListResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CoinListEntry'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

@@ -88,7 +88,81 @@ paths:
               schema:
                 $ref: '#/components/schemas/OHLCVResponse'
 components:
+  parameters:
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    TryConversionParam:
+      name: tryConversion
+      in: query
+      description: When false, do not multi-hop convert via BTC if a direct pair is unavailable.
+      schema:
+        type: boolean
+        default: true
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+    EParam:
+      name: e
+      in: query
+      description: Source exchange (default CCCAGG aggregate index).
+      schema:
+        type: string
+        default: CCCAGG
+    AggregateParam:
+      name: aggregate
+      in: query
+      description: Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).
+      schema:
+        type: integer
+        default: 1
+    ToTsParam:
+      name: toTs
+      in: query
+      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return (max 2000 for OHLCV).
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
   schemas:
+    OHLCVCandle:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: Period start timestamp in seconds.
+        high:
+          type: number
+        low:
+          type: number
+        open:
+          type: number
+        close:
+          type: number
+        volumefrom:
+          type: number
+        volumeto:
+          type: number
+        conversionType:
+          type: string
+        conversionSymbol:
+          type: string
     OHLCVResponse:
       type: object
       description: Standard v2 OHLCV response envelope.
@@ -121,80 +195,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/OHLCVCandle'
-    OHLCVCandle:
-      type: object
-      properties:
-        time:
-          type: integer
-          format: int64
-          description: Period start timestamp in seconds.
-        high:
-          type: number
-        low:
-          type: number
-        open:
-          type: number
-        close:
-          type: number
-        volumefrom:
-          type: number
-        volumeto:
-          type: number
-        conversionType:
-          type: string
-        conversionSymbol:
-          type: string
-  parameters:
-    EParam:
-      name: e
-      in: query
-      description: Source exchange (default CCCAGG aggregate index).
-      schema:
-        type: string
-        default: CCCAGG
-    AggregateParam:
-      name: aggregate
-      in: query
-      description: Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).
-      schema:
-        type: integer
-        default: 1
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
-    TryConversionParam:
-      name: tryConversion
-      in: query
-      description: When false, do not multi-hop convert via BTC if a direct pair is unavailable.
-      schema:
-        type: boolean
-        default: true
-    TsymParam:
-      name: tsym
-      in: query
-      required: true
-      description: To-symbol (target currency), e.g. USD.
-      schema:
-        type: string
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return (max 2000 for OHLCV).
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
-    ToTsParam:
-      name: toTs
-      in: query
-      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey

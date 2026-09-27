@@ -131,50 +131,48 @@ paths:
               schema:
                 $ref: '#/components/schemas/HistoricalPriceMap'
 components:
-  parameters:
-    EParam:
-      name: e
-      in: query
-      description: Source exchange (default CCCAGG aggregate index).
-      schema:
-        type: string
-        default: CCCAGG
-    FsymsParam:
-      name: fsyms
-      in: query
-      required: true
-      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
-      schema:
-        type: string
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
-    TryConversionParam:
-      name: tryConversion
-      in: query
-      description: When false, do not multi-hop convert via BTC if a direct pair is unavailable.
-      schema:
-        type: boolean
-        default: true
-    TsymParam:
-      name: tsym
-      in: query
-      required: true
-      description: To-symbol (target currency), e.g. USD.
-      schema:
-        type: string
-    TsymsParam:
-      name: tsyms
-      in: query
-      required: true
-      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
-      schema:
-        type: string
   schemas:
+    FullPriceResponse:
+      type: object
+      properties:
+        RAW:
+          type: object
+          description: Raw numeric ticker data keyed by from-symbol then to-symbol.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/FullTicker'
+        DISPLAY:
+          type: object
+          description: Display-formatted equivalents of the RAW block.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: object
+    CustomAverageResponse:
+      type: object
+      properties:
+        RAW:
+          $ref: '#/components/schemas/FullTicker'
+        DISPLAY:
+          type: object
+    HistoricalPriceMap:
+      type: object
+      description: Nested map of from-symbol to to-symbol to historical price.
+      additionalProperties:
+        $ref: '#/components/schemas/SymbolPriceMap'
+    SymbolPriceMap:
+      type: object
+      description: Map of to-symbol to current price.
+      additionalProperties:
+        type: number
+      example:
+        USD: 73826.5
+    MultiSymbolPriceMap:
+      type: object
+      description: Nested map of from-symbol to to-symbol to current price.
+      additionalProperties:
+        $ref: '#/components/schemas/SymbolPriceMap'
     FullTicker:
       type: object
       description: Full ticker data emitted by pricemultifull and the CCCAGG WebSocket index.
@@ -228,47 +226,49 @@ components:
           type: string
         CONVERSIONSYMBOL:
           type: string
-    FullPriceResponse:
-      type: object
-      properties:
-        RAW:
-          type: object
-          description: Raw numeric ticker data keyed by from-symbol then to-symbol.
-          additionalProperties:
-            type: object
-            additionalProperties:
-              $ref: '#/components/schemas/FullTicker'
-        DISPLAY:
-          type: object
-          description: Display-formatted equivalents of the RAW block.
-          additionalProperties:
-            type: object
-            additionalProperties:
-              type: object
-    CustomAverageResponse:
-      type: object
-      properties:
-        RAW:
-          $ref: '#/components/schemas/FullTicker'
-        DISPLAY:
-          type: object
-    HistoricalPriceMap:
-      type: object
-      description: Nested map of from-symbol to to-symbol to historical price.
-      additionalProperties:
-        $ref: '#/components/schemas/SymbolPriceMap'
-    SymbolPriceMap:
-      type: object
-      description: Map of to-symbol to current price.
-      additionalProperties:
-        type: number
-      example:
-        USD: 73826.5
-    MultiSymbolPriceMap:
-      type: object
-      description: Nested map of from-symbol to to-symbol to current price.
-      additionalProperties:
-        $ref: '#/components/schemas/SymbolPriceMap'
+  parameters:
+    TsymsParam:
+      name: tsyms
+      in: query
+      required: true
+      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
+      schema:
+        type: string
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+    TryConversionParam:
+      name: tryConversion
+      in: query
+      description: When false, do not multi-hop convert via BTC if a direct pair is unavailable.
+      schema:
+        type: boolean
+        default: true
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    FsymsParam:
+      name: fsyms
+      in: query
+      required: true
+      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
+      schema:
+        type: string
+    EParam:
+      name: e
+      in: query
+      description: Source exchange (default CCCAGG aggregate index).
+      schema:
+        type: string
+        default: CCCAGG
   securitySchemes:
     apiKeyQuery:
       type: apiKey

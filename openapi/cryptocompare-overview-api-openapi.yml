@@ -45,6 +45,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/OverviewMarketCapResponse'
 components:
+  parameters:
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
   schemas:
     OverviewMarketCapResponse:
       type: object
@@ -67,22 +83,6 @@ components:
                 type: number
               DOMINANCE_STABLECOINS:
                 type: number
-  parameters:
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey

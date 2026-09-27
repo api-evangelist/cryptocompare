@@ -104,17 +104,6 @@ paths:
                 $ref: '#/components/schemas/BalanceDistributionResponse'
 components:
   schemas:
-    BlockchainLatestResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          $ref: '#/components/schemas/BlockchainDataPoint'
     BlockchainDataPoint:
       type: object
       properties:
@@ -153,6 +142,29 @@ components:
           type: integer
         current_supply:
           type: number
+    BlockchainListResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              id:
+                type: integer
+              symbol:
+                type: string
+              partner_symbol:
+                type: string
+              data_available_from:
+                type: integer
+                format: int64
     BlockchainHistoryResponse:
       type: object
       properties:
@@ -220,7 +232,7 @@ components:
                           type: number
                         addressesCount:
                           type: integer
-    BlockchainListResponse:
+    BlockchainLatestResponse:
       type: object
       properties:
         Response:
@@ -230,20 +242,15 @@ components:
         Type:
           type: integer
         Data:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              id:
-                type: integer
-              symbol:
-                type: string
-              partner_symbol:
-                type: string
-              data_available_from:
-                type: integer
-                format: int64
+          $ref: '#/components/schemas/BlockchainDataPoint'
   parameters:
+    ToTsParam:
+      name: toTs
+      in: query
+      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
+      schema:
+        type: integer
+        format: int64
     LimitParam:
       name: limit
       in: query
@@ -252,13 +259,6 @@ components:
         type: integer
         default: 30
         maximum: 2000
-    ToTsParam:
-      name: toTs
-      in: query
-      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey

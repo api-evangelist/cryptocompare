@@ -90,6 +90,89 @@ paths:
                 $ref: '#/components/schemas/SocialStatsHistoryResponse'
 components:
   schemas:
+    SocialStatsHistoryResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              time:
+                type: integer
+                format: int64
+              comments:
+                type: integer
+              posts:
+                type: integer
+              followers:
+                type: integer
+              points:
+                type: integer
+              overview_page_views:
+                type: integer
+              analysis_page_views:
+                type: integer
+              markets_page_views:
+                type: integer
+              charts_page_views:
+                type: integer
+              trades_page_views:
+                type: integer
+              forum_page_views:
+                type: integer
+              influence_page_views:
+                type: integer
+              total_page_views:
+                type: integer
+              reddit_comments_per_hour:
+                type: number
+              reddit_posts_per_hour:
+                type: number
+              reddit_comments_per_day:
+                type: number
+              reddit_posts_per_day:
+                type: number
+              reddit_subscribers:
+                type: integer
+              reddit_active_users:
+                type: integer
+              twitter_followers:
+                type: integer
+              twitter_following:
+                type: integer
+              twitter_lists:
+                type: integer
+              twitter_favourites:
+                type: integer
+              twitter_statuses:
+                type: integer
+              code_repo_stars:
+                type: integer
+              code_repo_forks:
+                type: integer
+              code_repo_subscribers:
+                type: integer
+              code_repo_open_pull_issues:
+                type: integer
+              code_repo_closed_pull_issues:
+                type: integer
+              code_repo_open_issues:
+                type: integer
+              code_repo_closed_issues:
+                type: integer
+              code_repo_contributors:
+                type: integer
+              fb_likes:
+                type: integer
+              fb_talking_about:
+                type: integer
     SocialStatsResponse:
       type: object
       properties:
@@ -191,90 +274,14 @@ components:
                   type: array
                   items:
                     type: object
-    SocialStatsHistoryResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              time:
-                type: integer
-                format: int64
-              comments:
-                type: integer
-              posts:
-                type: integer
-              followers:
-                type: integer
-              points:
-                type: integer
-              overview_page_views:
-                type: integer
-              analysis_page_views:
-                type: integer
-              markets_page_views:
-                type: integer
-              charts_page_views:
-                type: integer
-              trades_page_views:
-                type: integer
-              forum_page_views:
-                type: integer
-              influence_page_views:
-                type: integer
-              total_page_views:
-                type: integer
-              reddit_comments_per_hour:
-                type: number
-              reddit_posts_per_hour:
-                type: number
-              reddit_comments_per_day:
-                type: number
-              reddit_posts_per_day:
-                type: number
-              reddit_subscribers:
-                type: integer
-              reddit_active_users:
-                type: integer
-              twitter_followers:
-                type: integer
-              twitter_following:
-                type: integer
-              twitter_lists:
-                type: integer
-              twitter_favourites:
-                type: integer
-              twitter_statuses:
-                type: integer
-              code_repo_stars:
-                type: integer
-              code_repo_forks:
-                type: integer
-              code_repo_subscribers:
-                type: integer
-              code_repo_open_pull_issues:
-                type: integer
-              code_repo_closed_pull_issues:
-                type: integer
-              code_repo_open_issues:
-                type: integer
-              code_repo_closed_issues:
-                type: integer
-              code_repo_contributors:
-                type: integer
-              fb_likes:
-                type: integer
-              fb_talking_about:
-                type: integer
   parameters:
+    ToTsParam:
+      name: toTs
+      in: query
+      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
+      schema:
+        type: integer
+        format: int64
     LimitParam:
       name: limit
       in: query
@@ -283,13 +290,6 @@ components:
         type: integer
         default: 30
         maximum: 2000
-    ToTsParam:
-      name: toTs
-      in: query
-      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey

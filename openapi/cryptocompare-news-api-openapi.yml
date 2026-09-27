@@ -228,6 +228,60 @@ paths:
       description: Production Server
 components:
   schemas:
+    NewsCategoryListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              ID:
+                type: integer
+              NAME:
+                type: string
+              CATEGORY:
+                type: string
+    NewsSourceListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TYPE:
+                type: string
+              ID:
+                type: integer
+              SOURCE_KEY:
+                type: string
+              NAME:
+                type: string
+              URL:
+                type: string
+              LANG:
+                type: string
+              SOURCE_TYPE:
+                type: string
+              LAUNCH_DATE:
+                type: integer
+                format: int64
+              BENCHMARK_SCORE:
+                type: number
+              STATUS:
+                type: string
+    NewsArticleListResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'
+        Err:
+          type: object
     NewsArticle:
       type: object
       properties:
@@ -281,60 +335,21 @@ components:
           type: array
           items:
             type: object
-    NewsCategoryListResponse:
+    NewsListResponse:
       type: object
       properties:
-        Data:
+        Type:
+          type: integer
+        Message:
+          type: string
+        Promoted:
           type: array
           items:
             type: object
-            properties:
-              TYPE:
-                type: string
-              ID:
-                type: integer
-              NAME:
-                type: string
-              CATEGORY:
-                type: string
-    NewsArticleListResponse:
-      type: object
-      properties:
         Data:
           type: array
           items:
             $ref: '#/components/schemas/NewsArticle'
-        Err:
-          type: object
-    NewsSourceListResponse:
-      type: object
-      properties:
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              TYPE:
-                type: string
-              ID:
-                type: integer
-              SOURCE_KEY:
-                type: string
-              NAME:
-                type: string
-              URL:
-                type: string
-              LANG:
-                type: string
-              SOURCE_TYPE:
-                type: string
-              LAUNCH_DATE:
-                type: integer
-                format: int64
-              BENCHMARK_SCORE:
-                type: number
-              STATUS:
-                type: string
     NewsCategoriesResponse:
       type: object
       properties:
@@ -353,6 +368,24 @@ components:
                 type: array
                 items:
                   type: string
+    NewsFeedsAndCategoriesResponse:
+      type: object
+      properties:
+        Type:
+          type: integer
+        Message:
+          type: string
+        Data:
+          type: object
+          properties:
+            Feeds:
+              type: array
+              items:
+                type: object
+            Categories:
+              type: array
+              items:
+                type: object
     NewsSourcesResponse:
       type: object
       properties:
@@ -373,39 +406,6 @@ components:
                 type: string
               img:
                 type: string
-    NewsFeedsAndCategoriesResponse:
-      type: object
-      properties:
-        Type:
-          type: integer
-        Message:
-          type: string
-        Data:
-          type: object
-          properties:
-            Feeds:
-              type: array
-              items:
-                type: object
-            Categories:
-              type: array
-              items:
-                type: object
-    NewsListResponse:
-      type: object
-      properties:
-        Type:
-          type: integer
-        Message:
-          type: string
-        Promoted:
-          type: array
-          items:
-            type: object
-        Data:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewsArticle'
   parameters:
     LimitParam:
       name: limit

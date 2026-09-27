@@ -143,7 +143,55 @@ paths:
               schema:
                 $ref: '#/components/schemas/TopPairsResponse'
 components:
+  parameters:
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+    PageParam:
+      name: page
+      in: query
+      description: Zero-indexed page number for paginated top-list endpoints.
+      schema:
+        type: integer
+        default: 0
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return (max varies per endpoint, typically 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
   schemas:
+    TopExchangesFullResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            CoinInfo:
+              $ref: '#/components/schemas/CoinInfo'
+            Exchanges:
+              type: array
+              items:
+                type: object
     TopExchangesResponse:
       type: object
       properties:
@@ -192,28 +240,6 @@ components:
                 type: number
               volume24hTo:
                 type: number
-    TopVolumesResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              SYMBOL:
-                type: string
-              SUPPLY:
-                type: number
-              FULLVOLUME:
-                type: string
-              TOPTIERVOLUME24HOUR:
-                type: string
     TopListResponse:
       type: object
       properties:
@@ -241,7 +267,7 @@ components:
                 type: object
               DISPLAY:
                 type: object
-    TopExchangesFullResponse:
+    TopVolumesResponse:
       type: object
       properties:
         Response:
@@ -251,14 +277,18 @@ components:
         Type:
           type: integer
         Data:
-          type: object
-          properties:
-            CoinInfo:
-              $ref: '#/components/schemas/CoinInfo'
-            Exchanges:
-              type: array
-              items:
-                type: object
+          type: array
+          items:
+            type: object
+            properties:
+              SYMBOL:
+                type: string
+              SUPPLY:
+                type: number
+              FULLVOLUME:
+                type: string
+              TOPTIERVOLUME24HOUR:
+                type: string
     CoinInfo:
       type: object
       properties:
@@ -296,36 +326,6 @@ components:
           type: integer
         DocumentType:
           type: string
-  parameters:
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
-    TsymParam:
-      name: tsym
-      in: query
-      required: true
-      description: To-symbol (target currency), e.g. USD.
-      schema:
-        type: string
-    LimitTopParam:
-      name: limit
-      in: query
-      description: Number of rows to return (max varies per endpoint, typically 100).
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
-    PageParam:
-      name: page
-      in: query
-      description: Zero-indexed page number for paginated top-list endpoints.
-      schema:
-        type: integer
-        default: 0
   securitySchemes:
     apiKeyQuery:
       type: apiKey

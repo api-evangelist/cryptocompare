@@ -6,23 +6,23 @@ tags:
 - Market Data
 - Reference Rates
 - News
-- Social
 - Blockchain
 - Onchain
 - Order Book
 - Streaming
 - Index
+- Real-Time
 tags_raw:
 - Cryptocurrency
 - Market Data
 - Reference Rates
 - News
-- Social
 - Blockchain
 - On-Chain
 - Order Book
 - Streaming
 - Index
+- Real-Time
 type: Index
 kind: company
 deliveryModel:
@@ -105,6 +105,10 @@ apis:
 - aid: cryptocompare:exchange-benchmark
   name: CryptoCompare Exchange Benchmark
   tags:
+  - Exchange Ratings
+  - Methodology
+  - Risk Management
+  tags_raw:
   - Exchange Ratings
   - Methodology
   - Risk
@@ -939,8 +943,6 @@ apis:
   humanURL: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
   baseURL: wss://streamer.cryptocompare.com/v2
   tags:
-  - Order Book
-  tags_raw:
   - Orderbook
   properties:
   - type: OpenAPI
@@ -1154,3 +1156,5 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-tags-removed:
+- Social

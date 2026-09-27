@@ -86,7 +86,48 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExchangesGeneralResponse'
 components:
+  parameters:
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return (max varies per endpoint, typically 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
   schemas:
+    TopExchangesFullResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            CoinInfo:
+              $ref: '#/components/schemas/CoinInfo'
+            Exchanges:
+              type: array
+              items:
+                type: object
     TopExchangesResponse:
       type: object
       properties:
@@ -111,70 +152,6 @@ components:
                 type: number
               volume24hTo:
                 type: number
-    ExchangesGeneralResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              Id:
-                type: string
-              Name:
-                type: string
-              Url:
-                type: string
-              LogoUrl:
-                type: string
-              ItemType:
-                type: array
-                items:
-                  type: string
-              CentralizationType:
-                type: string
-              InternalName:
-                type: string
-              GradePoints:
-                type: number
-              Grade:
-                type: string
-              GradePointsSplit:
-                type: object
-              AffiliateURL:
-                type: string
-              Country:
-                type: string
-              OrderBook:
-                type: boolean
-              Trades:
-                type: boolean
-              Description:
-                type: string
-    TopExchangesFullResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          properties:
-            CoinInfo:
-              $ref: '#/components/schemas/CoinInfo'
-            Exchanges:
-              type: array
-              items:
-                type: object
     AllExchangesResponse:
       type: object
       description: Map of exchange name to base symbol to list of quote symbols traded.
@@ -221,29 +198,52 @@ components:
           type: integer
         DocumentType:
           type: string
-  parameters:
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
-    TsymParam:
-      name: tsym
-      in: query
-      required: true
-      description: To-symbol (target currency), e.g. USD.
-      schema:
-        type: string
-    LimitTopParam:
-      name: limit
-      in: query
-      description: Number of rows to return (max varies per endpoint, typically 100).
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
+    ExchangesGeneralResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              Id:
+                type: string
+              Name:
+                type: string
+              Url:
+                type: string
+              LogoUrl:
+                type: string
+              ItemType:
+                type: array
+                items:
+                  type: string
+              CentralizationType:
+                type: string
+              InternalName:
+                type: string
+              GradePoints:
+                type: number
+              Grade:
+                type: string
+              GradePointsSplit:
+                type: object
+              AffiliateURL:
+                type: string
+              Country:
+                type: string
+              OrderBook:
+                type: boolean
+              Trades:
+                type: boolean
+              Description:
+                type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey
