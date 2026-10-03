@@ -58,6 +58,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/HistoricalOHLCVResponse'
 components:
+  parameters:
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    InstrumentParam:
+      name: instrument
+      in: query
+      required: true
+      description: Single instrument identifier (e.g. BTC-USD).
+      schema:
+        type: string
+    MarketParam:
+      name: market
+      in: query
+      required: true
+      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
+      schema:
+        type: string
+    InstrumentsParam:
+      name: instruments
+      in: query
+      required: true
+      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
+      schema:
+        type: string
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
   schemas:
     HistoricalOHLCVResponse:
       type: object
@@ -142,43 +179,6 @@ components:
           type: integer
         TOTAL_TRADES_UNKNOWN:
           type: integer
-  parameters:
-    MarketParam:
-      name: market
-      in: query
-      required: true
-      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
-      schema:
-        type: string
-    InstrumentParam:
-      name: instrument
-      in: query
-      required: true
-      description: Single instrument identifier (e.g. BTC-USD).
-      schema:
-        type: string
-    InstrumentsParam:
-      name: instruments
-      in: query
-      required: true
-      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
-      schema:
-        type: string
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
   securitySchemes:
     apiKeyQuery:
       type: apiKey

@@ -104,6 +104,64 @@ paths:
                 $ref: '#/components/schemas/BalanceDistributionResponse'
 components:
   schemas:
+    BlockchainHistoryResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            Aggregated:
+              type: boolean
+            TimeFrom:
+              type: integer
+              format: int64
+            TimeTo:
+              type: integer
+              format: int64
+            Data:
+              type: array
+              items:
+                $ref: '#/components/schemas/BlockchainDataPoint'
+    BlockchainListResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              id:
+                type: integer
+              symbol:
+                type: string
+              partner_symbol:
+                type: string
+              data_available_from:
+                type: integer
+                format: int64
+    BlockchainLatestResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          $ref: '#/components/schemas/BlockchainDataPoint'
     BlockchainDataPoint:
       type: object
       properties:
@@ -142,53 +200,6 @@ components:
           type: integer
         current_supply:
           type: number
-    BlockchainListResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              id:
-                type: integer
-              symbol:
-                type: string
-              partner_symbol:
-                type: string
-              data_available_from:
-                type: integer
-                format: int64
-    BlockchainHistoryResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          properties:
-            Aggregated:
-              type: boolean
-            TimeFrom:
-              type: integer
-              format: int64
-            TimeTo:
-              type: integer
-              format: int64
-            Data:
-              type: array
-              items:
-                $ref: '#/components/schemas/BlockchainDataPoint'
     BalanceDistributionResponse:
       type: object
       properties:
@@ -232,25 +243,7 @@ components:
                           type: number
                         addressesCount:
                           type: integer
-    BlockchainLatestResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          $ref: '#/components/schemas/BlockchainDataPoint'
   parameters:
-    ToTsParam:
-      name: toTs
-      in: query
-      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
-      schema:
-        type: integer
-        format: int64
     LimitParam:
       name: limit
       in: query
@@ -259,6 +252,13 @@ components:
         type: integer
         default: 30
         maximum: 2000
+    ToTsParam:
+      name: toTs
+      in: query
+      description: Unix timestamp (seconds) to use as the upper bound for the returned window.
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey
