@@ -86,16 +86,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExchangesGeneralResponse'
 components:
+  parameters:
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return (max varies per endpoint, typically 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    TsymParam:
+      name: tsym
+      in: query
+      required: true
+      description: To-symbol (target currency), e.g. USD.
+      schema:
+        type: string
   schemas:
-    AllExchangesResponse:
-      type: object
-      description: Map of exchange name to base symbol to list of quote symbols traded.
-      additionalProperties:
-        type: object
-        additionalProperties:
-          type: array
-          items:
-            type: string
     CoinInfo:
       type: object
       properties:
@@ -133,6 +147,15 @@ components:
           type: integer
         DocumentType:
           type: string
+    AllExchangesResponse:
+      type: object
+      description: Map of exchange name to base symbol to list of quote symbols traded.
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
     TopExchangesFullResponse:
       type: object
       properties:
@@ -151,6 +174,30 @@ components:
               type: array
               items:
                 type: object
+    TopExchangesResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              exchange:
+                type: string
+              fromSymbol:
+                type: string
+              toSymbol:
+                type: string
+              volume24h:
+                type: number
+              volume24hTo:
+                type: number
     ExchangesGeneralResponse:
       type: object
       properties:
@@ -197,53 +244,6 @@ components:
                 type: boolean
               Description:
                 type: string
-    TopExchangesResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              exchange:
-                type: string
-              fromSymbol:
-                type: string
-              toSymbol:
-                type: string
-              volume24h:
-                type: number
-              volume24hTo:
-                type: number
-  parameters:
-    TsymParam:
-      name: tsym
-      in: query
-      required: true
-      description: To-symbol (target currency), e.g. USD.
-      schema:
-        type: string
-    LimitTopParam:
-      name: limit
-      in: query
-      description: Number of rows to return (max varies per endpoint, typically 100).
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey

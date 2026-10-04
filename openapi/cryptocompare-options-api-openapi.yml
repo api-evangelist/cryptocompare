@@ -40,18 +40,18 @@ paths:
                 $ref: '#/components/schemas/OptionsTickResponse'
 components:
   parameters:
-    MarketParam:
-      name: market
-      in: query
-      required: true
-      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
-      schema:
-        type: string
     InstrumentsParam:
       name: instruments
       in: query
       required: true
       description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
+      schema:
+        type: string
+    MarketParam:
+      name: market
+      in: query
+      required: true
+      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
       schema:
         type: string
   schemas:

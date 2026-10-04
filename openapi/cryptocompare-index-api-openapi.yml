@@ -114,63 +114,68 @@ paths:
               schema:
                 $ref: '#/components/schemas/IndexCompositionResponse'
 components:
-  parameters:
-    IndexMarketParam:
-      name: market
-      in: query
-      required: true
-      description: Index family (cadli, ccix, ccixbe).
-      schema:
-        type: string
-        enum:
-        - cadli
-        - ccix
-        - ccixbe
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
-    GroupsParam:
-      name: groups
-      in: query
-      description: Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME).
-      schema:
-        type: string
-    InstrumentParam:
-      name: instrument
-      in: query
-      required: true
-      description: Single instrument identifier (e.g. BTC-USD).
-      schema:
-        type: string
-    InstrumentsParam:
-      name: instruments
-      in: query
-      required: true
-      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
-      schema:
-        type: string
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
   schemas:
-    HistoricalOHLCVResponse:
+    IndexTickResponse:
       type: object
       properties:
         Data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HistoricalOHLCVRow'
-        Err:
           type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IndexTick'
+    IndexTick:
+      type: object
+      properties:
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        INSTRUMENT:
+          type: string
+        CCSEQ:
+          type: integer
+          format: int64
+        VALUE:
+          type: number
+        VALUE_FLAG:
+          type: string
+          enum:
+          - UP
+          - DOWN
+          - UNCHANGED
+        VALUE_LAST_UPDATE_TS:
+          type: integer
+          format: int64
+        CURRENT_HOUR_OPEN:
+          type: number
+        CURRENT_HOUR_HIGH:
+          type: number
+        CURRENT_HOUR_LOW:
+          type: number
+        CURRENT_HOUR_CHANGE:
+          type: number
+        CURRENT_HOUR_CHANGE_PERCENTAGE:
+          type: number
+        CURRENT_DAY_OPEN:
+          type: number
+        CURRENT_DAY_HIGH:
+          type: number
+        CURRENT_DAY_LOW:
+          type: number
+        CURRENT_DAY_CHANGE:
+          type: number
+        CURRENT_DAY_CHANGE_PERCENTAGE:
+          type: number
+        CURRENT_DAY_VOLUME:
+          type: number
+        CURRENT_DAY_QUOTE_VOLUME:
+          type: number
+        LIFETIME_HIGH:
+          type: number
+        LIFETIME_LOW:
+          type: number
+        LIFETIME_FIRST_TRADE_TS:
+          type: integer
+          format: int64
     HistoricalOHLCVRow:
       type: object
       properties:
@@ -268,67 +273,62 @@ components:
                     type: number
                   WEIGHT:
                     type: number
-    IndexTickResponse:
+    HistoricalOHLCVResponse:
       type: object
       properties:
         Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoricalOHLCVRow'
+        Err:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/IndexTick'
-    IndexTick:
-      type: object
-      properties:
-        TYPE:
-          type: string
-        MARKET:
-          type: string
-        INSTRUMENT:
-          type: string
-        CCSEQ:
-          type: integer
-          format: int64
-        VALUE:
-          type: number
-        VALUE_FLAG:
-          type: string
-          enum:
-          - UP
-          - DOWN
-          - UNCHANGED
-        VALUE_LAST_UPDATE_TS:
-          type: integer
-          format: int64
-        CURRENT_HOUR_OPEN:
-          type: number
-        CURRENT_HOUR_HIGH:
-          type: number
-        CURRENT_HOUR_LOW:
-          type: number
-        CURRENT_HOUR_CHANGE:
-          type: number
-        CURRENT_HOUR_CHANGE_PERCENTAGE:
-          type: number
-        CURRENT_DAY_OPEN:
-          type: number
-        CURRENT_DAY_HIGH:
-          type: number
-        CURRENT_DAY_LOW:
-          type: number
-        CURRENT_DAY_CHANGE:
-          type: number
-        CURRENT_DAY_CHANGE_PERCENTAGE:
-          type: number
-        CURRENT_DAY_VOLUME:
-          type: number
-        CURRENT_DAY_QUOTE_VOLUME:
-          type: number
-        LIFETIME_HIGH:
-          type: number
-        LIFETIME_LOW:
-          type: number
-        LIFETIME_FIRST_TRADE_TS:
-          type: integer
-          format: int64
+  parameters:
+    InstrumentsParam:
+      name: instruments
+      in: query
+      required: true
+      description: Comma-separated instrument identifiers (e.g. BTC-USD,ETH-USD).
+      schema:
+        type: string
+    InstrumentParam:
+      name: instrument
+      in: query
+      required: true
+      description: Single instrument identifier (e.g. BTC-USD).
+      schema:
+        type: string
+    GroupsParam:
+      name: groups
+      in: query
+      description: Comma-separated tick groups to return (VALUE, CURRENT_HOUR, CURRENT_DAY, MOVING_24_HOUR, LIFETIME).
+      schema:
+        type: string
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    IndexMarketParam:
+      name: market
+      in: query
+      required: true
+      description: Index family (cadli, ccix, ccixbe).
+      schema:
+        type: string
+        enum:
+        - cadli
+        - ccix
+        - ccixbe
   securitySchemes:
     apiKeyQuery:
       type: apiKey

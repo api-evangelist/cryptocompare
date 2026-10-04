@@ -102,6 +102,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/AssetSupplyHistoryResponse'
 components:
+  parameters:
+    LimitTopParam:
+      name: limit
+      in: query
+      description: Number of rows to return.
+      schema:
+        type: integer
+        default: 50
+        maximum: 100
+    LimitParam:
+      name: limit
+      in: query
+      description: Number of data points to return.
+      schema:
+        type: integer
+        default: 30
+        maximum: 2000
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-indexed).
+      schema:
+        type: integer
+        default: 1
   schemas:
     AssetSummary:
       type: object
@@ -180,6 +211,18 @@ components:
               type: array
               items:
                 type: object
+    AssetTopListResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            STATS:
+              type: object
+            LIST:
+              type: array
+              items:
+                $ref: '#/components/schemas/AssetSummary'
     AssetSupplyHistoryResponse:
       type: object
       properties:
@@ -201,49 +244,6 @@ components:
                 type: number
               SUPPLY_STAKED:
                 type: number
-    AssetTopListResponse:
-      type: object
-      properties:
-        Data:
-          type: object
-          properties:
-            STATS:
-              type: object
-            LIST:
-              type: array
-              items:
-                $ref: '#/components/schemas/AssetSummary'
-  parameters:
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of data points to return.
-      schema:
-        type: integer
-        default: 30
-        maximum: 2000
-    LimitTopParam:
-      name: limit
-      in: query
-      description: Number of rows to return.
-      schema:
-        type: integer
-        default: 50
-        maximum: 100
-    PageParam:
-      name: page
-      in: query
-      description: Page number (1-indexed).
-      schema:
-        type: integer
-        default: 1
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     apiKeyQuery:
       type: apiKey
