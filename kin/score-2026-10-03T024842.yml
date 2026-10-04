@@ -1,25 +1,24 @@
-# Kin Score artifact — cryptocompare — 2026-08-26T215308
+# Kin Score artifact — cryptocompare — 2026-10-03T024842
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: cryptocompare
-  schema_version: 0.15.0
-  scored_at: '2026-08-26'
-  run_ts: 2026-08-26T215308
-  composite: 54.6
-  band: strong
+  schema_version: 0.23.0
+  scored_at: '2026-10-03'
+  run_ts: 2026-10-03T024842
+  composite: 49.8
+  band: developing
   facets:
-    discoverability: 79.6
-    contract_quality: 75.5
-    governance: 45.5
-    operational_transparency: 42.1
-    developer_ergonomics: 29.2
-    commercial_clarity: 52.6
-    contract_governance: 45.5
-    access_clarity: 52.6
+    discoverability: 75.0
+    contract_quality: 69.1
+    contract_governance: 31.8
+    operational_transparency: 46.8
+    developer_ergonomics: 25.6
+    access_clarity: 49.5
   agent_readiness:
-    score: 60.2
-    band: agent-native
+    score: 57.7
+    band: agent-ready
+    band_gated_from: agent-native
     dimensions:
       spec_presence: true
       agentic_access: derived
@@ -27,7 +26,7 @@ kin_score:
       mcp_server: verified
       auth_clarity: served
       idempotency: na
-      error_semantics: documented
+      error_semantics: derived
       openapi_examples: partial
       rate_limit_signal: documented
       event_surface_described: derived
@@ -44,7 +43,7 @@ kin_score:
     applies: true
     regime: Securities & Market Data
     regime_id: securities_market_data
-    score: 38.3
+    score: 21.3
     matched_via: tags
   provenance:
     mcp: first-party
