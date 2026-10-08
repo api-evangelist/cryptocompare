@@ -941,7 +941,7 @@ apis:
   name: CryptoCompare Orderbook API
   description: Top-of-book order book data across integrated exchanges.
   humanURL: https://developers.coindesk.com/documentation/legacy-websockets/HowToConnect
-  baseURL: wss://streamer.cryptocompare.com/v2
+  baseURL: https://min-api.cryptocompare.com/data
   tags:
   - Orderbook
   properties:
