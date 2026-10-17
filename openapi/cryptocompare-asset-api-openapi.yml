@@ -134,6 +134,27 @@ components:
         type: integer
         default: 1
   schemas:
+    AssetSupplyHistoryResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              TIMESTAMP:
+                type: integer
+                format: int64
+              ASSET_SYMBOL:
+                type: string
+              SUPPLY_CIRCULATING:
+                type: number
+              SUPPLY_TOTAL:
+                type: number
+              SUPPLY_MAX:
+                type: number
+              SUPPLY_STAKED:
+                type: number
     AssetSummary:
       type: object
       properties:
@@ -223,27 +244,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/AssetSummary'
-    AssetSupplyHistoryResponse:
-      type: object
-      properties:
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              TIMESTAMP:
-                type: integer
-                format: int64
-              ASSET_SYMBOL:
-                type: string
-              SUPPLY_CIRCULATING:
-                type: number
-              SUPPLY_TOTAL:
-                type: number
-              SUPPLY_MAX:
-                type: number
-              SUPPLY_STAKED:
-                type: number
   securitySchemes:
     apiKeyQuery:
       type: apiKey

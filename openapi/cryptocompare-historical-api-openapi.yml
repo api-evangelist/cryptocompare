@@ -89,13 +89,6 @@ paths:
                 $ref: '#/components/schemas/OHLCVResponse'
 components:
   parameters:
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
     TryConversionParam:
       name: tryConversion
       in: query
@@ -103,13 +96,6 @@ components:
       schema:
         type: boolean
         default: true
-    AggregateParam:
-      name: aggregate
-      in: query
-      description: Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).
-      schema:
-        type: integer
-        default: 1
     TsymParam:
       name: tsym
       in: query
@@ -117,6 +103,13 @@ components:
       description: To-symbol (target currency), e.g. USD.
       schema:
         type: string
+    AggregateParam:
+      name: aggregate
+      in: query
+      description: Time-period aggregation factor (e.g. 5 returns 5-minute candles for histominute).
+      schema:
+        type: integer
+        default: 1
     LimitParam:
       name: limit
       in: query
@@ -125,13 +118,6 @@ components:
         type: integer
         default: 30
         maximum: 2000
-    EParam:
-      name: e
-      in: query
-      description: Source exchange (default CCCAGG aggregate index).
-      schema:
-        type: string
-        default: CCCAGG
     ToTsParam:
       name: toTs
       in: query
@@ -139,30 +125,21 @@ components:
       schema:
         type: integer
         format: int64
+    EParam:
+      name: e
+      in: query
+      description: Source exchange (default CCCAGG aggregate index).
+      schema:
+        type: string
+        default: CCCAGG
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
   schemas:
-    OHLCVCandle:
-      type: object
-      properties:
-        time:
-          type: integer
-          format: int64
-          description: Period start timestamp in seconds.
-        high:
-          type: number
-        low:
-          type: number
-        open:
-          type: number
-        close:
-          type: number
-        volumefrom:
-          type: number
-        volumeto:
-          type: number
-        conversionType:
-          type: string
-        conversionSymbol:
-          type: string
     OHLCVResponse:
       type: object
       description: Standard v2 OHLCV response envelope.
@@ -195,6 +172,29 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/OHLCVCandle'
+    OHLCVCandle:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: Period start timestamp in seconds.
+        high:
+          type: number
+        low:
+          type: number
+        open:
+          type: number
+        close:
+          type: number
+        volumefrom:
+          type: number
+        volumeto:
+          type: number
+        conversionType:
+          type: string
+        conversionSymbol:
+          type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey

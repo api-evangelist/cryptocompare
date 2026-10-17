@@ -44,21 +44,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderBookTopResponse'
 components:
-  parameters:
-    TsymsParam:
-      name: tsyms
-      in: query
-      required: true
-      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
-      schema:
-        type: string
-    FsymsParam:
-      name: fsyms
-      in: query
-      required: true
-      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
-      schema:
-        type: string
   schemas:
     OrderBookTopResponse:
       type: object
@@ -70,6 +55,21 @@ components:
         Data:
           type: object
           description: Nested mapping of fsym to tsym to exchange to top-of-book entry.
+  parameters:
+    FsymsParam:
+      name: fsyms
+      in: query
+      required: true
+      description: Comma-separated from-symbols (base cryptocurrencies), e.g. BTC,ETH.
+      schema:
+        type: string
+    TsymsParam:
+      name: tsyms
+      in: query
+      required: true
+      description: Comma-separated to-symbols (target currencies), e.g. USD,EUR.
+      schema:
+        type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey

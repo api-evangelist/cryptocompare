@@ -87,13 +87,6 @@ paths:
                 $ref: '#/components/schemas/ExchangesGeneralResponse'
 components:
   parameters:
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
     LimitTopParam:
       name: limit
       in: query
@@ -109,71 +102,14 @@ components:
       description: To-symbol (target currency), e.g. USD.
       schema:
         type: string
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
   schemas:
-    CoinInfo:
-      type: object
-      properties:
-        Id:
-          type: string
-        Name:
-          type: string
-        FullName:
-          type: string
-        Internal:
-          type: string
-        ImageUrl:
-          type: string
-        Url:
-          type: string
-        Algorithm:
-          type: string
-        ProofType:
-          type: string
-        Rating:
-          type: object
-        NetHashesPerSecond:
-          type: number
-        BlockNumber:
-          type: integer
-        BlockTime:
-          type: number
-        BlockReward:
-          type: number
-        AssetLaunchDate:
-          type: string
-        MaxSupply:
-          type: number
-        Type:
-          type: integer
-        DocumentType:
-          type: string
-    AllExchangesResponse:
-      type: object
-      description: Map of exchange name to base symbol to list of quote symbols traded.
-      additionalProperties:
-        type: object
-        additionalProperties:
-          type: array
-          items:
-            type: string
-    TopExchangesFullResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          properties:
-            CoinInfo:
-              $ref: '#/components/schemas/CoinInfo'
-            Exchanges:
-              type: array
-              items:
-                type: object
     TopExchangesResponse:
       type: object
       properties:
@@ -198,6 +134,15 @@ components:
                 type: number
               volume24hTo:
                 type: number
+    AllExchangesResponse:
+      type: object
+      description: Map of exchange name to base symbol to list of quote symbols traded.
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
     ExchangesGeneralResponse:
       type: object
       properties:
@@ -244,6 +189,61 @@ components:
                 type: boolean
               Description:
                 type: string
+    TopExchangesFullResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            CoinInfo:
+              $ref: '#/components/schemas/CoinInfo'
+            Exchanges:
+              type: array
+              items:
+                type: object
+    CoinInfo:
+      type: object
+      properties:
+        Id:
+          type: string
+        Name:
+          type: string
+        FullName:
+          type: string
+        Internal:
+          type: string
+        ImageUrl:
+          type: string
+        Url:
+          type: string
+        Algorithm:
+          type: string
+        ProofType:
+          type: string
+        Rating:
+          type: object
+        NetHashesPerSecond:
+          type: number
+        BlockNumber:
+          type: integer
+        BlockTime:
+          type: number
+        BlockReward:
+          type: number
+        AssetLaunchDate:
+          type: string
+        MaxSupply:
+          type: number
+        Type:
+          type: integer
+        DocumentType:
+          type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey

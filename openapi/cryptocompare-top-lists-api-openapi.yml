@@ -144,13 +144,6 @@ paths:
                 $ref: '#/components/schemas/TopPairsResponse'
 components:
   parameters:
-    FsymParam:
-      name: fsym
-      in: query
-      required: true
-      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
-      schema:
-        type: string
     LimitTopParam:
       name: limit
       in: query
@@ -173,44 +166,14 @@ components:
       schema:
         type: integer
         default: 0
+    FsymParam:
+      name: fsym
+      in: query
+      required: true
+      description: From-symbol (base cryptocurrency symbol), e.g. BTC.
+      schema:
+        type: string
   schemas:
-    CoinInfo:
-      type: object
-      properties:
-        Id:
-          type: string
-        Name:
-          type: string
-        FullName:
-          type: string
-        Internal:
-          type: string
-        ImageUrl:
-          type: string
-        Url:
-          type: string
-        Algorithm:
-          type: string
-        ProofType:
-          type: string
-        Rating:
-          type: object
-        NetHashesPerSecond:
-          type: number
-        BlockNumber:
-          type: integer
-        BlockTime:
-          type: number
-        BlockReward:
-          type: number
-        AssetLaunchDate:
-          type: string
-        MaxSupply:
-          type: number
-        Type:
-          type: integer
-        DocumentType:
-          type: string
     TopVolumesResponse:
       type: object
       properties:
@@ -233,48 +196,6 @@ components:
                 type: string
               TOPTIERVOLUME24HOUR:
                 type: string
-    TopPairsResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: array
-          items:
-            type: object
-            properties:
-              exchange:
-                type: string
-              fromSymbol:
-                type: string
-              toSymbol:
-                type: string
-              volume24h:
-                type: number
-              volume24hTo:
-                type: number
-    TopExchangesFullResponse:
-      type: object
-      properties:
-        Response:
-          type: string
-        Message:
-          type: string
-        Type:
-          type: integer
-        Data:
-          type: object
-          properties:
-            CoinInfo:
-              $ref: '#/components/schemas/CoinInfo'
-            Exchanges:
-              type: array
-              items:
-                type: object
     TopExchangesResponse:
       type: object
       properties:
@@ -326,6 +247,85 @@ components:
                 type: object
               DISPLAY:
                 type: object
+    TopExchangesFullResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: object
+          properties:
+            CoinInfo:
+              $ref: '#/components/schemas/CoinInfo'
+            Exchanges:
+              type: array
+              items:
+                type: object
+    CoinInfo:
+      type: object
+      properties:
+        Id:
+          type: string
+        Name:
+          type: string
+        FullName:
+          type: string
+        Internal:
+          type: string
+        ImageUrl:
+          type: string
+        Url:
+          type: string
+        Algorithm:
+          type: string
+        ProofType:
+          type: string
+        Rating:
+          type: object
+        NetHashesPerSecond:
+          type: number
+        BlockNumber:
+          type: integer
+        BlockTime:
+          type: number
+        BlockReward:
+          type: number
+        AssetLaunchDate:
+          type: string
+        MaxSupply:
+          type: number
+        Type:
+          type: integer
+        DocumentType:
+          type: string
+    TopPairsResponse:
+      type: object
+      properties:
+        Response:
+          type: string
+        Message:
+          type: string
+        Type:
+          type: integer
+        Data:
+          type: array
+          items:
+            type: object
+            properties:
+              exchange:
+                type: string
+              fromSymbol:
+                type: string
+              toSymbol:
+                type: string
+              volume24h:
+                type: number
+              volume24hTo:
+                type: number
   securitySchemes:
     apiKeyQuery:
       type: apiKey

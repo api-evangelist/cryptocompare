@@ -172,34 +172,6 @@ paths:
                 $ref: '#/components/schemas/OrderbookL1TopResponse'
 components:
   parameters:
-    ToTsParam:
-      name: to_ts
-      in: query
-      description: Upper bound timestamp in seconds.
-      schema:
-        type: integer
-        format: int64
-    ApplyMappingParam:
-      name: apply_mapping
-      in: query
-      description: Apply asset/instrument mapping for renames.
-      schema:
-        type: boolean
-        default: true
-    FillParam:
-      name: fill
-      in: query
-      description: Fill empty periods with zero-volume candles.
-      schema:
-        type: boolean
-        default: true
-    InstrumentParam:
-      name: instrument
-      in: query
-      required: true
-      description: Single instrument identifier (e.g. BTC-USD).
-      schema:
-        type: string
     InstrumentsParam:
       name: instruments
       in: query
@@ -220,13 +192,13 @@ components:
       schema:
         type: integer
         default: 1
-    MarketParam:
-      name: market
+    ApplyMappingParam:
+      name: apply_mapping
       in: query
-      required: true
-      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
+      description: Apply asset/instrument mapping for renames.
       schema:
-        type: string
+        type: boolean
+        default: true
     LimitParam:
       name: limit
       in: query
@@ -235,46 +207,105 @@ components:
         type: integer
         default: 30
         maximum: 2000
+    FillParam:
+      name: fill
+      in: query
+      description: Fill empty periods with zero-volume candles.
+      schema:
+        type: boolean
+        default: true
+    MarketParam:
+      name: market
+      in: query
+      required: true
+      description: Spot or derivatives market (e.g. coinbase, kraken, binance, bitstamp, ccix).
+      schema:
+        type: string
+    ToTsParam:
+      name: to_ts
+      in: query
+      description: Upper bound timestamp in seconds.
+      schema:
+        type: integer
+        format: int64
+    InstrumentParam:
+      name: instrument
+      in: query
+      required: true
+      description: Single instrument identifier (e.g. BTC-USD).
+      schema:
+        type: string
   schemas:
-    HistoricalOHLCVResponse:
+    SpotTick:
       type: object
       properties:
-        Data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HistoricalOHLCVRow'
-        Err:
-          type: object
-    InstrumentMetadataResponse:
-      type: object
-      properties:
-        Data:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              METADATA_VERSION:
-                type: integer
-              INSTRUMENT_STATUS:
-                type: string
-              INSTRUMENT:
-                type: string
-              HISTO_SHARD:
-                type: string
-              MAPPED_INSTRUMENT:
-                type: string
-              INSTRUMENT_MAPPING:
-                type: object
-              HAS_TRADES_SPOT:
-                type: boolean
-              FIRST_TRADE_SPOT_TIMESTAMP:
-                type: integer
-                format: int64
-              LAST_TRADE_SPOT_TIMESTAMP:
-                type: integer
-                format: int64
-              TOTAL_TRADES_SPOT:
-                type: integer
+        TYPE:
+          type: string
+        MARKET:
+          type: string
+        INSTRUMENT:
+          type: string
+        CCSEQ:
+          type: integer
+          format: int64
+        PRICE:
+          type: number
+        PRICE_LAST_UPDATE_TS:
+          type: integer
+          format: int64
+        VOLUME:
+          type: number
+        QUOTE_VOLUME:
+          type: number
+        VOLUME_TOP_TIER:
+          type: number
+        QUOTE_VOLUME_TOP_TIER:
+          type: number
+        CURRENT_HOUR_VOLUME:
+          type: number
+        CURRENT_HOUR_QUOTE_VOLUME:
+          type: number
+        CURRENT_HOUR_OPEN:
+          type: number
+        CURRENT_HOUR_HIGH:
+          type: number
+        CURRENT_HOUR_LOW:
+          type: number
+        CURRENT_HOUR_CHANGE:
+          type: number
+        CURRENT_HOUR_CHANGE_PERCENTAGE:
+          type: number
+        CURRENT_DAY_OPEN:
+          type: number
+        CURRENT_DAY_HIGH:
+          type: number
+        CURRENT_DAY_LOW:
+          type: number
+        CURRENT_DAY_CHANGE:
+          type: number
+        CURRENT_DAY_CHANGE_PERCENTAGE:
+          type: number
+        MOVING_24_HOUR_VOLUME:
+          type: number
+        MOVING_24_HOUR_QUOTE_VOLUME:
+          type: number
+        MOVING_24_HOUR_OPEN:
+          type: number
+        MOVING_24_HOUR_HIGH:
+          type: number
+        MOVING_24_HOUR_LOW:
+          type: number
+        MOVING_24_HOUR_CHANGE:
+          type: number
+        MOVING_24_HOUR_CHANGE_PERCENTAGE:
+          type: number
+        LIFETIME_FIRST_TRADE_TS:
+          type: integer
+          format: int64
+        LIFETIME_HIGH:
+          type: number
+        LIFETIME_LOW:
+          type: number
     MarketsListResponse:
       type: object
       properties:
@@ -297,6 +328,15 @@ components:
                 type: integer
               HAS_ORDERBOOK_L2_MINUTE_SNAPSHOTS_ENABLED:
                 type: boolean
+    SpotTickResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SpotTick'
+        Err:
+          type: object
     TradesResponse:
       type: object
       properties:
@@ -404,85 +444,36 @@ components:
           type: integer
         TOTAL_TRADES_UNKNOWN:
           type: integer
-    SpotTick:
-      type: object
-      properties:
-        TYPE:
-          type: string
-        MARKET:
-          type: string
-        INSTRUMENT:
-          type: string
-        CCSEQ:
-          type: integer
-          format: int64
-        PRICE:
-          type: number
-        PRICE_LAST_UPDATE_TS:
-          type: integer
-          format: int64
-        VOLUME:
-          type: number
-        QUOTE_VOLUME:
-          type: number
-        VOLUME_TOP_TIER:
-          type: number
-        QUOTE_VOLUME_TOP_TIER:
-          type: number
-        CURRENT_HOUR_VOLUME:
-          type: number
-        CURRENT_HOUR_QUOTE_VOLUME:
-          type: number
-        CURRENT_HOUR_OPEN:
-          type: number
-        CURRENT_HOUR_HIGH:
-          type: number
-        CURRENT_HOUR_LOW:
-          type: number
-        CURRENT_HOUR_CHANGE:
-          type: number
-        CURRENT_HOUR_CHANGE_PERCENTAGE:
-          type: number
-        CURRENT_DAY_OPEN:
-          type: number
-        CURRENT_DAY_HIGH:
-          type: number
-        CURRENT_DAY_LOW:
-          type: number
-        CURRENT_DAY_CHANGE:
-          type: number
-        CURRENT_DAY_CHANGE_PERCENTAGE:
-          type: number
-        MOVING_24_HOUR_VOLUME:
-          type: number
-        MOVING_24_HOUR_QUOTE_VOLUME:
-          type: number
-        MOVING_24_HOUR_OPEN:
-          type: number
-        MOVING_24_HOUR_HIGH:
-          type: number
-        MOVING_24_HOUR_LOW:
-          type: number
-        MOVING_24_HOUR_CHANGE:
-          type: number
-        MOVING_24_HOUR_CHANGE_PERCENTAGE:
-          type: number
-        LIFETIME_FIRST_TRADE_TS:
-          type: integer
-          format: int64
-        LIFETIME_HIGH:
-          type: number
-        LIFETIME_LOW:
-          type: number
-    SpotTickResponse:
+    InstrumentMetadataResponse:
       type: object
       properties:
         Data:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/SpotTick'
-        Err:
-          type: object
+            type: object
+            properties:
+              METADATA_VERSION:
+                type: integer
+              INSTRUMENT_STATUS:
+                type: string
+              INSTRUMENT:
+                type: string
+              HISTO_SHARD:
+                type: string
+              MAPPED_INSTRUMENT:
+                type: string
+              INSTRUMENT_MAPPING:
+                type: object
+              HAS_TRADES_SPOT:
+                type: boolean
+              FIRST_TRADE_SPOT_TIMESTAMP:
+                type: integer
+                format: int64
+              LAST_TRADE_SPOT_TIMESTAMP:
+                type: integer
+                format: int64
+              TOTAL_TRADES_SPOT:
+                type: integer
     OrderbookL1TopResponse:
       type: object
       properties:
@@ -511,6 +502,15 @@ components:
               BEST_ASK_LAST_UPDATE_TS:
                 type: integer
                 format: int64
+    HistoricalOHLCVResponse:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoricalOHLCVRow'
+        Err:
+          type: object
   securitySchemes:
     apiKeyQuery:
       type: apiKey
